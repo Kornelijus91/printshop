@@ -530,7 +530,8 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                 optionsConstructorItem.firstItemAdditionalPrice = Math.round(Number((Math.abs(item.firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign(item.firstItemAdditionalPrice); 
                 optionsConstructorItem.secondItemAdditionalPrice = Math.round(Number((Math.abs(item.secondItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign(item.secondItemAdditionalPrice); 
                 optionsConstructorItem.additionalPrice = Math.round(Number((Math.abs(item.additionalPrice) * 100).toPrecision(15))) / 100 * Math.sign(item.additionalPrice); 
-                optionsConstructorItem.menuOptions = []
+                optionsConstructorItem.menuOptions = [];
+                optionsConstructorItem.summon = item.summon;
 
                 for (const menuitem of item.menuOptions) {
 
@@ -539,7 +540,8 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                     optionsConstructorMenuitem.variantName = menuitem.variantName
                     optionsConstructorMenuitem.variantDesc = menuitem.variantDesc
                     optionsConstructorMenuitem.priceAdd = Math.round(Number((Math.abs(menuitem.priceAdd) * 100).toPrecision(15))) / 100 * Math.sign(menuitem.priceAdd); 
-                    
+                    optionsConstructorMenuitem.summonID = menuitem.summonID
+
                     if (req.files.length > 0) {
                         for (const menuItemImage of req.files) {
                             if (menuitem.fileOriginalName === menuItemImage.originalname) {
@@ -696,7 +698,8 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                             optionsConstructorItem.firstItemAdditionalPrice = Math.round(Number((Math.abs(item.firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign(item.firstItemAdditionalPrice); 
                             optionsConstructorItem.secondItemAdditionalPrice = Math.round(Number((Math.abs(item.secondItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign(item.secondItemAdditionalPrice);
                             optionsConstructorItem.additionalPrice = Math.round(Number((Math.abs(item.additionalPrice) * 100).toPrecision(15))) / 100 * Math.sign(item.additionalPrice); 
-                            optionsConstructorItem.menuOptions = []
+                            optionsConstructorItem.menuOptions = [];
+                            optionsConstructorItem.summon = item.summon;
 
                             for (const menuitem of item.menuOptions) {
 
@@ -705,6 +708,8 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                                 optionsConstructorMenuitem.variantName = menuitem.variantName
                                 optionsConstructorMenuitem.variantDesc = menuitem.variantDesc
                                 optionsConstructorMenuitem.priceAdd = Math.round(Number((Math.abs(menuitem.priceAdd) * 100).toPrecision(15))) / 100 * Math.sign(menuitem.priceAdd); 
+                                optionsConstructorMenuitem.summonID = menuitem.summonID
+                                
                                 if (menuitem.fileOriginalName) {
                                     if (req.files.length > 0) {
                                         for (const menuItemImage of req.files) {

@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Grid, Button, FormControl, Select, MenuItem, OutlinedInput, Tooltip, ListItemText, ListItem, ListItemAvatar } from '@material-ui/core';
 import { FaInfoCircle, FaTimes, FaTrash } from 'react-icons/fa';
 import MoveOptions from './MoveOptions';
+import SummonSelect from './SummonSelect';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -209,6 +210,22 @@ const useStyles = makeStyles((theme) => ({
             border: `1px solid ${theme.myTheme.trecia}`,
         }, 
     },
+    variantSelectSummon: {
+        color: theme.myTheme.trecia,
+        fontFamily: theme.myTheme.sriftas,
+        border: `1px solid ${theme.myTheme.trecia}`,
+        margin: '0 0 1rem 0',
+        padding: '0 0 0 1rem',
+        minHeight: '3.5rem',
+        textOverflow: 'ellipsis',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        '&:focus': {
+            borderRadius: '4px',
+            border: `1px solid ${theme.myTheme.trecia}`,
+        }, 
+    },
     listItem: {
         margin: '0 1rem 0 1rem',
         padding: '0',
@@ -304,6 +321,7 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
         variantDesc: '',
         priceAdd: 0,
         optionIndex: null,
+        summonID: 0,
     });
     
     const [dummyValue, setDummyValue] = useState(0);
@@ -362,6 +380,7 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                 variantDesc: '',
                 priceAdd: 0,
                 optionIndex: null,
+                summonID: 0,
             }
             setProductOptionsMemo(optionsCopy);
             setVariant({
@@ -372,6 +391,7 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                 variantDesc: '',
                 priceAdd: 0,
                 optionIndex: null,
+                summonID: 0,
             });
             
         } else {
@@ -390,6 +410,7 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                     variantDesc: '',
                     priceAdd: 0,
                     optionIndex: null,
+                    summonID: 0,
                 }
                 setProductOptionsMemo(optionsCopy);
                 setVariant({
@@ -400,6 +421,7 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                     variantDesc: '',
                     priceAdd: 0,
                     optionIndex: null,
+                    summonID: 0,
                 });
                
             } else {
@@ -444,6 +466,7 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
             variantDesc: productInfo.options[itemIndex].menuOptions[item_index].variantDesc,
             priceAdd: productInfo.options[itemIndex].menuOptions[item_index].priceAdd,
             optionIndex: item_index,
+            summonID: productInfo.options[itemIndex].menuOptions[item_index].summonID,
         }
         setProductOptionsMemo(optionsCopy);
         setVariant({
@@ -454,6 +477,7 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
             variantDesc: productInfo.options[itemIndex].menuOptions[item_index].variantDesc,
             priceAdd: productInfo.options[itemIndex].menuOptions[item_index].priceAdd,
             optionIndex: item_index,
+            summonID: productInfo.options[itemIndex].menuOptions[item_index].summonID,
         });
     };
 
@@ -475,6 +499,11 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
             <Grid container>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                     <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
+                        <SummonSelect 
+                            itemIndex={itemIndex}
+                            setProductInfo={setProductInfo}
+                            productInfo={productInfo}
+                        />
                         <MoveOptions 
                             itemIndex={itemIndex}
                             setProductInfo={setProductInfo}
@@ -720,7 +749,28 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                                         classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
                                         autoComplete='off'
                                     />
-                                </FormControl>  
+                                </FormControl> 
+                                <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Pasirinkimo iškvietimas:</h3>
+                                <FormControl variant="outlined" className={classes.formVariantSelect}>
+                                    <Select
+                                        id="summon_select"
+                                        onWheel={(e) => e.target.blur()}
+                                        value={productOptionsMemo[itemIndex].summonID}
+                                        onChange={handleVariantChange('summonID')}
+                                        label="Iškvietimo ID"
+                                        defaultValue={productOptionsMemo[itemIndex].summonID}
+                                        classes={{outlined: classes.variantSelectSummon, iconOutlined: classes.variantSelectIconExample}}
+                                    >
+                                        <MenuItem value={0}>
+                                            <em>Nėra</em>
+                                        </MenuItem>
+                                        <MenuItem value={1}>1</MenuItem>
+                                        <MenuItem value={2}>2</MenuItem>
+                                        <MenuItem value={3}>3</MenuItem>
+                                        <MenuItem value={4}>4</MenuItem>
+                                        <MenuItem value={5}>5</MenuItem>
+                                    </Select>
+                                </FormControl> 
                                 <Button variant="contained" color="primary" component="span" classes={{root: classes.addoptionButton}} onClick={addOption} >
                                     {productOptionsMemo[itemIndex].optionIndex !== null ? 'Išsaugoti' : 'Pridėti' }
                                 </Button>     

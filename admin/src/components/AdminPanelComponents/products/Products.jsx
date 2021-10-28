@@ -214,6 +214,7 @@ const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) 
                 variantDesc: '',
                 priceAdd: 0,
                 optionIndex: null,
+                summonID: 0,
             }
             tempArray.push(tempItem);
         }

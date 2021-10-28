@@ -253,6 +253,31 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
         return missing;
     };
 
+    const discountCheck = () => {
+        if (productInfo.amountDiscount.length > 0) {
+            for (const item of productInfo.amountDiscount) {
+                if (item.discount < 0 || item.discount > 99) {
+                    return true;
+                }
+            }
+        } else {
+            return false;
+        }
+    };
+
+    const checkIfSameSummonID = () => {
+        for (const item of productInfo.options) {
+            if (item.summon && ((item.menuOptions.length > 0) && (item.summon !== 0))) {
+                for (const iteminner of item.menuOptions) {
+                    if (item.summon === iteminner.summonID) {
+                        return true;
+                    }
+                }
+            } 
+        }
+        return false;
+    };
+
     const handleProductAddOrUpdate = async () => {
         setSubmitting(true);
         const missingCheck = checkBeforeAdd();
@@ -261,6 +286,18 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
             setSubmitting(false);
             setSnackbar({
                 message: errorMessage,
+                open: true,
+            });
+        } else if (discountCheck()) {
+            setSubmitting(false);
+            setSnackbar({
+                message: 'Nuolaida negali būti mažesnė už 0 ir didesnė už 99.',
+                open: true,
+            });
+        } else if (checkIfSameSummonID()) {
+            setSubmitting(false);
+            setSnackbar({
+                message: 'Pasirinkimas negali iškviesti pats savęs.',
                 open: true,
             });
         } else {
@@ -359,6 +396,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                 variantDesc: '',
                 priceAdd: 0,
                 optionIndex: null,
+                summonID: 0,
             }
         ])
         setProductInfo({ ...productInfo, options: [ ...productInfo.options, {
@@ -377,6 +415,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
             firstItemAdditionalPrice: 0,
             secondItemAdditionalPrice: 0,
             additionalPrice: 0,
+            summon: 0
         }]});
         setSelectOption(0);
     };

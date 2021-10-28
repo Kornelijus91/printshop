@@ -27,7 +27,9 @@ const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [token, setToken] = useState(false);
   const [username, setUsername] = useState("");
+  const [loyalty, setLoyalty] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [moneySpent, setMoneySpent] = useState(0);
   const [oAuthWindow, setOAuthWindow] = useState(false);
   const [modalView, setmodalView] = useState("Prisijungti");
   const [products, setProducts] = useState([]);
@@ -48,10 +50,28 @@ const App = () => {
         const response = await res.json();
         if (response.success) {
           setProducts(response.data);   
-            
         } 
     } catch (error) {
         console.log('Klaida gaunant produktus!');
+    }
+  };
+
+  const getLoyalty = async () => {
+    try {
+        const res = await fetch("/users/getLoyalty/", {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                // "authorization": `JWT ${user.token}`,
+            },
+        });
+        const response = await res.json();
+        if (response.success) {
+          setLoyalty(response.data);   
+        } 
+    } catch (error) {
+        console.log('Klaida gaunant lojalumo programos lygius!');
     }
   };
 
@@ -65,6 +85,7 @@ const App = () => {
         const data = await response.json()
         setToken(data.token);
         setUsername(data.username);
+        setMoneySpent(data.moneySpent);
         setLoggedIn(true);
         const timer = setTimeout(() => {
           verifyUser();
@@ -87,6 +108,7 @@ const App = () => {
       if(products.length <= 0) {
         getProducts();
       }
+      getLoyalty();
       // eslint-disable-next-line
   }, [])
 
@@ -103,6 +125,7 @@ const App = () => {
           setOAuthWindow={setOAuthWindow} 
           oAuthWindow={oAuthWindow}
           setUsername={setUsername}
+          setMoneySpent={setMoneySpent}
         />
         <Navigation 
           setModalOpen={setModalOpen} 
@@ -111,16 +134,17 @@ const App = () => {
           token={token} 
           setToken={setToken} 
           username={username} 
+          setMoneySpent={setMoneySpent}
         />
         <Switch>
           <Route exact path="/">
-            <Homepage products={products} carousel={carousel} setCarousel={setCarousel}/>
+            <Homepage products={products} carousel={carousel} setCarousel={setCarousel} />
           </Route>
           <Route exact path="/products">
             <Products products={products}/>
           </Route>
           <Route exact path="/products/:link">
-            <ProductPage products={products}/>
+            <ProductPage products={products} moneySpent={moneySpent} loyalty={loyalty} loggedIn={loggedIn} token={token} />
           </Route>
           <Route exact path="/contact">
             <Contact />

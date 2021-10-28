@@ -22,6 +22,11 @@ const theme = createTheme({
         color: '#A8DADC',
       },
     },
+    MuiAlert: {
+      root: {
+        fontFamily: "'Quicksand', sans-serif",
+      },
+    },
   },
   props: {
     MuiContainer: {

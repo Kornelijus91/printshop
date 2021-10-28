@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Grid, Button, Tooltip, FormControl, OutlinedInput, Card, CardActionArea, CardContent, CardMedia, Badge } from '@material-ui/core';
 import { FaInfoCircle, FaTrash, FaCheck } from 'react-icons/fa';
 import MoveOptions from './MoveOptions';
+import SummonSelect from './SummonSelect';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -352,6 +353,11 @@ const PictureOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pr
             <Grid container>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                     <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
+                        <SummonSelect 
+                            itemIndex={itemIndex}
+                            setProductInfo={setProductInfo}
+                            productInfo={productInfo}
+                        />
                         <MoveOptions 
                             itemIndex={itemIndex}
                             setProductInfo={setProductInfo}

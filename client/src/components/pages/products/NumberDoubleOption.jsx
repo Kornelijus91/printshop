@@ -110,20 +110,20 @@ const NumberDoubleOption = ({ optionsValues, setOptionsValues, index, product })
                 if (Number(optionsValues[index].firstValue) + Number(unit) >= Number(min) && Number(optionsValues[index].firstValue) + Number(unit) <= Number(max)) {
                     const number = Number(optionsValues[index].firstValue) + Number(unit)
                     const roundedNumber = Math.round(Number((Math.abs(number) * 100).toPrecision(15))) / 100 * Math.sign(number); 
-                    var copy = optionsValues;
+                    var copy = [...optionsValues];
                     copy[index].firstValue = roundedNumber;
                     copy[index].firstPrice = Math.round(Number((Math.abs((roundedNumber - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((roundedNumber - min) * product.options[index].firstItemAdditionalPrice);
                     setOptionsValues(copy);
                     setFirst(roundedNumber);
                 } else {
                     if ((Number(optionsValues[index].firstValue) < Number(min))) {
-                        var copy1 = optionsValues;
+                        var copy1 = [...optionsValues];
                         copy1[index].firstValue = Number(min);
                         copy1[index].firstPrice = Math.round(Number((Math.abs((Number(min) - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(min) - min) * product.options[index].firstItemAdditionalPrice);
                         setOptionsValues(copy1);
                         setFirst(Number(min));
                     } else if ((Number(optionsValues[index].firstValue) > Number(max))) {
-                        var copy2 = optionsValues;
+                        var copy2 = [...optionsValues];
                         copy2[index].firstValue = Number(max);
                         copy2[index].firstPrice = Math.round(Number((Math.abs((Number(max) - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(max) - min) * product.options[index].firstItemAdditionalPrice);
                         setOptionsValues(copy2);
@@ -134,20 +134,20 @@ const NumberDoubleOption = ({ optionsValues, setOptionsValues, index, product })
                 if (Number(optionsValues[index].secondValue) + Number(unit) >= Number(min) && Number(optionsValues[index].secondValue) + Number(unit) <= Number(max)) {
                     const number = Number(optionsValues[index].secondValue) + Number(unit)
                     const roundedNumber = Math.round(Number((Math.abs(number) * 100).toPrecision(15))) / 100 * Math.sign(number); 
-                    var copy3 = optionsValues;
+                    var copy3 = [...optionsValues];
                     copy3[index].secondValue = roundedNumber
                     copy3[index].secondPrice = Math.round(Number((Math.abs((roundedNumber - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((roundedNumber - min) * product.options[index].firstItemAdditionalPrice);
                     setOptionsValues(copy3);
                     setSecond(roundedNumber);
                 } else {
                     if ((Number(optionsValues[index].secondValue) < Number(min))) {
-                        var copy4 = optionsValues;
+                        var copy4 = [...optionsValues];
                         copy4[index].secondValue = Number(min)
                         copy4[index].secondPrice = Math.round(Number((Math.abs((Number(min) - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(min) - min) * product.options[index].firstItemAdditionalPrice);
                         setOptionsValues(copy4);
                         setSecond(Number(min));
                     } else if ((Number(optionsValues[index].secondValue) > Number(max))) {
-                        var copy5 = optionsValues;
+                        var copy5 = [...optionsValues];
                         copy5[index].secondValue = Number(max)
                         copy5[index].secondPrice = Math.round(Number((Math.abs((Number(max) - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(max) - min) * product.options[index].firstItemAdditionalPrice);
                         setOptionsValues(copy5);
@@ -160,20 +160,20 @@ const NumberDoubleOption = ({ optionsValues, setOptionsValues, index, product })
                 if (Number(optionsValues[index].firstValue) - Number(unit) >= Number(min) && Number(optionsValues[index].firstValue) - Number(unit) <= Number(max)) {
                     const number = Number(optionsValues[index].firstValue) - Number(unit)
                     const roundedNumber = Math.round(Number((Math.abs(number) * 100).toPrecision(15))) / 100 * Math.sign(number); 
-                    var copy6 = optionsValues;
+                    var copy6 = [...optionsValues];
                     copy6[index].firstValue = roundedNumber;
                     copy6[index].firstPrice = Math.round(Number((Math.abs((roundedNumber - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((roundedNumber - min) * product.options[index].firstItemAdditionalPrice);
                     setOptionsValues(copy6);
                     setFirst(roundedNumber);
                 } else {
                     if ((Number(optionsValues[index].firstValue) < Number(min))) {
-                        var copy7 = optionsValues;
+                        var copy7 = [...optionsValues];
                         copy7[index].firstValue = Number(min);
                         copy7[index].firstPrice = Math.round(Number((Math.abs((Number(min) - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(min) - min) * product.options[index].firstItemAdditionalPrice);
                         setOptionsValues(copy7);
                         setFirst(Number(min));
                     } else if ((Number(optionsValues[index].firstValue) > Number(max))) {
-                        var copy8 = optionsValues;
+                        var copy8 = [...optionsValues];
                         copy8[index].firstValue = Number(max);
                         copy8[index].firstPrice = Math.round(Number((Math.abs((Number(max) - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(max) - min) * product.options[index].firstItemAdditionalPrice);
                         setFirst(Number(max));
@@ -183,20 +183,20 @@ const NumberDoubleOption = ({ optionsValues, setOptionsValues, index, product })
                 if (Number(optionsValues[index].secondValue) - Number(unit) >= Number(min) && Number(optionsValues[index].secondValue) - Number(unit) <= Number(max)) {
                     const number = Number(optionsValues[index].secondValue) - Number(unit)
                     const roundedNumber = Math.round(Number((Math.abs(number) * 100).toPrecision(15))) / 100 * Math.sign(number); 
-                    var copy9 = optionsValues;
+                    var copy9 = [...optionsValues];
                     copy9[index].secondValue = roundedNumber
                     copy9[index].secondPrice = Math.round(Number((Math.abs((roundedNumber - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((roundedNumber - min) * product.options[index].firstItemAdditionalPrice);
                     setOptionsValues(copy9);
                     setSecond(roundedNumber);
                 } else {
                     if ((Number(optionsValues[index].secondValue) < Number(min))) {
-                        var copy10 = optionsValues;
+                        var copy10 = [...optionsValues];
                         copy10[index].secondValue = Number(min)
                         copy10[index].secondPrice = Math.round(Number((Math.abs((Number(min) - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(min) - min) * product.options[index].firstItemAdditionalPrice);
                         setOptionsValues(copy10);
                         setSecond(Number(min));
                     } else if ((Number(optionsValues[index].secondValue) > Number(max))) {
-                        var copy11 = optionsValues;
+                        var copy11 = [...optionsValues];
                         copy11[index].secondValue = Number(max)
                         copy11[index].secondPrice = Math.round(Number((Math.abs((Number(max) - min) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(max) - min) * product.options[index].firstItemAdditionalPrice);
                         setOptionsValues(copy11);
@@ -209,19 +209,19 @@ const NumberDoubleOption = ({ optionsValues, setOptionsValues, index, product })
 
     const handlePreviewCorrection1 = (index) => {
         if (Number(product.options[index].fistItemMinValue) >= Number(optionsValues[index].firstValue)) {
-            var copy12 = optionsValues;
+            var copy12 = [...optionsValues];
             copy12[index].firstValue = Number(product.options[index].fistItemMinValue)
             copy12[index].firstPrice = Math.round(Number((Math.abs((Number(product.options[index].fistItemMinValue) - product.options[index].fistItemMinValue) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(product.options[index].fistItemMinValue) - product.options[index].fistItemMinValue) * product.options[index].firstItemAdditionalPrice);
             setOptionsValues(copy12);
             setFirst(Number(product.options[index].fistItemMinValue));
         } else if (Number(product.options[index].firstItemMaxValue) <= Number(optionsValues[index].firstValue)) {
-            var copy13 = optionsValues;
+            var copy13 = [...optionsValues];
             copy13[index].firstValue = Number(product.options[index].firstItemMaxValue)
             copy13[index].firstPrice = Math.round(Number((Math.abs((Number(product.options[index].firstItemMaxValue) - product.options[index].fistItemMinValue) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(product.options[index].firstItemMaxValue) - product.options[index].fistItemMinValue) * product.options[index].firstItemAdditionalPrice);
             setOptionsValues(copy13);
             setFirst(Number(product.options[index].firstItemMaxValue));
         } else {
-            var copy20 = optionsValues;
+            var copy20 = [...optionsValues];
             const nomer = optionsValues[index].firstValue - (optionsValues[index].firstValue % product.options[index].fiststItemUnit);
             copy20[index].firstValue = nomer;
             copy20[index].firstPrice = Math.round(Number((Math.abs((nomer - product.options[index].fistItemMinValue) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((nomer - product.options[index].fistItemMinValue) * product.options[index].firstItemAdditionalPrice);
@@ -232,19 +232,19 @@ const NumberDoubleOption = ({ optionsValues, setOptionsValues, index, product })
 
     const handlePreviewCorrection2 = (index) => {
         if (Number(product.options[index].secondItemMinValue) >= Number(optionsValues[index].secondValue)) {
-            var copy14 = optionsValues;
+            var copy14 = [...optionsValues];
             copy14[index].secondValue = Number(product.options[index].secondItemMinValue)
             copy14[index].secondPrice = Math.round(Number((Math.abs((Number(product.options[index].secondItemMinValue) - product.options[index].secondItemMinValue) * product.options[index].secondItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(product.options[index].secondItemMinValue) - product.options[index].secondItemMinValue) * product.options[index].secondItemAdditionalPrice);
             setOptionsValues(copy14);
             setSecond(Number(product.options[index].secondItemMinValue));
         } else if (Number(product.options[index].secondItemMaxValue) <= Number(optionsValues[index].secondValue)) {
-            var copy15 = optionsValues;
+            var copy15 = [...optionsValues];
             copy15[index].secondValue = Number(product.options[index].secondItemMaxValue)
             copy15[index].secondPrice = Math.round(Number((Math.abs((Number(product.options[index].secondItemMaxValue) - product.options[index].secondItemMinValue) * product.options[index].secondItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(product.options[index].secondItemMaxValue) - product.options[index].secondItemMinValue) * product.options[index].secondItemAdditionalPrice);
             setOptionsValues(copy15);
             setSecond(Number(product.options[index].secondItemMaxValue));
         } else {
-            var copy13 = optionsValues;
+            var copy13 = [...optionsValues];
             const nomer = optionsValues[index].secondValue - (optionsValues[index].secondValue % product.options[index].secondItemUnit);
             copy13[index].secondValue = nomer;
             copy13[index].secondPrice = Math.round(Number((Math.abs((nomer - product.options[index].secondItemMinValue) * product.options[index].secondItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((nomer - product.options[index].secondItemMinValue) * product.options[index].secondItemAdditionalPrice);
@@ -258,7 +258,7 @@ const NumberDoubleOption = ({ optionsValues, setOptionsValues, index, product })
             if (e.target.value === '') {
                 setFirst(e.target.value);
             } else {
-                var copy16 = optionsValues;
+                var copy16 = [...optionsValues];
                 copy16[index].firstValue = Number(e.target.value)
                 copy16[index].firstPrice = Math.round(Number((Math.abs((Number(e.target.value) - product.options[index].fistItemMinValue) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(e.target.value) - product.options[index].fistItemMinValue) * product.options[index].firstItemAdditionalPrice);
                 setOptionsValues(copy16);
@@ -268,7 +268,7 @@ const NumberDoubleOption = ({ optionsValues, setOptionsValues, index, product })
             if (e.target.value === '') {
                 setSecond(e.target.value);
             } else {
-                var copy17 = optionsValues;
+                var copy17 = [...optionsValues];
                 copy17[index].secondValue = Number(e.target.value)
                 copy17[index].secondPrice = Math.round(Number((Math.abs((Number(e.target.value) - product.options[index].fistItemMinValue) * product.options[index].firstItemAdditionalPrice) * 100).toPrecision(15))) / 100 * Math.sign((Number(e.target.value) - product.options[index].fistItemMinValue) * product.options[index].firstItemAdditionalPrice);
                 setOptionsValues(copy17);

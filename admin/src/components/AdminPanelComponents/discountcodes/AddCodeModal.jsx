@@ -176,7 +176,7 @@ const AddCodeModal = ({ page, getAllCodes, user, setSnackbar, codeModal, setCode
                     code: codeModal.code,
                     discount: codeModal.discount,
                     oneuse: codeModal.oneuse,
-                    valid: codeModal.valid.setHours(23, 59),
+                    valid: codeModal.valid,
                 }),
             });
             const addEditCodeResponse= await addEditCodeRequest.json();
@@ -216,7 +216,7 @@ const AddCodeModal = ({ page, getAllCodes, user, setSnackbar, codeModal, setCode
     const handleDateChange = (date) => {
         setCodeModal({
             ...codeModal,
-            valid: date,
+            valid: new Date(date).setHours(23, 59),
         });
         // setSelectedDate(date);
     };

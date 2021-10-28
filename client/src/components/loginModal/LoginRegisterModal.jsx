@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LoginRegisterModal({modalOpen, setModalOpen, setToken, setLoggedIn, setOAuthWindow, oAuthWindow, value, setValue, setUsername }) {
+export default function LoginRegisterModal({modalOpen, setModalOpen, setToken, setLoggedIn, setOAuthWindow, oAuthWindow, value, setValue, setUsername, setMoneySpent }) {
   const classes = useStyles();
 
   const [loginValues, setLoginValues] = useState({
@@ -212,6 +212,7 @@ export default function LoginRegisterModal({modalOpen, setModalOpen, setToken, s
                           registerValues={registerValues}
                           setRegisterValues={setRegisterValues}
                           setUsername={setUsername}
+                          setMoneySpent={setMoneySpent}
                         />  
                       </Box>
                       <Collapse in={value === "Prisijungti"}>

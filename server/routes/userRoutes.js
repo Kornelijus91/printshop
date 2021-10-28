@@ -9,8 +9,60 @@ const passport = require("passport")
 const jwt = require("jsonwebtoken")
 const resetPwdHash = require("jwt-simple")
 const nodemailer = require('nodemailer');
+const multer = require('multer');
 
 const { getToken, COOKIE_OPTIONS, getRefreshToken, verifyUser } = require("../authenticate")
+
+const storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: function(req, file, cb){
+     cb(null,"IMAGE-" + Date.now() + `-${file.originalname.replace(/\\|\//g,'')}`);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits:{fileSize: 104857600},
+})  //.single("myImage");
+
+router.post("/addToCart", verifyUser, upload.single("image"), (req, res, next) => {
+  console.log('UER => ', req.user);
+  res.send(req.user)
+  // const url = req.protocol + '://' + req.get('host');
+  // try {
+  //     var carouselObj = {
+  //         title: req.body.title,
+  //         bluetext: req.body.bluetext,
+  //         redtext: req.body.redtext,
+  //         productLink: req.body.productLink,
+  //         borderRadius: req.body.borderRadius,
+  //         size: req.body.size,
+  //         animation: req.body.animation,
+  //         position: req.body.position,
+  //         imageURL: url + '/uploads/' + req.file.filename,
+  //     }
+  //     const newCarousel = new Carousel(carouselObj);
+  //     newCarousel.save(function (err) {
+  //         if (err) {
+  //             res.send({ 
+  //                 success: false, 
+  //                 error: 'error'
+  //             })
+  //         } else {
+  //             res.send({ 
+  //                 success: true, 
+  //                 error: '',
+  //                 message: 'Karuselės elementas pridėtas.'
+  //             })
+  //         }
+  //     });
+  // } catch (error) {
+  //     res.send({ 
+  //         success: false, 
+  //         error: 'error'
+  //     })
+  // }
+});
 
 router.post("/signup", (req, res, next) => {
 
@@ -60,6 +112,7 @@ router.post("/signup", (req, res, next) => {
                 success: true, 
                 personalas: user.personalas || user.administracija ? true : false, 
                 username: user.username,
+                moneySpent: user.moneySpent,
                 token 
               })
             }
@@ -87,6 +140,7 @@ router.post("/login", passport.authenticate("local"), (req, res, next) => {
             personalas: user.personalas || user.administracija ? true : false, 
             administracija: user.administracija,
             username: user.username,
+            moneySpent: user.moneySpent,
             token 
           })
         }
@@ -127,6 +181,7 @@ router.post("/refreshToken", (req, res, next) => {
                     personalas: user.personalas || user.administracija ? true : false, 
                     administracija: user.administracija,
                     username: user.username,
+                    moneySpent: user.moneySpent,
                     token 
                   })
                 }

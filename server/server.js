@@ -76,7 +76,7 @@ app.get('/', (req, res, next) => {
             return res.status(404).end()
         }
         Product.find({}, 'name', function (err, product) {
-            if (!err) {
+            if (!err && product.length > 0) {
                 var keywords = [process.env.PROJECTTITLE];
                 for (const item of product) {
                     keywords.push(item.name);
@@ -104,6 +104,8 @@ app.get('/', (req, res, next) => {
                     </script>`
                 )
                 res.send(data);
+            } else {
+                res.send(data);
             }
         });
     });
@@ -117,7 +119,7 @@ app.get('/products', (req, res, next) => {
             return res.status(404).end()
         }
         Product.find({}, 'name', function (err, product) {
-            if (!err) {
+            if (!err && product.length > 0) {
                 var keywords = [process.env.PROJECTTITLE];
                 for (const item of product) {
                     keywords.push(item.name);
@@ -145,6 +147,8 @@ app.get('/products', (req, res, next) => {
                     </script>`
                 )
                 res.send(data);
+            } else {
+                res.send(data);
             }
         });
     });
@@ -158,7 +162,7 @@ app.get('/products/*', (req, res, next) => {
             return res.status(404).end()
         }
         Product.find({ name: req.params[0]}, 'name description image', function (err, product) {
-            if (!err) {
+            if (!err && product.length > 0) {
                 data = data.replace(
                     "<title>__TITLE__</title>",
                     `<title>${product[0].name} | ${process.env.PROJECTTITLE}</title>`
@@ -183,6 +187,8 @@ app.get('/products/*', (req, res, next) => {
                     }
                     </script>`
                 )
+                res.send(data);
+            } else {
                 res.send(data);
             }
         });

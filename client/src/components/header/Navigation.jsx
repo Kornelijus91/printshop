@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navigation = ({ setModalOpen, loggedIn, setLoggedIn, token, setToken, username }) => {
+const Navigation = ({ setModalOpen, loggedIn, setLoggedIn, token, setToken, username, setMoneySpent }) => {
 
     const classes = useStyles();
     const [drawer, setDrawer] = useState(false);
@@ -109,6 +109,7 @@ const Navigation = ({ setModalOpen, loggedIn, setLoggedIn, token, setToken, user
             setToken(null);
             window.localStorage.setItem("logout", Date.now())
             setLoggedIn(false);
+            setMoneySpent(0);
         })
         setAnchorEl(null);
         setMenuOpen(false); 

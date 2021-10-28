@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setError, error, setOAuthWindow, oAuthWindow, loginValues, setLoginValues, registerValues, setRegisterValues, setUsername }) => {
+const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setError, error, setOAuthWindow, oAuthWindow, loginValues, setLoginValues, registerValues, setRegisterValues, setUsername, setMoneySpent }) => {
 
     const classes = useStyles();
 
@@ -169,6 +169,7 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
                     setOAuthWindow(!oAuthWindow);
                     setToken(data.token);
                     setUsername(data.username);
+                    setMoneySpent(data.moneySpent);
                     setLoggedIn(true);
                     setModalOpen(false);
                     setLoginValues({
@@ -261,6 +262,7 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
                     setOAuthWindow(!oAuthWindow);
                     setToken(data.token);
                     setUsername(data.username);
+                    setMoneySpent(data.moneySpent);
                     setLoggedIn(true);
                     setModalOpen(false);
                     setLoginValues({

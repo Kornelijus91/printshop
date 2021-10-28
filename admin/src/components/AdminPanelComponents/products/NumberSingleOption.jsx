@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Button, ButtonGroup, TextField, Tooltip, FormControl, OutlinedInput, ClickAwayListener } from '@material-ui/core';
 import { FaInfoCircle, FaTrash } from 'react-icons/fa';
 import MoveOptions from './MoveOptions';
+import SummonSelect from './SummonSelect';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -286,6 +287,11 @@ const NumberOption = ({ productInfo, itemIndex, setProductInfo, productOptionsMe
             <Grid container>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                     <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
+                        <SummonSelect 
+                            itemIndex={itemIndex}
+                            setProductInfo={setProductInfo}
+                            productInfo={productInfo}
+                        />
                         <MoveOptions 
                             itemIndex={itemIndex}
                             setProductInfo={setProductInfo}
