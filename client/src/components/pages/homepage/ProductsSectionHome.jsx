@@ -5,6 +5,16 @@ import ProductSkeleton from './ProductSkeleton';
 import ProductCard from './ProductCard';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        width: "100%",
+        [theme.breakpoints.up('lg')]: {
+            width: "90%",
+        },
+        [theme.breakpoints.up('xl')]: {
+            width: "60%",
+        },
+        
+    },
     header: {
         margin: '1rem 0 .5rem 0',
         padding: '0',
@@ -12,6 +22,12 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '3rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '4rem',
+        },
     },
     link: {
         color: theme.myTheme.sriftoSpalva,
@@ -25,13 +41,28 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             color: '#2d5286',
         },
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.8rem',
+            padding: '1rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2.4rem',
+            padding: '1.4rem'
+        },
     },
     cardMargin: {
         margin: '.7rem',
+        width: '100%',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1.05rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '1.4rem',
+        },
     },
 }));
 
-const ProductsSectionHome = ({products}) => {
+const ProductsSectionHome = ({products, loyaltydiscount}) => {
 
     const classes = useStyles();
 
@@ -52,7 +83,7 @@ const ProductsSectionHome = ({products}) => {
 
     return (
         <Box display="flex" justifyContent='center' alignItems='center'> 
-            <Box>
+            <Box classes={{root: classes.root}}>
                 <h2 className={classes.header}>Produktai</h2>
                 {products.length > 0 ?
                     <Grid container display="flex" justifyContent='center' >
@@ -65,6 +96,7 @@ const ProductsSectionHome = ({products}) => {
                                             name={item.name}
                                             amountDiscount={item.amountDiscount}
                                             link={item.link}
+                                            loyaltydiscount={loyaltydiscount}
                                         />
                                     </Box>
                                 </Grid>
@@ -81,7 +113,7 @@ const ProductsSectionHome = ({products}) => {
                     </Grid>    
                 }
                 <Box display="flex" justifyContent='center' alignItems='center'>
-                    <Link to="/products" className={classes.link}>Žiūrėti visus produktus</Link>
+                    <Link to="/products" className={classes.link} onClick={() => window.scrollTo({top: 0, left: 0})}>Žiūrėti visus produktus</Link>
                 </Box>
             </Box>
         </Box>

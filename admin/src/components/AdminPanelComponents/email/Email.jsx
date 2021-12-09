@@ -10,6 +10,14 @@ import SaveTemplateModal from './SaveTemplateModal';
 import DeleteTemplateModal from './DeleteTemplateModal';
 
 const useStyles = makeStyles((theme) => ({
+    topStuff:{
+        [theme.breakpoints.up('xxl')]: {
+            marginTop: '2rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '4rem',
+        },
+    },
     root: {
         padding: '.5rem 1rem',
         margin: '1rem 1rem 0 0',
@@ -17,16 +25,40 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         backgroundColor: theme.myTheme.ketvirta,
         // width: 400,
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1.5rem 1.5rem 0 0',
+            borderRadius: '7px'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '2rem 2rem 0 0',
+            borderRadius: '9px'
+        },
     },
     input: {
         width: '99%',
         height: '2.5rem',
         marginLeft: theme.spacing(1),
         flex: 1,
+        [theme.breakpoints.up('xxl')]: {
+            height: '3.75rem',
+            fontSize: '1.6rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: '5rem',
+            fontSize: '2rem',
+        },
     },
     divider: {
         height: 28,
         margin: 4,
+        [theme.breakpoints.up('xxl')]: {
+            height: 42,
+            margin: 6,
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: 56,
+            margin: 8,
+        },
     },
     searchResultBox: {
         position: 'absolute',
@@ -36,7 +68,15 @@ const useStyles = makeStyles((theme) => ({
         zIndex: '10',
         margin: '.5rem 0 0 0',
         width: '99%',
-        top: '100%'
+        top: '100%',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '9px',
+            margin: '.75rem 0 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            margin: '1rem 0 0 0',
+        },
     },
     item: {
         backgroundColor: theme.myTheme.sriftoSpalva,
@@ -59,9 +99,33 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             maxWidth: '99%',
         },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '9px',
+            padding: '.45rem',
+            margin: '.75rem 0 .75rem .75rem',
+            maxWidth: '98.5%',
+            '& p': {
+               fontSize: '1.6rem'
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            padding: '.6rem',
+            margin: '1rem',
+            maxWidth: '99%',
+            '& p': {
+                fontSize: '2rem'
+             },
+        },
     },
     infosection: {
-        marginLeft: '1rem'
+        marginLeft: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginLeft: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginLeft: '2rem',
+        },
     },
     parent: {
         position: 'relative',
@@ -72,17 +136,45 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.myTheme.sriftoSpalva,
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 .75rem 0 0',
+            padding: '.5rem',
+            fontSize: '1.2rem',
+            height: '3rem',
+            borderRadius: '1.5rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 1rem 0 0',
+            padding: '.75rem',
+            fontSize: '1.6rem',
+            height: '4rem',
+            borderRadius: '2rem'
+        },
     },
     deleteIcon: {
         color: theme.myTheme.trecia,
         '&:hover': {
             color:'#f2f2f2',
         },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+            margin: '0 .5rem 0 .5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+            margin: '0 1rem 0 1rem',
+        },
     },
     circleicon: {
         color: theme.myTheme.trecia,
         margin: '0',
         padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
     button: {
         backgroundColor: theme.myTheme.pirma,
@@ -90,6 +182,18 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         '&:hover': {
             backgroundColor: '#e31c2d',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            height: '3.75rem',
+            fontSize: '1.3rem',
+            padding: '1.5rem',
+            borderRadius: '7px'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: '5rem',
+            fontSize: '1.8rem',
+            padding: '2rem',
+            borderRadius: '9px'
         },
     },
     buttonBottom: {
@@ -101,9 +205,27 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#e31c2d',
         },  
+        [theme.breakpoints.up('xxl')]: {
+            margin: '.5rem 0',
+            padding: '.5rem',
+            fontSize: '1.3rem',
+            borderRadius: '7px'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '1rem 0',
+            padding: '.7rem',
+            fontSize: '1.8rem',
+            borderRadius: '9px'
+        },
     },
     buttonWrapper: {
-        marginRight: '1rem'
+        marginRight: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginRight: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginRight: '2rem',
+        },
     },
     emailPreview: {
         width: '700px',
@@ -122,6 +244,14 @@ const useStyles = makeStyles((theme) => ({
             width: '1600px',
             height: '900px',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '2075px', //2560
+            height: '1350px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '3200px',
+            height: '1800px',
+        },
         // zoom: '0.99',
         // '-moz-transform': 'scale(0.99)',
         // '-moz-transform-origin': '0 0',
@@ -137,12 +267,30 @@ const useStyles = makeStyles((theme) => ({
         padding: '1rem',
         borderRadius: '7px',
         backgroundColor: theme.myTheme.trecia,
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: '1.5rem',
+            padding: '1.5rem',
+            borderRadius: '9px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: '2rem',
+            padding: '2rem',
+            borderRadius: '14px',
+        },
     },
     accountsBox: {
         backgroundColor: theme.myTheme.antra,
         borderRadius: '7px',
         padding: '0 .5rem 0 0',
         width: '98%',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '9px',
+            padding: '0 .6rem 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            padding: '0 1rem 0 0',
+        },
         // height: '85%',
     },
     accountsBoxInner: {
@@ -150,15 +298,33 @@ const useStyles = makeStyles((theme) => ({
         overflowY: 'auto'
     },
     accountsBoxPagination: {
-        marginTop: '.2rem'
+        marginTop: '.2rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginTop: '.3rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '.4rem',
+        },
     },
     pagination: {
-        marginBottom: '.5rem'
+        marginBottom: '.5rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: '.75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: '1rem',
+        },
     },
     paginationel: {
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,
-        marginBottom: '.5rem'
+        marginBottom: '.5rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: '.75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: '1rem',
+        },
     },
     deleteTemplateIcon: {
         color: theme.myTheme.trecia,
@@ -166,6 +332,12 @@ const useStyles = makeStyles((theme) => ({
             color: '#e6e6e6',
             cursor: 'pointer'
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
     trashsection: {
         display: 'flex', 
@@ -178,8 +350,15 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         fontSize: '1rem',
         margin: '0',
-        padding: '0'
+        padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+        },
     },
+    
 }));
 
 const Email = ({user, setSnackbar}) => {
@@ -484,7 +663,7 @@ const Email = ({user, setSnackbar}) => {
     // }, [letter])
 
     return (
-        <Box>
+        <Box classes={{root: classes.topStuff}}>
             <Helmet>
                 {/* VELIAU PAKEISTI */}
                 <title>El. Paštas | {ProjectName}</title>  

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Modal, Box, Backdrop, Fade, Button, CircularProgress, Collapse, Container, Paper, InputBase, Divider, FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
+import { Modal, Box, Backdrop, Fade, Button, CircularProgress, Collapse, Container, Paper, InputBase, Divider} from '@material-ui/core'; // FormControl, RadioGroup, FormControlLabel, Radio 
 import Alert from '@material-ui/lab/Alert';
 import 'date-fns';
 import ltLocale from "date-fns/locale/lt";
@@ -17,7 +17,29 @@ const useStyles = makeStyles((theme) => ({
         border: 'none',
         outline: 'none',
         width: '22rem',
-        padding: '0 1rem 0 1rem'
+        padding: '0 1rem 0 1rem',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '9px',
+            width: '33rem',
+            padding: '0 1.5rem 0 1.5rem',
+            '& h1': {
+                fontSize: '2.4rem'
+            },
+            '& h3': {
+                fontSize: '1.6rem'
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            width: '44rem',
+            padding: '0 2rem 0 2rem',
+            '& h1': {
+                fontSize: '3.6rem'
+            },
+            '& h3': {
+                fontSize: '2rem'
+            },
+        }, 
     },
     modal: {
         display: 'flex',
@@ -30,9 +52,25 @@ const useStyles = makeStyles((theme) => ({
         // height: '2.5rem',
         boxShadow: "0px 2px 2px #888888",
         padding: '.2rem .2rem .2rem 1rem',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '6px',
+            boxShadow: "0px 3px 3px #888888",
+            padding: '.3rem .3rem .3rem 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '8px',
+            boxShadow: "0px 4px 4px #888888",
+            padding: '.4rem .4rem .4rem 2rem',
+        },
     },
     alertBox: {
         margin: '1rem .5rem 0 .5rem',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1.5rem .75rem 0 .75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '2rem 1rem 0 1rem',
+        },
     },
     alertText: {
         textAlign: "left",
@@ -40,11 +78,25 @@ const useStyles = makeStyles((theme) => ({
         padding: "0px",
         margin: '0',
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            marginTop: '-.15rem',
+            fontSize: '1.6rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '-.2rem',
+            fontSize: '2rem'
+        },
     },
     alertIcon: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
     buttonDelete: {
         width: '45%',
@@ -57,6 +109,20 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "bold",
         '&:hover': {
             backgroundColor: '#e31c2d',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            margin: ".7rem 1.5rem 1.5rem 0",
+            borderRadius: '6px',
+            height: '3.75rem',
+            fontSize: '1.4rem',
+            width: '46%',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: "1.5rem 2rem 2rem 0",
+            borderRadius: '8px',
+            height: '5rem',
+            fontSize: '1.8rem',
+            width: '47%',
         },
     },
     buttonCancel: {
@@ -71,6 +137,20 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#36617c',
         },
+        [theme.breakpoints.up('xxl')]: {
+            margin: ".7rem 0 1.5rem 0",
+            borderRadius: '6px',
+            height: '3.75rem',
+            fontSize: '1.4rem',
+            width: '46%',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: "1.5rem 0 2rem 0",
+            borderRadius: '8px',
+            height: '5rem',
+            fontSize: '1.8rem',
+            width: '47%',
+        },
     },
     nameForm: {
         padding: '.5rem 1rem',
@@ -79,28 +159,74 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         backgroundColor: theme.myTheme.ketvirta,
         // width: 400,
+        [theme.breakpoints.up('xxl')]: {
+            padding: '.75rem 1.5rem',
+            borderRadius: '7px',
+            margin: '0 .5rem 1.5rem .5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '1rem 2rem',
+            borderRadius: '9px',
+            margin: '0 .5rem 2rem .5rem',
+        },
     },
     input: {
         width: '100%',
         height: '2.5rem',
         marginLeft: theme.spacing(1),
         flex: 1,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+            height: '3.75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+            height: '5rem',
+        },
     },
     divider: {
         height: 28,
         margin: 4,
+        [theme.breakpoints.up('xxl')]: {
+            height: 42,
+            margin: 6,
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: 56,
+            margin: 8,
+        },
     },
     button: {
         backgroundColor: theme.myTheme.pirma,
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
+        marginLeft: '.5rem', 
+        height: '2.2rem',
         '&:hover': {
             backgroundColor: '#e31c2d',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '6px',
+            height: '3.75rem',
+            fontSize: '1.4rem',
+            padding: '1rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '8px',
+            height: '5rem',
+            fontSize: '1.8rem',
+            padding: '1.5rem'
         },
     },
     datePickerParent: {
         padding: '0',
         margin: '0 .5rem 1rem .5rem',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 .5rem 1.5rem .5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 .5rem 2rem .5rem',
+        },
     },
     datepicker: {
         padding: '0',
@@ -108,14 +234,37 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.myTheme.ketvirta,
         color: theme.myTheme.trecia,
         width: '100%',
-        borderRadius: '4px'
+        borderRadius: '4px',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '6px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '8px',
+        },
     },
     radioRoot: {
         color: theme.myTheme.trecia,
     },
     radioChecked: {
         color: theme.myTheme.pirma,
-    }
+    },
+    calendarIcon: {
+        color: theme.myTheme.sriftoSpalva,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5) translateX(-.5rem)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2) translateX(-.7rem)'
+        },
+    },
+    calendarPopover: {
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5) translateY(-4rem)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2) translateY(-7.5rem)'
+        },
+    },
 }));
 
 const AddCodeModal = ({ page, getAllCodes, user, setSnackbar, codeModal, setCodeModal, handleCodeChange }) => {
@@ -132,7 +281,7 @@ const AddCodeModal = ({ page, getAllCodes, user, setSnackbar, codeModal, setCode
             id: '',
             code: '',
             discount: 0,
-            oneuse: true,
+            // oneuse: true,
             used: 0,
             valid: new Date().setDate(new Date().getDate() + 7),
         });
@@ -173,9 +322,9 @@ const AddCodeModal = ({ page, getAllCodes, user, setSnackbar, codeModal, setCode
                 },
                 body: JSON.stringify({
                     id: codeModal.id,
-                    code: codeModal.code,
+                    code: codeModal.code.replace(/\s/g, ''),
                     discount: codeModal.discount,
-                    oneuse: codeModal.oneuse,
+                    // oneuse: codeModal.oneuse,
                     valid: codeModal.valid,
                 }),
             });
@@ -221,19 +370,19 @@ const AddCodeModal = ({ page, getAllCodes, user, setSnackbar, codeModal, setCode
         // setSelectedDate(date);
     };
 
-    const handleOneUseChange = (event) => {
-        if (event.target.value === 'taip') {
-            setCodeModal({
-                ...codeModal,
-                oneuse: true,
-            });
-        } else {
-            setCodeModal({
-                ...codeModal,
-                oneuse: false,
-            });
-        }
-    };
+    // const handleOneUseChange = (event) => {
+    //     if (event.target.value === 'taip') {
+    //         setCodeModal({
+    //             ...codeModal,
+    //             oneuse: true,
+    //         });
+    //     } else {
+    //         setCodeModal({
+    //             ...codeModal,
+    //             oneuse: false,
+    //         });
+    //     }
+    // };
 
     return (
         <Modal
@@ -266,7 +415,7 @@ const AddCodeModal = ({ page, getAllCodes, user, setSnackbar, codeModal, setCode
                                 inputProps={{ 'aria-label': 'Nuolaidos kodas' }}
                             />
                             <Divider className={classes.divider} orientation="vertical" />
-                            <Button onClick={generateCode} aria-label="visi" className={classes.button} style={{marginLeft: '.5rem', height: '2.2rem'}}>
+                            <Button onClick={generateCode} aria-label="visi" className={classes.button} >
                                 Generuoti
                             </Button>
                         </Paper>
@@ -287,7 +436,7 @@ const AddCodeModal = ({ page, getAllCodes, user, setSnackbar, codeModal, setCode
                                     disableToolbar
                                     classes={{root: classes.datepicker}}
                                     variant="inline"
-                                    format="dd/MM/yyyy"
+                                    format="yyyy-MM-dd" // "dd/MM/yyyy"
                                     margin="normal"
                                     id="date-picker-inline"
                                     // label="Galioja iki"
@@ -299,11 +448,19 @@ const AddCodeModal = ({ page, getAllCodes, user, setSnackbar, codeModal, setCode
                                     onChange={handleDateChange}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
+                                        classes: {
+                                            root: classes.calendarIcon,
+                                        },
+                                    }}
+                                    PopoverProps={{
+                                        classes: {
+                                            root: classes.calendarPopover,
+                                        },
                                     }}
                                 />
                             </MuiPickersUtilsProvider>
                         </Box>
-                        <h3 style={{margin: '0 0 0 .5rem', textAlign: 'left'}}>Vienkartinis:</h3>
+                        {/* <h3 style={{margin: '0 0 0 .5rem', textAlign: 'left'}}>Vienkartinis:</h3>
                         <Box display='flex' justifyContent='flex-start' alignItems='center' style={{margin: '0 0 .5rem .5rem'}}>
                             <FormControl component="fieldset" >
                                 <RadioGroup row aria-label="gender" name="gender1" value={codeModal.oneuse ? 'taip' : 'ne' } onChange={handleOneUseChange}>
@@ -311,7 +468,7 @@ const AddCodeModal = ({ page, getAllCodes, user, setSnackbar, codeModal, setCode
                                     <FormControlLabel value='ne' control={<Radio classes={{root: classes.radioRoot, checked: classes.radioChecked}}/>} label="Ne" />
                                 </RadioGroup>
                             </FormControl>
-                        </Box>
+                        </Box> */}
                         <Box display='flex' justifyContent='center' alignItems='center'>
                             <Button variant="contained" color="primary" className={classes.buttonDelete} disabled={submitting} onClick={addEditCode}>
                                 {submitting ? <CircularProgress size={20}/> : "Išsaugoti" }

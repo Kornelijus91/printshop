@@ -7,14 +7,20 @@ import SummonSelect from './SummonSelect';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: '1rem 0 1rem 0'
+        margin: '1rem 0 1rem 0',
     },
     deleteIcon: {
         color: theme.myTheme.trecia,
         '&:hover': {
             color: '#e6e6e6',
-            cursor: 'pointer'
+            cursor: 'pointer',
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+        },
     },
     header: {
         color: theme.myTheme.trecia,
@@ -22,11 +28,23 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.6rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+        },
     },
     infoIcon: {
         color: theme.myTheme.trecia,
         margin: '0',
         padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+        },
     },
     image: {
         maxWidth: '10rem',
@@ -35,17 +53,45 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 0 1rem 0',
         padding: '1rem',
         backgroundColor: theme.myTheme.trecia,
-        borderRadius: '7px'
+        borderRadius: '7px',
+        [theme.breakpoints.up('xxl')]: {
+            maxWidth: '15rem',
+            maxheight: '17.5rem',
+            margin: '0 0 1.5rem 0',
+            padding: '1.5rem',
+            borderRadius: '10px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxWidth: '20rem',
+            maxheight: '30rem',
+            margin: '0 0 2rem 0',
+            padding: '2rem',
+            borderRadius: '14px',
+        },
     },
     infotext: {
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         margin: '0 0 1rem 0',
         padding: '0',
-        fontSize: '.75rem'
+        fontSize: '.75rem',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 1.5rem 0',
+            fontSize: '1.1rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 2rem 0',
+            fontSize: '1.5rem',
+        },
     },
     imageinfoBox: {
-        maxWidth: '21rem'
+        maxWidth: '21rem',
+        [theme.breakpoints.up('xxl')]: {
+            maxWidth: '32rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxWidth: '42rem',
+        },
     },
     LeftItem: {
         margin: '0 0 0 1rem',
@@ -58,9 +104,24 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             margin: '0 0 0 1.8rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 0 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 0 2rem',
+        },
     },
     button: {
-
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+            padding: '.5rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+            padding: '1rem',
+            borderRadius: '9px',
+        },
     },
     input: {
         display: 'none',
@@ -70,6 +131,12 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         border: `1px solid ${theme.myTheme.trecia}`,
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: "1.5rem",
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "2rem",
+        },
     },
     diasbleOutline: {
         border: 'none',
@@ -85,6 +152,12 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             width: '21rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '32rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
+        },
     },
     addButton: {
         width: '16rem',
@@ -96,6 +169,18 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.up('lg')]: {
             width: '21rem',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            width: '32rem',
+            fontSize: '1.4rem',
+            padding: '.5rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
+            fontSize: '1.8rem',
+            padding: '1rem',
+            borderRadius: '9px',
         },
     },
     saveEditButton: {
@@ -109,6 +194,18 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             width: '10rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '15rem',
+            fontSize: '1.4rem',
+            padding: '.5rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '20rem',
+            fontSize: '1.8rem',
+            padding: '1rem',
+            borderRadius: '9px',
+        },
     },
     card: {
         margin: '0 .5rem 0 0',
@@ -117,6 +214,12 @@ const useStyles = makeStyles((theme) => ({
             cursor: 'pointer',
             // outline: `2px solid ${theme.myTheme.ketvirta}`
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 .75rem 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 1rem 0 0',
+        },
     },
     cardText: {
         margin: '0 0 .5rem 0',
@@ -125,29 +228,87 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         // maxWidth: '4.2rem',
         overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 .75rem 0',
+            fontSize: '1.4rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 1rem 0',
+            fontSize: '1.8rem'
+        },
     },
     cardContent: {
         margin: '0',
-        padding: '.5rem .5rem 0 .5rem'
+        padding: '.5rem .5rem 0 .5rem',
+        [theme.breakpoints.up('xxl')]: {
+            padding: '.75rem .75rem 0 .75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '1rem 1rem 0 1rem',
+        },
     },
     optionDisplayImage: {
         width: '100%',
         objectFit: 'contain',
+        [theme.breakpoints.up('xxl')]: {
+            objectFit: 'contain',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            objectFit: 'fill',
+        },
     },
     previewSelectedBadge: {
         marginRight: '.5rem',
         marginTop: '.5rem',
         height: '1.6rem',
         borderRadius: '50%',
-        backgroundColor: theme.myTheme.pirma
+        backgroundColor: theme.myTheme.pirma,
+        [theme.breakpoints.up('xxl')]: {
+            marginRight: '.75rem',
+            marginTop: '.75rem',
+            height: '2.4rem',
+            width: '2.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginRight: '1rem',
+            marginTop: '1rem',
+            height: '3.2rem',
+            width: '3.2rem',
+        },
+    },
+    badgecontainer: {
+        width: '100%',
     },
     checkMark: {
-        color: theme.myTheme.trecia
+        color: theme.myTheme.trecia,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+        },
     },
     addPictureButton: {
         marginBottom: '1rem',
         [theme.breakpoints.up('sm')]: {
             marginBottom: '1rem',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: '2rem',
+        },
+    },
+    movetrashBox: {
+        display:'flex', 
+        justifyContent: 'flex-end', 
+        alignItems: 'flex-end',
+        [theme.breakpoints.up('xxl')]: {
+            alignItems: 'center',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            alignItems: 'center',
         },
     },
 }));
@@ -352,7 +513,7 @@ const PictureOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pr
         <Box classes={{root: classes.root}}>
             <Grid container>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                    <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
+                    <Box classes={{root: classes.movetrashBox}}>
                         <SummonSelect 
                             itemIndex={itemIndex}
                             setProductInfo={setProductInfo}
@@ -408,7 +569,7 @@ const PictureOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pr
                                                     <CardActionArea>
                                                         <CardMedia classes={{root: classes.cardContent}}>
                                                             <Badge 
-                                                                classes={{badge: classes.previewSelectedBadge}}
+                                                                classes={{badge: classes.previewSelectedBadge, root: classes.badgecontainer}}
                                                                 anchorOrigin={{
                                                                     vertical: 'top',
                                                                     horizontal: 'right',

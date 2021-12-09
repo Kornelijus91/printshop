@@ -12,6 +12,12 @@ const useStyles = makeStyles((theme) => ({
         margin: '1rem 0 0 0',
         position: 'relative',
         zIndex: '1',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1.5rem 0 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '2rem 0 0 0',
+        },
     },
     searchResultBox: {
         position: 'absolute',
@@ -19,25 +25,49 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '7px',
         zIndex: '10',
         width: '100%',
-        top: '100%'
+        top: '100%',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+        },
     },
     labelRoot: {
         color: `${theme.myTheme.trecia} !important`,
         fontFamily: theme.myTheme.sriftas,
         backgroundColor: theme.myTheme.sriftoSpalva,
         padding: '0 .5rem .2rem .5rem',
+        [theme.breakpoints.up('xxl')]: {
+            padding: '0 .75rem .4rem .75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '0 1rem .4rem 1rem',
+        },
     },
     labelFocused: {
         padding: '0 .5rem .2rem .5rem',
         backgroundColor: theme.myTheme.sriftoSpalva,
         color: `${theme.myTheme.trecia} !important`,
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            padding: '0 .75rem .4rem .75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '0 1rem .4rem 1rem',
+        },
     },
     textInput: {
         marginBottom: "1rem",
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         border: `1px solid ${theme.myTheme.trecia}`,
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: "1.5rem",
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "2rem",
+        },
     },
     input: {
         
@@ -47,10 +77,24 @@ const useStyles = makeStyles((theme) => ({
     },
     searchglass: {
         color: theme.myTheme.trecia,
-        marginRight: '1rem'
+        marginRight: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 1.5rem',
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 2rem',
+            transform: 'scale(2)'
+        },
     },
     infosection: {
-        marginLeft: '1rem'
+        marginLeft: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginLeft: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginLeft: '2rem',
+        },
     },
     item: {
         backgroundColor: theme.myTheme.sriftoSpalva,
@@ -71,6 +115,16 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.up('lg')]: {
             maxWidth: '99%',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+            padding: '.45rem',
+            margin: '.75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            padding: '.6rem',
+            margin: '1rem',
         },
     },
 }));

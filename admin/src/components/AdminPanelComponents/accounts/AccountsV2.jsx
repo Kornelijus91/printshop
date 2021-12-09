@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from 'react';
-import { Container, Box, Grid, CircularProgress } from '@material-ui/core';
+import { Box, Grid, CircularProgress } from '@material-ui/core';
 import {Helmet} from "react-helmet";
 import Pagination from '@material-ui/lab/Pagination';
 import SearchField from './SearchField';
@@ -13,12 +13,25 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         backgroundColor: theme.myTheme.sriftoSpalva,
-
+        [theme.breakpoints.up('xxl')]: {
+            margin: '.5rem 0 0 0',
+            fontSize: '1.4rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '2rem 0 0 0',
+            fontSize: '1.8rem'
+        },
     },
     header: {
         margin: '0',
         padding: '0',
-        fontSize: '1.5rem'
+        fontSize: '1.5rem',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '2.25rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '3rem'
+        },
     },
     accountsBox: {
         backgroundColor: theme.myTheme.antra,
@@ -32,6 +45,14 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             margin: '0',
         },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+            // padding: '.75rem 1.35rem 1.05rem 1.05rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            // padding: '1rem 1.8rem 1.4rem 1.4rem',
+        },
     },
     accountsBoxInner: {
         // height: '95%',
@@ -39,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     },
     accountsBoxPagination: {
         margin: '.1rem 0 .5rem .2rem',
-        paddingBottom: '.5rem'
+        paddingBottom: '.5rem',
     },
     pagination: {
         // marginBottom: '.5rem'
@@ -52,7 +73,13 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.sriftoSpalva,
     },
     infosection: {
-        marginLeft: '1rem'
+        marginLeft: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginLeft: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginLeft: '2rem',
+        },
     },
     item: {
         backgroundColor: theme.myTheme.sriftoSpalva,
@@ -68,10 +95,20 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('md')]: {
             maxWidth: '99%',
         },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+            padding: '.45rem',
+            margin: '.75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            padding: '.8rem',
+            margin: '1.2rem',
+        },
     },
 }));
 
-const Accounts = ({ user, setView, setSnackbar, view, loyalty }) => {
+const Accounts = ({ user, setView, setSnackbar, view, loyalty, getOrders, ordersPage, setOrdersView, setOrder, orderFilter }) => {
 
     const classes = useStyles();
     const [accountModalOpen, setAccountModalOpen] = useState(false);
@@ -152,7 +189,7 @@ const Accounts = ({ user, setView, setSnackbar, view, loyalty }) => {
     }, [page])
 
     return (
-        <Container maxWidth='xl' classes={{root: classes.root}}>
+        <Box classes={{root: classes.root}}>
             <Helmet>
                 {/* VELIAU PAKEISTI */}
                 <title>Paskyros | {ProjectName}</title> 
@@ -166,6 +203,12 @@ const Accounts = ({ user, setView, setSnackbar, view, loyalty }) => {
                 administracija={user.administracija}
                 setSnackbar={setSnackbar}
                 loyalty={loyalty}
+                getOrders={getOrders} 
+                ordersPage={ordersPage}
+                setView={setView} 
+                setOrdersView={setOrdersView} 
+                setOrder={setOrder}
+                orderFilter={orderFilter}
             />
             <SearchField 
                 token={user.token}
@@ -189,7 +232,7 @@ const Accounts = ({ user, setView, setSnackbar, view, loyalty }) => {
                                 });
                                 setAccountModalOpen(true);
                             }}>
-                                <Grid item xl={2} lg={2} md={4} sm={6} xs={6}>
+                                <Grid item xl={3} lg={2} md={4} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
                                         <p>{item.username}</p>
                                     </Box>
@@ -204,7 +247,7 @@ const Accounts = ({ user, setView, setSnackbar, view, loyalty }) => {
                                         <p>{item.lastName}</p>
                                     </Box>
                                 </Grid>
-                                <Grid item xl={2} lg={2} md={4} sm={6} xs={6}>
+                                <Grid item xl={1} lg={2} md={4} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
                                         <p>{item.phoneNumber}</p>
                                     </Box>
@@ -240,7 +283,7 @@ const Accounts = ({ user, setView, setSnackbar, view, loyalty }) => {
                     </Box>
                 </Box>
             }
-        </Container>
+        </Box>
     )
 }
 

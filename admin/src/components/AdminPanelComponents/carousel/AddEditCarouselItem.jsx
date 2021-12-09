@@ -1,16 +1,27 @@
 import { useState, useEffect, useRef } from 'react';
-import { Radio, FormControlLabel, RadioGroup, Box, Grid, FormControl, OutlinedInput, Select, MenuItem, Button, Slider, CircularProgress } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { useMediaQuery, Radio, FormControlLabel, RadioGroup, Box, Grid, FormControl, OutlinedInput, Select, MenuItem, Button, Slider, CircularProgress } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        
+        [theme.breakpoints.up('xxl')]: {
+            marginTop: '1rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '2rem'
+        },
     },
     header: {
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         margin: '0',
         padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.6rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+        },
     },
     contentItem: {
         textAlign: 'left',
@@ -21,6 +32,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '3rem',
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '4.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '6rem',
+        },
     },
     contentText: {
         margin: '0',
@@ -28,6 +45,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1.5rem',
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '2.25rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '3rem',
+        },
     },
     contentRedText: {
         margin: '0',
@@ -35,6 +58,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1.5rem',
         color: theme.myTheme.pirma,
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '2.25rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '3rem',
+        },
     },
     leftBreakWord: {
         maxWidth: '80%',
@@ -51,17 +80,43 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: theme.myTheme.sriftoSpalva,
         },
+        [theme.breakpoints.up('xxl')]: {
+            marginTop: '1.5rem',
+            fontSize: '1.5rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '2rem',
+            fontSize: '2rem',
+            borderRadius: '9px',
+        },
     },
     previewBoxInnerTop: {
         margin: '1rem 0 1rem 0',
         minHeight: '35rem',
         backgroundColor: theme.myTheme.trecia,
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1.5rem 0 1.5rem 0',
+            minHeight: '42.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '2rem 0 2rem 0',
+            minHeight: '70rem',
+        },
     },
     textInput: {
         marginBottom: "1rem",
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         border: `1px solid ${theme.myTheme.trecia}`,
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: "1.5rem",
+            border: `2px solid ${theme.myTheme.trecia}`,
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "2rem",
+            border: `3px solid ${theme.myTheme.trecia}`,
+        },
     },
     diasbleOutline: {
         border: 'none',
@@ -77,11 +132,29 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             width: '21rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '31.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
+        },
     },
     buttonBox: {
         marginBottom: '3rem',
         [theme.breakpoints.up('lg')]: {
             marginBottom: '0',
+        },
+    },
+    forButtonScale: {
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.6rem',
+            height: '3.75rem',
+            borderRadius: '7px'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+            height: '5rem',
+            borderRadius: '9px'
         },
     },
     variantSelectExample: {
@@ -95,29 +168,97 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
+        borderRadius: '4px',
         '&:focus': {
             borderRadius: '4px',
             border: `1px solid ${theme.myTheme.trecia}`,
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 1.5rem 0',
+            minHeight: '5.25rem',
+            borderRadius: '6px',
+            fontSize: '1.6rem',
+            padding: '0 0 0 1.5rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 2rem 0',
+            minHeight: '7rem',
+            borderRadius: '8px',
+            fontSize: '2rem',
+            padding: '0 0 0 2rem'
+        },
     },
     variantSelectIconExample: {
+        // color: theme.myTheme.trecia,
+        // marginTop: '-.5rem',
         color: theme.myTheme.trecia,
         marginTop: '-.5rem',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5) translateX(-.75rem)',
+            marginTop: '-.75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2) translateX(-1rem)',
+            marginTop: '-1rem',
+        },
     },
     menuPaper: {
         maxHeight: '22rem',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        [theme.breakpoints.up('xxl')]: {
+            maxHeight: '33rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxHeight: '44rem',
+        },
     },
     input: {
         display: 'none',
     },
     radio: {
         color: theme.myTheme.trecia,
+        [theme.breakpoints.up('xxl')]: {
+            "& svg": {
+                width: '2rem',
+                height: '2rem'
+            }
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            "& svg": {
+                width: '3rem',
+                height: '3rem'
+            }
+        },
+    },
+    radioParent: {
+        color: theme.myTheme.trecia,
+    },
+    radioLabel: {
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+        },
     },
     icon: {
         color: theme.myTheme.trecia,
         margin: '0',
         padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
+    },
+    sliderThumb: {
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
     animation0: {
         transform: 'perspective(900px) rotateX(20deg) ',
@@ -126,6 +267,14 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             transform: 'rotate(0deg)'
         },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'perspective(1350px) rotateX(20deg) ',
+            boxShadow: '0px 30px 150px #555',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'perspective(1800px) rotateX(20deg) ',
+            boxShadow: '0px 40px 200px #555',
+        },
     },
     animation1: {
         transform: 'perspective(800px) rotateY(-8deg)',
@@ -133,6 +282,20 @@ const useStyles = makeStyles((theme) => ({
         transition: 'transform 1s ease 0s',
         '&:hover': {
             transform: 'perspective(800px) rotateY(-4deg)'
+        },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'perspective(1200px) rotateY(-8deg)',
+            boxShadow: '30px 30px 75px #555',
+            '&:hover': {
+                transform: 'perspective(1200px) rotateY(-4deg)'
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'perspective(1600px) rotateY(-8deg)',
+            boxShadow: '40px 40px 100px #555',
+            '&:hover': {
+                transform: 'perspective(1600px) rotateY(-4deg)'
+            },
         },
     },
     animation2: {
@@ -144,6 +307,20 @@ const useStyles = makeStyles((theme) => ({
             transform: 'translate3d(0px, -16px, 0px) rotateX(51deg) rotateZ(43deg)',
             boxShadow: '-1px 0 28px 0 rgba(34, 33, 81, 0.01), 54px 54px 28px -10px rgba(34, 33, 81, 0.15)',
         },
+        [theme.breakpoints.up('xxl')]: {
+            boxShadow: '-1px 0 42px 0 rgba(34, 33, 81, 0.01), 42px 42px 42px 0 rgba(34, 33, 81, 0.25)',
+            '&:hover': {
+                transform: 'translate3d(0px, -24px, 0px) rotateX(51deg) rotateZ(43deg)',
+                boxShadow: '-1px 0 42px 0 rgba(34, 33, 81, 0.01), 81px 81px 42px -15px rgba(34, 33, 81, 0.15)',
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            boxShadow: '-2px 0 56px 0 rgba(34, 33, 81, 0.01), 56px 56px 56px 0 rgba(34, 33, 81, 0.25)',
+            '&:hover': {
+                transform: 'translate3d(0px, -32px, 0px) rotateX(51deg) rotateZ(43deg)',
+                boxShadow: '-2px 0 56px 0 rgba(34, 33, 81, 0.01), 108px 108px 108px -20px rgba(34, 33, 81, 0.15)',
+            },
+        },
     },
     animation3: {
         transform: 'rotate3d(.5,-.866,0,15deg) rotate(1deg)',
@@ -152,7 +329,13 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             transform: 'rotate3d(0,0,0,0deg) rotate(0deg)',
             transition:' transform .4s ease',
-        }
+        },
+        [theme.breakpoints.up('xxl')]: {
+            boxShadow: '3em 6em 9em -3em rgba(0,0,0,.5), 1.5em 3em 5.2em -3.75em rgba(0,0,0,.5) ',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            boxShadow: '4em 8em 12em -4em rgba(0,0,0,.5), 2em 4em 7em -5em rgba(0,0,0,.5) ',
+        },
     },
     animation4: {
         transform: 'perspective(750px) translate3d(0px, 0px, -250px) rotateX(27deg) scale(0.9, 0.9)',
@@ -162,13 +345,39 @@ const useStyles = makeStyles((theme) => ({
         transition: '0.4s ease-in-out transform',
         '&:hover': {
             transform: 'translate3d(0px, 0px, -250px)'
-        }
+        },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'perspective(1125px) translate3d(0px, 0px, -375px) rotateX(27deg) scale(0.9, 0.9)',
+            boxShadow: '0 105px 60px -30px rgba(0, 0, 0, 0.2)',
+            '&:hover': {
+                transform: 'translate3d(0px, 0px, -375px)'
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'perspective(1500px) translate3d(0px, 0px, -500px) rotateX(27deg) scale(0.9, 0.9)',
+            boxShadow: '0 140px 80px -40px rgba(0, 0, 0, 0.2)',
+            '&:hover': {
+                transform: 'translate3d(0px, 0px, -500px)'
+            },
+        },
     },
     animation5: {
         transform: 'perspective(800px) rotateY(25deg) scale(0.9) rotateX(10deg)',
         transition: '0.6s ease transform',
         '&:hover': {
             transform: 'perspective(800px) rotateY(-15deg) translateY(-25px) rotateX(10deg) scale(1)',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'perspective(1200px) rotateY(25deg) scale(0.9) rotateX(10deg)',
+            '&:hover': {
+                transform: 'perspective(1200px) rotateY(-15deg) translateY(-37px) rotateX(10deg) scale(1)',
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'perspective(1600px) rotateY(25deg) scale(0.9) rotateX(10deg)',
+            '&:hover': {
+                transform: 'perspective(1600px) rotateY(-15deg) translateY(-50px) rotateX(10deg) scale(1)',
+            },
         },
     },
     animation6: {
@@ -179,7 +388,11 @@ const useStyles = makeStyles((theme) => ({
 const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackbar, setCarouselView, user, handlecarouselItemInfoChange, items }) => {
 
     const classes = useStyles();
-    const inputField = useRef(null)
+    const inputField = useRef(null);
+    const theme = useTheme();
+
+    const screenSizexxl = useMediaQuery(theme.breakpoints.up('xxl'));
+    const screenSizexxxl = useMediaQuery(theme.breakpoints.up('xxxl'));
 
     const [products, setProducts] = useState([]);
     const [x, setX] = useState('0');
@@ -358,7 +571,7 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
     }, [])
 
     return (
-        <Box>
+        <Box classes={{root: classes.root}}>
             <Grid container>
                 {/* KAIRE PUSE */}
                 <Grid item xl={6} lg={6} md={12} sm={12} xs={12}> 
@@ -398,13 +611,14 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                             </Grid>
                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                 <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Nuoroda:</h3>
-                                <FormControl className={classes.formVariant} variant="outlined">
+                                <FormControl className={classes.formVariant} variant="standard" disableUnderline>
                                     <Select
                                         id="simple-select-outlined"
-                                        classes={{outlined: classes.variantSelectExample, iconOutlined: classes.variantSelectIconExample}}
+                                        classes={{root: classes.variantSelectExample, icon: classes.variantSelectIconExample}}
                                         value={carouselItemInfo.productLink}
                                         onChange={(e) => handleSelect(e)}
                                         MenuProps={{ classes: { list: classes.menuPaper } }}
+                                        disableUnderline
                                     >
                                         {products.length > 0 && products.map((item) => 
                                             <MenuItem value={item.link}>{item.name}</MenuItem>
@@ -457,8 +671,8 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                 src={carouselItemInfo.imageURL} 
                                 alt=""
                                 style={{
-                                    width: `${carouselItemInfo.size}rem`,
-                                    borderRadius: `${carouselItemInfo.borderRadius}rem`,
+                                    width: `${screenSizexxxl ? carouselItemInfo.size * 2 : screenSizexxl ? carouselItemInfo.size * 1.3 : carouselItemInfo.size}rem`,
+                                    borderRadius: `${screenSizexxxl ? carouselItemInfo.borderRadius * 2 : screenSizexxl ? carouselItemInfo.borderRadius * 1.3 : carouselItemInfo.borderRadius}rem`,
                                     objectFit: 'contain',
                                 }}
                                 className={
@@ -481,7 +695,7 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                 <Box style={{marginBottom: '1rem'}}>
                                     <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Paveikslėlis:</h3>
                                     <label htmlFor='image_upload'>
-                                        <Button variant="contained" color="primary" component="span">
+                                        <Button variant="contained" color="primary" component="span" classes={{root: classes.forButtonScale}}>
                                             { carouselItemInfo.imageURL ? 'Pakeisti' : 'Įkelti' }
                                         </Button>
                                     </label>
@@ -500,6 +714,7 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                 <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Dydis:</h3>
                                 <Box style={{width: '80%'}}>
                                     <Slider 
+                                        classes={{thumb: classes.sliderThumb}}
                                         value={carouselItemInfo.size} 
                                         onChange={handlePictureSizeRadiusChange('size')} 
                                         aria-labelledby="continuous-slider-size" 
@@ -513,13 +728,13 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                 <FormControl component="fieldset">
                                     <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Animacija:</h3>
                                     <RadioGroup aria-label="animation" name="animation" value={x} onChange={handleRadioButtons} row>
-                                        <FormControlLabel classes={{root: classes.radio}} value='6' control={<Radio classes={{root: classes.radio}}/>} label="Nėra" />
-                                        <FormControlLabel classes={{root: classes.radio}} value='0' control={<Radio classes={{root: classes.radio}}/>} label="1" />
-                                        <FormControlLabel classes={{root: classes.radio}} value='1' control={<Radio classes={{root: classes.radio}}/>} label="2" />
-                                        <FormControlLabel classes={{root: classes.radio}} value='2' control={<Radio classes={{root: classes.radio}}/>} label="3" />
-                                        <FormControlLabel classes={{root: classes.radio}} value='3' control={<Radio classes={{root: classes.radio}}/>} label="4" />
-                                        <FormControlLabel classes={{root: classes.radio}} value='4' control={<Radio classes={{root: classes.radio}}/>} label="5" />
-                                        <FormControlLabel classes={{root: classes.radio}} value='5' control={<Radio classes={{root: classes.radio}}/>} label="6" />
+                                        <FormControlLabel classes={{root: classes.radioParent, label: classes.radioLabel}} value='6' control={<Radio classes={{root: classes.radio}}/>} label="Nėra" />
+                                        <FormControlLabel classes={{root: classes.radioParent, label: classes.radioLabel}} value='0' control={<Radio classes={{root: classes.radio}}/>} label="1" />
+                                        <FormControlLabel classes={{root: classes.radioParent, label: classes.radioLabel}} value='1' control={<Radio classes={{root: classes.radio}}/>} label="2" />
+                                        <FormControlLabel classes={{root: classes.radioParent, label: classes.radioLabel}} value='2' control={<Radio classes={{root: classes.radio}}/>} label="3" />
+                                        <FormControlLabel classes={{root: classes.radioParent, label: classes.radioLabel}} value='3' control={<Radio classes={{root: classes.radio}}/>} label="4" />
+                                        <FormControlLabel classes={{root: classes.radioParent, label: classes.radioLabel}} value='4' control={<Radio classes={{root: classes.radio}}/>} label="5" />
+                                        <FormControlLabel classes={{root: classes.radioParent, label: classes.radioLabel}} value='5' control={<Radio classes={{root: classes.radio}}/>} label="6" />
                                     </RadioGroup>
                                 </FormControl>
                             </Grid>
@@ -527,6 +742,7 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                             <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Apvalumas:</h3>
                                 <Box style={{width: '80%'}}>
                                     <Slider 
+                                        classes={{thumb: classes.sliderThumb}}
                                         value={carouselItemInfo.borderRadius} 
                                         onChange={handlePictureSizeRadiusChange('borderRadius')} 
                                         aria-labelledby="continuous-slider-borderRAdius" 
@@ -538,10 +754,10 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                             </Grid>
                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                 <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.buttonBox}}>
-                                    <Button variant="contained" color="primary" component="span" onClick={addUpdateCarouselItem} style={{margin: '1rem 1rem 0 0'}} disabled={submitting}>
+                                    <Button variant="contained" color="primary" component="span" onClick={addUpdateCarouselItem} style={{margin: '1rem 1rem 0 0'}} disabled={submitting} classes={{root: classes.forButtonScale}}>
                                         {submitting ? <CircularProgress size={20} className={classes.icon}/> : 'Išsaugoti' }
                                     </Button>
-                                    <Button variant="contained" color="primary" component="span" onClick={goback} style={{marginTop: '1rem'}}>
+                                    <Button variant="contained" color="primary" component="span" onClick={goback} style={{marginTop: '1rem'}} classes={{root: classes.forButtonScale}}>
                                         Atgal
                                     </Button>
                                 </Box>

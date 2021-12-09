@@ -13,7 +13,29 @@ const useStyles = makeStyles((theme) => ({
         border: 'none',
         outline: 'none',
         width: '22rem',
-        padding: '0 1rem 0 1rem'
+        padding: '0 1rem 0 1rem',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '9px',
+            width: '33rem',
+            padding: '0 1.5rem 0 1.5rem',
+            '& h1': {
+                fontSize: '2.4rem'
+            },
+            '& h3': {
+                fontSize: '1.6rem'
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            width: '44rem',
+            padding: '0 2rem 0 2rem',
+            '& h1': {
+                fontSize: '3.6rem'
+            },
+            '& h3': {
+                fontSize: '2rem'
+            },
+        }, 
     },
     modal: {
         display: 'flex',
@@ -26,9 +48,25 @@ const useStyles = makeStyles((theme) => ({
         // height: '2.5rem',
         boxShadow: "0px 2px 2px #888888",
         padding: '.2rem .2rem .2rem 1rem',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '6px',
+            boxShadow: "0px 3px 3px #888888",
+            padding: '.3rem .3rem .3rem 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '8px',
+            boxShadow: "0px 4px 4px #888888",
+            padding: '.4rem .4rem .4rem 2rem',
+        },
     },
     alertBox: {
         margin: '1rem 0 0 0',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1.5rem 0 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '2rem 0 0 0',
+        },
     },
     alertText: {
         textAlign: "left",
@@ -36,6 +74,12 @@ const useStyles = makeStyles((theme) => ({
         padding: "0px",
         margin: '0',
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            marginTop: '-.15rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '-.2rem',
+        },
     },
     alertIcon: {
         display: 'flex',
@@ -54,6 +98,20 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#e31c2d',
         },
+        [theme.breakpoints.up('xxl')]: {
+            margin: ".7rem 1.5rem 1.5rem 0",
+            borderRadius: '6px',
+            height: '3.75rem',
+            fontSize: '1.4rem',
+            width: '46%',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: "1.5rem 2rem 2rem 0",
+            borderRadius: '8px',
+            height: '5rem',
+            fontSize: '1.8rem',
+            width: '47%',
+        },
     },
     buttonCancel: {
         width: '45%',
@@ -67,6 +125,20 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#36617c',
         },
+        [theme.breakpoints.up('xxl')]: {
+            margin: ".7rem 0 1.5rem 0",
+            borderRadius: '6px',
+            height: '3.75rem',
+            fontSize: '1.4rem',
+            width: '46%',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: "1.5rem 0 2rem 0",
+            borderRadius: '8px',
+            height: '5rem',
+            fontSize: '1.8rem',
+            width: '47%',
+        },
     },
     nameForm: {
         padding: '.5rem 1rem',
@@ -75,12 +147,28 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         backgroundColor: theme.myTheme.ketvirta,
         // width: 400,
+        [theme.breakpoints.up('xxl')]: {
+            padding: '.75rem 1.5rem',
+            borderRadius: '7px'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '1rem 2rem',
+            borderRadius: '9px'
+        },
     },
     input: {
         width: '100%',
         height: '2.5rem',
         marginLeft: theme.spacing(1),
         flex: 1,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+            height: '3.75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+            height: '5rem',
+        },
     },
 }));
 
@@ -166,7 +254,7 @@ const AddEditLoyaltyModal = ({ user, setSnackbar, addLoyaltyModal, setAddLoyalty
                                 <Alert severity="warning" classes={{root: classes.alert, icon: classes.alertIcon}}><p className={classes.alertText}>{alert}</p></Alert>
                             </Box>
                         </Collapse>
-                        <h1>{addLoyaltyModal.id ? 'Pakeisti' : 'Pridėti'} lojalumo programos lygį</h1>
+                        <h1>{addLoyaltyModal.id ? 'Pakeisti' : 'Pridėti'} Tavo reklama klubo lygį</h1>
                         <h3 style={{margin: '0 0 0 .5rem', textAlign: 'left'}}>Išleistų pinigų suma, €</h3>
                         <Paper component="form" className={classes.nameForm}>
                             <InputBase

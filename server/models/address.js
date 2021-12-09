@@ -38,10 +38,10 @@ const Address = new Schema({
         type: String,
         default: "",
     },
-    budgetCompany: {
-        type: Boolean,
-        default: false,
-    },
+    // budgetCompany: {
+    //     type: Boolean,
+    //     default: false,
+    // },
     createdAt: {
         type: Date, 
         default: Date.now

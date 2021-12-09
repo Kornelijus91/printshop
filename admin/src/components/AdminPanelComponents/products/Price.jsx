@@ -11,7 +11,13 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         margin: '0',
-        padding: '0'
+        padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+        },
     },
     formPrice: {
         width: '100%',
@@ -43,12 +49,28 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#e31c2d',
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.5rem',
+            padding: '.75rem 1.5rem .75rem 1.5rem',
+            borderRadius: '6px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+            padding: '1rem 1.5rem 1rem 1.5rem',
+            borderRadius: '8px',
+        },
     },
     amountDiscountItemBox: {
         border: `1px solid ${theme.myTheme.trecia}`,
         borderRadius: '4px',
         padding: '.5rem 1rem .5rem 1rem',
-        margin: '0 0 1rem 0'
+        margin: '0 0 1rem 0',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '6px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '8px',
+        },
     },
     icon: {
         color: theme.myTheme.trecia,
@@ -58,6 +80,12 @@ const useStyles = makeStyles((theme) => ({
             color: '#e6e6e6',
             cursor: 'pointer'
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
     trashcanBox: {
         display: 'flex',
@@ -69,6 +97,12 @@ const useStyles = makeStyles((theme) => ({
             justifyContent: 'flex-end', 
             alignItems: 'center', 
             height: '100%',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            marginRight: '1rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginRight: '1.5rem'
         },
     },
 }));

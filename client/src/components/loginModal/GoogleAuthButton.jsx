@@ -1,29 +1,46 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Box, CircularProgress } from '@material-ui/core';
-import { ReactComponent as GoogleLogo } from '../../media/social/Googlelogo.svg';
+import { IconButton , Box, CircularProgress } from '@material-ui/core';
+import { FcGoogle } from "react-icons/fc";
+// import { ReactComponent as GoogleLogo } from '../../media/social/Googlelogo.svg';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     button: {
-        width: "80%",
-        height: "2.5rem",
-        marginBottom: "1rem",
-        backgroundColor: "white",
-        borderRadius: '10rem',
-        fontSize: "2rem",
-        padding: ".1rem 0 0 0",
-        boxShadow: "0px 2px 2px #888888",
+        // width: "80%",
+        // height: "2.5rem",
+        // marginBottom: "1rem",
+        // backgroundColor: "white",
+        // borderRadius: '10rem',
+        // fontSize: "2rem",
+        // padding: ".1rem 0 0 0",
+        // boxShadow: "0px 2px 2px #888888",
+        margin: '0 .5rem .2rem .5rem',
+        [theme.breakpoints.up('xxl')]:{
+            margin: '0 .75rem .4rem .75rem',
+            padding: '1.7rem',
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            margin: '0 1rem .4rem 1rem',
+            padding: '3rem',
+        },
         '&:hover': {
-            backgroundColor: '#f3f2ef',
-            boxShadow: "0px 2px 3px #888888"
+            backgroundColor: 'white',
         },
     },
-    logo: {
-        margin: ".1rem 0 0 0",
-        padding: "0px",
-        height: "1.7rem",
-    }
-  });
+    // logo: {
+    //     margin: ".1rem 0 0 0",
+    //     padding: "0px",
+    //     height: "1.7rem",
+    // },
+    icon: {
+        [theme.breakpoints.up('xxl')]:{
+            transform: 'scale(1.35)'
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            transform: 'scale(2)'
+        },
+    },
+  }));
 
 const GoogleAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSocialSubmitting, setOAuthWindow, oAuthWindow }) => {
 
@@ -65,15 +82,16 @@ const GoogleAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSoci
 
     return (
         <Box display="flex" justifyContent="center">
-            <Button 
+            <IconButton  
                 variant="contained" 
                 color="primary" 
                 onClick={googleAuth} 
                 classes={{root: classes.button}}
                 disabled={socialSubmitting.someone}
             >
-                {socialSubmitting.google ? <CircularProgress size={20}/> : <GoogleLogo className={classes.logo}/>}
-            </Button>
+                {/* <GoogleLogo className={classes.logo}/> */}
+                {socialSubmitting.google ? <CircularProgress size={50} className={classes.icon}/> : <FcGoogle size={50} className={classes.icon}/>} 
+            </IconButton >
         </Box>
     )
 }

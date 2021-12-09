@@ -10,6 +10,10 @@ const CartItem = new Schema({
         type: String,
         default: "",
     },
+    productLink: {
+        type: String,
+        default: "",
+    },
     options: {
         type: Array,
         default: [],
@@ -30,18 +34,18 @@ const CartItem = new Schema({
         type: String,
         default: "",
     },
-    discount: {
-        type: Number,
-        default: 1,
-    },
-    loyaltyDiscount: {
-        type: Number,
-        default: 1,
-    },
-    price: {
-        type: Number,
-        default: 1,
-    },
+    // discount: {
+    //     type: Number,
+    //     default: 1,
+    // },
+    // loyaltyDiscount: {
+    //     type: Number,
+    //     default: 1,
+    // },
+    // price: {
+    //     type: Number,
+    //     default: 1,
+    // },
     modifiedAt: {
         type: Date, 
         default: Date.now

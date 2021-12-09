@@ -10,10 +10,23 @@ const useStyles = makeStyles((theme) => ({
             color: '#e6e6e6',
             cursor: 'pointer'
         }, 
+        [theme.breakpoints.up('xxl')]:{
+            transform: 'scale(1.5)',
+            marginRight: '1.5rem'
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            transform: 'scale(2)',
+            marginRight: '2rem'
+        },
     },
     iconBox: {
         margin: '0 1rem 0 0',
-    }
+    },
+    iconParent: {
+        display: 'flex', 
+        justifyContent: 'flex-end', 
+        alignItems: 'center',
+    },
 }));
 
 const MoveOptions = ({ itemIndex, setProductInfo, setProductOptionsMemo, arraylength, productInfo, productOptionsMemo }) => {
@@ -39,7 +52,7 @@ const MoveOptions = ({ itemIndex, setProductInfo, setProductOptionsMemo, arrayle
     };
 
     return (
-        <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
+        <Box classes={{root: classes.iconParent}}>
             {itemIndex !== 0 &&
                 <Tooltip title='Perkelti aukštyn' placement="top" arrow>
                     <div className={classes.iconBox}>

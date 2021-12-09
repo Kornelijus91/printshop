@@ -34,6 +34,18 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             maxWidth: '300rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '150rem',
+            borderRadius: '10px',
+            padding: '1.5rem',
+            fontSize: '1.4rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '180rem',
+            borderRadius: '14px',
+            padding: '2rem',
+            fontSize: '1.8rem'
+        },
     },
     item: {
         color: theme.myTheme.trecia,
@@ -68,6 +80,14 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             margin: '.2rem 0 0 1rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            margin: '.5rem 0 0 1rem',
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '.75rem 0 0 1.5rem',
+            transform: 'scale(2)'
+        },
     },
     button: {
         width: '10rem',
@@ -78,16 +98,44 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             width: '15rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '15rem',
+            height: '3.75rem',
+            borderRadius: '7px',
+            fontSize: '1.4rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '20rem',
+            height: '5rem',
+            borderRadius: '9px',
+            fontSize: '1.8rem'
+        },
     },
     buttonDisabled: {
         backGroundColor: theme.myTheme.ketvirta,
     },
+    buttonIcon: {
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
+    },
     tab: {
         color: theme.myTheme.trecia,
-        fontFamily: theme.myTheme.sriftas
+        fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+            marginRight: '1rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+            marginRight: '1.5rem'
+        },
     },
     tabsBox: {
-        borderBottom: `2px solid ${theme.myTheme.pirma}`
+        borderBottom: `2px solid ${theme.myTheme.pirma}`,
     },
     paragraph: {
         padding: '0',
@@ -114,7 +162,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const AccountModal = ({ accountModalOpen, setAccountModalOpen, accountModalInfo, setAccountModalOpenInfo, token, administracija, setSnackbar, loyalty }) => {
+const AccountModal = ({ orderFilter, accountModalOpen, setAccountModalOpen, accountModalInfo, setAccountModalOpenInfo, token, administracija, setSnackbar, loyalty, getOrders, ordersPage, setView, setOrdersView, setOrder }) => {
 
     const classes = useStyles();
     const theme = useTheme();
@@ -275,7 +323,7 @@ const AccountModal = ({ accountModalOpen, setAccountModalOpen, accountModalInfo,
                                         <Box classes={{root: classes.item}}>
                                             <Grid container>
                                                 <Grid item xl={4} lg={4} md={4} sm={4} xs={11}>
-                                                    <p className={classes.paragraph}>Lojalumo lygis:</p>
+                                                    <p className={classes.paragraph}>Lojalumo lygis: </p>
                                                 </Grid>
                                                 <Grid item xl={8} lg={8} md={8} sm={8} xs={11}>
                                                     <p className={classes.paragraph}>{loyaltyLevel()}</p>
@@ -333,8 +381,8 @@ const AccountModal = ({ accountModalOpen, setAccountModalOpen, accountModalInfo,
                                                     {
                                                         {
                                                             'normal': "Pakeisti statusą", 
-                                                            'submitting': <CircularProgress size={25}/>,     
-                                                            'success': <CheckIcon size={25}/>,
+                                                            'submitting': <CircularProgress size={25} className={classes.buttonIcon}/>,     
+                                                            'success': <CheckIcon size={25} className={classes.buttonIcon}/>,
                                                         }[button]
                                                     }
                                                 </Button>
@@ -365,7 +413,7 @@ const AccountModal = ({ accountModalOpen, setAccountModalOpen, accountModalInfo,
                     <Box>
                     {
                         {
-                            "Užsakymai": <UserOrders />, 
+                            "Užsakymai": <UserOrders userId={accountModalInfo.userId} setSnackbar={setSnackbar} token={token} getOrders={getOrders} ordersPage={ordersPage} setView={setView} setOrdersView={setOrdersView} setOrder={setOrder} orderFilter={orderFilter}/>, 
                             "Mokėjimai": <UserPayments />,     
                             "Adresai": <UserAddresses userId={accountModalInfo.userId} setSnackbar={setSnackbar} token={token}/>,
                         }[tab]

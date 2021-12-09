@@ -1,24 +1,31 @@
+import { useState } from 'react'
 import { Box, Card, CardActions, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, useHistory } from 'react-router-dom';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
     card: {
-        // margin: '.7rem',
-        width: '10rem',
+        width: '100%',
         backgroundColor: theme.myTheme.trecia,
         display: 'flex',
-        // transition:'background-color .4s ease', //, box-shadow .2s ease
         flexDirection: 'column',
         justifyContent: 'space-between',
-        // boxShadow: '2px 2px 3px #737373',
         border: `1px solid #edf7f8`,
         '&:hover': {
-            // backgroundColor: '#edf7f8',
-            // boxShadow: '4px 4px 3px #737373',
-            // transition:'background-color .4s ease, box-shadow .2s ease',
             cursor: 'pointer'
         },
+        [theme.breakpoints.up('xxl')]: {
+            border: `2px solid #edf7f8`,
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            border: `3px solid #edf7f8`,
+            borderRadius: '9px',
+        },
+        // [theme.breakpoints.up('sm')]: {
+        //     width: '10rem',
+        // },
     },
     cardText: {
         margin: '0',
@@ -26,6 +33,14 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1rem',
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.35rem',
+            margin: '.2rem 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+            margin: '.4rem 0',
+        },
     },
     cardTextRed: {
         margin: '0',
@@ -33,6 +48,14 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1rem',
         color: theme.myTheme.pirma,
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.35rem',
+            margin: '.2rem 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+            margin: '.4rem 0',
+        },
     },
     cardButton: {
         margin: '0 0 .2rem 0',
@@ -48,12 +71,36 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: theme.myTheme.sriftoSpalva,
         },
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+            margin: '0 0 .3rem 0',
+            padding: '.6rem 1.05rem .6rem 1.05rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+            margin: '0 0 .4rem 0',
+            padding: '.8rem 1.4rem .8rem 1.4rem',
+            borderRadius: '9px',
+        },
     },
     cardContent: {
         padding: '.7rem .7rem 0 .7rem',
+        [theme.breakpoints.up('xxl')]: {
+            padding: '1rem 1rem 0 1rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '1.3rem 1.3rem 0 1.3rem',
+        },
     },
     cardActions: {
         paddingLeft: '.7rem',
+        [theme.breakpoints.up('xxl')]: {
+            paddingLeft: '1rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            paddingLeft: '1.3rem',
+        },
     },
     img: {
         marginBottom: '.5rem',
@@ -61,17 +108,35 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', 
         objectFit: 'contain'
     },
+    skeletonPicture: {
+        borderRadius: '4px',
+        marginBottom: '.4rem',
+        height: 140,
+        [theme.breakpoints.up('xxl')]: {
+            height: 200,
+            borderRadius: '8px',
+            marginBottom: '.6rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: 340,
+            borderRadius: '8px',
+            marginBottom: '.8rem',
+        },
+    },
 }));
 
-const ProductCard = ({ image, name, amountDiscount, link}) => {
+const ProductCard = ({ image, name, amountDiscount, link, loyaltydiscount}) => {
 
     const classes = useStyles();
     const history = useHistory();
 
+    const [imgLoaded, setImgLoaded] = useState(false);
+
     const getLowestPrice = (items) => {
         items.sort((a, b) => a.amount - b.amount);
-        const price = items[0].price * items[0].amount * (1 - (items[0].discount / 100));
-        return price.toFixed(2);
+        const price = Number((Math.abs(items[0].price * items[0].amount * (1 - (items[0].discount / 100) - (loyaltydiscount / 100))) * 100).toPrecision(15));
+        const roundedPrice = Math.round(price) / 100 * Math.sign(items[0].price * items[0].amount * (1 - (items[0].discount / 100) - (loyaltydiscount / 100)));
+        return roundedPrice.toFixed(2);
     };
 
     const getHighestDiscount = (items) => {
@@ -85,11 +150,18 @@ const ProductCard = ({ image, name, amountDiscount, link}) => {
     };
 
     return (
-        <Card classes={{root: classes.card}} onClick={() => history.push(`/products/${link}`)}>
+        <Card 
+            classes={{root: classes.card}} 
+            onClick={() => {
+                    history.push(`/products/${link}`);
+                    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+                }}
+            > 
             <CardContent classes={{root: classes.cardContent}}>
                 <Box>
                     <Box display="flex" justifyContent='center' alignItems='center' style={{height: '100%', width: '100%'}}>
-                        <img src={image} alt={name} className={classes.img}/>
+                        {!imgLoaded && <Skeleton variant="rect" animation='wave' classes={{root: classes.skeletonPicture}}/>}
+                        <img src={image} alt={name} className={classes.img} onLoad={() => setImgLoaded(true)} />
                     </Box>
                     <h3 className={classes.cardText}>{name}</h3>
                     <h3 className={classes.cardText}>Nuo {getLowestPrice(amountDiscount)} &euro;</h3>

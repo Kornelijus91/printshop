@@ -1,22 +1,41 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Box, CircularProgress } from '@material-ui/core';
-import { ReactComponent as LinkedInLogo } from '../../media/social/LinkedInLogo.svg';
+import { IconButton, Box, CircularProgress } from '@material-ui/core';
+// import { ReactComponent as LinkedInLogo } from '../../media/social/LinkedInLogo.svg';
+import { FaLinkedin } from "react-icons/fa";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     button: {
-        width: "80%",
-        height: "2.5rem",
-        marginBottom: "1rem",
-        backgroundColor: "white",
-        borderRadius: '10rem',
-        boxShadow: "0px 2px 2px #888888",
+        // width: "80%",
+        // height: "2.5rem",
+        // marginBottom: "1rem",
+        // backgroundColor: "white",
+        // borderRadius: '10rem',
+        // boxShadow: "0px 2px 2px #888888",
+        margin: '0 .5rem .2rem .5rem',
+        [theme.breakpoints.up('xxl')]:{
+            margin: '0 .75rem .4rem .75rem',
+            padding: '1.7rem',
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            margin: '0 1rem .4rem 1rem',
+            padding: '3rem',
+        },
         '&:hover': {
-            backgroundColor: '#f3f2ef',
-            boxShadow: "0px 2px 3px #888888"
+            backgroundColor: 'white',
+            
         },
     },
-  });
+    icon: {
+        color: '#2867B2',
+        [theme.breakpoints.up('xxl')]:{
+            transform: 'scale(1.35)'
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            transform: 'scale(2)'
+        },
+    },
+  }));
 
 const LinkedInAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSocialSubmitting, setOAuthWindow, oAuthWindow }) => {
 
@@ -58,9 +77,10 @@ const LinkedInAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSo
 
     return (
         <Box display="flex" justifyContent="center">
-            <Button variant="contained" color="primary" onClick={linkedInAuth} classes={{root: classes.button}} disabled={socialSubmitting.someone}>
-                {socialSubmitting.linkedIn ? <CircularProgress size={20}/> : <LinkedInLogo style={{margin: "0 0 0 .4rem", padding: "0", height: "1.5rem"}} />}
-            </Button>
+            <IconButton variant="contained" onClick={linkedInAuth} classes={{root: classes.button}} disabled={socialSubmitting.someone}>
+                {/* <LinkedInLogo style={{margin: "0 0 0 .4rem", padding: "0", height: "1.5rem"}} /> */}
+                {socialSubmitting.linkedIn ? <CircularProgress size={50} className={classes.icon}/> : <FaLinkedin size={50} className={classes.icon}/>}
+            </IconButton>
         </Box>
     )
 }

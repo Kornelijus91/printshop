@@ -1,7 +1,14 @@
-import { Container, Box } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Carouselv2 from './Carouselv2';
 import ProductsSectionHome from './ProductsSectionHome';
+import FreeShippingSection from './FreeShippingSection';
+import ClubSection from './ClubSection';
+import Divider from './Divider';
+import Divider2 from './Divider2';
+import Divider3 from './Divider3';
+import HowItWorksSection from './HowItWorksSection';
+import ApieMusSection from './ApieMusSection';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,17 +24,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Homepage = ({ products, carousel, setCarousel }) => {
+const Homepage = ({ products, carousel, setCarousel, loyaltydiscount }) => {
 
     const classes = useStyles();
 
     return (
-        <Container maxWidth='xl' classes={{root: classes.root}}>
+        <Box maxWidth='xl' classes={{root: classes.root}}>
             <Carouselv2 carousel={carousel} setCarousel={setCarousel}/>
             <Box classes={{root: classes.content}}>
-                <ProductsSectionHome products={products}/>
+                <ProductsSectionHome products={products} loyaltydiscount={loyaltydiscount}/>
+                <FreeShippingSection />
+                <Divider />
+                <ClubSection />
+                <Divider2 />
+                <HowItWorksSection />
+                <Divider3 />
+                <ApieMusSection />
             </Box>
-        </Container>
+        </Box>
     )
 }
 

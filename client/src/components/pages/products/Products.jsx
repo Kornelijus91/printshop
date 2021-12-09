@@ -20,27 +20,48 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         color: theme.myTheme.sriftoSpalva,
         margin: '0',
-        padding: '0 0 1rem 0'
+        padding: '1rem 0 1rem 0',
+        [theme.breakpoints.up('md')]: {
+            padding: '0 0 1rem 0',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '2.6rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '3.2rem',
+        },
     },
     content: {
         width: '100%',
         [theme.breakpoints.up('md')]: {
             width: '94%',
         },
-        // [theme.breakpoints.up('lg')]: {
-        //     width: '94%',
-        // },
         [theme.breakpoints.up('xl')]: {
             width: '60%',
         },
     },
     cardShadow: {
-        boxShadow: '2px 2px 3px #737373',
-        transition:'box-shadow .2s ease', 
+        width: '100%',
+        boxShadow: `0 0 0 0 ${theme.myTheme.sriftoSpalva}`,
+        transition:'box-shadow .4s ease', 
         borderRadius: '5px',
         margin: '.7rem',
         '&:hover': {
-            boxShadow: '3px 3px 3px #737373',
+            boxShadow: `0 0 0 4px ${theme.myTheme.sriftoSpalva}`,
+        },
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1rem',
+            borderRadius: '7px',
+            '&:hover': {
+                boxShadow: `0 0 0 6px ${theme.myTheme.sriftoSpalva}`,
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '1.2rem',
+            borderRadius: '9px',
+            '&:hover': {
+                boxShadow: `0 0 0 8px ${theme.myTheme.sriftoSpalva}`,
+            },
         },
     },
     breadcrumbLink: {
@@ -50,16 +71,42 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             color: '#2d5286',
         },
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+        },
     },
     breadcrumbLinkDisabled: {
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,
         textDecoration: 'none',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+        },
+    },
+    breakcrumbs: {
+        margin: '.5rem 0 0 .7rem',
+        [theme.breakpoints.up('md')]: {
+            margin: '1rem 0 0 .7rem',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1rem 0 0 1rem',
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '1rem 0 0 1.2rem',
+            fontSize: '1.8rem',
+        },
     },
 }));
 
-const Products = ({ products }) => {
+const Products = ({ products, loyaltydiscount }) => {
 
     const classes = useStyles();
 
@@ -78,7 +125,7 @@ const Products = ({ products }) => {
             </Helmet>
             <Box display='flex' justifyContent='center'>
                 <Box classes={{root: classes.content}}>
-                    <Breadcrumbs aria-label="breadcrumb" style={{margin: '1rem 0 0 .7rem'}}>
+                    <Breadcrumbs aria-label="breadcrumb" className={classes.breakcrumbs}>
                         <Link to='/' className={classes.breadcrumbLink}>Pagrindinis puslapis</Link>
                         <Link to='/products' className={classes.breadcrumbLinkDisabled}>Produktai</Link>
                     </Breadcrumbs>
@@ -90,13 +137,14 @@ const Products = ({ products }) => {
                     {products.length > 0 ?
                         <Grid container display="flex" justifyContent='flex-start' >
                             {products.map((item) => 
-                                <Grid item xl={2} lg={2} md={3} sm={3} xs={6} key={item._id} style={{display: 'flex', justifyContent: 'center'}}>
+                                <Grid item xl={2} lg={2} md={3} sm={4} xs={6} key={item._id} style={{display: 'flex', justifyContent: 'center'}}>
                                     <Box classes={{root: classes.cardShadow}} style={{display: 'flex', justifyContent: 'center'}}>
                                         <ProductCard 
                                             image={item.image}
                                             name={item.name}
                                             amountDiscount={item.amountDiscount}
                                             link={item.link}
+                                            loyaltydiscount={loyaltydiscount}
                                         />
                                     </Box>
                                 </Grid>
@@ -105,7 +153,7 @@ const Products = ({ products }) => {
                     :
                         <Grid container display="flex" justifyContent='center' >
                             {fillWithSkeletons().map((item, index) => 
-                                <Grid item xl={2} lg={2} md={2} sm={4} xs={6} key={index} style={{display: 'flex', justifyContent: 'center'}}>
+                                <Grid item xl={2} lg={2} md={2} sm={4} xs={4} key={index} style={{display: 'flex', justifyContent: 'center'}}>
                                     {item}
                                 </Grid>
                             )}

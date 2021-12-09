@@ -13,12 +13,19 @@ const useStyles = makeStyles((theme) => ({
     variantSelect: {
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
-        border: `1px solid ${theme.myTheme.trecia}`,
+        // border: `1px solid ${theme.myTheme.trecia}`,
         margin: '0 0 1rem 0',
+        borderRadius: '4px',
         '&:focus': {
             borderRadius: '4px',
-            border: `1px solid ${theme.myTheme.trecia}`,
+            // border: `1px solid ${theme.myTheme.trecia}`,
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '6px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '8px',
+        },
     },
     variantSelectIcon: {
         color: theme.myTheme.trecia,
@@ -26,6 +33,14 @@ const useStyles = makeStyles((theme) => ({
     variantSelectIconExample: {
         color: theme.myTheme.trecia,
         marginTop: '-.5rem',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5) translateX(-.75rem)',
+            marginTop: '-.75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2) translateX(-1rem)',
+            marginTop: '-1rem',
+        },
     },
     formVariantSelect: {
         width: '16rem',
@@ -37,6 +52,12 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.up('lg')]: {
             width: '21rem',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            width: '31.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
         },
     },
     exampleHeaderBox: {
@@ -50,6 +71,12 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             width: '21rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '31.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
+        },
     },
     formVariant: {
         width: '16rem',
@@ -62,6 +89,12 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             width: '21rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '31.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
+        },
     },
     header: {
         color: theme.myTheme.trecia,
@@ -69,6 +102,12 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.6rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem'
+        },
     },
     image: {
         maxWidth: '10rem',
@@ -77,21 +116,49 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 0 1rem 0',
         padding: '1rem',
         backgroundColor: theme.myTheme.trecia,
-        borderRadius: '7px'
+        borderRadius: '7px',
+        [theme.breakpoints.up('xxl')]: {
+            maxWidth: '15rem',
+            maxheight: '22.5rem',
+            margin: '0 0 1.5rem 0',
+            padding: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxWidth: '20rem',
+            maxheight: '30rem',
+            margin: '0 0 2rem 0',
+            padding: '2rem',
+        },
     },
     infotext: {
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         margin: '0 0 1rem 0',
         padding: '0',
-        fontSize: '.75rem'
+        fontSize: '.75rem',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 1.5rem 0',
+            fontSize: '1.125rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 2rem 0',
+            fontSize: '1.5rem',
+        },
     },
     infoTextRed: {
         color: theme.myTheme.pirma,
         fontFamily: theme.myTheme.sriftas,
         margin: '0 0 1rem 0',
         padding: '0',
-        fontSize: '.75rem'
+        fontSize: '.75rem',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 1.5rem 0',
+            fontSize: '1.125rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 2rem 0',
+            fontSize: '1.5rem',
+        },
     },
     input: {
         display: 'none',
@@ -101,6 +168,12 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         border: `1px solid ${theme.myTheme.trecia}`,
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: "1.5rem",
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "2rem",
+        },
     },
     diasbleOutline: {
         border: 'none',
@@ -109,11 +182,23 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.trecia,
         margin: '0',
         padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
     innerGridItem: {
         margin: '0',
         [theme.breakpoints.up('md')]: {
             margin: '0 0 0 1rem',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 0 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 0 2rem',
         },
     },
     innerGridItemRight: {
@@ -121,9 +206,21 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             margin: '0 0 0 1rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 0 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0',
+        },
     },
     imageinfoBox: {
-        maxWidth: '21rem'
+        maxWidth: '21rem',
+        [theme.breakpoints.up('xxl')]: {
+            maxWidth: '31.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxWidth: '41rem',
+        },
     },
     optionsDisplayBox: {
         width: '16rem',
@@ -140,7 +237,19 @@ const useStyles = makeStyles((theme) => ({
         padding: '.5rem',
         borderRadius: '4px',
         border: `1px solid ${theme.myTheme.trecia}`,
-        overflowY: 'auto'
+        overflowY: 'auto',
+        [theme.breakpoints.up('xxl')]: {
+            width: '31.5rem',
+            height: '30rem',
+            padding: '.75rem',
+            borderRadius: '6px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
+            height: '40rem',
+            padding: '1rem',
+            borderRadius: '8px',
+        },
     },
     optionDisplayItem: {
         width: '100%',
@@ -152,6 +261,14 @@ const useStyles = makeStyles((theme) => ({
             cursor: 'pointer',
             backgroundColor: theme.myTheme.antra,
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            padding: '.75rem',
+            borderRadius: '6px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '1rem',
+            borderRadius: '8px',
+        },
     },
     optionNameText: {
         margin: '0',
@@ -160,6 +277,12 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         fontSize: '.95rem',
         overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.9rem',
+        },
     },
     optionDescText: {
         margin: '0',
@@ -168,12 +291,24 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         fontSize: '.75rem',
         overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.125rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.5rem',
+        },
     },
     closeIcon: {
         color: theme.myTheme.sriftoSpalva,
         '&:hover': {
            cursor: 'pointer',
            color: '#0d1726',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
         }, 
     },
     optionDisplayImageBox: {
@@ -186,6 +321,12 @@ const useStyles = makeStyles((theme) => ({
     optionDisplayImage: {
         width: '2.5rem',
         objectFit: 'contain',
+        [theme.breakpoints.up('xxl')]: {
+            width: '5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '10rem',
+        },
     },
     variantNameSingleBox: {
         width: '100%',
@@ -205,10 +346,21 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
+        borderRadius: '4px',
         '&:focus': {
             borderRadius: '4px',
             border: `1px solid ${theme.myTheme.trecia}`,
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 1.5rem 0',
+            minHeight: '5.25rem',
+            borderRadius: '6px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 2rem 0',
+            minHeight: '7rem',
+            borderRadius: '8px',
+        },
     },
     variantSelectSummon: {
         color: theme.myTheme.trecia,
@@ -221,19 +373,45 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
+        borderRadius: '4px',
         '&:focus': {
             borderRadius: '4px',
             border: `1px solid ${theme.myTheme.trecia}`,
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 1.5rem 0',
+            padding: '0 0 0 1.5rem',
+            minHeight: '5.25rem',
+            borderRadius: '6px',
+            fontSize: '1.4rem',
+            '&:focus': {
+                borderRadius: '6px',
+            }, 
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 2rem 0',
+            padding: '0 0 0 2rem',
+            minHeight: '7rem',
+            borderRadius: '8px',
+            fontSize: '1.8rem',
+            '&:focus': {
+                borderRadius: '8px',
+            }, 
+        },
     },
     listItem: {
         margin: '0 1rem 0 1rem',
         padding: '0',
         overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 1.5rem 0 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 2rem 0 2rem',
+        },
     },
     menuItem: {
         width: '16rem',
-        overflowWrap: 'break-word',
         [theme.breakpoints.up('sm')]: {
             width: '15rem',
         },
@@ -243,13 +421,30 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             width: '21rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '31.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
+        },
+        overflowWrap: 'break-word',
     },
     primaryListText: {
-        // maxWidth: '15rem'
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem'
+        },
     },
     secondaryListText: {
         color: '#bfbfbf',
-        // maxWidth: '15rem'
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem'
+        },
     },
     avatar: {
         backgroundColor: 'transparent'
@@ -264,11 +459,29 @@ const useStyles = makeStyles((theme) => ({
             color: '#e6e6e6',
             cursor: 'pointer'
         }, 
+        [theme.breakpoints.up('xxl')]:{
+            transform: 'scale(1.5)',
+            marginRight: '1.5rem'
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            transform: 'scale(2)',
+            marginRight: '2rem'
+        },
     },
     cancelButton: {
         marginBottom: '1rem',
         [theme.breakpoints.up('sm')]: {
             marginBottom: '0',
+        },
+        [theme.breakpoints.up('xxl')]:{
+            height: '3.75rem',
+            fontSize: '1.4rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            height: '5rem',
+            fontSize: '1.8rem',
+            borderRadius: '9px',
         },
     },
     addoptionButton: {
@@ -284,17 +497,41 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             width: '21rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '31.5rem',
+            height: '3.75rem',
+            fontSize: '1.4rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
+            height: '5rem',
+            fontSize: '1.8rem',
+            borderRadius: '9px',
+        },
     },
     optionsBox: {
         padding: '0',
         [theme.breakpoints.up('sm')]: {
             padding: '0 1rem 0 1rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            padding: '0 1.5rem 0 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '0',
+        },
     },
     optionsDisplayBoxParent: {
         marginLeft: '0',
         [theme.breakpoints.up('md')]: {
             marginLeft: '1rem',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            marginLeft: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginLeft: '2rem',
         },
     },
     optionDisplayTextBox: {
@@ -498,7 +735,7 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
         <Box classes={{root: classes.root}}>
             <Grid container>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                    <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
+                    <Box display='flex' justifyContent='flex-end' alignItems='center'>
                         <SummonSelect 
                             itemIndex={itemIndex}
                             setProductInfo={setProductInfo}
@@ -550,13 +787,14 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                                 </Grid>
                             </Box>
                             <Box>
-                                <FormControl variant="outlined" className={classes.formVariantSelect}>
+                                <FormControl variant="standard" disableUnderline className={classes.formVariantSelect}>
                                     <Select
                                         id="simple-select-outlined"
-                                        classes={{outlined: classes.variantSelectExample, iconOutlined: classes.variantSelectIconExample}}
+                                        classes={{root: classes.variantSelectExample, icon: classes.variantSelectIconExample}}
                                         value={dummyValue}
                                         onChange={(e) => handleDummyValueChange(e)}
                                         defaultValue={0}
+                                        disableUnderline
                                         MenuProps={{ classes: { list: classes.menuPaper } }}
                                     >
                                         { productInfo.options[itemIndex].menuOptions.length > 0 && productInfo.options[itemIndex].menuOptions.map((item, index) => 
@@ -571,7 +809,6 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                                                                 primary: classes.primaryListText,
                                                                 secondary: classes.secondaryListText,
                                                             }}
-                                                            style={{maxWidth: '13rem'}}
                                                             primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
                                                             secondaryTypographyProps={{ style: { whiteSpace: "normal" } }}
                                                             primary={item.variantName} 
@@ -588,7 +825,6 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                                                             classes={{
                                                                 primary: classes.primaryListText,
                                                             }}
-                                                            style={{maxWidth: '13rem'}}
                                                             primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
                                                             primary={item.variantName}
                                                         />
@@ -601,7 +837,6 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                                                                 primary: classes.primaryListText,
                                                                 secondary: classes.secondaryListText,
                                                             }}
-                                                            style={{maxWidth: '17rem'}}
                                                             primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
                                                             secondaryTypographyProps={{ style: { whiteSpace: "normal" } }}
                                                             primary={item.variantName} 
@@ -615,7 +850,6 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                                                             classes={{
                                                                 primary: classes.primaryListText,
                                                             }}
-                                                            style={{maxWidth: '17rem'}}
                                                             primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
                                                             primary={item.variantName}
                                                         />
@@ -684,9 +918,9 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                                         </Box>
                                     }
                                 </Box>
-                                <Box classes={{root: classes.cancelButton}}>
+                                <Box>
                                     <label htmlFor={`upload_option_id${itemIndex}`}>
-                                        <Button variant="contained" color="primary" component="span">
+                                        <Button variant="contained" color="primary" component="span" classes={{root: classes.cancelButton}}>
                                             { productOptionsMemo[itemIndex].fileSrc !== null && productOptionsMemo[itemIndex].fileURL ? 'Pakeisti' : 'Įkelti' }
                                         </Button>
                                     </label>
@@ -751,15 +985,16 @@ const SelectOption = ({ productInfo, itemIndex, setProductInfo, setSnackbar, pro
                                     />
                                 </FormControl> 
                                 <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Pasirinkimo iškvietimas:</h3>
-                                <FormControl variant="outlined" className={classes.formVariantSelect}>
+                                <FormControl variant="standard" disableUnderline className={classes.formVariantSelect}>
                                     <Select
                                         id="summon_select"
                                         onWheel={(e) => e.target.blur()}
+                                        disableUnderline
                                         value={productOptionsMemo[itemIndex].summonID}
                                         onChange={handleVariantChange('summonID')}
                                         label="Iškvietimo ID"
                                         defaultValue={productOptionsMemo[itemIndex].summonID}
-                                        classes={{outlined: classes.variantSelectSummon, iconOutlined: classes.variantSelectIconExample}}
+                                        classes={{root: classes.variantSelectSummon, icon: classes.variantSelectIconExample}}
                                     >
                                         <MenuItem value={0}>
                                             <em>Nėra</em>

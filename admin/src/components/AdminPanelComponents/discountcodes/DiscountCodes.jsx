@@ -27,9 +27,31 @@ const useStyles = makeStyles((theme) => ({
         margin: '.5rem 0 0 0',
         padding: '.5rem .5rem .001rem .5rem',
         width: '99%',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+            margin: '2rem 0 0 0',
+            padding: '.75rem .75rem .002rem .75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            margin: '4rem 0 0 0',
+            padding: '1rem 1rem .003rem 1rem',
+        },
     },
     infosection: {
-        marginLeft: '1rem'
+        marginLeft: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginLeft: '1.5rem',
+            '& p': {
+                fontSize: '1.3rem'
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginLeft: '2rem',
+            '& p': {
+                fontSize: '2rem'
+            },
+        },
     },
     itemActive: {
         backgroundColor: '#26a69a',
@@ -39,6 +61,14 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             cursor: 'pointer',
             backgroundColor: '#1c7d73',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+            margin: '0 0 .75rem 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            margin: '0 0 1rem 0',
         },
     },
     itemNotActive: {
@@ -50,12 +80,36 @@ const useStyles = makeStyles((theme) => ({
             cursor: 'pointer',
             backgroundColor: '#cc1928',
         },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+            margin: '0 0 .75rem 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            margin: '0 0 1rem 0',
+        },
     },
     deleteIcon: {
         color: theme.myTheme.trecia,
         '&:hover': {
             cursor: 'pointer',
             color:'#f2f2f2',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+        },
+    },
+    iconBox: {
+        display: 'inline-block', 
+        marginRight: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginRight: '2.5rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginRight: '3.5rem'
         },
     },
 }));
@@ -139,8 +193,8 @@ const DiscountCodes = ({ user, setSnackbar, codeModal, setCodeModal, handleCodeC
         }
     };
 
-    const isActive = (oneuse, used, valid) => {
-        if ((oneuse && used > 0) || new Date(valid) <= new Date()) {
+    const isActive = (valid) => {
+        if (new Date(valid) <= new Date()) {
             return false;
         } else {
             return true;
@@ -181,7 +235,7 @@ const DiscountCodes = ({ user, setSnackbar, codeModal, setCodeModal, handleCodeC
                                 container display="flex" 
                                 justifyContent='flex-start' 
                                 alignItems='center' 
-                                className={isActive(item.oneuse, item.used, item.valid) ? classes.itemActive : classes.itemNotActive}
+                                className={isActive(item.valid) ? classes.itemActive : classes.itemNotActive}
                                 onClick={() => {
                                     setCodeModal({
                                         open: true,
@@ -193,7 +247,7 @@ const DiscountCodes = ({ user, setSnackbar, codeModal, setCodeModal, handleCodeC
                                     });
                                 }}
                             >
-                                <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
+                                <Grid item xl={4} lg={4} md={4} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
                                         <p>{item.code}</p>
                                     </Box>
@@ -203,11 +257,11 @@ const DiscountCodes = ({ user, setSnackbar, codeModal, setCodeModal, handleCodeC
                                         <p>Nuolaida: {item.discount}%</p>
                                     </Box>
                                 </Grid>
-                                <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
+                                {/* <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
                                         <p>{!item.oneuse ? 'Daugkartinis' : 'Vienkartinis'}</p>
                                     </Box>
-                                </Grid>
+                                </Grid> */}
                                 <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
                                         <p>Panaudotas {item.used} kartų</p>
@@ -215,14 +269,15 @@ const DiscountCodes = ({ user, setSnackbar, codeModal, setCodeModal, handleCodeC
                                 </Grid>
                                 <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
-                                        <p>Galioja iki: {new Date(item.valid).getDate()+"/"+(new Date(item.valid).getMonth() + 1)+"/"+new Date(item.valid).getFullYear()}</p>
+                                        <p>Galioja iki: {new Date(item.valid).getFullYear()+"-"+(new Date(item.valid).getMonth() + 1)+"-"+new Date(item.valid).getDate()}</p>
+                                        {/* <p>Galioja iki: {new Date(item.valid).getDate()+"/"+(new Date(item.valid).getMonth() + 1)+"/"+new Date(item.valid).getFullYear()}</p> */}
                                     </Box>
                                 </Grid>
                                 <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
                                         <Box display="flex" justifyContent='flex-end' alignItems='center'>
                                             <Tooltip title='Ištrinti' placement="top" arrow>
-                                                <div style={{display: 'inline-block', marginRight: '1rem'}}>
+                                                <div className={classes.iconBox}>
                                                     <FaTrash size={20} className={classes.deleteIcon} onClick={(e) => openDeleteModal(e, item._id)}/> 
                                                 </div>
                                             </Tooltip>

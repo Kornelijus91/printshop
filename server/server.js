@@ -6,6 +6,9 @@ const Product = require("./models/products");
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const fs = require("fs");
+var cron = require('node-cron');
+const CartItem = require("./models/cartItem")
+const Order = require("./models/order")
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config()
@@ -57,8 +60,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-
-
 app.use("/users", userRouter)
 app.use("/administracija", adminRouter)
 
@@ -66,7 +67,59 @@ app.get('/personalas', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../admin/build', 'index.html'));
 });
 
-app.use('/euploads', express.static('private/uploads'))
+app.use('/euploads', express.static('private/uploads'));
+app.use('/uploads', express.static('public/uploads'));
+
+cron.schedule('0 0 4 * * *', async () => {
+    var expiryDate = new Date();
+    var pastDate = expiryDate.getDate() - 14;
+    expiryDate.setDate(pastDate);
+    const cartItems = await CartItem.find({ modifiedAt: { $lte: expiryDate } }).exec();
+    for (const citm of cartItems) {
+        try{
+            Order.find({'cartItems._id': citm._id }, async function (err, orders){
+                if (!err) {
+                    for (const oitm of orders) {
+                        if (oitm.status === 'Apmokėtas') {
+                            break;
+                        }
+                        const cartItemsNotExpired = await CartItem.find({ modifiedAt: { $gte: expiryDate }, image: citm.image }).exec();
+                        try {
+                            if (cartItemsNotExpired.length <= 0 && oitm.status !== 'Apmokėtas' && fs.existsSync(`./public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`)) {
+                                fs.unlink(`./public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`, (err) => {
+                                    if (!err) {
+                                        return true;
+                                    } 
+                                })
+                            }
+                        } catch (error) {
+                            console.log(error);
+                        }
+
+                        if (oitm.status !== 'Įvykdytas' && oitm.status !== 'Apmokėtas' && oitm.status !== 'Atšauktas') {
+                            oitm.status = 'Atšauktas';
+                        }
+
+                        Order.updateMany({'cartItems._id': citm._id}, {'$set': {
+                            'cartItems.$.image': '',
+                        }}).exec();
+                        
+                        oitm.save();
+                    }
+                } else {
+                    console.log(err);
+                }
+            });
+            
+        } catch (error) {
+          console.log(error);
+        };
+        citm.deleteOne();
+    }
+}, {
+    scheduled: true,
+    timezone: "Europe/Vilnius"
+});
 
 app.get('/', (req, res, next) => {
     const indexPath  = path.resolve(__dirname, '../client/build', 'index.html')

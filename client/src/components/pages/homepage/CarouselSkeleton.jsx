@@ -7,19 +7,136 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         margin: '0',
         padding: '0',
-        height: '40rem',
+        height: '90%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        
+        // [theme.breakpoints.up('md')]: {
+        //     height: '90%',
+        // },
+        // [theme.breakpoints.up('lg')]: {
+        //     height: '40rem',
+        // },
     },
     carouselContent: {
         width: '100%',
+        [theme.breakpoints.up('md')]: {
+            width: '80%',
+        },
     },
     carouselItem: {
-        height: '37rem'
+        width: '100%',
+        height: '20rem',
+        display: "flex", 
+        justifyContent: 'flex-start', 
+        alignItems: 'center',
+        paddingLeft: '1rem',
+        [theme.breakpoints.up('md')]: {
+            height: '30rem',
+        },
+        [theme.breakpoints.up('lg')]: {
+            height: '40rem',
+            paddingLeft: '4.5rem'
+        },
+        [theme.breakpoints.up('xxl')]: {
+            height: '55rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: '65rem',
+        },
     },
     carouselIndicators: {
-        width: '100%'
+        width: '100%',
+        
+    },
+    leftInner: {
+       
+    },
+    skeletonHeader: {
+        height: 30, 
+        width: 100,
+        
+        [theme.breakpoints.up('lg')]: {
+            height: 65, 
+            width: 210
+        },
+        [theme.breakpoints.up('xxl')]: {
+            height: 75, 
+            width: 310
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: 85, 
+            width: 410
+        },
+    },
+    skeletonText1: {
+        height: 20, 
+        width: 140,
+        [theme.breakpoints.up('lg')]: {
+            height: 45,
+            width: 310
+        },
+        [theme.breakpoints.up('xxl')]: {
+            height: 55, 
+            width: 410
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: 65, 
+            width: 510
+        },
+    },
+    skeletonText2: {
+        height: 20, 
+        width: 120,
+        [theme.breakpoints.up('lg')]: {
+            height: 45, 
+            width: 270
+        },
+        [theme.breakpoints.up('xxl')]: {
+            height: 55, 
+            width: 370
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: 65, 
+            width: 470
+        },
+    },
+    skeletonButton: {
+        height: 30, 
+        width: 60,
+        [theme.breakpoints.up('lg')]: {
+            height: 60, 
+            width: 100
+        },
+        [theme.breakpoints.up('xxl')]: {
+            height: 70, 
+            width: 200
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: 80, 
+            width: 300
+        },
+    },
+    skeletonPicture: {
+        height: 200, 
+        width: 120,
+        [theme.breakpoints.up('sm')]: {
+            height: 200, 
+            width: 300,
+        },
+        [theme.breakpoints.up('lg')]: {
+            height: 450, 
+            width: 520
+        },
+        [theme.breakpoints.up('xxl')]: {
+            height: 550, 
+            width: 620
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: 850, 
+            width: 1020
+        },
     },
 }));
 
@@ -31,21 +148,21 @@ const CarouselSkeleton = () => {
     return (
         <Box classes={{root: classes.root}}>
             <Box classes={{root: classes.carouselContent}}>
-                <Grid container display="flex" justifyContent='center' alignItems='center'>
+                <Grid container>
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
-                        <Box classes={{root: classes.carouselItem}} display="flex" justifyContent='center' alignItems='center'>
-                            <Box >
+                        <Box classes={{root: classes.carouselItem}}>
+                            <Box classes={{root: classes.leftInner}}>
                                 <Box classes={{root: classes.contentItem}}> 
-                                    <Skeleton variant="text" animation='wave' height={65} width={210}/>
+                                    <Skeleton variant="text" animation='wave' classes={{root: classes.skeletonHeader}}/>
                                 </Box>
                                 <Box classes={{root: classes.contentItem}}>
-                                    <Skeleton variant="text" animation='wave' height={45} width={310}/>
+                                    <Skeleton variant="text" animation='wave' classes={{root: classes.skeletonText1}}/>
                                 </Box>
                                 <Box classes={{root: classes.contentItem}}>
-                                    <Skeleton variant="text" animation='wave' height={45} width={270}/>
+                                    <Skeleton variant="text" animation='wave' classes={{root: classes.skeletonText2}}/>
                                 </Box>
                                 <Box classes={{root: classes.contentItem}}>
-                                    <Skeleton variant="text" width={100} height={60} animation='wave'/>
+                                    <Skeleton variant="text" animation='wave' classes={{root: classes.skeletonButton}}/>
                                 </Box>
                             </Box>
                         </Box>
@@ -53,15 +170,15 @@ const CarouselSkeleton = () => {
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
                         <Box classes={{root: classes.carouselItem}} display="flex" justifyContent='center' alignItems='center'>
                             <Box >
-                                <Skeleton variant="text" width={520} height={450} animation='wave'/>
+                                <Skeleton variant="text" animation='wave' classes={{root: classes.skeletonPicture}}/>
                             </Box>
                         </Box>
                     </Grid>
                 </Grid>
                 <Box classes={{root: classes.carouselIndicators}} display="flex" justifyContent='center' alignItems='center'>
-                    <Skeleton variant="circle"  width={15} height={15} animation='wave' style={{marginRight: '1rem'}}/>
-                    <Skeleton variant="circle"  width={15} height={15} animation='wave' style={{marginRight: '1rem'}}/>
-                    <Skeleton variant="circle"  width={15} height={15} animation='wave'/>
+                    <Skeleton variant="circle"  width={10} height={10} animation='wave' style={{marginRight: '2rem'}}/>
+                    <Skeleton variant="circle"  width={10} height={10} animation='wave' style={{marginRight: '2rem'}}/>
+                    <Skeleton variant="circle"  width={10} height={10} animation='wave'/>
                 </Box>
             </Box>
         </Box>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Box, Grid, CircularProgress, Tooltip } from '@material-ui/core';
+import { Box, Grid, CircularProgress, Tooltip, useMediaQuery } from '@material-ui/core';
 import { FaTrash } from 'react-icons/fa';
 import { AiFillEdit } from "react-icons/ai";
 import DeleteCarouselItemModal from './DeleteCarouselItemModal';
@@ -12,20 +12,38 @@ const useStyles = makeStyles((theme) => ({
         // height: '97vh',
         // width: '96.5%',
         color: theme.myTheme.trecia,
-        fontFamily: theme.myTheme.sriftas
+        fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            margin: '2rem 0 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '4rem 0 0 0',
+        },
     },
     header: {
         margin: '0',
         padding: '0',
-        fontSize: '1.5rem'
+        fontSize: '1.5rem',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '2.25rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '3rem',
+        },
     },
     accountsBox: {
         backgroundColor: theme.myTheme.antra,
         borderRadius: '7px',
         padding: '.001rem 0 0 0',
         width: '99%',
-        // height: '85%',
-        // overflowY: 'auto'
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+            padding: '.002rem 0 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            padding: '.004rem 0 0 0',
+        },
     },
     // accountsBoxInner: {
     //     // height: '95%',
@@ -33,6 +51,12 @@ const useStyles = makeStyles((theme) => ({
     // },
     progressIcon: {
         color: theme.myTheme.sriftoSpalva,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
     item: {
         backgroundColor: theme.myTheme.sriftoSpalva,
@@ -48,6 +72,18 @@ const useStyles = makeStyles((theme) => ({
             maxWidth: '99%',
             padding: '.3rem .3rem .3rem 1.5rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+            padding: '.45rem .45rem .45rem 2.25rem',
+            margin: '.75rem',
+            height: '6rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            padding: '.6rem .6rem .6rem 3rem',
+            margin: '1rem',
+            height: '8rem',
+        },
     },
     deleteIcon: {
         color: theme.myTheme.trecia,
@@ -55,6 +91,12 @@ const useStyles = makeStyles((theme) => ({
             color: '#e6e6e6',
             cursor: 'pointer'
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
     image: {
         maxWidth: '3rem',
@@ -62,11 +104,33 @@ const useStyles = makeStyles((theme) => ({
         objectFit: 'contain',
         margin: '0',
         padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            maxWidth: '4.5rem',
+            maxheight: '4.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxWidth: '6rem',
+            maxheight: '6rem',
+        },
     },
     infosection: {
         display: 'flex', 
         justifyContent: 'flex-start', 
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.6rem',
+            '& p': {
+                margin: 0,
+                padding: 0,
+            }, 
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+            '& p': {
+                margin: 0,
+                padding: 0,
+            }, 
+        },
     },
     trashsection: {
         display: 'flex', 
@@ -74,11 +138,24 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         height: '100%'
     },
+    endIconBox: {
+        marginRight: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginRight: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginRight: '2rem',
+        },
+    },
 }));
 
 const ListCarouselItems = ({ user, setCarouselView, setCarouselItemInfo, setSnackbar, items, setItems }) => {
 
     const classes = useStyles();
+    const theme = useTheme();
+
+    const screenSizexxl = useMediaQuery(theme.breakpoints.up('xxl'));
+    const screenSizexxxl = useMediaQuery(theme.breakpoints.up('xxxl'));
     
     const [submitting, setSubmitting] = useState(false);
     const [deleteModal, setDeleteModal] = useState({
@@ -190,7 +267,13 @@ const ListCarouselItems = ({ user, setCarouselView, setCarouselItemInfo, setSnac
                 <DragDropContext onDragEnd={handleOnDragEnd}>
                     <Droppable droppableId="items">
                         {(provided) => (
-                            <Box classes={{root: classes.accountsBox}} style={{height: `${4.6 * items.length}rem`, minHeight: '5rem'}} {...provided.droppableProps} ref={provided.innerRef}>
+                            <Box classes={{root: classes.accountsBox}} 
+                                style={{
+                                    height: `${screenSizexxxl ? 9.2 * items.length : screenSizexxl ? 6.9 * items.length : 4.6 * items.length}rem`, minHeight: '5rem'
+                                }} 
+                                {...provided.droppableProps} 
+                                ref={provided.innerRef}
+                            >
                                 {items.map((item, index) => 
                                     <Draggable key={item._id} draggableId={item._id} index={index}>
                                         {(provided) => (
@@ -204,7 +287,7 @@ const ListCarouselItems = ({ user, setCarouselView, setCarouselItemInfo, setSnac
                                                                     alt={`${item.title}`} 
                                                                     className={classes.image} 
                                                                     style={{
-                                                                        borderRadius: `${item.borderRadius * (3 / item.size)}rem`
+                                                                        borderRadius: `${screenSizexxxl ? item.borderRadius * 2 * (3 / item.size) : screenSizexxl ? item.borderRadius * 1.5 * (3 / item.size) : item.borderRadius * (3 / item.size)}rem`
                                                                     }} 
                                                                 />
                                                             </Box>
@@ -219,7 +302,7 @@ const ListCarouselItems = ({ user, setCarouselView, setCarouselItemInfo, setSnac
                                                 <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                                                     { user.administracija &&
                                                         <Box classes={{root: classes.trashsection}}>
-                                                            <Box style={{marginRight: '1rem'}} display='flex' justifyContent='center' alignItems='center'>
+                                                            <Box classes={{root: classes.endIconBox}} display='flex' justifyContent='center' alignItems='center'>
                                                                 <Tooltip title='Redaguoti' placement="top" arrow>
                                                                     <div>
                                                                         <AiFillEdit 
@@ -252,7 +335,7 @@ const ListCarouselItems = ({ user, setCarouselView, setCarouselItemInfo, setSnac
                                                 <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                                                     { user.administracija &&
                                                         <Box classes={{root: classes.trashsection}}>
-                                                            <Box style={{marginRight: '1rem'}} display='flex' justifyContent='center' alignItems='center'>
+                                                            <Box classes={{root: classes.endIconBox}} display='flex' justifyContent='center' alignItems='center'>
                                                                 <Tooltip title='Ištrinti' placement="top" arrow>
                                                                     <div>
                                                                         <FaTrash size={20} className={classes.deleteIcon} onClick={(e) => openDeleteModal(e, item._id, item.title)}/> 

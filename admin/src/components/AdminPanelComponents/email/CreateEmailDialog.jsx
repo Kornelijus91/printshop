@@ -20,7 +20,31 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#132339',
         },
-    }
+        [theme.breakpoints.up('xxl')]: {
+            height: '3.75rem',
+            fontSize: '1.6rem',
+            padding: '1.5rem',
+            margin: '1rem 3rem 1rem 0',
+            borderRadius: '7px'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: '5rem',
+            fontSize: '2rem',
+            padding: '2rem',
+            margin: '1.5rem 4rem 1.5rem 0',
+            borderRadius: '9px'
+        },
+    },
+    xIcon: {
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+            marginRight: '1rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+            marginRight: '1.5rem',
+        },
+    },
 }));
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -84,7 +108,7 @@ const CreateEmailDialog = ({ modal, setModal, setLetter, letter }) => {
                             Sukurti
                         </Button>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                            <CloseIcon />
+                            <CloseIcon className={classes.xIcon}/>
                         </IconButton>
                     </Box>
                 </Toolbar>

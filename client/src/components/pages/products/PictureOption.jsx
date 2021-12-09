@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Box, Grid, Tooltip, Card, CardActionArea, CardContent, CardMedia, Badge } from '@material-ui/core';
+import { Box, Grid, Tooltip, Card, CardActionArea, CardContent, CardMedia, Badge, useMediaQuery } from '@material-ui/core';
 import { FaInfo, FaCheck } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,11 +10,23 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+        },
     },
     infoIcon: {
         color: theme.myTheme.sriftoSpalva,
         margin: '0',
         padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+        },
     },
     image: {
         maxWidth: '10rem',
@@ -23,7 +35,21 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 0 1rem 0',
         padding: '1rem',
         backgroundColor: theme.myTheme.trecia,
-        borderRadius: '7px'
+        borderRadius: '7px',
+        [theme.breakpoints.up('xxl')]: {
+            maxWidth: '15rem',
+            maxheight: '22.5rem',
+            margin: '0 0 1.5rem 0',
+            padding: '1.5rem',
+            borderRadius: '10px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxWidth: '20rem',
+            maxheight: '30rem',
+            margin: '0 0 2rem 0',
+            padding: '2rem',
+            borderRadius: '14px',
+        },
     },
     LeftItem: {
         margin: '0',
@@ -40,6 +66,14 @@ const useStyles = makeStyles((theme) => ({
     card: {
         margin: '0 .5rem 0 0',
         height: '100%',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 .75rem 0 0',
+            borderRadius: '7px'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 1rem 0 0',
+            borderRadius: '7px'
+        },
         '&:hover': {
             cursor: 'pointer',
             // outline: `2px solid ${theme.myTheme.ketvirta}`
@@ -52,24 +86,77 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         // maxWidth: '4.2rem',
         overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 .75rem 0',
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 1rem 0',
+            fontSize: '1.9rem',
+        },
     },
     cardContent: {
         margin: '0',
-        padding: '.5rem .5rem 0 .5rem'
+        padding: '.5rem .5rem 0 .5rem',
+        // objectFit: 'contain',
+        [theme.breakpoints.up('xxl')]: {
+            padding: '.75rem .75rem 0 .75rem',
+            width: '100%',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '1rem 1rem 0 1rem',
+            width: '100%',
+        },
+    },
+    badgecontainer: {
+        width: '100%',
     },
     optionDisplayImage: {
         width: '100%',
         objectFit: 'contain',
+        [theme.breakpoints.up('xxl')]: {
+            objectFit: 'contain',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            objectFit: 'fill',
+        },
     },
     previewSelectedBadge: {
         marginRight: '.5rem',
         marginTop: '.5rem',
         height: '1.6rem',
         borderRadius: '50%',
-        backgroundColor: theme.myTheme.pirma
+        backgroundColor: theme.myTheme.pirma,
+        [theme.breakpoints.up('xxl')]: {
+            marginRight: '.75rem',
+            marginTop: '.75rem',
+            height: '2.4rem',
+            width: '2.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginRight: '1rem',
+            marginTop: '1rem',
+            height: '3.2rem',
+            width: '3.2rem',
+        },
     },
     checkMark: {
-        color: theme.myTheme.trecia
+        color: theme.myTheme.trecia,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+        },
+    },
+    gridItem: {
+        margin: '0 0 .5rem 0',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 .75rem 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 1rem 0',
+        },
     },
 }));
 
@@ -80,6 +167,9 @@ const PictureOption = ({ optionsValues, setOptionsValues, index, product }) => {
 
     const [selected, setSelected] = useState(0);
 
+    const screenSizexxl = useMediaQuery(theme.breakpoints.up('xxl'));
+    const screenSizexxxl = useMediaQuery(theme.breakpoints.up('xxxl'));
+
     const handleSelect = (selected) => {
         setSelected(selected);
         var copy = [...optionsValues];
@@ -87,6 +177,21 @@ const PictureOption = ({ optionsValues, setOptionsValues, index, product }) => {
         copy[index].price = product.options[0].menuOptions[selected].priceAdd;
         setOptionsValues(copy);
     };
+
+    useEffect(() => {
+        if (optionsValues[index]) {
+            for (var i = 0; i <= product.options[index].menuOptions.length - 1; i++) {
+                if (product.options[index].menuOptions[i].variantName ===  optionsValues[index].value) {
+                    setSelected(i);
+                    break;
+                }
+            }
+        } else {
+            setSelected(0);
+        }
+
+        // eslint-disable-next-line
+    }, [optionsValues]);
 
     return (
         <Box classes={{root: classes.LeftItem}}>
@@ -111,13 +216,30 @@ const PictureOption = ({ optionsValues, setOptionsValues, index, product }) => {
                 { product.options[index].menuOptions.length > 0  &&
                     <Grid container>
                         { product.options[index].menuOptions.map((item, indexinner) => 
-                            <Grid item xl={4} lg={4} md={4} sm={6} xs={6} style={{margin: '0 0 .5rem 0'}}>
-                                <Card className={classes.card} onClick={() => handleSelect(indexinner)} style={indexinner !== selected ? {border: `2px solid ${theme.myTheme.trecia}`} : {border: `2px solid ${theme.myTheme.pirma}`}}>
-                                    <CardActionArea style={{height: '100%', display: 'flex', alignItems: 'flex-start'}} >
+                            <Grid item xl={4} lg={4} md={4} sm={4} xs={4} className={classes.gridItem}>
+                                <Card 
+                                    className={classes.card} 
+                                    onClick={() => handleSelect(indexinner)} 
+                                    style={
+                                        indexinner !== selected ? 
+                                            screenSizexxxl ? {border: `4px solid ${theme.myTheme.trecia}`} 
+                                            :
+                                            screenSizexxl ? {border: `3px solid ${theme.myTheme.trecia}`} 
+                                            : 
+                                            {border: `2px solid ${theme.myTheme.trecia}`} 
+                                        :
+                                            screenSizexxxl ? {border: `4px solid ${theme.myTheme.pirma}`} 
+                                            :
+                                            screenSizexxl ? {border: `3px solid ${theme.myTheme.pirma}`} 
+                                            : 
+                                            {border: `2px solid ${theme.myTheme.pirma}`}
+                                    }
+                                    >
+                                    <CardActionArea style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'flex-start'}} >
                                         <Box>
                                             <CardMedia classes={{root: classes.cardContent}}>
                                                 <Badge 
-                                                    classes={{badge: classes.previewSelectedBadge}}
+                                                    classes={{badge: classes.previewSelectedBadge, root: classes.badgecontainer}}
                                                     anchorOrigin={{
                                                         vertical: 'top',
                                                         horizontal: 'right',

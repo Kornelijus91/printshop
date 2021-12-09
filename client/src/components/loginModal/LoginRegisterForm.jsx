@@ -16,18 +16,31 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
     textInput: {
-        marginBottom: "1rem",
+        marginBottom: "1.2rem",
         backgroundColor: theme.myTheme.ketvirta,
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,
-        borderRadius: '5rem',
-        boxShadow: "0px 2px 2px #888888",
-        '&:hover': {
-            boxShadow: "0px 2px 3px #888888"
+        borderRadius: '6px',
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: "1.5rem",
+            borderRadius: '9px',
+            display: 'flex',
+            alignItems: 'center',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "2rem",
+            borderRadius: '12px',
+            paddingLeft: '1rem'
         },
     },
     input: {
-        height: '.5rem',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+            padding: '2rem'
+        },
     },
     diasbleOutline: {
         border: 'none',
@@ -35,53 +48,123 @@ const useStyles = makeStyles((theme) => ({
     button: {
         width: '100%',
         marginBottom: ".5rem",
-        borderRadius: '10rem',
+        borderRadius: '6px',
         height: '2.5rem',
-        boxShadow: "0px 2px 2px #888888",
-        '&:hover': {
-            boxShadow: "0px 2px 3px #888888"
-        },
         color: theme.myTheme.trecia,
         backgroundColor: theme.myTheme.pirma,
         fontFamily: theme.myTheme.sriftas,
         fontWeight: "bold",
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: ".75rem",
+            borderRadius: '9px',
+            height: '3.375rem',
+            fontSize: '1.2rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "1rem",
+            borderRadius: '12px',
+            height: '4.5rem',
+            fontSize: '1.6rem',
+        },
     },
     alert: {
         width: '100%',
-        borderRadius: '10rem',
-        // height: '2.5rem',
-        boxShadow: "0px 2px 2px #888888",
+        borderRadius: '6px',
         padding: '.2rem .2rem .2rem 1rem',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '9px',
+            padding: '.3rem .3rem .3rem 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '12px',
+            padding: '1rem .4rem 1rem 2rem',
+        },
     },
     alertBox: {
         marginBottom: '1rem',
-        
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: '2rem',
+        },
     },
     alertText: {
         textAlign: "left",
-        marginTop: '-.1rem',
-        padding: "0px",
+        margin: 0,
+        padding: 0,
         fontFamily: theme.myTheme.sriftas,
+        overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.2rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.6rem',
+        },
     },
     alertIcon: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+            marginRight: '1rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+            marginRight: '1.5rem'
+        },
+    },
+    passwordhideIcon: {
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.35)',
+            marginRight: '.2rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+            marginRight: '1rem'
+        },
     },
     labelRoot: {
         marginTop: '-.6rem',
         color: `${theme.myTheme.sriftoSpalva} !important`,
         padding: '.2rem .5rem .2rem .5rem',
-        borderRadius: '.5rem .5rem 0 0',
+        borderRadius: '6px 6px 0 0',
         backgroundColor: theme.myTheme.ketvirta,
         fontFamily: theme.myTheme.sriftas,
+        transform: 'translateX(.5rem) translateY(1.6rem)',
+        [theme.breakpoints.up('xxl')]: {
+            // marginTop: '-.9rem',
+            padding: '.3rem .75rem .3rem .75rem',
+            borderRadius: '9px 9px 0 0',
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: 0,
+            padding: '.4rem 1rem .4rem 1rem',
+            borderRadius: '12px 12px 0 0',
+            fontSize: '2rem',
+        },
     },
     labelFocused: {
         color: `${theme.myTheme.sriftoSpalva} !important`,
         fontFamily: theme.myTheme.sriftas,
         padding: '.2rem .5rem .2rem .5rem',
-        borderRadius: '.5rem .5rem 0 0',
+        borderRadius: '6px 6px 0 0',
         backgroundColor: theme.myTheme.ketvirta,
+        [theme.breakpoints.up('xxl')]: {
+            padding: '.3rem .75rem .3rem .75rem',
+            borderRadius: '9px 9px 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '.4rem 1rem .4rem 1rem',
+            borderRadius: '12px 12px 0 0',
+        },
+    },
+    labelShrink: {
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '-1rem'
+        },
     },
 }));
 
@@ -91,7 +174,7 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
 
     const [showPassword, setShowPassword] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [errorHeight, setErrorHeight] = useState('2.5rem')
+    // const [errorHeight, setErrorHeight] = useState('2.5rem')
 
     const genericErrorMessage = "Klaida! Pabandykite vėliau."
 
@@ -125,15 +208,15 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
         setIsSubmitting(true);
         
         if (!loginValues.email) {
-            setErrorHeight('2.5rem');
+            // setErrorHeight('2.5rem');
             setError("Įrašykite El. Pašto adresą.");
             setIsSubmitting(false);
         } else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(String(loginValues.email).toLowerCase())) {
-            setErrorHeight('2.5rem');
+            // setErrorHeight('2.5rem');
             setError("Neteisingas El. Pašto adresas.");
             setIsSubmitting(false);
         } else if (!loginValues.password) {
-            setErrorHeight('2.5rem');
+            // setErrorHeight('2.5rem');
             setError("Įrašykite slaptažodį.");
             setIsSubmitting(false);
         } else {
@@ -147,20 +230,20 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
                 setIsSubmitting(false)
                 if (!response.ok) {
                     if (response.status === 400) {
-                        setErrorHeight('3.5rem');
+                        // setErrorHeight('3.5rem');
                         setError("Užpildykite laukus tinkama informacija.")
                     } else if (response.status === 401) {
-                        setErrorHeight('3.5rem');
+                        // setErrorHeight('3.5rem');
                         setError("Neteisingas vartotojo vardas arba slaptažodis.")
                     } else {
                         if (response.statusText === "google") {
-                            setErrorHeight('3.5rem');
+                            // setErrorHeight('3.5rem');
                             setError("Vartotojas jau registruotas su Google.")
                         } else if (response.statusText === "google") {
-                            setErrorHeight('3.5rem');
+                            // setErrorHeight('3.5rem');
                             setError("Vartotojas jau registruotas su Facebook.")
                         } else {
-                            setErrorHeight('3.5rem');
+                            // setErrorHeight('3.5rem');
                             setError("Toks El. Pašto adresas jau užregistruotas.")
                         }
                     }
@@ -199,31 +282,31 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
         const regExp2 = /[A-Z]/g
         const regExp3 = /[0-9]/g
         if (!registerValues.email) {
-            setErrorHeight('2.5rem');
+            // setErrorHeight('2.5rem');
             setError("Įrašykite El. Pašto adresą.");
             setIsSubmitting(false);
         } else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(String(registerValues.email).toLowerCase())) {
-            setErrorHeight('2.5rem');
+            // setErrorHeight('2.5rem');
             setError("Neteisingas El. Pašto adresas.");
             setIsSubmitting(false);
         } else if (!registerValues.password) {
-            setErrorHeight('2.5rem');
+            // setErrorHeight('2.5rem');
             setError("Įrašykite slaptažodį.");
             setIsSubmitting(false);
         } else if (String(registerValues.password).length < 6) {
-            setErrorHeight('3.5rem');
-            setError("Slaptažodis turi sudaryti bent 6 simboliai.");
+            // setErrorHeight('3.5rem');
+            setError("Slaptažodį turi sudaryti bent 6 simboliai.");
             setIsSubmitting(false);
         } else if (!(regExp3.test(String(registerValues.password)) && (regExp2.test(String(registerValues.password)) || regExp.test(String(registerValues.password))))) {
-            setErrorHeight('3.5rem');
+            // setErrorHeight('3.5rem');
             setError("Slaptažodis turi būti sudarytas iš bent vieno skaičiaus ir bent vienos raidės.");
             setIsSubmitting(false);
         } else if (!registerValues.cofirmPass) {
-            setErrorHeight('2.5rem');
+            // setErrorHeight('2.5rem');
             setError("Patvirtinkite slaptažodį.");
             setIsSubmitting(false);
         } else if (registerValues.cofirmPass !== registerValues.password) {
-            setErrorHeight('2.5rem');
+            // setErrorHeight('2.5rem');
             setError("Nesutampa slaptažodžiai.");
             setIsSubmitting(false);
         } else {
@@ -237,23 +320,23 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
                 setIsSubmitting(false)
                 if (!response.ok) {
                     if (response.status === 400) {
-                        setErrorHeight('3.5rem');
+                        // setErrorHeight('3.5rem');
                         setError("Užpildykite laukus tinkama informacija.")
                     } else if (response.status === 401) {
-                        setErrorHeight('3.5rem');
+                        // setErrorHeight('3.5rem');
                         setError("Neteisingas vartotojo vardas arba slaptažodis.")
                     } else {
                         if (response.statusText === "google") {
-                            setErrorHeight('3.5rem');
+                            // setErrorHeight('3.5rem');
                             setError("Vartotojas jau registruotas su Google.")
                         } else if (response.statusText === "google") {
-                            setErrorHeight('3.5rem');
+                            // setErrorHeight('3.5rem');
                             setError("Vartotojas jau registruotas su Facebook.")
                         } else if (response.statusText === "linkedIn") {
-                            setErrorHeight('3.5rem');
+                            // setErrorHeight('3.5rem');
                             setError("Vartotojas jau registruotas su Linked In.")
                         } else {
-                            setErrorHeight('3.5rem');
+                            // setErrorHeight('3.5rem');
                             setError("Toks El. Pašto adresas jau užregistruotas.")
                         }
                     }
@@ -289,11 +372,11 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
         <form className={classes.textField} method="POST" onSubmit={(e) => handleSubmit(e)}>
             <Collapse in={error !== ''}>
                 <Box className={classes.alertBox} display='flex' justifyContent='center' alignItems='center'>
-                    <Alert severity="warning" classes={{root: classes.alert, icon: classes.alertIcon}} style={{height: `${errorHeight}`}}><p className={classes.alertText}>{error}</p></Alert>
+                    <Alert severity="warning" classes={{root: classes.alert, icon: classes.alertIcon}}><p className={classes.alertText}>{error}</p></Alert>
                 </Box>
             </Collapse>
             <FormControl className={classes.form} variant="outlined" >
-                <InputLabel htmlFor="outlined-adornment-username" classes={{root: classes.labelRoot, focused: classes.labelFocused}}>El. paštas</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-username" classes={{root: classes.labelRoot, focused: classes.labelFocused, shrink: classes.labelShrink}}>El. paštas</InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-username"
                     type='text'
@@ -305,7 +388,7 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
                 />
             </FormControl>
             <FormControl className={classes.form} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password" classes={{root: classes.labelRoot, focused: classes.labelFocused}}>Slaptažodis</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-password" classes={{root: classes.labelRoot, focused: classes.labelFocused, shrink: classes.labelShrink}}>Slaptažodis</InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? 'text' : 'password'}
@@ -321,6 +404,7 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
                                 edge="end"
                                 tabIndex="-1"
                                 style={{color: "#1D3557"}}
+                                classes={{root: classes.passwordhideIcon}}
                             >
                                 {showPassword ? <Visibility /> : <VisibilityOff />}
                             </IconButton>
@@ -333,7 +417,7 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
             <Collapse in={value === "Registruotis"}>
                 <Box className={classes.confirmBox} display='flex' alignItems='center'>
                     <FormControl className={classes.form} variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-confirm-password" classes={{root: classes.labelRoot, focused: classes.labelFocused}}>Patvirtinti slaptažodį</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-confirm-password" classes={{root: classes.labelRoot, focused: classes.labelFocused, shrink: classes.labelShrink}}>Patvirtinti slaptažodį</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-confirm-password"
                             type={showPassword ? 'text' : 'password'}
@@ -349,6 +433,7 @@ const LoginRegisterForm = ({ setToken, setModalOpen, setLoggedIn, value, setErro
                                         edge="end"
                                         style={{color: "#1D3557"}}
                                         tabIndex="-2"
+                                        classes={{root: classes.passwordhideIcon}}
                                     >
                                         {showPassword ? <Visibility /> : <VisibilityOff />}
                                     </IconButton>

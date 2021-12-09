@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Box, Grid, Button, Dialog, DialogActions, DialogContent, DialogTitle, OutlinedInput, FormControl, Select, MenuItem, CircularProgress } from '@material-ui/core';
+import { Box, Grid, Button, Dialog, DialogActions, DialogContent, useMediaQuery, DialogTitle, OutlinedInput, FormControl, Select, MenuItem, CircularProgress } from '@material-ui/core';
 import SelectOption from './SelectOption';
 import NumberOption from './NumberOption';
 import NumberSingleOption from './NumberSingleOption';
@@ -13,13 +13,18 @@ const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '7px',
         backgroundColor: theme.myTheme.sriftoSpalva,
-        width: '250rem',
     },
     dialogBackgroundTop: {
         backgroundColor: theme.myTheme.sriftoSpalva,
         borderRadius: '5px 5px 0 0',
         [theme.breakpoints.down('sm')]: {
             padding: '1rem'
+        },
+        [theme.breakpoints.up('xxl')]: {
+            padding: '1.5rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '2rem'
         },
     },
     dialogBackground: {
@@ -37,14 +42,26 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         margin: '0',
-        padding: '0'
+        padding: '0',
+        [theme.breakpoints.up('xxl')]:{
+            fontSize: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            fontSize: '2rem',
+        },
     },
     infotext: {
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         margin: '0 0 1rem 0',
         padding: '0',
-        fontSize: '.75rem'
+        fontSize: '.75rem',
+        [theme.breakpoints.up('xxl')]:{
+            fontSize: '1.08rem',
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            fontSize: '1.5rem',
+        },
     },
     cancelButton: {
         margin: '0',
@@ -55,6 +72,16 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#e31c2d',
         }, 
+        [theme.breakpoints.up('xxl')]:{
+            padding: '.75rem 1.5rem .75rem 1.5rem',
+            fontSize: '1.5rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            padding: '1rem 1.5rem 1rem 1.5rem',
+            fontSize: '2rem',
+            borderRadius: '9px',
+        },
     },
     saveButton: {
         margin: '0',
@@ -66,6 +93,18 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#1c7d73',
         }, 
+        [theme.breakpoints.up('xxl')]:{
+            padding: '.75rem 1.5rem .75rem 1.5rem',
+            fontSize: '1.5rem',
+            width: '10.5rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            padding: '1rem 1.5rem 1rem 1.5rem',
+            fontSize: '2rem',
+            width: '14rem',
+            borderRadius: '9px',
+        },
     },
     input: {
         display: 'none',
@@ -76,6 +115,12 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('xl')]: {
             borderRight: '1px solid #1a304d',
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            padding: '0 1.5rem 0 1.5rem',
+        }, 
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '0 2rem 0 2rem',
+        }, 
     },
     image: {
         maxWidth: '10rem',
@@ -84,7 +129,21 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 0 1rem 0',
         padding: '1rem',
         backgroundColor: theme.myTheme.trecia,
-        borderRadius: '7px'
+        borderRadius: '7px',
+        [theme.breakpoints.up('xxl')]: {
+            maxWidth: '100%',
+            maxheight: '100%',
+            margin: '0 0 1.5rem 0',
+            padding: '1.5rem',
+            borderRadius: '10px',
+        }, 
+        [theme.breakpoints.up('xxxl')]: {
+            // maxWidth: '20rem',
+            // maxheight: '30rem',
+            margin: '0 0 2rem 0',
+            padding: '2rem',
+            borderRadius: '14px',
+        }, 
     },
     nameBox: {
         padding: '0 1rem 0 1rem',
@@ -108,6 +167,12 @@ const useStyles = makeStyles((theme) => ({
     },
     formVariantSelect: {
         width: '21rem',
+        [theme.breakpoints.up('xxl')]: {
+            width: '32rem',
+        }, 
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
+        }, 
     },
     textInput: {
         marginBottom: "1rem",
@@ -127,18 +192,68 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         border: `1px solid ${theme.myTheme.trecia}`,
+        margin: '0',
+        padding: '0 0 0 1rem',
+        minHeight: '3.5rem',
+        textOverflow: 'ellipsis',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        borderRadius: '4px',
         '&:focus': {
             borderRadius: '4px',
             border: `1px solid ${theme.myTheme.trecia}`,
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0',
+            padding: '0 0 0 1.5rem',
+            minHeight: '5.25rem',
+            fontSize: '1.4rem',
+            borderRadius: '6px',
+            '&:focus': {
+                borderRadius: '6px',
+            }, 
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0',
+            padding: '0 0 0 2rem',
+            minHeight: '7rem',
+            fontSize: '1.8rem',
+            borderRadius: '8px',
+            '&:focus': {
+                borderRadius: '8px',
+            }, 
+        },
     },
     variantSelectIcon: {
         color: theme.myTheme.trecia,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5) translateX(-.75rem)',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2) translateX(-1rem)',
+        },
     },
     icon: {
         color: theme.myTheme.trecia,
         margin: '0',
         padding: '0',
+    },
+    optionParentBox: {
+        padding: '0 1rem 1rem 0', 
+        border: '1px solid #F1FAEE', 
+        borderRadius: '4px',
+        margin: '0 0 1rem 1rem',
+        [theme.breakpoints.up('xxl')]: {
+            padding: '0 1.5rem 1.5rem 0', 
+            borderRadius: '6px',
+            margin: '0 0 1.5rem 1rems',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '0 2rem 2rem 0', 
+            borderRadius: '8px',
+            margin: '0 0 2rem 1.3rem',
+        },
     },
 }));
 
@@ -149,6 +264,9 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
 
     const [selectOption, setSelectOption] = useState(0);
     const [submitting, setSubmitting] = useState(false);
+
+    const screenSizexxl = useMediaQuery(theme.breakpoints.up('xxl'));
+    const screenSizexxxl = useMediaQuery(theme.breakpoints.up('xxxl'));
 
     const handleProductInfoChange = (prop) => (event) => {
         setProductInfo({ ...productInfo, [prop]: event.target.value });
@@ -441,7 +559,8 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
             classes={{paper: classes.root}}
-            maxWidth='lg'
+            fullWidth
+            maxWidth={screenSizexxxl ? 'xxl' : screenSizexxl ? 'xl' : 'lg'}
         >
             <DialogTitle id="scroll-dialog-title" classes={{root: classes.dialogBackgroundTop}}><h4 className={classes.header}>Pridėti produktą</h4></DialogTitle>
             <DialogContent dividers={true} classes={{root: classes.dialogBackground}}>
@@ -453,11 +572,11 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                                     <Box>
                                         <h3 className={classes.header} style={{marginBottom: '1rem'}}>Produkto piktograma</h3>
                                     </Box>
-                                    <Box>
+                                    <Box style={{width: '100%'}}>
                                         { file.URL ? 
                                             <img className={classes.image} src={file.URL} alt=""/>
                                         :
-                                            <p className={classes.infotext}>Geriausia png failas, nedidelis 128px dydžio, lengvas, max 20 KB. Dabartinės ikonos įkeltos iš <a style={{color: theme.myTheme.trecia}} href='https://www.flaticon.com/' target='_blank' rel="noreferrer">https://www.flaticon.com/.</a></p>
+                                            <p className={classes.infotext}>Geriausia png failas, nedidelis 512px dydžio, lengvas, max 100 KB. Dabartinės ikonos įkeltos iš <a style={{color: theme.myTheme.trecia}} href='https://www.flaticon.com/' target='_blank' rel="noreferrer">https://www.flaticon.com/.</a></p>
                                         }
                                     </Box>
                                     <Box>
@@ -532,7 +651,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className={classes.contentSection}>
                         <h3 className={classes.header} style={{margin: '0 0 1rem 0', padding: '0 0 0 1rem'}}>Produkto pasirinkimai:</h3>
                         {productInfo.options.length > 0 && productInfo.options.map((item, index) => 
-                            <Box key={index} style={{padding: '0 1rem 1rem 0', border: '1px solid #F1FAEE', borderRadius: '4px',margin: '0 0 1rem 1rem'}}>
+                            <Box key={index} classes={{root: classes.optionParentBox}} >
                                 {
                                     {
                                         0: <SelectOption 
@@ -571,10 +690,11 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                         )}
                         <Box display='flex' justifyContent='flex-start' alignItems='center' style={{margin: '0 0 0 1rem'}}>
 
-                            <FormControl variant="outlined" className={classes.formVariantSelect}>
+                            <FormControl variant="standard" disableUnderline className={classes.formVariantSelect}>
                                 <Select
                                     id="simple-select-outlined"
-                                    classes={{outlined: classes.variantSelect, iconOutlined: classes.variantSelectIcon}}
+                                    disableUnderline
+                                    classes={{root: classes.variantSelect, icon: classes.variantSelectIcon}}
                                     value={selectOption}
                                     onChange={(e) => handleSelectOptionChange(e)}
                                     defaultValue={0}

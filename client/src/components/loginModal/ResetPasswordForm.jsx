@@ -16,76 +16,174 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '-.6rem',
         color: `${theme.myTheme.sriftoSpalva} !important`,
         padding: '.2rem .5rem .2rem .5rem',
-        borderRadius: '.5rem .5rem 0 0',
+        borderRadius: '6px 6px 0 0',
         backgroundColor: theme.myTheme.ketvirta,
         fontFamily: theme.myTheme.sriftas,
+        transform: 'translateX(.5rem) translateY(1.6rem)',
+        [theme.breakpoints.up('xxl')]: {
+            // marginTop: '-.9rem',
+            padding: '.3rem .75rem .3rem .75rem',
+            borderRadius: '9px 9px 0 0',
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: 0,
+            padding: '.4rem 1rem .4rem 1rem',
+            borderRadius: '12px 12px 0 0',
+            fontSize: '2rem',
+        },
     },
     labelFocused: {
         color: `${theme.myTheme.sriftoSpalva} !important`,
         fontFamily: theme.myTheme.sriftas,
         padding: '.2rem .5rem .2rem .5rem',
-        borderRadius: '.5rem .5rem 0 0',
+        borderRadius: '6px 6px 0 0',
         backgroundColor: theme.myTheme.ketvirta,
+        [theme.breakpoints.up('xxl')]: {
+            padding: '.3rem .75rem .3rem .75rem',
+            borderRadius: '9px 9px 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '.4rem 1rem .4rem 1rem',
+            borderRadius: '12px 12px 0 0',
+        },
+    },
+    labelShrink: {
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '-1rem'
+        },
     },
     textInput: {
-        marginBottom: "1rem",
+        marginBottom: "1.2rem",
         backgroundColor: theme.myTheme.ketvirta,
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,
-        borderRadius: '5rem',
-        boxShadow: "0px 2px 2px #888888",
-        '&:hover': {
-            boxShadow: "0px 2px 3px #888888"
+        borderRadius: '6px',
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: "1.5rem",
+            borderRadius: '9px',
+            display: 'flex',
+            alignItems: 'center',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "2rem",
+            borderRadius: '12px',
+            paddingLeft: '1rem'
         },
     },
     input: {
-        height: '.5rem',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+            padding: '2rem'
+        },
     },
     diasbleOutline: {
         border: 'none',
     },
     infotext: {
         textAlign: 'left',
-        color: theme.myTheme.sriftoSpalva
+        color: theme.myTheme.sriftoSpalva,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.2rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.7rem'
+        },
+    },
+    header: {
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.5rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2.1rem'
+        },
     },
     infotextBox: {
         width: '80%',
-        margin: 'auto'
+        margin: 'auto',
     },
     alert: {
-        width: '100%',
-        marginBottom: '1rem',
-        borderRadius: '10rem',
-        boxShadow: "0px 2px 2px #888888",
-        padding: '.2rem .2rem .2rem 1rem'
+        width: '80%',
+        borderRadius: '6px',
+        padding: '.2rem .2rem .2rem 1rem',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '9px',
+            padding: '.3rem .3rem .3rem 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '12px',
+            padding: '1rem .4rem 1rem 2rem',
+        },
     },
     alertBox: {
-        width: '80%',
-        margin: 'auto'
+        marginBottom: '1rem',
+        display: 'flex',
+        justifyContent: 'center',
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: '2rem',
+        },
     },
     alertText: {
         textAlign: "left",
-        margin: "0px",
-        padding: "0px",
+        margin: 0,
+        padding: 0,
         fontFamily: theme.myTheme.sriftas,
+        overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.2rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.6rem',
+        },
     },
     alertIcon: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+            marginRight: '1rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+            marginRight: '1.5rem'
+        },
     },
     button: {
         width: '80%',
         marginBottom: ".5rem",
-        borderRadius: '10rem',
+        borderRadius: '6px',
         height: '2.5rem',
-        boxShadow: "0px 2px 2px #888888",
-        '&:hover': {
-            boxShadow: "0px 2px 3px #888888"
-        },
         color: theme.myTheme.trecia,
-        fontWeight: "bold",
+        backgroundColor: theme.myTheme.pirma,
         fontFamily: theme.myTheme.sriftas,
+        fontWeight: "bold",
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: ".75rem",
+            borderRadius: '9px',
+            height: '3.375rem',
+            fontSize: '1.2rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "1rem",
+            borderRadius: '12px',
+            height: '4.5rem',
+            fontSize: '1.6rem',
+        },
+    },
+    loadingIcon: {
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.35)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
 }));
 
@@ -100,7 +198,6 @@ const ResetPasswordForm = ({setModalOpen}) => {
         showFade: true,
         message: '',
         type: 'warning',
-        height: '2.5rem'
     })
 
     const handleChange = (e) => {
@@ -115,7 +212,6 @@ const ResetPasswordForm = ({setModalOpen}) => {
             showFade: true,
             message: '',
             type: 'warning',
-            height: '2.5rem'
         });
         if (!email) {
             setError({
@@ -123,7 +219,6 @@ const ResetPasswordForm = ({setModalOpen}) => {
                 showFade: false,
                 message: 'Įrašykite El. Pašto adresą.',
                 type: 'warning',
-                height: '2.5rem'
             });
             setIsSubmitting(false);
         } else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(String(email).toLowerCase())) {
@@ -131,8 +226,7 @@ const ResetPasswordForm = ({setModalOpen}) => {
                 ...error,
                 showFade: false,
                 message: 'Neteisingas El. Pašto adresas.',
-                type: 'warning',
-                height: '2.5rem'
+                type: 'warning'
             });
             setIsSubmitting(false);
         } else {
@@ -150,7 +244,6 @@ const ResetPasswordForm = ({setModalOpen}) => {
                         showFade: false,
                         message: 'Paskyra sukurta su Google. Pabandykite prisijungti su Google.',
                         type: 'warning',
-                        height: '3.5rem'
                     });
                     setIsSubmitting(false);
                 } else if (resPostData.message === 'facebook'){
@@ -159,7 +252,6 @@ const ResetPasswordForm = ({setModalOpen}) => {
                         showFade: false,
                         message: 'Paskyra sukurta su Facebook. Pabandykite prisijungti su Facebook.',
                         type: 'warning',
-                        height: '3.5rem'
                     });
                     setIsSubmitting(false);
                 } else if (resPostData.message === 'linkedIn'){
@@ -168,7 +260,6 @@ const ResetPasswordForm = ({setModalOpen}) => {
                         showFade: false,
                         message: 'Paskyra sukurta su Linked In. Pabandykite prisijungti su Linked In.',
                         type: 'warning',
-                        height: '3.5rem'
                     });
                     setIsSubmitting(false);
                 } else if (resPostData.message === 'error'){
@@ -177,7 +268,6 @@ const ResetPasswordForm = ({setModalOpen}) => {
                         showFade: false,
                         message: 'Pabandykite vėliau.',
                         type: 'warning',
-                        height: '2.5rem'
                     });
                     setIsSubmitting(false);
                 }else {
@@ -186,7 +276,6 @@ const ResetPasswordForm = ({setModalOpen}) => {
                         showFade: false,
                         message: 'Paskyra su tokiu El. pašto adresu neegzistuoja.',
                         type: 'warning',
-                        height: '3.5rem'
                     }); 
                     setIsSubmitting(false);
                 }
@@ -196,7 +285,6 @@ const ResetPasswordForm = ({setModalOpen}) => {
                     showFade: false,
                     message: 'Slaptažodžio keitimo nuoroda išsiūsta.',
                     type: 'success',
-                    height: '2.5rem'
                 }); 
                 setIsSubmitting(false);
                 setTimeout(() => setModalOpen(false), 3000)
@@ -206,23 +294,23 @@ const ResetPasswordForm = ({setModalOpen}) => {
 
     return (
         <>
-            <h3 style={{color: '#1D3557'}}>Slaptažodžio keitimas.</h3>
+            <h3 className={classes.header} style={{color: '#1D3557'}}>Slaptažodžio keitimas.</h3>
             {error.show ? 
                 <Fade in={error.showFade} onExited={() => setError({...error, show: false, showFade: false})}>
                     <Box className={classes.infotextBox}>
-                        <p className={classes.infotext}>Į jūsų el. pašto adresą bus išsiūsta slaptažodžio keitimo nuoroda.</p>
+                        <p className={classes.infotext}>Jūsų el. pašto adresu bus išsiūsta slaptažodžio keitimo nuoroda.</p>
                     </Box>
                 </Fade>
             :
                 <Fade in={!error.showFade} onExited={() => setError({...error, show: true})}>
                     <Box className={classes.alertBox}>
-                        <Alert severity={`${error.type}`} classes={{root: classes.alert, icon: classes.alertIcon}} style={{height: `${error.height}`}}><p className={classes.alertText}>{error.message}</p></Alert>
+                        <Alert severity={`${error.type}`} classes={{root: classes.alert, icon: classes.alertIcon}}><p className={classes.alertText}>{error.message}</p></Alert>
                     </Box>
                 </Fade>
             }
             <form onSubmit={(e) => handleSubmit(e)}>
                 <FormControl className={classes.form} variant="outlined" >
-                    <InputLabel htmlFor="username" classes={{root: classes.labelRoot, focused: classes.labelFocused}}>El. paštas</InputLabel>
+                    <InputLabel htmlFor="username" classes={{root: classes.labelRoot, focused: classes.labelFocused, shrink: classes.labelShrink}}>El. paštas</InputLabel>
                     <OutlinedInput
                         id="username"
                         type='text'
@@ -234,7 +322,7 @@ const ResetPasswordForm = ({setModalOpen}) => {
                     />
                 </FormControl>
                 <Button variant="contained" color="primary" type="submit" className={classes.button} disabled={isSubmitting}>
-                    {isSubmitting ? <CircularProgress size={20}/> : "Siųsti" }
+                    {isSubmitting ? <CircularProgress size={20} className={classes.loadingIcon}/> : "Siųsti" }
                 </Button>
             </form>
         </>

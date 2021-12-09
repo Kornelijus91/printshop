@@ -7,7 +7,13 @@ import SummonSelect from './SummonSelect';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: '1rem 0 0 0'
+        margin: '1rem 0 0 0',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1.5rem 0 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '2rem 0 0 0',
+        },
     },
     item: {
         margin: '0 0 0 1rem',
@@ -20,6 +26,12 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             margin: '0 0 0 1.5rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 0 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 0 2rem',
+        },
     },
     previewButtonGroup: {
         height: '3rem',
@@ -29,6 +41,16 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             margin: '0',
             width: '10rem',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            height: '4.5rem',
+            width: '14rem',
+            margin: '0 0 1.5rem 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: '6rem',
+            width: '18rem',
+            margin: '0 0 2rem 0',
         },
     },
     previewBox: {
@@ -43,6 +65,12 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             margin: '0 0 0 1.5rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 0 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 0 2rem',
+        },
     },
     previewButton: {
         color: theme.myTheme.trecia,
@@ -51,6 +79,14 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.myTheme.pirma,
         '&:hover': {
             backgroundColor: '#e31c2d',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '3rem',
+            padding: '0 1.5rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '4rem',
+            padding: '0 2rem'
         }, 
     },
     previewNumberInput: {
@@ -69,6 +105,12 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.6rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+        }, 
     },
     headersmall: {
         color: theme.myTheme.trecia,
@@ -77,17 +119,35 @@ const useStyles = makeStyles((theme) => ({
         padding: '0',
         fontSize: '.9rem',
         overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.35rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+        }, 
     },
     infoIcon: {
         color: theme.myTheme.trecia,
         margin: '0',
         padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        }, 
     },
     deleteIcon: {
         color: theme.myTheme.trecia,
         '&:hover': {
             color: '#e6e6e6',
             cursor: 'pointer'
+        }, 
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
         }, 
     },
     formVariantOptionNameInfo: {
@@ -101,12 +161,24 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             width: '21rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            width: '31.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '42rem',
+        }, 
     },
     textInput: {
         marginBottom: "1rem",
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         border: `1px solid ${theme.myTheme.trecia}`,
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: "1.5rem",
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "2rem",
+        }, 
     },
     diasbleOutline: {
         border: 'none',
@@ -116,7 +188,39 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         margin: '0 0 1rem 0',
         padding: '0',
-        fontSize: '.75rem'
+        fontSize: '.75rem',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 0 1.5rem 0',
+            fontSize: '1.125rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 0 2rem 0',
+            fontSize: '1.5rem',
+        }, 
+    },
+    exampleparentBox: {
+        display:'flex',
+        justifyContent: 'flex-start', 
+        alignItems: 'flex-start',
+        [theme.breakpoints.up('xxl')]: {
+            alignItems: 'flex-start',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            alignItems: 'center',
+        }, 
+    },
+    movetrashbox: {
+        display: 'flex', 
+        justifyContent: 'flex-end', 
+        alignItems: 'flex-end',
+        [theme.breakpoints.up('xxl')]: {
+            justifyContent: 'flex-end', 
+            alignItems: 'center',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            justifyContent: 'flex-end', 
+            alignItems: 'center',
+        }, 
     },
 }));
 
@@ -286,7 +390,7 @@ const NumberOption = ({ productInfo, itemIndex, setProductInfo, productOptionsMe
         <Box classes={{root: classes.root}}>
             <Grid container>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                    <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
+                    <Box classes={{root: classes.movetrashbox}}>
                         <SummonSelect 
                             itemIndex={itemIndex}
                             setProductInfo={setProductInfo}
@@ -476,7 +580,7 @@ const NumberOption = ({ productInfo, itemIndex, setProductInfo, productOptionsMe
                             </Box>
                         </Grid> 
                         <Grid item xl={4} lg={4} md={4} sm={4} xs={12}>
-                            <Box className={classes.item} display='flex' justifyContent='center' alignItems='center' style={{height: '100%'}}>
+                            <Box className={classes.item} display='flex' justifyContent='flex-start' alignItems='center' style={{height: '100%'}}>
                                 <Box>
                                     <p className={classes.infotext}>
                                         Papildoma kaina, už nustatytą vienetą, pridedama viršijus minimalią vertę.

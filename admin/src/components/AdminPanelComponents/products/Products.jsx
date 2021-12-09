@@ -14,12 +14,24 @@ const useStyles = makeStyles((theme) => ({
         // height: '97vh',
         // width: '96.5%',
         color: theme.myTheme.trecia,
-        fontFamily: theme.myTheme.sriftas
+        fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1.5rem 0 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '4rem 0 0 0',
+        },
     },
     header: {
         margin: '0',
         padding: '0',
-        fontSize: '1.5rem'
+        fontSize: '1.5rem',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '2.25rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '3rem',
+        },
     },
     accountsBox: {
         backgroundColor: theme.myTheme.antra,
@@ -27,6 +39,12 @@ const useStyles = makeStyles((theme) => ({
         padding: '0',
         width: '99%',
         height: '85%',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+        },
     },
     accountsBoxInner: {
         height: '95%',
@@ -34,11 +52,24 @@ const useStyles = makeStyles((theme) => ({
     },
     accountsBoxPagination: {
         marginTop: '.2rem',
-        padding: '0 0 .5rem .2rem'
+        padding: '0 0 .5rem .2rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginTop: '.3rem',
+            padding: '0 0 .75rem .3rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '.4rem',
+            padding: '0 0 1rem .4rem',
+            
+        },
+    },
+    pagination:{
+        
     },
     paginationel: {
         color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas
+        fontFamily: theme.myTheme.sriftas,
+        
     },
     progressIcon: {
         color: theme.myTheme.sriftoSpalva,
@@ -57,6 +88,16 @@ const useStyles = makeStyles((theme) => ({
             maxWidth: '99%',
             padding: '.3rem .3rem .3rem 1.5rem',
         },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+            padding: '.7rem',
+            margin: '.7rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            padding: '1.2rem',
+            margin: '1.2rem',
+        },
     },
     deleteIcon: {
         color: theme.myTheme.trecia,
@@ -64,6 +105,12 @@ const useStyles = makeStyles((theme) => ({
             color: '#e6e6e6',
             cursor: 'pointer'
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
     starIcon: {
         color: '#ffeb3b',
@@ -71,6 +118,12 @@ const useStyles = makeStyles((theme) => ({
             color: '#e6cf00',
             cursor: 'pointer'
         }, 
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        },
     },
     image: {
         maxWidth: '3rem',
@@ -79,12 +132,37 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         // backgroundColor: theme.myTheme.trecia,
-        borderRadius: '7px'
+        borderRadius: '7px',
+        [theme.breakpoints.up('xxl')]: {
+            maxWidth: '4.5rem',
+            maxheight: '4.5rem',
+            borderRadius: '10px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxWidth: '6rem',
+            maxheight: '6rem',
+            borderRadius: '14px',
+        },
     },
     infosection: {
+        height: '100%',
         display: 'flex', 
         justifyContent: 'flex-start', 
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+            '& p': {
+                margin: 0,
+                padding: 0,
+            }, 
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+            // '& p': {
+            //     margin: 0,
+            //     padding: 0,
+            // }, 
+        },
     },
     trashsection: {
         display: 'flex', 
@@ -316,7 +394,6 @@ const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) 
     return (
         <Box classes={{root: classes.root}}>
             <Helmet>
-                {/* VELIAU PAKEISTI */}
                 <title>Produktai | {ProjectName}</title>  
             </Helmet>
             <ProductModal 

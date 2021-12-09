@@ -12,7 +12,13 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.myTheme.trecia,
         '-moz-box-shadow': 'inset 0 0 5px #000000',
         '-webkit-box-shadow': 'inset 0 0 5px #000000',
-        boxShadow: 'inset 0 0 5px #000000'
+        boxShadow: 'inset 0 0 5px #000000',
+        [theme.breakpoints.up('xxl')]: {
+            height: '55rem', 
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: '65rem', 
+        },
     },
     carousel: {
         width: '100%',
@@ -52,7 +58,7 @@ const Carouselv2 = ({ carousel, setCarousel }) => {
                 
             } 
         } catch (error) {
-            console.log('Klaida gaunant karuselės elementus!');
+            // console.log('Klaida gaunant karuselės elementus!');
         }
     };
 

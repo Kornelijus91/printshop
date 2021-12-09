@@ -6,9 +6,9 @@ import AdminPanelV2 from './components/AdminPanelV2';
 
 const useStyles = makeStyles((theme) => ({
   body: {
-    width: '100vw',
+    width: '100%',
+    backgroundColor: theme.myTheme.sriftospalva,
     height: '100vh',
-    backgroundColor: theme.myTheme.sriftospalva
   },
 }));
 

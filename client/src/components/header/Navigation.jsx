@@ -1,4 +1,4 @@
-import { Container, Grid, Box, Hidden, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { Grid, Box, Hidden, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -9,11 +9,13 @@ import User from './User';
 import Cart from './Cart';
 import { FaBoxOpen, FaUser, FaHome, FaClipboardList, FaDoorOpen, FaSearch } from 'react-icons/fa';
 import { BsFillChatDotsFill } from "react-icons/bs";
+import Treklama01 from '../../media/Treklama01.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     padding: ".4rem",
+    margin: '0',
     backgroundColor: theme.myTheme.pirma,
     // boxShadow: '3px 3px 5px 6px #ccc'
   },
@@ -31,14 +33,6 @@ const useStyles = makeStyles((theme) => ({
   gridItem: {
       padding: ".7rem"
   },
-  h1: {
-    margin: "-.3rem 0 0 0",
-    fontFamily: "verdana",
-    fontSize: "2.2rem",
-    color: theme.myTheme.sriftoSpalva,
-    textDecoration: 'none',
-    letterSpacing: '-1px'
-  },
   link: {
     color: theme.myTheme.sriftoSpalva,
     fontFamily: theme.myTheme.sriftas,
@@ -50,6 +44,14 @@ const useStyles = makeStyles((theme) => ({
     transition:'color .4s ease', 
     '&:hover': {
         color: '#2d5286',
+    },
+    [theme.breakpoints.up('xxl')]: {
+        fontSize: '2.025rem',
+        margin: '0 3rem 0 0',
+    },
+    [theme.breakpoints.up('xxxl')]: {
+        fontSize: '3rem',
+        margin: '0 4rem 0 0',
     },
   },
   drawerlnk: {
@@ -71,13 +73,50 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: theme.myTheme.pirma,
   },
+  drawer: {
+    backgroundColor: theme.myTheme.pirma,
+  },
   divider: {
     background: 'rgba(29, 53, 87, 0.3)',
     marginTop: '.5rem'
   },
+  logoBox: {
+    width: '100%',
+  },
+  mainLogo: {
+    width: '100%', 
+    objectFit: 'contain',
+    padding: '.2rem 0',
+    [theme.breakpoints.up('lg')]: {
+        width: '70%', 
+    },
+    [theme.breakpoints.up('xl')]: {
+        width: '65%', 
+    },
+    [theme.breakpoints.up('xxl')]: {
+        margin: '1rem' 
+    },
+    [theme.breakpoints.up('xxxl')]: {
+        margin: '2rem' 
+    },
+  },
+  drawerLogo: {
+    width: '90%',
+    marginTop: '.5rem',
+    objectFit: 'contain'
+  },
+  drawerLogoLink: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  mobilemenuIconBox: {
+    width: '100%',
+    paddingRight: '.5rem',
+  },
 }));
 
-const Navigation = ({ setModalOpen, loggedIn, setLoggedIn, token, setToken, username, setMoneySpent }) => {
+const Navigation = ({ priceSum, loyaltydiscount, cart, firstName, setSearchResult, setSearchValue, searchResult, handlesearchValueChange, searchValue, setModalOpen, loggedIn, setLoggedIn, token, setToken, username, setMoneySpent }) => {
 
     const classes = useStyles();
     const [drawer, setDrawer] = useState(false);
@@ -116,14 +155,14 @@ const Navigation = ({ setModalOpen, loggedIn, setLoggedIn, token, setToken, user
     };
 
     return (
-        <Container maxWidth='xl' classes={{root: classes.root}}>
+        <Box maxWidth='xl' classes={{root: classes.root}}>
             <Grid container className={classes.grid} >
-                <Grid item lg={3} >
-                    <Box display='flex' justifyContent="center" alignItems="center">
-                        <Link to="/" className={classes.h1}>Artis Spausdin</Link>
+                <Grid item xl={3} lg={4} md={4} sm={4} xs={6}>
+                    <Box display='flex' justifyContent="center" alignItems="center" classes={{root: classes.logoBox}}>
+                        <Link to="/"><img src={Treklama01} alt='Tavo reklama' className={classes.mainLogo}/></Link>
                     </Box>
                 </Grid>
-                <Grid item lg={5} >
+                <Grid item xl={5} lg={5} md={false} sm={false} xs={false}>
                     <Hidden mdDown implementation="css">
                         <Box display='flex' justifyContent='flex-start' alignItems="center">
                             <Link to="/products" className={classes.link}>Produktai</Link>
@@ -131,18 +170,20 @@ const Navigation = ({ setModalOpen, loggedIn, setLoggedIn, token, setToken, user
                         </Box>
                     </Hidden>
                 </Grid>
-                <Grid item lg={3}>
+                <Grid item xl={3} lg={3} md={3} sm={5} xs={4} >
                     <Hidden mdDown implementation="css">
                         <Grid container className={classes.grid} justifyContent='flex-end'>
-                            <Grid item lg={6} className={classes.gridItem} >
-                                <SearchField />
+                            <Grid item xl={6} lg={6} md={6} sm={6} xs={6} className={classes.gridItem} >
+                                <SearchField setSearchResult={setSearchResult} setSearchValue={setSearchValue} searchValue={searchValue} handlesearchValueChange={handlesearchValueChange} searchResult={searchResult}/>
                             </Grid>
-                            <Grid item lg={2} className={classes.gridItem}>
+                            <Grid item xl={2} lg={2} md={2} sm={2} xs={2} className={classes.gridItem}>
                                 <Box justifyContent="flex-end" display='flex' alignItems="flex-end" style={{paddingRight: '.5rem'}}>   
-                                    <Cart />
+                                    <Cart 
+                                        priceSum={priceSum}
+                                    />
                                 </Box>
                             </Grid>
-                            <Grid item lg={2} className={classes.gridItem}>
+                            <Grid item xl={2} lg={2} md={2} sm={2} xs={2} className={classes.gridItem}>
                                 <Box justifyContent="flex-end" display='flex' alignItems="flex-end" style={{paddingRight: '.5rem'}}>
                                     <User 
                                         setModalOpen={setModalOpen} 
@@ -156,74 +197,79 @@ const Navigation = ({ setModalOpen, loggedIn, setLoggedIn, token, setToken, user
                                         anchorEl={anchorEl}
                                         menuOpen={menuOpen}
                                         handleLogout={handleLogout}
+                                        firstName={firstName}
                                     />
                                 </Box>
                             </Grid>
                         </Grid>
                     </Hidden>
                     <Hidden lgUp implementation="css">
-                        <Box style={{width: '100%', marginRight: '1.5rem'}} display='flex' justifyContent="center" alignItems="center">  
+                        <Box classes={{root: classes.mobilemenuIconBox}} display='flex' justifyContent="flex-end" alignItems="center">  
                             <AiOutlineMenu size={24} className={classes.icon} onClick={() => setDrawer(true)}/>
                         </Box>
                     </Hidden>
                 </Grid>  
             </Grid>
-            <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)}>
-                <div
-                    className={classes.list}
-                    role="presentation"
-                    onClick={() => setDrawer(false)}
-                    onKeyDown={() => setDrawer(false)}
-                >
-                    <Link to="/" className={classes.h1} style={{marginBottom: '1rem'}}>Artis Spausdin</Link>
-                    <Divider className={classes.divider} />
-                    <List>
-                        {!loggedIn ?
-                            <ListItem button onClick={handleUserOpen} style={{marginBottom: '.5rem', marginTop: '.5rem', paddingBottom: '0', paddingTop: '0'}}>
-                                <ListItemIcon style={{marginBottom: '0', marginTop: '0', paddingBottom: '0', paddingTop: '0'}}><FaUser size={24} className={classes.icon} /></ListItemIcon>
-                                <ListItemText classes={{root:classes.drawerlnk}} disableTypography={true} style={{marginBottom: '0', marginTop: '0', paddingBottom: '0', paddingTop: '0'}}>Prisijungti / Registruotis</ListItemText>
+            <Hidden mdDown implementation="css">
+                <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)} >
+                    <div
+                        className={classes.list}
+                        role="presentation"
+                        onClick={() => setDrawer(false)}
+                        onKeyDown={() => setDrawer(false)}
+                    >
+                        <Box display='flex' justifyContent="center" alignItems="center">
+                            <Link to="/" className={classes.drawerLogoLink}><img src={Treklama01} alt='Tavo reklama' className={classes.drawerLogo}/></Link>
+                        </Box>
+                        <Divider className={classes.divider} />
+                        <List classes={{root: classes.drawer}}>
+                            {!loggedIn ?
+                                <ListItem button onClick={handleUserOpen} style={{marginBottom: '.5rem', marginTop: '.5rem', paddingBottom: '0', paddingTop: '0'}}>
+                                    <ListItemIcon style={{marginBottom: '0', marginTop: '0', paddingBottom: '0', paddingTop: '0'}}><FaUser size={24} className={classes.icon} /></ListItemIcon>
+                                    <ListItemText classes={{root:classes.drawerlnk}} disableTypography={true} style={{marginBottom: '0', marginTop: '0', paddingBottom: '0', paddingTop: '0'}}>Prisijungti / Registruotis</ListItemText>
+                                </ListItem>
+                            : 
+                                <>
+                                    <ListItem button >
+                                        <ListItemIcon><FaUser size={24} className={classes.icon} /></ListItemIcon>
+                                        <Link to="/profile" className={classes.drawerlnk}>Profilis</Link>
+                                    </ListItem>
+                                    <ListItem button >
+                                        <ListItemIcon><FaHome size={24} className={classes.icon} /></ListItemIcon>
+                                        <Link to="/addresses" className={classes.drawerlnk}>Adresai</Link>
+                                    </ListItem>
+                                    <ListItem button >
+                                        <ListItemIcon><FaClipboardList size={24} className={classes.icon} /></ListItemIcon>
+                                        <Link to="/orders" className={classes.drawerlnk}>Užsakymai</Link>
+                                    </ListItem>
+                                    <ListItem button onClick={handleLogout}>
+                                        <ListItemIcon><FaDoorOpen size={24} className={classes.icon} /></ListItemIcon>
+                                        <ListItemText classes={{root:classes.drawerlnk}} disableTypography={true}>Atsijungti</ListItemText>
+                                    </ListItem>
+                                    <Divider className={classes.divider} />
+                                </>
+                            }
+                            <ListItem button>
+                                <ListItemIcon><FaBoxOpen size={24} className={classes.icon} /></ListItemIcon>
+                                <Link to="/products" className={classes.drawerlnk}>Produktai</Link>
                             </ListItem>
-                        : 
-                            <>
-                                <ListItem button >
-                                    <ListItemIcon><FaUser size={24} className={classes.icon} /></ListItemIcon>
-                                    <Link to="/profile" className={classes.drawerlnk}>Profilis</Link>
-                                </ListItem>
-                                <ListItem button >
-                                    <ListItemIcon><FaHome size={24} className={classes.icon} /></ListItemIcon>
-                                    <Link to="/addresses" className={classes.drawerlnk}>Adresai</Link>
-                                </ListItem>
-                                <ListItem button >
-                                    <ListItemIcon><FaClipboardList size={24} className={classes.icon} /></ListItemIcon>
-                                    <Link to="/orders" className={classes.drawerlnk}>Užsakymai</Link>
-                                </ListItem>
-                                <ListItem button onClick={handleLogout}>
-                                    <ListItemIcon><FaDoorOpen size={24} className={classes.icon} /></ListItemIcon>
-                                    <ListItemText classes={{root:classes.drawerlnk}} disableTypography={true}>Atsijungti</ListItemText>
-                                </ListItem>
-                                <Divider className={classes.divider} />
-                            </>
-                        }
-                        <ListItem button>
-                            <ListItemIcon><FaBoxOpen size={24} className={classes.icon} /></ListItemIcon>
-                            <Link to="/products" className={classes.drawerlnk}>Produktai</Link>
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon><BsFillChatDotsFill size={24} className={classes.icon} /></ListItemIcon>
-                            <Link to="/contact" className={classes.drawerlnk}>Susisiekite</Link>
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon><FaSearch size={24} className={classes.icon} /></ListItemIcon>
-                            <Link to="/searchpage" className={classes.drawerlnk}>Paieška</Link>
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon><Cart /></ListItemIcon>
-                            <Link to="/cart" className={classes.drawerlnk}>Krepšelis</Link>
-                        </ListItem>
-                    </List>
-                </div>
-            </Drawer>
-        </Container>
+                            <ListItem button>
+                                <ListItemIcon><BsFillChatDotsFill size={24} className={classes.icon} /></ListItemIcon>
+                                <Link to="/contact" className={classes.drawerlnk}>Susisiekite</Link>
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemIcon><FaSearch size={24} className={classes.icon} /></ListItemIcon>
+                                <Link to="/searchpage" className={classes.drawerlnk}>Paieška</Link>
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemIcon><Cart priceSum={priceSum}/></ListItemIcon>
+                                <Link to="/cart" className={classes.drawerlnk}>Krepšelis</Link>
+                            </ListItem>
+                        </List>
+                    </div>
+                </Drawer>
+            </Hidden>
+        </Box>
     )
 }
 

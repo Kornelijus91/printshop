@@ -11,10 +11,10 @@ const Code = new Schema({
         type: Number,
         default: 0,
     },
-    oneuse: {
-        type: Boolean,
-        default: false,
-    },
+    // oneuse: {
+    //     type: Boolean,
+    //     default: false,
+    // },
     used: {
         type: Number,
         default: 0,

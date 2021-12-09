@@ -9,7 +9,13 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
         margin: '0',
-        padding: '0'
+        padding: '0',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.6rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem'
+        },
     },
     formPrice: {
         width: '100%',

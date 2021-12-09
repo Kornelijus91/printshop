@@ -15,9 +15,29 @@ const useStyles = makeStyles((theme) => ({
         margin: '.5rem 0 0 0',
         padding: '.5rem .5rem .001rem .5rem',
         width: '99%',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '2rem 0 0 0',
+            padding: '.75rem .75rem .002rem .75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '4rem 0 0 0',
+            padding: '1rem 1rem .003rem 1rem',
+        },
     },
     infosection: {
-        marginLeft: '1rem'
+        marginLeft: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginLeft: '1.5rem',
+            '& p': {
+                fontSize: '1.6rem'
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginLeft: '2rem',
+            '& p': {
+                fontSize: '2rem'
+            },
+        },
     },
     item: {
         backgroundColor: theme.myTheme.sriftoSpalva,
@@ -28,6 +48,14 @@ const useStyles = makeStyles((theme) => ({
             cursor: 'pointer',
             backgroundColor: '#0d1726',
         },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '10px',
+            margin: '0 0 .75rem 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            margin: '0 0 1rem 0',
+        },
     },
     deleteIcon: {
         color: theme.myTheme.trecia,
@@ -35,8 +63,23 @@ const useStyles = makeStyles((theme) => ({
             cursor: 'pointer',
             color:'#f2f2f2',
         },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+        },
     },
-    
+    iconBox: {
+        display: 'inline-block', 
+        marginRight: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginRight: '2.5rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginRight: '3.5rem'
+        },
+    },
 }));
 
 const Loyalty = ({ getLoyalty, loyalty, user, setSnackbar, addLoyaltyModal, setAddLoyaltyModal, handleLoyaltyAddModalChange }) => {
@@ -110,7 +153,7 @@ const Loyalty = ({ getLoyalty, loyalty, user, setSnackbar, addLoyaltyModal, setA
                                     <Box classes={{root: classes.infosection}}>
                                         <Box display="flex" justifyContent='flex-end' alignItems='center'>
                                             <Tooltip title='Ištrinti' placement="top" arrow>
-                                                <div style={{display: 'inline-block', marginRight: '1rem'}}>
+                                                <div className={classes.iconBox} >
                                                     <FaTrash size={20} className={classes.deleteIcon} onClick={(e) => openDeleteModal(e, item._id)}/> 
                                                 </div>
                                             </Tooltip>

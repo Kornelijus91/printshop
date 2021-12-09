@@ -13,7 +13,23 @@ const useStyles = makeStyles((theme) => ({
         border: 'none',
         outline: 'none',
         width: '22rem',
-        padding: '0 1rem 0 1rem'
+        padding: '0 1rem 0 1rem',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '9px',
+            width: '33rem',
+            padding: '0 1.5rem 0 1.5rem',
+            '& h2': {
+                fontSize: '2rem'
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '14px',
+            width: '44rem',
+            padding: '0 2rem 0 2rem',
+            '& h2': {
+                fontSize: '3rem'
+            },
+        }, 
     },
     modal: {
         display: 'flex',
@@ -26,9 +42,25 @@ const useStyles = makeStyles((theme) => ({
         // height: '2.5rem',
         boxShadow: "0px 2px 2px #888888",
         padding: '.2rem .2rem .2rem 1rem',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '6px',
+            boxShadow: "0px 3px 3px #888888",
+            padding: '.3rem .3rem .3rem 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '8px',
+            boxShadow: "0px 4px 4px #888888",
+            padding: '.4rem .4rem .4rem 2rem',
+        },
     },
     alertBox: {
         margin: '1rem 0 0 0',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1.5rem 0 0 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '2rem 0 0 0',
+        },
     },
     alertText: {
         textAlign: "left",
@@ -36,6 +68,12 @@ const useStyles = makeStyles((theme) => ({
         padding: "0px",
         margin: '0',
         fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('xxl')]: {
+            marginTop: '-.15rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '-.2rem',
+        },
     },
     alertIcon: {
         display: 'flex',
@@ -54,6 +92,18 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#e31c2d',
         },
+        [theme.breakpoints.up('xxl')]: {
+            margin: "0 1.5rem 1.5rem 0",
+            borderRadius: '6px',
+            height: '3.75rem',
+            fontSize: '1.4rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: "0 2rem 2rem 0",
+            borderRadius: '8px',
+            height: '5rem',
+            fontSize: '1.8rem'
+        },
     },
     buttonCancel: {
         width: '45%',
@@ -67,6 +117,18 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#36617c',
         },
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: "1.5rem",
+            borderRadius: '6px',
+            height: '3.75rem',
+            fontSize: '1.4rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "2rem",
+            borderRadius: '8px',
+            height: '5rem',
+            fontSize: '1.8rem'
+        },
     },
     nameForm: {
         padding: '.5rem 1rem',
@@ -75,12 +137,30 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         backgroundColor: theme.myTheme.ketvirta,
         // width: 400,
+        [theme.breakpoints.up('xxl')]: {
+            padding: '.75rem 1.5rem',
+            margin: '1.5rem .75rem 1.5rem .75rem',
+            borderRadius: '7px'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '1rem 2rem',
+            margin: '2rem 1rem 2rem 1rem',
+            borderRadius: '9px'
+        },
     },
     input: {
         width: '100%',
         height: '2.5rem',
         marginLeft: theme.spacing(1),
         flex: 1,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+            height: '3.75rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+            height: '5rem',
+        },
     },
 }));
 

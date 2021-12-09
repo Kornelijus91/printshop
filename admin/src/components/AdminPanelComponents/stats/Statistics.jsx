@@ -10,7 +10,15 @@ import { SessionsByDateChart, PageViewsPerPathChart, SessionsByDeviceCategoryCha
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.myTheme.ketvirta,
-        margin: '1rem 0 0 0'
+        margin: '1rem 0 0 0',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '1.5rem 0 0 0',
+            fontSize: '1.4rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '4rem 0 0 0',
+            fontSize: '1.8rem'
+        },
     },
     button: {
         backgroundColor: theme.myTheme.pirma,
@@ -18,6 +26,12 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         '&:hover': {
             backgroundColor: '#e31c2d',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
         },
     },
 }));
