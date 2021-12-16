@@ -34,8 +34,8 @@ const upload = multer({
 
 const deleteFile = (fileUrl) => {
   try {
-    if (fs.existsSync(`./server/public/uploads/${fileUrl}`)) {
-      fs.unlink(`./server/public/uploads/${fileUrl}`, (err) => {
+    if (fs.existsSync(`./public/uploads/${fileUrl}`)) {
+      fs.unlink(`./public/uploads/${fileUrl}`, (err) => {
         if (err) {
           return false;
         } else {

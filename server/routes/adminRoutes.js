@@ -423,8 +423,8 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
             Product.findById(req.body.productID, function (err, product) {
                 if (!err) {
                     try{
-                        if (fs.existsSync(`./server/server/private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`)) {   
-                            fs.unlink(`./server/private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`, (err) => {
+                        if (fs.existsSync(`./server/private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`)) {   
+                            fs.unlink(`./private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`, (err) => {
                                 if (err) {
                                     res.send({ 
                                         success: false, 
@@ -435,8 +435,8 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
                                         for (const menuitem of item.menuOptions) {
                                             if (menuitem.fileURL) {
                                                 try{
-                                                    if (fs.existsSync(`./server/private/uploads/${menuitem.fileURL.substring(menuitem.fileURL.lastIndexOf('/') + 1)}`)) {
-                                                        fs.unlink(`./server/private/uploads/${menuitem.fileURL.substring(menuitem.fileURL.lastIndexOf('/') + 1)}`, (err) => {
+                                                    if (fs.existsSync(`./private/uploads/${menuitem.fileURL.substring(menuitem.fileURL.lastIndexOf('/') + 1)}`)) {
+                                                        fs.unlink(`./private/uploads/${menuitem.fileURL.substring(menuitem.fileURL.lastIndexOf('/') + 1)}`, (err) => {
                                                             if (err) {
                                                                 res.send({ 
                                                                     success: false, 
@@ -516,8 +516,8 @@ router.post("/createUpdateCarouselItem", verifyUser, upload.single("image"), (re
                             mainImageX = url + '/euploads/' + carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1);
                         } else {
                             try{
-                                if (fs.existsSync(`./server/private/uploads/${carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1)}`)) {
-                                    fs.unlink(`./server/private/uploads/${carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1)}`, (err) => {
+                                if (fs.existsSync(`./private/uploads/${carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1)}`)) {
+                                    fs.unlink(`./private/uploads/${carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1)}`, (err) => {
                                         if (err) {
                                             res.send({ 
                                                 success: false, 
@@ -688,8 +688,8 @@ router.post("/deleteCarouselItem",  verifyUser, async (req, res, next) => {
             Carousel.findById(req.body.carouselID, function (err, carousel) {
                 if (!err) {
                     try{
-                        if (fs.existsSync(`./server/private/uploads/${carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1)}`)) {   
-                            fs.unlink(`./server/private/uploads/${carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1)}`, (err) => {
+                        if (fs.existsSync(`./private/uploads/${carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1)}`)) {   
+                            fs.unlink(`./private/uploads/${carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1)}`, (err) => {
                                 if (err) {
                                     res.send({ 
                                         success: false, 
@@ -900,8 +900,8 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                         for (const item of productImageList) {
                             if (!reqImageList.includes(item)){
                                 try {
-                                    if (fs.existsSync(`./server/private/uploads/${item}`)) {
-                                        fs.unlink(`./server/private/uploads/${item}`, (err) => {
+                                    if (fs.existsSync(`./private/uploads/${item}`)) {
+                                        fs.unlink(`./private/uploads/${item}`, (err) => {
                                             if (err) {
                                                 res.send({ 
                                                     success: false, 
@@ -985,8 +985,8 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                             mainImageX = url + '/euploads/' + product.image.substring(product.image.lastIndexOf('/') + 1);
                         } else {
                             try{
-                                if (fs.existsSync(`./server/private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`)) {
-                                    fs.unlink(`./server/private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`, (err) => {
+                                if (fs.existsSync(`./private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`)) {
+                                    fs.unlink(`./private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`, (err) => {
                                         if (err) {
                                             res.send({ 
                                                 success: false, 
