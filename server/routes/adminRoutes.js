@@ -31,13 +31,17 @@ const roundTwoDec = (num) => {
 const storage = multer.diskStorage({
     destination: "./private/uploads/",
     filename: function(req, file, cb){
-       cb(null,"IMAGE-" + Date.now() + `-${file.originalname.replace(/\\|\//g,'')}`);
+        cb(null,"IMAGE-" + Date.now() + `-${file.originalname.replace(/\\|\//g,'')}`);
     }
 });
 
 const upload = multer({
     storage: storage,
     limits:{fileSize: 1000000},
+    onError : function(err, next) {
+        console.log('MULTER ERROR => ', err);
+        next(err);
+    }
 })  //.single("myImage");
 
 const sendConfirmEmail = (email) => {
