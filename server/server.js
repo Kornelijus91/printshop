@@ -85,8 +85,8 @@ cron.schedule('0 0 4 * * *', async () => {
                         }
                         const cartItemsNotExpired = await CartItem.find({ modifiedAt: { $gte: expiryDate }, image: citm.image }).exec();
                         try {
-                            if (cartItemsNotExpired.length <= 0 && oitm.status !== 'Apmokėtas' && fs.existsSync(`./public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`)) {
-                                fs.unlink(`./public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`, (err) => {
+                            if (cartItemsNotExpired.length <= 0 && oitm.status !== 'Apmokėtas' && fs.existsSync(`./server/public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`)) {
+                                fs.unlink(`./server/public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`, (err) => {
                                     if (!err) {
                                         return true;
                                     } 
