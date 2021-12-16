@@ -505,7 +505,8 @@ router.post("/createUpdateCarouselItem", verifyUser, upload.single("image"), (re
             try {
                 Carousel.findById(req.body.carouselItemId, function (err, carousel) {
                     if (!err) {
-                        const url = req.protocol + '://' + req.get('host');
+                        // const url = req.protocol + '://' + req.get('host');
+                        const url = process.env.MAIN_URL;
                         var mainImageX = '';
                         if (carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1) === req.body.imageURL.substring(req.body.imageURL.lastIndexOf('/') + 1)) {
                             mainImageX = url + '/euploads/' + carousel.imageURL.substring(carousel.imageURL.lastIndexOf('/') + 1);
@@ -540,7 +541,7 @@ router.post("/createUpdateCarouselItem", verifyUser, upload.single("image"), (re
                         carousel.animation = req.body.animation;
                         carousel.imageURL = mainImageX;
                         carousel.position = req.body.position;
-
+                        console.log(req.file);
                         carousel.save(function (err) {
                             if (err) {
                                 res.send({ 
@@ -569,7 +570,7 @@ router.post("/createUpdateCarouselItem", verifyUser, upload.single("image"), (re
                 })
             }
         } else {
-            const url = req.protocol + '://' + req.get('host');
+            const url = process.env.MAIN_URL;
             try {
                 var carouselObj = {
                     title: req.body.title,
@@ -743,7 +744,7 @@ router.post("/deleteCarouselItem",  verifyUser, async (req, res, next) => {
 router.post("/createProduct", verifyUser, upload.array("images"), (req, res, next) => {
     if (req.user.administracija) {
         if (!req.body.id) {
-            const url = req.protocol + '://' + req.get('host');
+            const url = process.env.MAIN_URL;
             const variantoptions = JSON.parse(req.body.options);
             let optionsConstructor = []
 
@@ -870,7 +871,7 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                 Product.findById(req.body.id, function (err, product) {
                     if (!err) {
                         // console.log(req.body);
-                        const url = req.protocol + '://' + req.get('host');
+                        const url = process.env.MAIN_URL;
                         const variantoptions = JSON.parse(req.body.options);
                         var optionsConstructor = [];
                         var productImageList = []; //product.image.substring(product.image.lastIndexOf('/') + 1)

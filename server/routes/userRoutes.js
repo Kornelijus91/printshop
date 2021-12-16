@@ -711,7 +711,7 @@ router.post("/deleteCartItem", async (req, res, next) => {
 });
 
 router.post("/addToCart", upload.single("image"), async (req, res, next) => {
-    const url = req.protocol + '://' + req.get('host');
+    const url = process.env.MAIN_URL;
     try {
         const OptionsArray = JSON.parse(req.body.options);
         let OptionsConstructor = []
