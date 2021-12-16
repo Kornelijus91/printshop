@@ -63,9 +63,9 @@ app.use(cors(corsOptions))
 app.use("/users", userRouter)
 app.use("/administracija", adminRouter)
 
-app.get('/personalas', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../admin/build', 'index.html'));
-});
+// app.get('/personalas', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../admin/build', 'index.html'));
+// });
 
 app.use('/euploads', express.static('private/uploads'));
 app.use('/uploads', express.static('public/uploads'));
