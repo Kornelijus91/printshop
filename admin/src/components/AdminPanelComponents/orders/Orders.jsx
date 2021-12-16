@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
-// import { useState } from 'react';
 import List from './List'
 import OrderDetail from './OrderDetail'
 import { Helmet } from "react-helmet";

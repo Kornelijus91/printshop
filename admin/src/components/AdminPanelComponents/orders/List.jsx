@@ -2,6 +2,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
+import OrderSearch from './OrderSearch';
 
 const useStyles = makeStyles((theme) => ({
     accountsBox: {
@@ -171,6 +172,12 @@ const List = ({ orders, ordersPage, setOrdersPage, setOrdersView, setOrder, setS
 
     return (
         <Box>
+            <OrderSearch 
+                token={user.token}
+                setOrdersView={setOrdersView}
+                setOrder={setOrder}
+                makeNotNew={makeNotNew}
+            />
            {orders.items.length > 0 ?
                 <Box classes={{root: classes.accountsBox}}>
                     <Box classes={{root: classes.accountsBoxInner}}>
@@ -193,6 +200,8 @@ const List = ({ orders, ordersPage, setOrdersPage, setOrdersView, setOrder, setS
                                         nuolaidosKodoNuolaida: item.nuolaidosKodoNuolaida,
                                         status: item.status,
                                         TRDiscount: item.TRDiscount,
+                                        sanaudos: item.sanaudos,
+                                        uzsakymoNr: item.uzsakymoNr
                                     });
                                     setOrdersView(true);
                                 } 

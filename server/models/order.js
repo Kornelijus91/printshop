@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const mongoosePaginate = require('mongoose-paginate-v2');
+var autoincrement = require('simple-mongoose-autoincrement');
 
 const Order = new Schema({
     clientID: {
@@ -47,10 +48,10 @@ const Order = new Schema({
         type: String,
         default: "Pateiktas",
     },
-    // paymentLink: {
-    //     type: String,
-    //     default: "",
-    // },
+    sanaudos: {
+        type: Number,
+        default: 0,
+    },
     modifiedAt: {
         type: Date, 
         default: Date.now
@@ -62,4 +63,5 @@ const Order = new Schema({
 })
 
 Order.plugin(mongoosePaginate);
+Order.plugin(autoincrement, {field: 'uzsakymoNr'});
 module.exports = mongoose.model("Order", Order)

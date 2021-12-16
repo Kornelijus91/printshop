@@ -2,6 +2,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal, Box, Backdrop, Fade, Button, Grid, Hidden } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import picturePlaceHolder from '../../../media/picturePlaceHolder.png'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -129,6 +130,19 @@ const useStyles = makeStyles((theme) => ({
             maxHeight: '60rem',
         },
     },
+    imagePlaceHolder: {
+        width: '100%',
+        objectFit: 'contain',
+        maxHeight: '20rem',
+        [theme.breakpoints.up('xxl')]: {
+            maxHeight: '27rem',
+            padding: '0 2.7em',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxHeight: '40rem',
+            padding: '0 4em',
+        },
+    },
     summaryText: {
         padding: '0',
         margin: '0 0 .3rem 0',
@@ -241,7 +255,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductAddedModal = ({ getDiscountedPrice, getPrice, addModalOpen, setAddModalOpen, file, optionsValues, collapseOpen, productName, kiekis, unitPrice, pasirinktasGamybosLaikas, pastaba, loyaltydiscount }) => {
+const ProductAddedModal = ({ papildomaMaketavimoKaina, getDiscountedPrice, getPrice, addModalOpen, setAddModalOpen, file, optionsValues, collapseOpen, productName, kiekis, unitPrice, pasirinktasGamybosLaikas, pastaba, loyaltydiscount }) => {
 
     const classes = useStyles();
     const history = useHistory();
@@ -275,13 +289,20 @@ const ProductAddedModal = ({ getDiscountedPrice, getPrice, addModalOpen, setAddM
                             <Box classes={{root: classes.cartItem}}>
                                 <Grid container spacing={2}>
                                     <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
-                                        <Box>
-                                            {file.type === 'application/pdf' ? 
-                                                <embed src={`${file.URL}#toolbar=0&navpanes=0&scrollbar=0`} className={classes.pdf} />
-                                            : 
-                                                <img className={classes.image} src={file.URL} alt=""/>
-                                            }
-                                        </Box>
+                                        {file.URL !== '' ?
+                                            <Box>
+                                                {file.type === 'application/pdf' ? 
+                                                    <embed src={`${file.URL}#toolbar=0&navpanes=0&scrollbar=0`} className={classes.pdf} />
+                                                : 
+                                                    <img className={classes.image} src={file.URL} alt=""/>
+                                                }
+                                            </Box>
+                                        :
+                                            <Box >
+                                                <img className={classes.imagePlaceHolder} src={picturePlaceHolder} alt=""/>
+                                            </Box>
+                                        }
+                                        
                                     </Grid>
                                     <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
                                         {optionsValues.map((item, index) => 
@@ -308,6 +329,9 @@ const ProductAddedModal = ({ getDiscountedPrice, getPrice, addModalOpen, setAddM
                                         <p className={classes.summaryText}>Gamybos Laikas: {pasirinktasGamybosLaikas}</p>
                                         <p className={classes.summaryText}>Kiekis: {kiekis}</p>
                                         <p className={classes.summaryText}>Vieneto kaina: {unitPrice.price.toFixed(2)}€</p>
+                                        {papildomaMaketavimoKaina > 0 &&
+                                            <p className={classes.summaryText}>Maketavimas: {papildomaMaketavimoKaina}€</p>
+                                        }
                                         <p className={classes.summaryText}>Pastaba: {pastaba}</p>
                                     </Grid>
                                     <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>

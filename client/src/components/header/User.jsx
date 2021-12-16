@@ -1,8 +1,9 @@
 import { FaUser } from 'react-icons/fa';
 import { makeStyles } from '@material-ui/core/styles';
-// import { useState } from 'react';
-import { Badge, Menu, MenuItem, Divider } from '@material-ui/core';
-import { Link } from 'react-router-dom'; // Link
+import { useEffect, useState } from 'react';
+import { Box, Badge, Menu, MenuItem, Divider } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { FaCrown } from 'react-icons/fa'; 
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -97,11 +98,46 @@ const useStyles = makeStyles((theme) => ({
             margin: '.3em 0 0 .8em',
         },
     },
+    crownBox: {
+        width: '6rem',
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        [theme.breakpoints.up('xxl')]: {
+            width: '8.1rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '12rem',
+        },
+    },
+    crownBadge: {
+        transform: 'translate(2.6rem, -1.3rem)',
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'translate(3.4rem, -1.5rem)',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'translate(4.84rem, -2rem)',
+        },
+    },
+    crownIcon: {
+        color: '#e9c46a',
+        fontSize: '1rem',
+        margin: '0 .2em',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.35rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+        },
+    }
 }));
 
-const User = ({ firstName, loggedIn, handleLogout, username, handleUserOpen, handleUserClose, anchorEl, menuOpen }) => {
+const User = ({ loyaltydiscountLevel, firstName, loggedIn, handleLogout, username, handleUserOpen, handleUserClose, anchorEl, menuOpen, personalas }) => {
 
     const classes = useStyles();
+
+    const [karunos, setKarunos] = useState([]);
 
     const kreipinys = () => {
         var last2 = firstName.slice(-2);
@@ -139,16 +175,42 @@ const User = ({ firstName, loggedIn, handleLogout, username, handleUserOpen, han
         return name;
     };
 
+    const kiekkarunu = () => {
+        var tempArray = [];
+        for (var i = 1; i <= loyaltydiscountLevel; i++) {
+            tempArray.push(<FaCrown className={classes.crownIcon} /> );
+        }
+        setKarunos(tempArray);
+    };
+
+    useEffect(() => {
+        if (loyaltydiscountLevel > 0) {
+            kiekkarunu();
+        }
+        // eslint-disable-next-line
+    }, [loyaltydiscountLevel]);
+
     return (
         <>
             <Badge 
-                color="error" 
-                variant="dot" 
-                invisible={!loggedIn} 
-                classes={{badge: classes.badge}}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right',}}
+                invisible={loyaltydiscountLevel <= 0} 
+                classes={{badge: classes.crownBadge}}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right',}}
+                badgeContent={
+                    <Box classes={{root: classes.crownBox}}>
+                        {karunos}
+                    </Box>
+                }
             >
-                <FaUser onClick={handleUserOpen} className={classes.root}/>
+                <Badge 
+                    color="error" 
+                    variant="dot" 
+                    invisible={!loggedIn} 
+                    classes={{badge: classes.badge}}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right',}}
+                >
+                    <FaUser onClick={handleUserOpen} className={classes.root}/>
+                </Badge>
             </Badge>
             <Menu
                 id="simple-menu"
@@ -181,6 +243,9 @@ const User = ({ firstName, loggedIn, handleLogout, username, handleUserOpen, han
                     </>
                 }
                 <Divider style={{marginBottom: '.2rem'}}/>
+                {(personalas.personalas || personalas.administracija) &&
+                    <MenuItem><a href='/personalas' className={classes.menuItem}>Personalas</a></MenuItem>
+                }
                 <MenuItem onClick={handleUserClose}><Link to="/profile" className={classes.menuItem}>Profilis</Link></MenuItem>
                 <MenuItem onClick={handleUserClose}><Link to="/addresses" className={classes.menuItem}>Adresai</Link></MenuItem>
                 <MenuItem onClick={handleUserClose}><Link to="/orders" className={classes.menuItem}>Užsakymai</Link></MenuItem>

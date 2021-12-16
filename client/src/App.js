@@ -72,7 +72,12 @@ const App = () => {
   const [token, setToken] = useState(false);
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [personalas, setPersonalas] = useState({
+    personalas: false,
+    administracija: false
+  });
   const [loyalty, setLoyalty] = useState([]);
+  const [maketavimoKaina, setMaketavimoKaina] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
   const [moneySpent, setMoneySpent] = useState(0);
   const [oAuthWindow, setOAuthWindow] = useState(false);
@@ -83,6 +88,7 @@ const App = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [cart, setCart] = useState([]);
   const [loyaltydiscount, setLoyaltydiscount] = useState(0);
+  const [loyaltydiscountLevel, setLoyaltydiscountLevel] = useState(0);
   const [addresses, setAddresses] = useState([]);
   const [priceSum, setPriceSum] = useState({
     sum: 0,
@@ -205,6 +211,24 @@ const App = () => {
     }
   };
 
+  const getSettings = async () => {
+    try {
+        const getSettingsRequest = await fetch("/users/getSettings/", {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const getSettingsResponse= await getSettingsRequest.json();
+        if (getSettingsResponse.success) {
+            setMaketavimoKaina(getSettingsResponse.maketavimoKaina);
+        } 
+    } catch (error) {
+        
+    }
+  };
+
   const getAddresses = async () => {
     if (loggedIn) {
       try{
@@ -236,6 +260,10 @@ const App = () => {
         setFirstName(data.firstName);
         setMoneySpent(data.moneySpent);
         setLoggedIn(true);
+        setPersonalas({
+          personalas: data.personalas,
+          administracija: data.administracija,
+        });
         const timer = setTimeout(() => {
           verifyUser();
         }, 5 * 60 * 1000);
@@ -267,20 +295,25 @@ const App = () => {
       }
       getLoyalty();
       getCart();
+      getSettings();
       // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
     if (loyalty.length > 0 && moneySpent > 0) {
+        var lvl = 0;
         for (const item of loyalty) {
             if (item.money <= moneySpent) {
                 setLoyaltydiscount(item.discount);
+                lvl = lvl + 1;
             } else {
                 break;
             }
         }
+        setLoyaltydiscountLevel(lvl);
     } else {
         setLoyaltydiscount(0);
+        setLoyaltydiscountLevel(0);
     }
     // eslint-disable-next-line
   }, [loyalty, moneySpent]);
@@ -290,8 +323,8 @@ const App = () => {
     var dscPrc = 0;
     if (loyaltydiscount <= 0) {
         for (const item of cart) {
-            prc = prc + item.price;
-            dscPrc = dscPrc + item.discountedPrice;
+            prc = prc + item.price + item.maketavimoKaina;
+            dscPrc = dscPrc + item.discountedPrice + item.maketavimoKaina;
         };
         setPriceSum({
           sum: roundTwoDec(prc),
@@ -299,8 +332,8 @@ const App = () => {
         });
     } else {
         for (const item of cart) {
-            dscPrc = dscPrc + (item.price * ((100 - loyaltydiscount - item.discount) / 100));
-            prc = prc + item.price;
+            dscPrc = dscPrc + (item.price * ((100 - loyaltydiscount - item.discount) / 100)) + item.maketavimoKaina;
+            prc = prc + item.price + item.maketavimoKaina;
         };
         setPriceSum({
           sum: roundTwoDec(prc),
@@ -347,9 +380,10 @@ const App = () => {
           searchResult={searchResult}
           setSearchValue={setSearchValue}
           setSearchResult={setSearchResult}
-          cart={cart}
-          loyaltydiscount={loyaltydiscount}
+          personalas={personalas}
+          setPersonalas={setPersonalas}
           priceSum={priceSum}
+          loyaltydiscountLevel={loyaltydiscountLevel}
         />
         <Snackbar
           anchorOrigin={{
@@ -390,10 +424,14 @@ const App = () => {
               loyaltydiscount={loyaltydiscount}
               cart={cart}
               roundTwoDec={roundTwoDec}
+              maketavimoKaina={maketavimoKaina}
+              firstName={firstName}
+              personalas={personalas}
+              token={token}
             />
           </Route>
           <Route exact path="/contact">
-            <Contact />
+            <Contact username={username}/>
           </Route>
           <Route path='/resetpassword/:token'>
             <ResetPassword />

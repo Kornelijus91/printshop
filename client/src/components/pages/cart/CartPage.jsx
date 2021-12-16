@@ -10,6 +10,7 @@ import { IoClose } from "react-icons/io5";
 import { FaArrowRight } from "react-icons/fa";
 import DeleteCartItemModal from './DeleteCartItemModal.jsx';
 import { useHistory } from 'react-router-dom';
+import picturePlaceHolder from '../../../media/picturePlaceHolder.png'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -79,14 +80,18 @@ const useStyles = makeStyles((theme) => ({
     },
     image: {
         width: '100%',
-        // maxHeight: '30rem',
         objectFit: 'fill',
-        // [theme.breakpoints.up('xxl')]: {
-        //     maxHeight: '45rem',
-        // },
-        // [theme.breakpoints.up('xxxl')]: {
-        //     maxHeight: '60rem',
-        // },
+    },
+    imagePlaceHolder: {
+        width: '100%',
+        padding: '0 2em',
+        objectFit: 'fill',
+        [theme.breakpoints.up('xxl')]: {
+            padding: '0 2.7em',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            padding: '0 4em',
+        },
     },
     imageBox: {
         width: '100%',
@@ -520,7 +525,14 @@ const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuola
                                     <Box display='flex' justifyContent='flex-end' alignItems='center'>
                                         <Tooltip title="Redaguoti" aria-label="Redaguoti" placement="top" arrow >
                                             <Box classes={{root: classes.editIconBox}}> 
-                                                <AiFillEdit size={20} className={classes.icon} onClick={() => history.push(`/products/${encodeURIComponent(item.name)}/${item._id}`)}/>
+                                                <AiFillEdit 
+                                                    size={20} 
+                                                    className={classes.icon} 
+                                                    onClick={() => {
+                                                        history.push(`/products/${encodeURIComponent(item.name)}/${item._id}`);
+                                                        window.scrollTo({top: 0, left: 0});
+                                                    }}
+                                                />
                                             </Box>
                                         </Tooltip>
                                         <Tooltip title="Ištrinti" aria-label="Ištrinti" placement="top" arrow >
@@ -542,14 +554,19 @@ const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuola
                             </Grid>
                             <Grid container spacing={2}>
                                 <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-                                    <Box classes={{root: classes.imageBox}}>
-                                        {/* {!imgLoaded[index] && <Skeleton variant="rect" classes={{root: classes.skeleton}}/>} */}
-                                        {item.image.substring(item.image.lastIndexOf(".")) === '.pdf' ? 
-                                            <embed src={`${item.image}#toolbar=0&navpanes=0&scrollbar=0`} className={classes.pdf} /> //onLoad={() => imageLoadedSet(index)}
-                                        : 
-                                            <img className={classes.image} src={item.image} alt="" /> //onLoad={() => imageLoadedSet(index)}
-                                        }
-                                    </Box>
+                                    {item.image !== '' ? 
+                                        <Box classes={{root: classes.imageBox}}>
+                                                {item.image.substring(item.image.lastIndexOf(".")) === '.pdf' ? 
+                                                <embed src={`${item.image}#toolbar=0&navpanes=0&scrollbar=0`} className={classes.pdf} /> //onLoad={() => imageLoadedSet(index)}
+                                            : 
+                                                <img className={classes.image} src={item.image} alt="" /> //onLoad={() => imageLoadedSet(index)}
+                                            }
+                                        </Box>
+                                    :
+                                        <Box classes={{root: classes.imageBox}}>
+                                            <img className={classes.imagePlaceHolder} src={picturePlaceHolder} alt="" />
+                                        </Box>
+                                    } 
                                 </Grid>
                                 <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
                                     {item.options.map((opt, i) => 
@@ -572,6 +589,9 @@ const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuola
                                     <p className={classes.summaryText}>Gamybos Laikas: <b>{item.gamybosLaikas}</b></p>
                                     <p className={classes.summaryText}>Kiekis: <b>{item.quantity}</b></p>
                                     <p className={classes.summaryText}>Vieneto kaina: <b>{item.unitPrice.toFixed(2)}€</b></p>
+                                    {item.maketavimoKaina > 0 &&
+                                        <p className={classes.summaryText}>Maketavimas: <b>{item.maketavimoKaina}€</b></p>
+                                    }
                                     {item.pastaba !== '' &&
                                         <p className={classes.summaryText}>Pastaba: <b>{item.pastaba}</b></p>
                                     }
@@ -585,21 +605,21 @@ const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuola
                                         <p className={classes.PriceText}>Kaina:</p>
                                         {item.discountedPrice !== item.price && loyaltydiscount <= 0 ? 
                                             <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
-                                                <span className={classes.Isbraukta}>{item.price.toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{item.discountedPrice.toFixed(2)}€</p>
+                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
+                                                <p className={classes.DiscountedPriceText}>{(item.discountedPrice + item.maketavimoKaina).toFixed(2)}€</p>
                                             </Box>
                                         : item.discountedPrice !== item.price && loyaltydiscount > 0 ?
                                             <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
-                                                <span className={classes.Isbraukta}>{item.price.toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount - item.discount) / 100)).toFixed(2)}€</p>
+                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
+                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount - item.discount) / 100) + item.maketavimoKaina).toFixed(2)}€</p>
                                             </Box>
                                         : item.discountedPrice === item.price && loyaltydiscount > 0 ?
                                             <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
-                                                <span className={classes.Isbraukta}>{item.price.toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount) / 100)).toFixed(2)}€</p>
+                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
+                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount) / 100) + item.maketavimoKaina).toFixed(2)}€</p>
                                             </Box>
                                         :
-                                            <p className={classes.PriceText}>{item.price.toFixed(2)}€</p>
+                                            <p className={classes.PriceText}>{(item.price + item.maketavimoKaina).toFixed(2)}€</p>
                                         }
                                     </Box>
                                 </Grid>

@@ -10,15 +10,23 @@ const Template = require("../models/emailtemplate")
 const Loyalty = require("../models/loyalty")
 const Code = require("../models/code")
 const Order = require("../models/order")
+const Settings = require("../models/settings")
 const passport = require("passport")
 const jwt = require("jsonwebtoken")
 const resetPwdHash = require("jwt-simple")
 const nodemailer = require('nodemailer');
 const fs = require('fs')
+var _ = require('lodash');
+var moment = require('moment');
 
 const { getToken, COOKIE_OPTIONS, getRefreshToken, verifyUser } = require("../authenticate")
 
 const ADMIN_UPLOADS = './euploads/';
+
+const roundTwoDec = (num) => { 
+    const result = Math.round(Number((Math.abs(num) * 100).toPrecision(15))) / 100 * Math.sign(num);
+    return result;
+  };
 
 const storage = multer.diskStorage({
     destination: "./private/uploads/",
@@ -50,6 +58,49 @@ const sendConfirmEmail = (email) => {
     };
     transporter.sendMail(message);
   };
+
+  router.post("/saveSettings", verifyUser, async (req, res, next) => {
+    if (req.user.administracija) {
+        try {
+            const settings = await Settings.findOne({}).exec();
+            if (settings) {
+                settings.maketavimoKaina = req.body.maketavimoKaina;
+                settings.save(function (err) {
+                    if (err) {
+                        return;
+                    } else {
+                        res.send({ 
+                            success: true, 
+                            error: ''
+                        })
+                    }
+                });
+            } else {
+                const newSettings = new Settings({ maketavimoKaina: req.body.maketavimoKaina });
+                newSettings.save(function (err) {
+                    if (err) {
+                        return;
+                    } else {
+                        res.send({ 
+                            success: true, 
+                            error: ''
+                        })
+                    }
+                });
+            }
+        } catch (error) {
+            res.send({ 
+                success: false, 
+                error: error
+            })
+        }
+    } else {
+        res.send({ 
+            success: false, 
+            error: 'Nesate administratorius.'
+        })
+    }
+});
 
 router.post("/markOrderDone", verifyUser, async (req, res, next) => {
     if (req.user.personalas || req.user.administracija) {
@@ -173,7 +224,7 @@ router.post("/getOrders", verifyUser, async (req, res, next) => {
                 ,
             {
                 page: req.body.page,
-                limit: 12,
+                limit: 10,
                 sort: { createdAt: -1 },
             }, function (err, result) {
                 if (!err) {
@@ -638,31 +689,32 @@ router.post("/deleteCarouselItem",  verifyUser, async (req, res, next) => {
                                         success: false, 
                                         error: err
                                     })
-                                } else {
-                                    try {
-                                        Carousel.deleteOne({ _id: req.body.carouselID }, function (err) {
-                                            if (err) {
-                                                res.send({ 
-                                                    success: false, 
-                                                    error: err
-                                                })
-                                            } else {
-                                                res.send({ 
-                                                    success: true, 
-                                                    error: ''
-                                                })
-                                            }
-                                        });
-                                    }  catch (error) {
-                                        res.send({ 
-                                            success: false, 
-                                            error: error
-                                        })
-                                        return
-                                    }
-                                }
+                                    return
+                                } 
                             })
                         } 
+                        try {
+                            Carousel.deleteOne({ _id: req.body.carouselID }, function (err) {
+                                if (err) {
+                                    res.send({ 
+                                        success: false, 
+                                        error: err
+                                    })
+                                    return
+                                } else {
+                                    res.send({ 
+                                        success: true, 
+                                        error: ''
+                                    })
+                                }
+                            });
+                        }  catch (error) {
+                            res.send({ 
+                                success: false, 
+                                error: error
+                            })
+                            return
+                        }
                     } catch (err) {
                         res.send({ 
                             success: false, 
@@ -1020,6 +1072,134 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
         res.send({ 
             success: false, 
             error: 'Nesate administratorius.'
+        })
+    }
+})
+
+router.post("/searchOrders", verifyUser, async (req, res, next) => {
+    if (req.user.personalas || req.user.administracija) {
+        try {
+            Order.find({$or: [
+                {uzsakymoNr: isNaN(req.body.searchValue) ? null : req.body.searchValue }, 
+                {clientUsername: { "$regex": `${req.body.searchValue}`, '$options': 'i' }},  
+                {'delivery.firstName': { "$regex": `${req.body.searchValue}`, '$options' : 'i' }}, 
+                {'delivery.lastName': { "$regex": `${req.body.searchValue}`, '$options' : 'i' }}, 
+                {'delivery.phone': { "$regex": `${req.body.searchValue}`, '$options' : 'i' }}, 
+                {'delivery.city': { "$regex": `${req.body.searchValue}`, '$options' : 'i' }}, 
+                {'delivery.address': { "$regex": `${req.body.searchValue}`, '$options' : 'i' }}, 
+                {'delivery.zipcode': { "$regex": `${req.body.searchValue}`, '$options' : 'i' }}, 
+                {'delivery.companyName': { "$regex": `${req.body.searchValue}`, '$options' : 'i' }}, 
+                {'delivery.companyCode': { "$regex": `${req.body.searchValue}`, '$options' : 'i' }}, 
+                {'delivery.companyAddress': { "$regex": `${req.body.searchValue}`, '$options' : 'i' }}, 
+                {'delivery.companyPVM': { "$regex": `${req.body.searchValue}`, '$options' : 'i' }}, 
+            ]}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.send({ 
+                        success: false, 
+                        error: err
+                    })
+                } else {
+                    res.send({ 
+                        success: true, 
+                        result: result
+                    })
+                }
+            }).sort('-createdAt').limit(7);
+        } catch (error) {
+            console.log(error);
+            res.send({ 
+                success: false, 
+                error: error
+            })
+        }
+    } else {
+        res.send({ 
+            success: false, 
+            error: 'Nesate personalo narys.'
+        })
+    }
+})
+
+router.post("/getStats", verifyUser, async (req, res, next) => {
+    if (req.user.personalas || req.user.administracija) {
+        try {
+            const orders = await Order.find({ createdAt: { $gte: req.body.nuo, $lte: req.body.iki }, status: 'Įvykdytas' }).sort('createdAt').exec();
+
+            const datename = item => moment(item.createdAt, 'YYYY-MM-DD').format('YYYY-MM-DD');
+            const result = _.groupBy(orders, datename);
+
+            var data = [];
+
+            for (const item in result) {
+                var totalPrice = 0;
+                var totalDiscountedPrice = 0;
+                var totalOrders = 0;
+                var totalSanaudos = 0;
+                for (const inner of result[item]) {
+                    totalPrice = totalPrice + inner.price;
+                    totalDiscountedPrice = totalDiscountedPrice + inner.discountPrice;
+                    totalOrders = totalOrders + 1;
+                    totalSanaudos = totalSanaudos + inner.sanaudos;
+                }
+                data.push({
+                    date: item,
+                    totalPrice: roundTwoDec(totalPrice),
+                    totalDiscountedPrice: roundTwoDec(totalDiscountedPrice),
+                    totalSanaudos: roundTwoDec(totalSanaudos),
+                    totalOrders: totalOrders,
+                });
+            }
+
+            res.send({ 
+                success: true, 
+                data: data,
+                error: ''
+            })
+        } catch (error) {
+            console.log(error);
+            res.send({ 
+                success: false, 
+                error: error
+            })
+        }
+    } else {
+        res.send({ 
+            success: false, 
+            error: 'Nesate personalo narys.'
+        })
+    }
+})
+
+router.post("/updateSanaudas", verifyUser, async (req, res, next) => {
+    if (req.user.personalas || req.user.administracija) {
+        try {
+            Order.findById(req.body.orderID, function (err, itm) {
+                if (err){
+                    res.send({ 
+                        success: false, 
+                        error: err
+                    })
+                } else {
+                    itm.sanaudos = req.body.san;
+                    itm.save();
+                    res.send({ 
+                        success: true, 
+                        error: ''
+                    })
+                }
+            });
+        } catch (error) {
+            console.log(error);
+            res.send({ 
+                success: false, 
+                error: error
+            })
+        }
+    } else {
+        res.send({ 
+            success: false, 
+            error: 'Nesate personalo narys.'
         })
     }
 })

@@ -319,13 +319,13 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     optionDisplayImage: {
-        width: '2.5rem',
+        width: '2.5em',
         objectFit: 'contain',
         [theme.breakpoints.up('xxl')]: {
-            width: '5rem',
+            width: '3.375em',
         },
         [theme.breakpoints.up('xxxl')]: {
-            width: '10rem',
+            width: '5em',
         },
     },
     variantNameSingleBox: {

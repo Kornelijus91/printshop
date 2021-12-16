@@ -34,18 +34,10 @@ const CartItem = new Schema({
         type: String,
         default: "",
     },
-    // discount: {
-    //     type: Number,
-    //     default: 1,
-    // },
-    // loyaltyDiscount: {
-    //     type: Number,
-    //     default: 1,
-    // },
-    // price: {
-    //     type: Number,
-    //     default: 1,
-    // },
+    maketavimoKaina: {
+        type: Number,
+        default: 0,
+    },
     modifiedAt: {
         type: Date, 
         default: Date.now

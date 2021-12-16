@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Grid, Button, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
+import { Box, Grid, Button, Accordion, AccordionSummary, AccordionDetails, FormControl, OutlinedInput, CircularProgress } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaRegImage } from "react-icons/fa";
 import OrderConfirmModal from './OrderConfirmModal';
 
@@ -159,11 +159,20 @@ const useStyles = makeStyles((theme) => ({
     },
     Button: {
         width: '100%',
+        height: '2.5em',
         backgroundColor: theme.myTheme.pirma,
         color: theme.myTheme.trecia,
         '&:hover': {
             backgroundColor: '#e31c2d',
-        }
+        },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '6px',
+            height: '3.375em',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: '5em',
+            borderRadius: '9px',
+        },
     },
     ButtonLabel: {
         color: theme.myTheme.trecia,
@@ -207,6 +216,41 @@ const useStyles = makeStyles((theme) => ({
             marginBottom: 0
         },
     },
+    kainuhr: {
+        display: 'block', 
+        height: '1px',
+        border: 0, 
+        borderTop: `1px solid ${theme.myTheme.sriftoSpalva}`,
+        margin: '1em 0', 
+        padding: 0
+    },
+    formVariantOptionNameInfo: {
+        width: '100%',
+    },
+    textInput: {
+        marginBottom: "1em",
+        color: theme.myTheme.sriftoSpalva,
+        fontFamily: theme.myTheme.sriftas,
+        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: "1.5rem",
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: "2rem",
+        }, 
+    },
+    diasbleOutline: {
+        border: 'none',
+    },
+    loadingIcon: {
+        color: theme.myTheme.trecia,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.35)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        }, 
+    },
 }));
 
 const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar, orderFilter }) => {
@@ -214,6 +258,8 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
     const classes = useStyles();
 
     const [modal, setModal] = useState(false);
+    const [updateingSanaudas, setUpdateingSanaudas] = useState(false);
+    const [sanaudos, setSanaudos] = useState(0);
 
     const handleModalOpen = () => {
         setModal(true);
@@ -227,6 +273,54 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
         }
         return false;
     };
+
+    const handleSanaudosChange = (e) => {
+        setSanaudos(e.target.value);
+    };
+
+    const updateSanaudas = async () => {
+        setUpdateingSanaudas(true);
+        try {
+            const req = await fetch("/administracija/updateSanaudas/", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": `JWT ${user.token}`,
+                },
+                body: JSON.stringify({
+                    orderID: order.id,
+                    san: sanaudos
+                }),
+            });
+            const response = await req.json();
+            if (response.success) {
+                getOrders(ordersPage, orderFilter);
+                setSnackbar({
+                    message: 'Užsakymo sanaudos atnaujintos.',
+                    open: true,
+                });
+                setUpdateingSanaudas(false);
+            } else {
+                setUpdateingSanaudas(false);
+                setSnackbar({
+                    message: 'Klaida! Pabandykite vėliau.',
+                    open: true,
+                });
+            }
+        } catch (error) {
+            setUpdateingSanaudas(false);
+            setSnackbar({
+                message: 'Klaida! Pabandykite vėliau.',
+                open: true,
+            });
+        }
+    };
+
+    useEffect(() => {
+        setSanaudos(order.sanaudos);
+        // eslint-disable-next-line
+    }, [order])
 
     return (
         <Box classes={{root: classes.accountsBox}}>
@@ -245,7 +339,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{borderBottom: '1px solid #1D3557'}}>
                     <Box display='flex' justifyContent='space-between' flexWrap='wrap'>
                         <Box>
-                            <h2>Užsakymo ID - {order.id}</h2>
+                            <h2>Užsakymo NR - {order.uzsakymoNr}</h2>
                         </Box>
                         <Box>
                             <h2>Pateikimo data - {new Date(order.createdAt).getFullYear()+"-"+(new Date(order.createdAt).getMonth() + 1)+"-"+new Date(order.createdAt).getDate()}</h2>
@@ -313,6 +407,26 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                                 <p>Galutinė kaina: <b>{(order.price).toFixed(2)}€</b></p>
                             </>
                     }
+                    <hr className={classes.kainuhr} />
+                    <h2>Sanaudos, €</h2>
+                    <FormControl className={classes.formVariantOptionNameInfo} variant="outlined">
+                        <OutlinedInput
+                            id="saunaudos_input"
+                            type='number'
+                            value={sanaudos}
+                            placeholder='Eur...'
+                            onChange={handleSanaudosChange}
+                            classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
+                            autoComplete='off'
+                        />
+                    </FormControl> 
+                    <Button 
+                        classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }}
+                        disabled={updateingSanaudas}
+                        onClick={updateSanaudas}
+                    >
+                        {updateingSanaudas ? <CircularProgress size={20} className={classes.loadingIcon}/> : "Išsaugoti" }
+                    </Button>
                 </Grid>
                 <Grid item xl={3} lg={3} md={3} sm={12} xs={12} className={classes.columnLast}>
                     <h2>Veiksmai</h2>
@@ -361,6 +475,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                                                 }
                                             </>
                                         )}
+                                        <p>Maketavimas: <b>{item.maketavimoKaina > 0 ? 'Taip' : 'Ne'}</b></p>
                                         {item.pastaba !== '' && 
                                             <p>Pastaba: <b>{item.pastaba}</b></p>
                                         }
@@ -374,15 +489,19 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                                         }
                                         <p>Vieneto kaina: <b>{(item.unitPrice).toFixed(2)}€</b></p>
                                         <p>Viso kaina: <b>{(item.price).toFixed(2)}€</b></p>
-                                        {item.price !== item.discountedPrice && 
-                                            <p>Suteiktos nuolaidos: <b>{(item.price - item.discountedPrice).toFixed(2)}€</b></p>
+                                        {item.maketavimoKaina > 0 &&
+                                            <p>Maketavimo kaina: <b>{(item.maketavimoKaina).toFixed(2)}€</b></p>
                                         }
                                         {item.price !== item.discountedPrice && 
-                                             <p>Viso kaina su nuolaidomis: <b>{(item.discountedPrice).toFixed(2)}€</b></p>
+                                            <p>Suteiktos nuolaidos: <b>{(item.price - (item.price * ((100 - (item.discount + order.TRDiscount)) / 100))).toFixed(2)}€</b></p>
+                                        }
+                                        {item.price !== item.discountedPrice && 
+                                            <p>Viso kaina su nuolaidomis: <b>{((item.price * ((100 - (item.discount + order.TRDiscount)) / 100)) + item.maketavimoKaina).toFixed(2)}€</b></p>
                                         }
                                     </Grid>
                                     <Grid item xl={4} lg={4} md={4} sm={12} xs={12} className={classes.accDetGridItem}>
                                         <Button 
+                                            component='a'
                                             href={item.image} 
                                             download 
                                             disabled={item.image === '' || item.image === null || !item.image }

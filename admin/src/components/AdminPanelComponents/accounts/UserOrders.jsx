@@ -269,6 +269,8 @@ const UserOrders = ({ userId, setSnackbar, token, getOrders, ordersPage, setView
                                         nuolaidosKodas: item.nuolaidosKodas,
                                         nuolaidosKodoNuolaida: item.nuolaidosKodoNuolaida,
                                         status: item.status,
+                                        uzsakymoNr: item.uzsakymoNr,
+                                        sanaudos: item.sanaudos,
                                     });
                                     setView({value: 8, title: 'Užsakymai', titleAdditional: ''});
                                 } 

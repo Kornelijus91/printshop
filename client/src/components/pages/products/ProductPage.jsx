@@ -16,6 +16,8 @@ import { FaExchangeAlt, FaShoppingCart } from "react-icons/fa";
 import ProductSkeleton from './ProductSkeleton.jsx';
 import axios from "axios";
 import ProductAddedModal from './ProductAddedModal.jsx';
+import MaketavimoKaina from './MaketavimoKaina';
+import Comments from './Comments'
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -607,7 +609,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) => {
+const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, maketavimoKaina, firstName, personalas, token }) => {
 
     let { link, cartItemID } = useParams();
     const classes = useStyles();
@@ -639,6 +641,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
     const [uploading, setUploading] = useState(false);
     const [addModalOpen, setAddModalOpen] = useState(false);
     const [cartItemId, setCartItemId] = useState('');
+    const [papildomaMaketavimoKaina, setPapildomaMaketavimoKaina] = useState(0);
     // const [imgLoaded, setImgLoaded] = useState(false);
 
     const resetEverything = () => {
@@ -662,10 +665,10 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
     const getPrice = () => {
         if (amountArray.length > 0) {
             if (kiekis <= amountArray[0].amount) {
-                const roundedTotalPrice = roundTwoDec(unitPrice.price * amountArray[0].amount);
+                const roundedTotalPrice = roundTwoDec(unitPrice.price * amountArray[0].amount + papildomaMaketavimoKaina);
                 return roundedTotalPrice.toFixed(2);
             } else {
-                const roundedTotalPrice = roundTwoDec(unitPrice.price * Math.round(kiekis));
+                const roundedTotalPrice = roundTwoDec(unitPrice.price * Math.round(kiekis) + papildomaMaketavimoKaina);
                 return roundedTotalPrice.toFixed(2);
             } 
         } 
@@ -675,11 +678,11 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
         if (amountArray.length > 0) {
             if (kiekis <= amountArray[0].amount) {
                 const dscnt = 1 - (amountArray[0].discount / 100) - (loyaltydiscount / 100);
-                const roundedTotalDiscountedPrice = roundTwoDec(unitPrice.price * amountArray[0].amount * dscnt);
+                const roundedTotalDiscountedPrice = roundTwoDec(unitPrice.price * amountArray[0].amount * dscnt + papildomaMaketavimoKaina);
                 return roundedTotalDiscountedPrice.toFixed(2);
             } else {
                 const dscnt = 1 - (unitPrice.discount / 100) - (loyaltydiscount / 100);
-                const roundedTotalDiscountedPrice = roundTwoDec(unitPrice.price * Math.round(kiekis) * dscnt);
+                const roundedTotalDiscountedPrice = roundTwoDec(unitPrice.price * Math.round(kiekis) * dscnt + papildomaMaketavimoKaina);
                 return roundedTotalDiscountedPrice.toFixed(2);
             } 
         }
@@ -783,6 +786,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
             formData.append('quantity', Number(kiekis));
             formData.append('gamybosLaikas', pasirinktasGamybosLaikas);
             formData.append('discount', Number(unitPrice.discount)); 
+            formData.append('maketavimoKaina', papildomaMaketavimoKaina);
             if (unitPrice.discount > 0 || loyaltydiscount > 0) {
                 formData.append('price', Number(getDiscountedPrice()));
             } else {
@@ -855,7 +859,6 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
                     setPastaba(response.data.pastaba);
                     var imgType2 = response.data.image.substring(response.data.image.lastIndexOf("."));
                     imgType2 = imgType2.replace('.', '')
-                    console.log(response.data.image);
                     setFile({
                         src: null,
                         URL: response.data.image,
@@ -1001,6 +1004,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
                             setKiekis(1);
                         }
                         setPasirinktasGamybosLaikas(cartItem.gamybosLaikas);
+                        setPapildomaMaketavimoKaina(cartItem.maketavimoKaina);
                         setCartItemId(cartItemID);
                     } else {
                         const crtItem = getCartItem(cartItemID);
@@ -1010,7 +1014,6 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
                         } 
                     }
                 }
-                
                 
                 setGamybosLaikas([
                     {
@@ -1106,6 +1109,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
                     loyaltydiscount={loyaltydiscount}
                     getDiscountedPrice={getDiscountedPrice}
                     getPrice={getPrice}
+                    papildomaMaketavimoKaina={papildomaMaketavimoKaina}
                 />
                 <Box display='flex' justifyContent='center' style={{paddingBottom: '2rem'}}>
                     <Box classes={{root: classes.content}}>
@@ -1248,6 +1252,11 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
                                             }
                                             </>
                                         )}
+                                        <MaketavimoKaina 
+                                            maketavimoKaina={maketavimoKaina}
+                                            papildomaMaketavimoKaina={papildomaMaketavimoKaina}
+                                            setPapildomaMaketavimoKaina={setPapildomaMaketavimoKaina}
+                                        />
                                         <h2 className={classes.OptionTitleHeader}>Pastaba</h2>
                                         <TextField 
                                             id="pastaba" 
@@ -1420,6 +1429,9 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
                                 <p className={classes.summaryText}>Kiekis: <b>{kiekis}</b></p>
                                 <p className={classes.summaryText}>Vieneto kaina: <b>{unitPrice.price.toFixed(2)}€</b></p>
                                 <p className={classes.summaryText}>Gamybos Laikas: <b>{pasirinktasGamybosLaikas}</b></p>
+                                <Collapse in={papildomaMaketavimoKaina > 0}>
+                                    <p className={classes.summaryText}>Maketavimo kaina: <b>{papildomaMaketavimoKaina}€</b></p>
+                                </Collapse>
                                 <p className={classes.summaryText}>Pastaba: <b>{pastaba}</b></p>
                                 <Collapse in={unitPrice.discount > 0}>
                                     <p className={classes.discountText}>Nuolaida: <b>{unitPrice.discount}%</b></p>
@@ -1442,7 +1454,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
                                     component="span" 
                                     classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} 
                                     startIcon={!uploading && <FaShoppingCart size={20} className={classes.icon}/>}
-                                    disabled={file.URL === '' || uploading}
+                                    disabled={uploading}
                                     onClick={addToCart}
                                     style={uploading ? {background: `linear-gradient(90deg, ${theme.myTheme.pirma} ${uploadProgress}%, #f7bbc0 0%)`}
                                     : 
@@ -1452,12 +1464,13 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec }) 
                                         {background: `linear-gradient(90deg, ${theme.myTheme.pirma} ${100}%, #f7bbc0 0%)`}
                                     }
                                 >
-                                    {uploading ? uploadProgress >= 0 || uploadProgress < 100 ? `Įkeliamas failas - ${uploadProgress}%` : <CircularProgress size={20} className={classes.icon}/> : 'Į krepšelį'}
+                                    {uploading ? file.src !== null && (uploadProgress >= 0 || uploadProgress < 100) ? `Įkeliamas failas - ${uploadProgress}%` : <CircularProgress size={20} className={classes.icon}/> : 'Į krepšelį'}
                                 </Button>
                             </Grid>
                         </Grid>
+                        <Comments product={product} firstName={firstName} personalas={personalas} token={token}/>
                     </Box>
-                </Box>
+                </Box>  
             </Box>
             }
         </>

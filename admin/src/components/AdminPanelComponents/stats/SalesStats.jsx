@@ -1,0 +1,367 @@
+import SalesChart from './SalesChart'
+import { Box, Button, CircularProgress } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import ltLocale from "date-fns/locale/lt";
+import { useState, useEffect } from 'react'; //useCallback
+import { Helmet } from "react-helmet";
+import { ProjectName } from '../../../Variables.jsx'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        paddingTop: '1em',
+        [theme.breakpoints.up('xxl')]: {
+            marginTop: '1em',
+            paddingTop: '1.5em',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '2em',
+            paddingTop: '2.5em',
+        },
+    },
+    dates: {
+        marginBottom: '1em',
+        '& h2': {
+            color: theme.myTheme.trecia,
+            fontFamily: theme.myTheme.sriftas,
+            fontSize: '1.3rem',
+            margin: '0 .5em 0 0',
+            padding: 0
+        },
+        [theme.breakpoints.up('lg')]: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            '& h2': {
+                color: theme.myTheme.trecia,
+                fontFamily: theme.myTheme.sriftas,
+                fontSize: '1.755rem'
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            '& h2': {
+                color: theme.myTheme.trecia,
+                fontFamily: theme.myTheme.sriftas,
+                fontSize: '2.6rem'
+            },
+        },
+    },
+    datePickerParent: {
+        margin: '0 1em 1em 0',
+        [theme.breakpoints.up('lg')]: {
+            margin: '0 1em 0 0',
+        },
+    },
+    chartBox: {   
+        width: '100%',
+        height: '30em',
+        [theme.breakpoints.up('xxl')]: {
+            height: '40.5em',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: '60em',
+        },
+    },
+    datepicker: {
+        padding: '0',
+        margin: '0',
+        backgroundColor: theme.myTheme.ketvirta,
+        color: theme.myTheme.trecia,
+        width: '100%',
+        borderRadius: '4px',
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '6px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '8px',
+        },
+    },
+    calendarIcon: {
+        color: theme.myTheme.sriftoSpalva,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.35) translateX(-.5rem)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2) translateX(-.7rem)'
+        },
+    },
+    calendarPopover: {
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.35) translateY(-4rem)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2) translateY(-7.5rem)'
+        },
+    },
+    Button: {
+        padding: '.8em 2em',
+        backgroundColor: theme.myTheme.pirma,
+        color: theme.myTheme.trecia,
+        '&:hover': {
+            backgroundColor: '#e31c2d',
+        },
+        // [theme.breakpoints.up('xxl')]: {
+        //     borderRadius: '6px',
+        //     height: '3.375em',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     height: '5em',
+        //     borderRadius: '9px',
+        // },
+    },
+    ButtonLabel: {
+        color: theme.myTheme.trecia,
+        fontFamily: theme.myTheme.sriftas,
+        fontSize: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.35rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2rem',
+        },
+    },
+    ButtonDisabled: {
+        backgroundColor: 'rgba(230, 57, 70, 0.7)',
+    },
+    loadingIconBox: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%'
+    },
+    loadingIcon: {
+        color: theme.myTheme.trecia,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.35)'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)'
+        }, 
+    },
+    sumUpBox: {
+        width: '100%',
+        color: theme.myTheme.trecia,
+        fontFamily: theme.myTheme.sriftas,
+        '& h2': {
+            fontSize: '1.6rem'
+        },
+        '& p': {
+            fontSize: '1.2rem'
+        },
+        [theme.breakpoints.up('xxl')]: {
+            '& h2': {
+                fontSize: '2.16rem'
+            },
+            '& p': {
+                fontSize: '1.62rem'
+            },
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            '& h2': {
+                fontSize: '3.2rem'
+            },
+            '& p': {
+                fontSize: '2.4rem'
+            },
+        }, 
+    },
+}));
+
+const SalesStats = ({ user, setSnackbar }) => {
+
+    const classes = useStyles();
+
+    const [dates, setDates] = useState({
+        nuo: new Date().setDate(new Date().getDate() - 30),
+        iki: new Date(),
+    });
+
+    const [stats, setStats] = useState([]);
+    const [totals, setTotals] = useState({
+        price: 0,
+        discountedPrice: 0,
+        orders: 0,
+        sanaudos: 0,
+    });
+
+    const [gettingstats, setGettingstats] = useState(false);
+
+    const handleNuoChange = (date) => {
+        setDates({
+            ...dates,
+            nuo: new Date(date),
+        });
+    };
+
+    const handleIkiChange = (date) => {
+        setDates({
+            ...dates,
+            iki: new Date(date),
+        });
+        
+    };
+
+    const sumUp = () => {
+        if (stats.length > 0) {
+            var totalPrice = 0;
+            var totalDiscountedPrice = 0;
+            var totalOrders = 0;
+            var totalSanaudos = 0;
+            for (const item of stats) {
+                totalPrice = totalPrice + item.totalPrice;
+                totalDiscountedPrice = totalDiscountedPrice + item.totalDiscountedPrice;
+                totalOrders = totalOrders + item.totalOrders;
+                totalSanaudos = totalSanaudos + item.totalSanaudos;
+            }
+            setTotals({
+                price: totalPrice,
+                discountedPrice: totalDiscountedPrice,
+                orders: totalOrders,
+                sanaudos: totalSanaudos,
+            });
+        }
+    };
+
+    const getStats = async () => {
+        setGettingstats(true);
+        try {
+            const req = await fetch("/administracija/getStats/", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": `JWT ${user.token}`,
+                },
+                body: JSON.stringify({
+                    nuo: dates.nuo,
+                    iki: dates.iki,
+                }),
+            });
+            const response = await req.json();
+            if (response.success) {
+                setGettingstats(false);
+                setStats(response.data)
+            } else {
+                setGettingstats(false);
+                setSnackbar({
+                    message: 'Klaida! Pabandykite vėliau.',
+                    open: true,
+                });
+            }
+        } catch (error) {
+            setGettingstats(false);
+            setSnackbar({
+                message: 'Klaida! Pabandykite vėliau.',
+                open: true,
+            });
+        }
+    };
+
+    useEffect(() => {
+        getStats();
+        // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        sumUp();
+        // eslint-disable-next-line
+    }, [stats])
+
+    return (
+        <Box classes={{root: classes.root}}>
+            <Helmet defer={false}>
+                <title>Statistika | {ProjectName}</title>  
+            </Helmet>
+            <Box classes={{root: classes.dates}}>
+                <h2>Nuo:</h2>
+                <Box classes={{root: classes.datePickerParent}}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ltLocale}>
+                        <KeyboardDatePicker
+                            disableToolbar
+                            classes={{root: classes.datepicker}}
+                            variant="inline"
+                            format="yyyy-MM-dd" // "dd/MM/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            // label="Nuo"
+                            disableFuture={true}
+                            autoOk={true}
+                            invalidDateMessage='Netinkama data'
+                            inputVariant="outlined"
+                            value={dates.nuo}
+                            onChange={handleNuoChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                                classes: {
+                                    root: classes.calendarIcon,
+                                },
+                            }}
+                            PopoverProps={{
+                                classes: {
+                                    root: classes.calendarPopover,
+                                },
+                            }}
+                        />
+                    </MuiPickersUtilsProvider>
+                </Box>
+                <h2>Iki:</h2>
+                <Box classes={{root: classes.datePickerParent}}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ltLocale}>
+                        <KeyboardDatePicker
+                            disableToolbar
+                            classes={{root: classes.datepicker}}
+                            variant="inline"
+                            format="yyyy-MM-dd" // "dd/MM/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            // label="Iki"
+                            disableFuture={true}
+                            autoOk={true}
+                            invalidDateMessage='Netinkama data'
+                            inputVariant="outlined"
+                            value={dates.iki}
+                            onChange={handleIkiChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                                classes: {
+                                    root: classes.calendarIcon,
+                                },
+                            }}
+                            PopoverProps={{
+                                classes: {
+                                    root: classes.calendarPopover,
+                                },
+                            }}
+                        />
+                    </MuiPickersUtilsProvider>
+                </Box>
+                <Button classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }} onClick={() => getStats()}>
+                    Rodyti
+                </Button>
+            </Box>
+            <Box classes={{root: classes.chartBox}}>
+                {!gettingstats ? 
+                    <SalesChart stats={stats}/>
+                :
+                    <Box classes={{root: classes.loadingIconBox}}>
+                        <CircularProgress size={50} className={classes.loadingIcon}/>
+                    </Box> 
+                }
+            </Box>
+            <Box classes={{root: classes.sumUpBox}}>
+                <h2>Laikotarpio suvestinė:</h2>
+                <p>Užsakymai: <b>{totals.orders}</b></p>
+                <p>Apyvarta: <b>{totals.price !== totals.discountedPrice ? (totals.discountedPrice).toFixed(2) : (totals.price).toFixed(2)}€</b></p>
+                <p>Sanaudos: <b>{(totals.sanaudos).toFixed(2)}€</b></p>
+                <p>Pelnas: <b>{(totals.discountedPrice - totals.sanaudos).toFixed(2)}€</b></p>
+            </Box>
+        </Box>
+    )
+}
+
+export default SalesStats

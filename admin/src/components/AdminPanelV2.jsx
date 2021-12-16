@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Badge, Box, Snackbar, Grow, Grid, AppBar, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { FaUser, FaBoxOpen, FaUserFriends, FaCrown, FaPercent, FaClipboardList } from 'react-icons/fa'; //FaChartBar
+import { FaUser, FaBoxOpen, FaUserFriends, FaCrown, FaPercent, FaClipboardList, FaChartLine } from 'react-icons/fa'; //FaChartBar
 import { HiMail } from "react-icons/hi";
-import { MdViewCarousel } from "react-icons/md";
+import { MdViewCarousel, MdSettings } from "react-icons/md";
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import AccountsV2 from './AdminPanelComponents/accounts/AccountsV2';
 import Products from './AdminPanelComponents/products/Products';
@@ -13,9 +13,10 @@ import Carousel from './AdminPanelComponents/carousel/Carousel';
 import Email from './AdminPanelComponents/email/Email';
 import Loyalty from './AdminPanelComponents/loyalty/Loyalty';
 import DiscountCodes from './AdminPanelComponents/discountcodes/DiscountCodes';
-// import Statistics from './AdminPanelComponents/stats/Statistics';
+import SalesStats from './AdminPanelComponents/stats/SalesStats';
 import Treklama01 from '../media/Treklama01.png'
 import Orders from './AdminPanelComponents/orders/Orders';
+import Settings from './AdminPanelComponents/settings/Settings';
 
 const drawerWidth = 240;
 
@@ -302,7 +303,7 @@ function ResponsiveDrawer(props) {
     });
     const [productModalOpen, setProductModalOpen] = useState(false);
     const [carouselView, setCarouselView] = useState(0);
-
+    const [maketavimoKaina, setMaketavimoKaina] = useState(0);
     const [carouselItemInfo, setCarouselItemInfo] = useState({
         id: '',
         title: '',
@@ -381,7 +382,9 @@ function ResponsiveDrawer(props) {
         nuolaidosKodas: '',
         nuolaidosKodoNuolaida: '',
         status: '',
-        TRDiscount: 0
+        TRDiscount: 0,
+        uzsakymoNr: 0,
+        sanaudos: 0,
     });
 
     const [orderFilter, setOrderFilter] = useState('Visi');
@@ -494,6 +497,39 @@ function ResponsiveDrawer(props) {
         })
     };
 
+    const saveSettings = async () => {
+        try {
+            const settingsReq = await fetch("/administracija/saveSettings/", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": `JWT ${user.token}`,
+                },
+                body: JSON.stringify({
+                    maketavimoKaina: maketavimoKaina,
+                }),
+            });
+            const settingsResponse = await settingsReq.json();
+            if (settingsResponse.success) {
+                setSnackbar({
+                    message: 'Nustatymai atnaujinti.',
+                    open: true,
+                });
+            } else {
+                setSnackbar({
+                    message: 'Klaida! Pabandykite dar karta.',
+                    open: true,
+                });
+            }
+        } catch (error) {
+            setSnackbar({
+                message: 'Klaida! Pabandykite dar karta.',
+                open: true,
+            });
+        }
+    };
+
     useEffect(() => {
         getLoyalty();
         // eslint-disable-next-line
@@ -528,7 +564,9 @@ function ResponsiveDrawer(props) {
                 nuolaidosKodas: '',
                 nuolaidosKodoNuolaida: '',
                 status: '',
-                TRDiscount: 0
+                TRDiscount: 0,
+                sanaudos: 0,
+                uzsakymoNr: 0
             });
         }
         // eslint-disable-next-line
@@ -579,17 +617,17 @@ function ResponsiveDrawer(props) {
                     </ListItemIcon>
                     <ListItemText primary='Užsakymai' classes={{root: classes.menutext}} disableTypography={true}/>
                 </ListItem>
-                {/* <ListItem className={classes.menuItem} button onClick={() => {
+                <ListItem className={classes.menuItem} button onClick={() => {
                     if (view.value !== 4) {
-                        setView({value: 4, title: 'Svetainės statistika', titleAdditional: ''})
+                        setView({value: 4, title: 'Statistika', titleAdditional: ''})
                     }
                     if (isWidthDown('md', props.width)) {
                         handleDrawerToggle();
                     }
                 }}>
-                    <ListItemIcon classes={{root: classes.menuicon}}><FaChartBar size={24} /></ListItemIcon>
+                    <ListItemIcon classes={{root: classes.menuicon}}><FaChartLine size={24} /></ListItemIcon>
                     <ListItemText primary='Statistika' classes={{root: classes.menutext}} disableTypography={true}/>
-                </ListItem> */}
+                </ListItem>
                 <ListItem className={classes.menuItem} button onClick={() => {
                     if (view.value !== 0) {
                         setView({value: 0, title: 'Produktai', titleAdditional: ''})
@@ -657,6 +695,17 @@ function ResponsiveDrawer(props) {
                     <ListItemIcon classes={{root: classes.menuicon}}><FaPercent size={24} /></ListItemIcon>
                     <ListItemText primary='Nuolaidų kodai' classes={{root: classes.menutext}} disableTypography={true}/>
                 </ListItem>
+                <ListItem className={classes.menuItem} button onClick={() => {
+                    if (view.value !== 9) {
+                        setView({value: 9, title: 'Nustatymai', titleAdditional: ''})
+                    }
+                    if (isWidthDown('md', props.width)) {
+                        handleDrawerToggle();
+                    }
+                }}>
+                    <ListItemIcon classes={{root: classes.menuicon}}><MdSettings size={24} /></ListItemIcon>
+                    <ListItemText primary='Nustatymai' classes={{root: classes.menutext}} disableTypography={true}/>
+                </ListItem>
             </List>
         </div>
     );
@@ -694,9 +743,9 @@ function ResponsiveDrawer(props) {
                             item 
                             xl={3} 
                             lg={3} 
-                            md={view.value === 0 || view.value === 2 || view.value === 6 || view.value === 7 || view.value === 8 ? 4 : 12} 
-                            sm={view.value === 0 || view.value === 2 || view.value === 6 || view.value === 7 || view.value === 8 ? 6 : 12} 
-                            xs={view.value === 0 || view.value === 2 || view.value === 6 || view.value === 7 || view.value === 8 ? 6 : 12}
+                            md={view.value === 0 || view.value === 2 || view.value === 6 || view.value === 7 || view.value === 8 || view.value === 9 ? 4 : 12} 
+                            sm={view.value === 0 || view.value === 2 || view.value === 6 || view.value === 7 || view.value === 8 || view.value === 9 ? 6 : 12} 
+                            xs={view.value === 0 || view.value === 2 || view.value === 6 || view.value === 7 || view.value === 8 || view.value === 9 ? 6 : 12}
                         >
                             <Box dispay='flex' justifyContent='flex-start' alignItems='flex-start' >
                                 <h1 className={classes.logo} style={{textAlign: 'left'}}>{view.title} {view.titleAdditional}</h1>
@@ -822,6 +871,13 @@ function ResponsiveDrawer(props) {
                                 </Box>  
                             </Grid>
                         } 
+                        {view.value === 9 && user.administracija &&
+                            <Grid item xl={3} lg={3} md={4} sm={6} xs={6}>
+                                <Box dispay='flex' justifyContent='center' alignItems='center'>
+                                    <Button classes={{root: classes.addButton}} onClick={() => saveSettings()} >Išsaugoti</Button>
+                                </Box>  
+                            </Grid>
+                        } 
                     </Grid>
                 </Toolbar>
             </AppBar>
@@ -863,11 +919,12 @@ function ResponsiveDrawer(props) {
                             0: <Products user={user} setSnackbar={setSnackbar} productModalOpen={productModalOpen} setProductModalOpen={setProductModalOpen}/>,
                             1: <AccountsV2 setOrdersView={setOrdersView} setOrder={setOrder} user={user} setSnackbar={setSnackbar} setView={setView} view={view} loyalty={loyalty} getOrders={getOrders} ordersPage={ordersPage} orderFilter={orderFilter}/>,     
                             2: <Carousel user={user} setSnackbar={setSnackbar} carouselView={carouselView} setCarouselView={setCarouselView} carouselItemInfo={carouselItemInfo} setCarouselItemInfo={setCarouselItemInfo}/>,
-                            // 4: <Statistics />,
+                            4: <SalesStats user={user} setSnackbar={setSnackbar} />,
                             5: <Email user={user} setSnackbar={setSnackbar}/>,
                             6: <Loyalty user={user} setSnackbar={setSnackbar} addLoyaltyModal={addLoyaltyModal} setAddLoyaltyModal={setAddLoyaltyModal} handleLoyaltyAddModalChange={handleLoyaltyAddModalChange} loyalty={loyalty} getLoyalty={getLoyalty}/>,
                             7: <DiscountCodes user={user} setSnackbar={setSnackbar} codeModal={codeModal} setCodeModal={setCodeModal} handleCodeChange={handleCodeChange}/>,
                             8: <Orders user={user} orderFilter={orderFilter} getOrders={getOrders} newOrders={newOrders} setOrdersPage={setOrdersPage} orders={orders} ordersPage={ordersPage} ordersView={ordersView} setOrdersView={setOrdersView} order={order} setOrder={setOrder} setSnackbar={setSnackbar}/>,
+                            9: <Settings maketavimoKaina={maketavimoKaina} setMaketavimoKaina={setMaketavimoKaina} setSnackbar={setSnackbar}/>,
                         }[view.value]
                     }
                 </Box>

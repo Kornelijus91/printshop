@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LinkedInLogo } from '../../media/social/LinkedInLogoNoColor.svg';
 import { ReactComponent as EtsyLogo } from '../../media/social/Etsy_logo.svg';
+import TreklamaLogoWhite from '../../media/TreklamaLogoWhite.png'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     text: {
-        margin: '1.5rem 0 2rem 0',
+        margin: '1.5em 0',
         padding: '0',
         fontWeight: 'bold',
     },
@@ -63,6 +64,20 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             color: theme.myTheme.ketvirta,
         },
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.3rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+        },
+    },
+    textt: {
+        color: theme.myTheme.trecia,
+        fontFamily: theme.myTheme.sriftas,
+        padding: 0,
+        margin: 0,
+        fontSize: '.9rem',
+        textAlign: 'left',
         [theme.breakpoints.up('xxl')]: {
             fontSize: '1.3rem',
         },
@@ -132,7 +147,20 @@ const useStyles = makeStyles((theme) => ({
             margin: '-1.5rem 0 0 .2rem',
         },
     },
-    
+    imageBox: {
+        width: '100%',
+        margin: '1.5em 0',
+    },
+    imagePlaceHolder: {
+        width: '100%',
+        objectFit: 'fill',
+        [theme.breakpoints.up('md')]: {
+            width: '50%',
+        },
+        [theme.breakpoints.up('xl')]: {
+            width: '70%',
+        },
+    },
 }));
 
 const Footer = ({setModalOpen, setmodalView, loggedIn}) => {
@@ -221,7 +249,30 @@ const Footer = ({setModalOpen, setmodalView, loggedIn}) => {
                     </Grid>
                     <Grid item xl={3} lg={3} md={6} sm={6} xs={6}>
                         <Box classes={{root: classes.section}}>
-                            <h3 className={classes.text}>Įmonės rekvizitai</h3>
+                            <Box classes={{root: classes.imageBox}}>
+                                <img className={classes.imagePlaceHolder} src={TreklamaLogoWhite} alt="" />
+                            </Box>
+                            <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
+                                <p className={classes.textt}>UAB “TAURO PASLAUGOS”</p>
+                            </Box>
+                            <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
+                                <p className={classes.textt}>Įmonės kodas: 305328121</p>
+                            </Box>
+                            <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
+                                <p className={classes.textt}>PVM mokėtojo kodas: LT100012761116</p>
+                            </Box>
+                            <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
+                                <p className={classes.textt}>Bankas: LT737300010160772071</p>
+                            </Box>
+                            <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
+                                <p className={classes.textt}>Banko kodas: 73000</p>
+                            </Box>
+                            <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
+                                <p className={classes.textt}>AB „Swedbank“</p>
+                            </Box>
+                            <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
+                                <p className={classes.textt}>Daugėlių g. 79B, Kuršėnai, LT-81116 Šiaulių r.</p>
+                            </Box>
                         </Box>
                     </Grid>
                 </Grid>

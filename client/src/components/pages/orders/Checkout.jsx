@@ -280,6 +280,9 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '1.6rem',
         },
     },
+    buttonDisabled: {
+        backgroundColor: '#cc0000',
+    },
     buttonIcon: {
         color: theme.myTheme.trecia,
         [theme.breakpoints.up('xxl')]: {
@@ -523,21 +526,21 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, loyaltyd
                                     <Box display='flex' justifyContent='flex-start' alignItems='center'>
                                         {item.discountedPrice !== item.price && loyaltydiscount <= 0 ? 
                                             <Box display='flex' justifyContent='flex-start' alignItems='center'>
-                                                <span className={classes.Isbraukta}>{item.price.toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{item.discountedPrice.toFixed(2)}€</p>
+                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
+                                                <p className={classes.DiscountedPriceText}>{(item.discountedPrice + item.maketavimoKaina).toFixed(2)}€</p>
                                             </Box>
                                         : item.discountedPrice !== item.price && loyaltydiscount > 0 ?
                                             <Box display='flex' justifyContent='flex-start' alignItems='center'>
-                                                <span className={classes.Isbraukta}>{item.price.toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount - item.discount) / 100)).toFixed(2)}€</p>
+                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
+                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount - item.discount) / 100) + item.maketavimoKaina).toFixed(2)}€</p>
                                             </Box>
                                         : item.discountedPrice === item.price && loyaltydiscount > 0 ?
                                             <Box display='flex' justifyContent='flex-start' alignItems='center'>
-                                                <span className={classes.Isbraukta}>{item.price.toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount) / 100)).toFixed(2)}€</p>
+                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
+                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount) / 100) + item.maketavimoKaina).toFixed(2)}€</p>
                                             </Box>
                                         :
-                                            <p className={classes.PriceText}>{item.price.toFixed(2)}€</p>
+                                            <p className={classes.PriceText}>{(item.price + item.maketavimoKaina).toFixed(2)}€</p>
                                         }
                                     </Box>
                                 </Box>
@@ -581,9 +584,10 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, loyaltyd
                     Atgal
                 </Button> 
                 <Button 
-                    classes={{root: classes.addButton}} 
+                    classes={{root: classes.addButton, disabled: classes.buttonDisabled}} 
                     onClick={pay}
                     endIcon={<FaArrowRight size={17} className={classes.buttonIcon}/>}
+                    disabled={submitting}
                 >
                     {submitting ? <CircularProgress size={20} className={classes.loadingIcon}/> : 'Mokėti'}
                 </Button> 

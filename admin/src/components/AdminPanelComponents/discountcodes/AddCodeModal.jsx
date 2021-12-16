@@ -251,7 +251,7 @@ const useStyles = makeStyles((theme) => ({
     calendarIcon: {
         color: theme.myTheme.sriftoSpalva,
         [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5) translateX(-.5rem)'
+            transform: 'scale(1.35) translateX(-.5rem)'
         },
         [theme.breakpoints.up('xxxl')]: {
             transform: 'scale(2) translateX(-.7rem)'
@@ -259,7 +259,7 @@ const useStyles = makeStyles((theme) => ({
     },
     calendarPopover: {
         [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5) translateY(-4rem)'
+            transform: 'scale(1.35) translateY(-4rem)'
         },
         [theme.breakpoints.up('xxxl')]: {
             transform: 'scale(2) translateY(-7.5rem)'

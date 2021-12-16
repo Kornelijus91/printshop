@@ -20,15 +20,15 @@ const useStyles = makeStyles((theme) => ({
     // boxShadow: '3px 3px 5px 6px #ccc'
   },
   grid: {
-        textAlign: "center",
+    textAlign: "center",
+    display: 'flex',
+    justifyContent: 'space-between', 
+    alignItems: "center",
+    [theme.breakpoints.up('lg')]: {
         display: 'flex',
-        justifyContent: 'space-between', 
+        justifyContent: 'center', 
         alignItems: "center",
-        [theme.breakpoints.up('lg')]: {
-            display: 'flex',
-            justifyContent: 'center', 
-            alignItems: "center",
-        },
+    },
   },
   gridItem: {
       padding: ".7rem"
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
         width: '70%', 
     },
     [theme.breakpoints.up('xl')]: {
-        width: '65%', 
+        width: '55%', 
     },
     [theme.breakpoints.up('xxl')]: {
         margin: '1rem' 
@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navigation = ({ priceSum, loyaltydiscount, cart, firstName, setSearchResult, setSearchValue, searchResult, handlesearchValueChange, searchValue, setModalOpen, loggedIn, setLoggedIn, token, setToken, username, setMoneySpent }) => {
+const Navigation = ({ loyaltydiscountLevel, priceSum, personalas, setPersonalas, firstName, setSearchResult, setSearchValue, searchResult, handlesearchValueChange, searchValue, setModalOpen, loggedIn, setLoggedIn, token, setToken, username, setMoneySpent }) => {
 
     const classes = useStyles();
     const [drawer, setDrawer] = useState(false);
@@ -147,6 +147,10 @@ const Navigation = ({ priceSum, loyaltydiscount, cart, firstName, setSearchResul
         }).then(async response => {
             setToken(null);
             window.localStorage.setItem("logout", Date.now())
+            setPersonalas({
+                personalas: false,
+                administracija: false
+            });
             setLoggedIn(false);
             setMoneySpent(0);
         })
@@ -198,6 +202,8 @@ const Navigation = ({ priceSum, loyaltydiscount, cart, firstName, setSearchResul
                                         menuOpen={menuOpen}
                                         handleLogout={handleLogout}
                                         firstName={firstName}
+                                        personalas={personalas}
+                                        loyaltydiscountLevel={loyaltydiscountLevel}
                                     />
                                 </Box>
                             </Grid>

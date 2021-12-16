@@ -8,6 +8,8 @@ const Carousel = require("../models/carousel")
 const CartItem = require("../models/cartItem")
 const Code = require("../models/code")
 const Order = require("../models/order")
+const Comment = require("../models/comment")
+const Settings = require("../models/settings")
 const passport = require("passport")
 const jwt = require("jsonwebtoken")
 const resetPwdHash = require("jwt-simple")
@@ -50,7 +52,6 @@ const roundTwoDec = (num) => {
   const result = Math.round(Number((Math.abs(num) * 100).toPrecision(15))) / 100 * Math.sign(num);
   return result;
 };
-
 
 const getCartItemPrice = async (cartItem) => {
   const product = await Product.findById(cartItem.productID).exec();
@@ -133,6 +134,112 @@ const sendThanksEmail = (email) => {
   };
   transporter.sendMail(message);
 };
+
+router.post("/sendComment", async (req, res, next) => {
+  try {
+    const commentObject = new Comment({ 
+      productName: req.body.product,
+      name: req.body.name,
+      comment: req.body.comment,
+      rating: req.body.rating,
+    });
+    commentObject.save(function (err, comment) {
+      if (err) {
+        res.send({ 
+          success: false, 
+          error: "Klaida! Pabandykite vėliau ."
+        })
+      } else {
+        res.send({ 
+          success: true, 
+          comment: comment,
+          error: ""
+        })
+      }
+    });
+  } catch (error) {
+    res.send({ 
+      success: false, 
+      error: error
+    })
+  }
+});
+
+router.post("/getComments", async (req, res, next) => {
+  try {
+    var totalRating = 0;
+    const allComments = await Comment.find({productName: req.body.product}, 'rating').exec();
+    for (const item of allComments) {
+      totalRating = totalRating + item.rating;
+    }
+    Comment.paginate({productName: req.body.product}, {
+      page: req.body.page,
+      limit: 3,
+      sort: { 
+        rating: -1,
+        createdAt: -1 
+      },
+    }, function (err, result) {
+        if (!err) {
+            res.send({ 
+                success: true, 
+                items: result.docs,
+                totalItems: result.totalDocs,
+                itemLimit: result.limit,
+                currentPage: result.page,
+                totalPages: result.totalPages,
+                hasNextPage: result.hasNextPage,
+                nextPage: result.nextPage,
+                hasPrevPage: result.hasPrevPage,
+                prevPage: result.prevPage,
+                pagingCounter: result.pagingCounter,
+                totalRating: totalRating,
+            })
+        } else {
+            console.log(err);
+            res.send({ 
+                success: false, 
+                error: "Klaida! Pabandykite vėliau."
+            })
+        }
+      });
+  } catch (error) {
+    res.send({ 
+      success: false, 
+      error: "Klaida! Pabandykite vėliau."
+    })
+  }
+});
+
+router.post("/deleteComment", verifyUser, async (req, res, next) => {
+  if (req.user.administracija) {
+    try {
+      Comment.deleteOne({ _id: req.body.commentID }, function (err) {
+        if (err) {
+          res.send({ 
+            success: false, 
+            error: err
+          })
+        } else {
+          res.send({ 
+            success: true, 
+            error: ''
+          })
+        }
+      });
+    } catch (error) {
+      res.send({ 
+        success: false, 
+        error: ''
+      })
+    }
+  } else {
+    res.send({ 
+      success: false, 
+      error: 'Nesate administratorius.'
+    })
+  }
+});
 
 router.post("/getCartItem", async (req, res, next) => {
   try {
@@ -256,6 +363,7 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         image: item.image,
         quantity: item.quantity,
         gamybosLaikas: item.gamybosLaikas,
+        maketavimoKaina: item.maketavimoKaina,
         _id: item._id,
         modifiedAt: item.modifiedAt,
         createdAt: item.createdAt,
@@ -283,16 +391,16 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
 
     if (loyaltyDiscount <= 0) {
       for (const item of cart) {
-          prc = prc + item.price;
-          dscPrc = dscPrc + item.discountedPrice;
+          prc = prc + item.price + item.maketavimoKaina;
+          dscPrc = dscPrc + item.discountedPrice + item.maketavimoKaina;
       };
       prc = roundTwoDec(prc),
       dscPrc = roundTwoDec(dscPrc * ((100 - codeDiscount) / 100))
       
     } else {
       for (const item of cart) {
-          dscPrc = dscPrc + (item.price * ((100 - loyaltyDiscount - item.discount) / 100));
-          prc = prc + item.price;
+          dscPrc = dscPrc + (item.price * ((100 - loyaltyDiscount - item.discount) / 100) + item.maketavimoKaina);
+          prc = prc + item.price + item.maketavimoKaina;
       };
       prc = roundTwoDec(prc),
       dscPrc = roundTwoDec(dscPrc * ((100 - codeDiscount) / 100));
@@ -428,6 +536,7 @@ router.post("/createOrder", async (req, res, next) => {
         image: item.image,
         quantity: item.quantity,
         gamybosLaikas: item.gamybosLaikas,
+        maketavimoKaina: item.maketavimoKaina,
         _id: item._id,
         modifiedAt: item.modifiedAt,
         createdAt: item.createdAt,
@@ -445,8 +554,8 @@ router.post("/createOrder", async (req, res, next) => {
     };
 
     for (const item of cart) {
-        prc = prc + item.price;
-        dscPrc = dscPrc + item.discountedPrice;
+        prc = prc + item.price + item.maketavimoKaina;
+        dscPrc = dscPrc + item.discountedPrice + item.maketavimoKaina;
     };
     prc = roundTwoDec(prc),
     dscPrc = roundTwoDec(dscPrc * ((100 - codeDiscount) / 100))
@@ -470,6 +579,7 @@ router.post("/createOrder", async (req, res, next) => {
       });
       orderObject.save(function (err) {
         if (err) {
+          console.log(err);
           res.send({ 
             success: false, 
             error: "Klaida! Pabandykite vėliau."
@@ -551,6 +661,7 @@ router.post("/getCart", async (req, res, next) => {
         image: item.image,
         quantity: item.quantity,
         gamybosLaikas: item.gamybosLaikas,
+        maketavimoKaina: item.maketavimoKaina,
         _id: item._id,
         modifiedAt: item.modifiedAt,
         createdAt: item.createdAt,
@@ -598,7 +709,7 @@ router.post("/deleteCartItem", async (req, res, next) => {
   }
 });
 
-router.post("/addToCart", upload.single("image"), (req, res, next) => {
+router.post("/addToCart", upload.single("image"), async (req, res, next) => {
     const url = req.protocol + '://' + req.get('host');
     try {
         const OptionsArray = JSON.parse(req.body.options);
@@ -649,6 +760,14 @@ router.post("/addToCart", upload.single("image"), (req, res, next) => {
             }
         }
         
+        var maketavimoKaina = 0;
+        if (req.body.maketavimoKaina > 0) {
+          const settings = await Settings.findOne({}).exec();
+          if (settings) {
+            maketavimoKaina = settings.maketavimoKaina;
+          }
+        }
+
         Product.findById(req.body.productID, function (err, product) {
           if (!err) {
             for (const outter of OptionsArray) {
@@ -749,7 +868,8 @@ router.post("/addToCart", upload.single("image"), (req, res, next) => {
                   pastaba: req.body.pastaba,
                   quantity: Number(req.body.quantity),
                   gamybosLaikas: req.body.gamybosLaikas,
-                  image: req.file ? url + '/uploads/' + req.file.filename : req.body.imageURL,
+                  image: req.file ? url + '/uploads/' + req.file.filename : req.body.imageURL || '',
+                  maketavimoKaina: maketavimoKaina,
               }
               CartItem.create(cartItemObj, function (err, item) {
                 if (err) {
@@ -782,6 +902,7 @@ router.post("/addToCart", upload.single("image"), (req, res, next) => {
                   item.quantity = Number(req.body.quantity);
                   item.gamybosLaikas = req.body.gamybosLaikas;
                   item.image = image;
+                  item.maketavimoKaina= maketavimoKaina;
                   item.save();
                   res.send({ 
                     success: true, 
@@ -928,7 +1049,7 @@ router.post("/refreshToken", (req, res, next) => {
                   res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS)
                   res.send({ 
                     success: true, 
-                    personalas: user.personalas || user.administracija ? true : false, 
+                    personalas: user.personalas, 
                     administracija: user.administracija,
                     username: user.username,
                     firstName: user.firstName,
@@ -968,7 +1089,7 @@ router.get("/logout", verifyUser, (req, res, next) => {
         item => item.refreshToken === refreshToken
       )
       if (tokenIndex !== -1) {
-        user.refreshToken.id(user.refreshToken[tokenIndex]._id).deleteOne();
+        user.refreshToken.id(user.refreshToken[tokenIndex]._id).remove();
       }
       user.save((err, user) => {
         if (err) {
@@ -1334,6 +1455,21 @@ router.get("/getLoyalty", async (req, res, next) => {
           error: error
         })
     }
+});
+
+router.get("/getSettings", async (req, res, next) => {
+  try {
+      const settings = await Settings.findOne({}).exec();
+      res.send({ 
+        success: true, 
+        maketavimoKaina: settings.maketavimoKaina
+      })
+  } catch (error) {
+      res.send({ 
+        success: false, 
+        error: error
+      })
+  }
 });
 
 router.get("/getCarouselItems", async (req, res, next) => {
