@@ -122,7 +122,8 @@ const sendThanksEmail = (email) => {
     },
   });
   const message = {
-    from: process.env.EMAIL_FROM,
+    // from: process.env.EMAIL_FROM,
+    from: 'Spausdintuvykla <testuxxxzzz@gmail.com>',
     to: `${email}`,
     subject: "Užsakymas gautas.",
     // 
@@ -1209,7 +1210,8 @@ router.post("/sendhelp", (req, res, next) => {
         },
       });
       const message = {
-        from: process.env.EMAIL_FROM,
+        // from: process.env.EMAIL_FROM,
+        from: 'Spausdintuvykla <testuxxxzzz@gmail.com>',
         to: `${req.body.email}`,
         subject: "Slaptažožio keitimo nuoroda.",
         // 

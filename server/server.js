@@ -139,9 +139,12 @@ app.get('/', (req, res, next) => {
                     `<title>${process.env.PROJECTTITLE}</title>`
                 )
                 .replace(/__META_OG_TITLE__/, `${process.env.PROJECTTITLE}`)
-                .replace(/__META_OG_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
-                .replace(/__META_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
-                .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
+                // .replace(/__META_OG_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
+                .replace(/__META_OG_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
+                // .replace(/__META_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
+                .replace(/__META_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
+                // .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
+                .replace(/__META_OG_IMAGE__/, `https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png`)
                 .replace(/__META_KEYWORDS__/, `${keywords.join(", ")}`)
                 .replace(/__META_URL__/, process.env.MAIN_URL)
                 .replace(
@@ -182,9 +185,12 @@ app.get('/products', (req, res, next) => {
                     `<title>Produktai | ${process.env.PROJECTTITLE}</title>`
                 )
                 .replace(/__META_OG_TITLE__/, `Produktai | ${process.env.PROJECTTITLE}`)
-                .replace(/__META_OG_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
-                .replace(/__META_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
-                .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
+                // .replace(/__META_OG_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
+                // .replace(/__META_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
+                .replace(/__META_OG_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
+                .replace(/__META_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
+                // .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
+                .replace(/__META_OG_IMAGE__/, `https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png`) //https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png
                 .replace(/__META_KEYWORDS__/, `${keywords.join(", ")}`)
                 .replace(/__META_URL__/, process.env.MAIN_URL)
                 .replace(
@@ -255,6 +261,6 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '127.0.0.1', () => {
     console.log(`Server listening on ${PORT}`);
 });

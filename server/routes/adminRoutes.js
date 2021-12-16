@@ -51,7 +51,8 @@ const sendConfirmEmail = (email) => {
       },
     });
     const message = {
-      from: process.env.EMAIL_FROM,
+    //   from: process.env.EMAIL_FROM,
+      from: 'Spausdintuvykla <testuxxxzzz@gmail.com>',
       to: `${email}`,
       subject: "Užsakymas įvykdytas.",
       html: ConfirmEmail(),
@@ -1569,7 +1570,8 @@ router.post("/sendEmail", verifyUser, (req, res, next) => {
         for (const address of req.body.adress) {
             try {
                 const message = {
-                    from: process.env.EMAIL_FROM,
+                    // from: process.env.EMAIL_FROM,
+                    from: 'Spausdintuvykla <testuxxxzzz@gmail.com>',
                     to: address,
                     subject: req.body.subject,
                     html: req.body.letter
