@@ -466,7 +466,14 @@ const Orders = ({ token, loggedIn }) => {
                 {myOrders.items.length > 0 ?
                     <>
                         {myOrders.items.map((order) => 
-                            <Box classes={{root: classes.cartItemParent}}>
+                            <Box 
+                                classes={{root: classes.cartItemParent}}
+                                style={order.status === 'Pateiktas' ?
+                                    {boxShadow: '-10px 0 0 0 #E63946'}
+                                :
+                                    {boxShadow: 'none'}
+                                }
+                            >
                                 <Box classes={{root: classes.orderItemTop}}>
                                     
                                     <h2 className={classes.header}>{new Date(order.createdAt).getFullYear()+"-"+('0' + (new Date(order.createdAt).getMonth() + 1)).slice(-2)+"-"+('0' + new Date(order.createdAt).getDate()).slice(-2)}</h2>
