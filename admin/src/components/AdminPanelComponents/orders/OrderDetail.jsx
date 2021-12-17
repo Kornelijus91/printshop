@@ -430,8 +430,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                 </Grid>
                 <Grid item xl={3} lg={3} md={3} sm={12} xs={12} className={classes.columnLast}>
                     <h2>Veiksmai</h2>
-                    {/* disabled={order.status !== 'Apmokėtas'} */}
-                    <Button classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }} onClick={handleModalOpen}> 
+                    <Button classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }} disabled={order.status !== 'Apmokėtas'} onClick={handleModalOpen}> 
                         Įvykdyti
                     </Button>
                 </Grid>
