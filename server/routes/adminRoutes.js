@@ -439,6 +439,7 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
                                                     if (fs.existsSync(`./private/uploads/${menuitem.fileURL.substring(menuitem.fileURL.lastIndexOf('/') + 1)}`)) {
                                                         fs.unlink(`./private/uploads/${menuitem.fileURL.substring(menuitem.fileURL.lastIndexOf('/') + 1)}`, (err) => {
                                                             if (err) {
+                                                                console.log(err);
                                                                 res.send({ 
                                                                     success: false, 
                                                                     error: err
@@ -447,6 +448,7 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
                                                         })
                                                     }
                                                 } catch (err) {
+                                                    console.log(err);
                                                     res.send({ 
                                                         success: false, 
                                                         error: err
@@ -458,33 +460,33 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
                                     }
                                     try {
                                         Comment.deleteMany({productName: product.name}).exec();
-                                        product.remove(function (err) {
-                                            if (err) {
-                                                res.send({ 
-                                                    success: false, 
-                                                    error: "Klaida! Pabandykite vėliau ."
-                                                })
-                                            } else {
-                                                res.send({ 
-                                                    success: true, 
-                                                    error: ""
-                                                })
-                                            }
-                                        });
-                                        // Product.deleteOne({ _id: req.body.productID }, function (err) {
+                                        // product.remove(function (err) {
                                         //     if (err) {
                                         //         res.send({ 
                                         //             success: false, 
-                                        //             error: err
+                                        //             error: "Klaida! Pabandykite vėliau ."
                                         //         })
                                         //     } else {
-                                                
                                         //         res.send({ 
                                         //             success: true, 
-                                        //             error: ''
+                                        //             error: ""
                                         //         })
                                         //     }
                                         // });
+                                        Product.deleteOne({ _id: req.body.productID }, function (err) {
+                                            if (err) {
+                                                res.send({ 
+                                                    success: false, 
+                                                    error: err
+                                                })
+                                            } else {
+                                                
+                                                res.send({ 
+                                                    success: true, 
+                                                    error: ''
+                                                })
+                                            }
+                                        });
                                     }  catch (error) {
                                         res.send({ 
                                             success: false, 
