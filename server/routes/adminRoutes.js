@@ -459,7 +459,7 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
                                         }
                                     }
                                     try {
-                                        Comment.deleteMany({productName: product.name}).exec();
+                                        // Comment.deleteMany({productName: product.name}).exec();
                                         // product.remove(function (err) {
                                         //     if (err) {
                                         //         res.send({ 
