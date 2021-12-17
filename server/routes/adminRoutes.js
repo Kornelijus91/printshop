@@ -10,6 +10,7 @@ const Template = require("../models/emailtemplate")
 const Loyalty = require("../models/loyalty")
 const Code = require("../models/code")
 const Order = require("../models/order")
+const Comment = require("../models/comment")
 const Settings = require("../models/settings")
 const passport = require("passport")
 const jwt = require("jsonwebtoken")
@@ -456,19 +457,34 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
                                         }
                                     }
                                     try {
-                                        Product.deleteOne({ _id: req.body.productID }, function (err) {
+                                        Comment.deleteMany({productName: product.name}).exec();
+                                        product.remove(function (err) {
                                             if (err) {
                                                 res.send({ 
                                                     success: false, 
-                                                    error: err
+                                                    error: "Klaida! Pabandykite vėliau ."
                                                 })
                                             } else {
                                                 res.send({ 
                                                     success: true, 
-                                                    error: ''
+                                                    error: ""
                                                 })
                                             }
                                         });
+                                        // Product.deleteOne({ _id: req.body.productID }, function (err) {
+                                        //     if (err) {
+                                        //         res.send({ 
+                                        //             success: false, 
+                                        //             error: err
+                                        //         })
+                                        //     } else {
+                                                
+                                        //         res.send({ 
+                                        //             success: true, 
+                                        //             error: ''
+                                        //         })
+                                        //     }
+                                        // });
                                     }  catch (error) {
                                         res.send({ 
                                             success: false, 
