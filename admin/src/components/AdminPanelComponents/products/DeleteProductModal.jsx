@@ -153,6 +153,7 @@ const DeleteProductModal = ({ deleteModal, setDeleteModal, user, setSnackbar, ge
         });
         if (deleteModal.productID && deleteModal.productName) {
             try {
+                console.log("MAKING REQ");
                 const productDeleteRequest = await fetch("/administracija/deleteProduct/", {
                     method: "POST",
                     credentials: "include",

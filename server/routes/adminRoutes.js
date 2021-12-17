@@ -424,7 +424,7 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
             Product.findById(req.body.productID, function (err, product) {
                 if (!err) {
                     try{
-                        if (fs.existsSync(`./server/private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`)) {   
+                        if (fs.existsSync(`./private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`)) {   
                             fs.unlink(`./private/uploads/${product.image.substring(product.image.lastIndexOf('/') + 1)}`, (err) => {
                                 if (err) {
                                     res.send({ 
@@ -458,45 +458,45 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
                                             } 
                                         }
                                     }
-                                    try {
-                                        // Comment.deleteMany({productName: product.name}).exec();
-                                        // product.remove(function (err) {
-                                        //     if (err) {
-                                        //         res.send({ 
-                                        //             success: false, 
-                                        //             error: "Klaida! Pabandykite vėliau ."
-                                        //         })
-                                        //     } else {
-                                        //         res.send({ 
-                                        //             success: true, 
-                                        //             error: ""
-                                        //         })
-                                        //     }
-                                        // });
-                                        Product.deleteOne({ _id: req.body.productID }, function (err) {
-                                            if (err) {
-                                                res.send({ 
-                                                    success: false, 
-                                                    error: err
-                                                })
-                                            } else {
-                                                
-                                                res.send({ 
-                                                    success: true, 
-                                                    error: ''
-                                                })
-                                            }
-                                        });
-                                    }  catch (error) {
-                                        res.send({ 
-                                            success: false, 
-                                            error: error
-                                        })
-                                        return
-                                    }
                                 }
                             })
                         } 
+                        try {
+                            Comment.deleteMany({productName: product.name}).exec();
+                            // product.remove(function (err) {
+                            //     if (err) {
+                            //         res.send({ 
+                            //             success: false, 
+                            //             error: "Klaida! Pabandykite vėliau ."
+                            //         })
+                            //     } else {
+                            //         res.send({ 
+                            //             success: true, 
+                            //             error: ""
+                            //         })
+                            //     }
+                            // });
+                            Product.deleteOne({ _id: req.body.productID }, function (err) {
+                                if (err) {
+                                    res.send({ 
+                                        success: false, 
+                                        error: err
+                                    })
+                                } else {
+                                    
+                                    res.send({ 
+                                        success: true, 
+                                        error: ''
+                                    })
+                                }
+                            });
+                        }  catch (error) {
+                            res.send({ 
+                                success: false, 
+                                error: error
+                            })
+                            return
+                        }
                     } catch (err) {
                         res.send({ 
                             success: false, 
@@ -504,7 +504,9 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
                         })
                         return
                     }
-                } 
+                } else {
+                    console.log(err);
+                }
             });
         } catch (error) {
             res.send({ 
