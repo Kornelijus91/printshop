@@ -1,4 +1,4 @@
-import { Box, Grid, Hidden } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import freeDelivery from '../../../media/freeDelivery.png';
 import printing from '../../../media/printing.png';
