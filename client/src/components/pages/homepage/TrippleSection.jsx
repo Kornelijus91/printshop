@@ -1,6 +1,6 @@
 import { Box, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import freeDelivery from '../../../media/freeDelivery.png';
+import freedelivery from '../../../media/freedelivery.png';
 import printing from '../../../media/printing.png';
 import man from '../../../media/man.png';
 import TrippleSectionPiece from './TrippleSectionPiece';
@@ -48,7 +48,7 @@ const TrippleSection = () => {
                 <Grid container >
                     <Grid item xl={4} lg={4} md={4} sm={12} xs={12} className={classes.grid}>
                         <TrippleSectionPiece 
-                            pic={freeDelivery} 
+                            pic={freedelivery} 
                             title={'Nemokamas siuntimas'}
                             text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates eligendi, suscipit nostrum, voluptatem ab, quod voluptate ipsam libero magnam delectus architecto. Tempore illum nihil reprehenderit eligendi quibusdam itaque sed cum?'}
                         />
