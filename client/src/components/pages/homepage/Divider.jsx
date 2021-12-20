@@ -5,13 +5,15 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     body: {
         width: '100%',
-        height: '5em',
-        background: `linear-gradient(178deg, #A8DADC 50%, #E63946 51%)`,
+        height: '5rem',
+        background: `linear-gradient(178deg, #E63946 50%, #F1FAEE 51%)`,
         [theme.breakpoints.up('xxl')]: {
-            background: `linear-gradient(178.5deg, #A8DADC 50%, #E63946 52%)`,
+            // background: `linear-gradient(178deg, #E63946 50%, #F1FAEE 51%)`,
+            height: '6.675rem',
         },
         [theme.breakpoints.up('xxxl')]: {
-            background: `linear-gradient(179deg, #A8DADC 50%, #E63946 53%)`,
+            // background: `linear-gradient(178deg, #E63946 50%, #F1FAEE 51%)`,
+            height: '10rem',
         },
     },
 }));

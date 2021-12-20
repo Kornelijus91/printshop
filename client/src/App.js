@@ -23,6 +23,7 @@ import BuyRules from './components/pages/terms/BuyRules.jsx';
 import Pristatymas from './components/pages/terms/Pristatymas.jsx';
 import Grazinimas from './components/pages/terms/Grazinimas.jsx';
 import Order from './components/pages/orders/Order.jsx';
+import Trklubas from './components/pages/trklubas/Trklubas.jsx'
 import ReactGA from 'react-ga';
 
 const useStyles = makeStyles((theme) => ({
@@ -450,6 +451,9 @@ const App = () => {
           </Route>
           <Route exact path="/privatumopolitika">
             <PrivacyPolicy />
+          </Route>
+          <Route exact path="/klubas">
+            <Trklubas />
           </Route>
           <Route exact path="/profile">
             <Profile token={token} username={username} loggedIn={loggedIn}/>
