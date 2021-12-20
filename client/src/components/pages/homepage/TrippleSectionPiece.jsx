@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         color: theme.myTheme.trecia,
         textAlign: 'center',
+
         marginBottom: '1em'
     },
     image: {
@@ -53,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 0 1em 0',
         padding: '0',
         fontSize: '1.2rem',
+        fontWeight: 'bold',
         textAlign: 'justify',
         textJustify: 'inter-word',
         [theme.breakpoints.up('xxl')]: {
