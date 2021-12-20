@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Button, Accordion, AccordionSummary, AccordionDetails, FormControl, OutlinedInput, CircularProgress } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useState, useEffect } from 'react';
+import { useState } from 'react'; //useEffect
 import { FaRegImage } from "react-icons/fa";
 import OrderConfirmModal from './OrderConfirmModal';
 
@@ -259,7 +259,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
 
     const [modal, setModal] = useState(false);
     const [updateingSanaudas, setUpdateingSanaudas] = useState(false);
-    const [sanaudos, setSanaudos] = useState(0);
+    // const [sanaudos, setSanaudos] = useState(0);
 
     const handleModalOpen = () => {
         setModal(true);
@@ -275,7 +275,11 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
     };
 
     const handleSanaudosChange = (e) => {
-        setSanaudos(e.target.value);
+        // setSanaudos(e.target.value);
+        setOrder({
+            ...order,
+            sanaudos: e.target.value
+        });
     };
 
     const updateSanaudas = async () => {
@@ -290,7 +294,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                 },
                 body: JSON.stringify({
                     orderID: order.id,
-                    san: sanaudos
+                    san: order.sanaudos
                 }),
             });
             const response = await req.json();
@@ -317,10 +321,10 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
         }
     };
 
-    useEffect(() => {
-        setSanaudos(order.sanaudos);
-        // eslint-disable-next-line
-    }, [order])
+    // useEffect(() => {
+    //     setSanaudos(order.sanaudos);
+    //     // eslint-disable-next-line
+    // }, [order])
 
     return (
         <Box classes={{root: classes.accountsBox}}>
@@ -413,7 +417,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                         <OutlinedInput
                             id="saunaudos_input"
                             type='number'
-                            value={sanaudos}
+                            value={order.sanaudos}
                             placeholder='Eur...'
                             onChange={handleSanaudosChange}
                             classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
