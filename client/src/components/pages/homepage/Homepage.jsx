@@ -7,7 +7,7 @@ import TrippleSection from './TrippleSection';
 // import SectionTwo from './SectionTwo';
 // import FreeShippingSection from './FreeShippingSection';
 // import ClubSection from './ClubSection';
-import Divider from './Divider';
+// import Divider from './Divider';
 // import Divider2 from './Divider2';
 // import Divider3 from './Divider3';
 // import HowItWorksSection from './HowItWorksSection';
@@ -36,7 +36,7 @@ const Homepage = ({ products, carousel, setCarousel, loyaltydiscount }) => {
             <Carouselv2 carousel={carousel} setCarousel={setCarousel}/>
             <Box classes={{root: classes.content}}>
                 <ProductsSectionHome products={products} loyaltydiscount={loyaltydiscount}/>
-                <Divider />
+                {/* <Divider /> */}
                 <SectionOne />
                 <TrippleSection />
                 {/* <FreeShippingSection />
