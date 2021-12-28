@@ -5,8 +5,7 @@ const User = require("../models/user")
 passport.use(new LinkedInStrategy({
     clientID: process.env.LINKEDIN_KEY,
     clientSecret: process.env.LINKEDIN_SECRET,
-    // callbackURL: process.env.LINKEDIN_CALLBACK_URL,
-    callbackURL: '/users/auth/linkedin/callback',
+    callbackURL: process.env.LINKEDIN_CALLBACK_URL,
     passReqToCallback: true,
     scope: ['r_emailaddress', 'r_liteprofile']
   },
