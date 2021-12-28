@@ -49,15 +49,15 @@ const sendConfirmEmail = (email) => {
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: process.env.EMAIL_PORT,
-      secure: false, 
-      secureConnection: true,
+      secure: true, 
+    //   secureConnection: true,
       auth: {
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD,
       },
       tls:{
         rejectUnauthorized: false,
-        ciphers:'SSLv3'
+        // ciphers:'SSLv3'
       },
     });
     const message = {
@@ -1590,15 +1590,15 @@ router.post("/sendEmail", verifyUser, (req, res, next) => {
         const transporter = nodemailer.createTransport({
             host: process.env.EMAIL_HOST,
             port: process.env.EMAIL_PORT,
-            secure: false, 
-            secureConnection: true,
+            secure: true, 
+            // secureConnection: true,
             auth: {
                 user: process.env.EMAIL_USERNAME,
                 pass: process.env.EMAIL_PASSWORD,
             },
             tls:{
                 rejectUnauthorized: false,
-                ciphers:'SSLv3'
+                // ciphers:'SSLv3'
             },
         });
         for (const address of req.body.adress) {
