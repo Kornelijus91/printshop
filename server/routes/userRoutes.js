@@ -115,7 +115,7 @@ const sendThanksEmail = (email) => {
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
-    // secure: true, 
+    secure: true, 
     // secureConnection: true,
     auth: {
       user: process.env.EMAIL_USERNAME,
@@ -1203,7 +1203,7 @@ router.post("/sendhelp", (req, res, next) => {
       const transporter = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT,
-        // secure: true, 
+        secure: true, 
         // secureConnection: true,
         auth: {
           user: process.env.EMAIL_USERNAME,
