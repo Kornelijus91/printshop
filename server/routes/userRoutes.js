@@ -123,7 +123,8 @@ const sendThanksEmail = (email) => {
     },
     tls:{
       rejectUnauthorized: false,
-      // ciphers:'SSLv3'
+      // ciphers:'SSLv3',
+      secureProtocol: "TLSv1_method"
     },
   });
   const message = {
@@ -1210,7 +1211,8 @@ router.post("/sendhelp", (req, res, next) => {
         },
         tls:{
           rejectUnauthorized: false,
-          // ciphers:'SSLv3'
+          // ciphers:'SSLv3',
+          secureProtocol: "TLSv1_method"
         },
       });
       const message = {
