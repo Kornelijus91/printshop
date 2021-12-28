@@ -54,10 +54,12 @@ const sendConfirmEmail = (email) => {
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD,
       },
+      tls:{
+        rejectUnauthorized: false
+      },
     });
     const message = {
-    //   from: process.env.EMAIL_FROM,
-      from: 'Spausdintuvykla <testuxxxzzz@gmail.com>',
+      from: process.env.EMAIL_FROM,
       to: `${email}`,
       subject: "Užsakymas įvykdytas.",
       html: ConfirmEmail(),
@@ -1591,12 +1593,14 @@ router.post("/sendEmail", verifyUser, (req, res, next) => {
                 user: process.env.EMAIL_USERNAME,
                 pass: process.env.EMAIL_PASSWORD,
             },
+            tls:{
+                rejectUnauthorized: false
+            },
         });
         for (const address of req.body.adress) {
             try {
                 const message = {
-                    // from: process.env.EMAIL_FROM,
-                    from: 'Spausdintuvykla <testuxxxzzz@gmail.com>',
+                    from: process.env.EMAIL_FROM,
                     to: address,
                     subject: req.body.subject,
                     html: req.body.letter

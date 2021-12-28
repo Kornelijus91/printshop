@@ -120,17 +120,14 @@ const sendThanksEmail = (email) => {
       user: process.env.EMAIL_USERNAME,
       pass: process.env.EMAIL_PASSWORD,
     },
+    tls:{
+      rejectUnauthorized: false
+    },
   });
   const message = {
-    // from: process.env.EMAIL_FROM,
-    from: 'Spausdintuvykla <testuxxxzzz@gmail.com>',
+    from: process.env.EMAIL_FROM,
     to: `${email}`,
     subject: "Užsakymas gautas.",
-    // 
-    // html: `<p>Labas, ${name}</p>
-    //       <p>Atsiuntėme tavo slaptažodžio keitimo nuorodą. Kad pakeistum slaptažodį spausk <a href=${process.env.MAIN_URL}/resetpassword/${token}>čia.</a></p>
-    //       <p>Nuoroda galioja 20 minučių.</p>
-    //       <p>Artis spausdin komanda :D</p>`
     html: ThanksEmail(),
   };
   transporter.sendMail(message);
@@ -1208,17 +1205,14 @@ router.post("/sendhelp", (req, res, next) => {
           user: process.env.EMAIL_USERNAME,
           pass: process.env.EMAIL_PASSWORD,
         },
+        tls:{
+          rejectUnauthorized: false
+        },
       });
       const message = {
-        // from: process.env.EMAIL_FROM,
-        from: 'Spausdintuvykla <testuxxxzzz@gmail.com>',
+        from: process.env.EMAIL_FROM,
         to: `${req.body.email}`,
         subject: "Slaptažožio keitimo nuoroda.",
-        // 
-        // html: `<p>Labas, ${name}</p>
-        //       <p>Atsiuntėme tavo slaptažodžio keitimo nuorodą. Kad pakeistum slaptažodį spausk <a href=${process.env.MAIN_URL}/resetpassword/${token}>čia.</a></p>
-        //       <p>Nuoroda galioja 20 minučių.</p>
-        //       <p>Artis spausdin komanda :D</p>`
         html: ResetPswEmail(`${process.env.MAIN_URL}/resetpassword/${token}`),
       };
       transporter.sendMail(message, function(err) {
