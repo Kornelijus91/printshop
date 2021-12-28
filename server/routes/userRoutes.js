@@ -121,7 +121,8 @@ const sendThanksEmail = (email) => {
       pass: process.env.EMAIL_PASSWORD,
     },
     tls:{
-      rejectUnauthorized: false
+      rejectUnauthorized: false,
+      ciphers:'SSLv3'
     },
   });
   const message = {
@@ -1206,7 +1207,8 @@ router.post("/sendhelp", (req, res, next) => {
           pass: process.env.EMAIL_PASSWORD,
         },
         tls:{
-          rejectUnauthorized: false
+          rejectUnauthorized: false,
+          ciphers:'SSLv3'
         },
       });
       const message = {

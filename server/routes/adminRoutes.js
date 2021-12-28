@@ -55,7 +55,8 @@ const sendConfirmEmail = (email) => {
         pass: process.env.EMAIL_PASSWORD,
       },
       tls:{
-        rejectUnauthorized: false
+        rejectUnauthorized: false,
+        ciphers:'SSLv3'
       },
     });
     const message = {
@@ -1594,7 +1595,8 @@ router.post("/sendEmail", verifyUser, (req, res, next) => {
                 pass: process.env.EMAIL_PASSWORD,
             },
             tls:{
-                rejectUnauthorized: false
+                rejectUnauthorized: false,
+                ciphers:'SSLv3'
             },
         });
         for (const address of req.body.adress) {
