@@ -49,7 +49,7 @@ const sendConfirmEmail = (email) => {
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: process.env.EMAIL_PORT,
-      secure: true, 
+    //   secure: true, 
     //   secureConnection: true,
       auth: {
         user: process.env.EMAIL_USERNAME,
@@ -58,7 +58,7 @@ const sendConfirmEmail = (email) => {
       tls:{
         rejectUnauthorized: false,
         // ciphers:'SSLv3',
-        secureProtocol: "TLSv1_method"
+        // secureProtocol: "TLSv1_method"
       },
     });
     const message = {
@@ -1591,7 +1591,7 @@ router.post("/sendEmail", verifyUser, (req, res, next) => {
         const transporter = nodemailer.createTransport({
             host: process.env.EMAIL_HOST,
             port: process.env.EMAIL_PORT,
-            secure: true, 
+            // secure: true, 
             // secureConnection: true,
             auth: {
                 user: process.env.EMAIL_USERNAME,
@@ -1600,7 +1600,7 @@ router.post("/sendEmail", verifyUser, (req, res, next) => {
             tls:{
                 rejectUnauthorized: false,
                 // ciphers:'SSLv3',
-                secureProtocol: "TLSv1_method"
+                // secureProtocol: "TLSv1_method"
             },
         });
         for (const address of req.body.adress) {
