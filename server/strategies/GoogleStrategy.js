@@ -5,7 +5,8 @@ const User = require("../models/user")
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CLIENT_CALLBACK_URL,
+    // callbackURL: process.env.GOOGLE_CLIENT_CALLBACK_URL, 
+    callbackURL: '/users/auth/google/callback',
     passReqToCallback: true
   },
   function(request, accessToken, refreshToken, profile, done) {
