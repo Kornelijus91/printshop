@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, CircularProgress, Tooltip } from '@material-ui/core';
-import { FaTrash, FaStar } from 'react-icons/fa';
+import { FaTrash, FaStar, FaImage } from 'react-icons/fa';
 import {Helmet} from "react-helmet";
 import Pagination from '@material-ui/lab/Pagination';
 import ProductModal from './ProductModal'
 import DeleteProductModal from './DeleteProductModal';
 import { ProjectName } from '../../../Variables.jsx'
+import GalerijaModal from './GalerijaModal'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -219,6 +220,13 @@ const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) 
         productName: '',
     });
 
+    const [galerijaModal, setGalerijaModal] = useState({
+        open: false,
+        productID: '',
+        productName: '',
+        productGalerija: [],
+    });
+
     const [productOptionsMemo, setProductOptionsMemo] = useState([]);
 
     const handlePageChange = (event, value) => {
@@ -278,6 +286,16 @@ const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) 
             open: true,
             productID: deleteID,
             productName: deleteName,
+        });
+    };
+
+    const openGalerijaModal = (e, productID, productName, productGalerija) => {
+        e.stopPropagation();
+        setGalerijaModal({
+            open: true,
+            productID: productID,
+            productName: productName,
+            productGalerija: productGalerija,
         });
     };
 
@@ -418,6 +436,14 @@ const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) 
                 getAllProducts={getAllProducts}
                 page={pageDetails.totalPages < page ? pageDetails.totalPages : page}
             />
+            <GalerijaModal 
+                galerijaModal={galerijaModal} 
+                setGalerijaModal={setGalerijaModal}
+                setSnackbar={setSnackbar}
+                user={user} 
+                getAllProducts={getAllProducts}
+                page={pageDetails.totalPages < page ? pageDetails.totalPages : page}
+            />
             {pageDetails.items.length > 0 ?
                 <Box classes={{root: classes.accountsBox}}>
                     <Box classes={{root: classes.accountsBoxInner}}>
@@ -473,7 +499,7 @@ const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) 
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
+                                {/* <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                                     { user.administracija &&
                                         <Box classes={{root: classes.trashsection}}>
                                             <Box style={{marginRight: '1rem'}} display='flex' justifyContent='center' alignItems='center'>
@@ -497,6 +523,45 @@ const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) 
                                                 </Tooltip>
                                             </Box> 
                                         </Box>
+                                    }
+                                </Grid> */}
+                                <Grid item xl={2} lg={2} md={2} sm={2} xs={2}>
+                                    { user.administracija &&
+                                        <Grid container display="flex" justifyContent='flex-end' alignItems='center'>
+                                            <Grid item xl={4} lg={4} md={4} sm={6} xs={6}>
+                                                <Box classes={{root: classes.trashsection}}>
+                                                    <Box style={{marginRight: '1rem'}} display='flex' justifyContent='center' alignItems='center'>
+                                                        <Tooltip title='Galerija' placement="top" arrow>
+                                                            <div>
+                                                                <FaImage size={20} className={classes.deleteIcon} onClick={(e) => openGalerijaModal(e, item._id, item.name, item.galerija)}/> 
+                                                            </div>
+                                                        </Tooltip>
+                                                    </Box> 
+                                                </Box>
+                                            </Grid>
+                                            <Grid item xl={4} lg={4} md={4} sm={6} xs={6}>
+                                                <Box classes={{root: classes.trashsection}}>
+                                                    <Box style={{marginRight: '1rem'}} display='flex' justifyContent='center' alignItems='center'>
+                                                        <Tooltip title={item.homepage ? 'Išimti i pagrindinio puslapio' : 'Pridėti prie pagrindinio puslapio'} placement="top" arrow>
+                                                            <div>
+                                                                <FaStar size={20} className={item.homepage ? classes.starIcon : classes.deleteIcon} onClick={(e) => handleHomepageAdd(e, item._id)}/> 
+                                                            </div>
+                                                        </Tooltip>
+                                                    </Box> 
+                                                </Box>
+                                            </Grid>
+                                            <Grid item xl={4} lg={4} md={4} sm={6} xs={6}>
+                                                <Box classes={{root: classes.trashsection}}>
+                                                    <Box style={{marginRight: '1rem'}} display='flex' justifyContent='center' alignItems='center'>
+                                                        <Tooltip title='Ištrinti' placement="top" arrow>
+                                                            <div>
+                                                                <FaTrash size={20} className={classes.deleteIcon} onClick={(e) => openDeleteModal(e, item._id, item.name)}/> 
+                                                            </div>
+                                                        </Tooltip>
+                                                    </Box> 
+                                                </Box>
+                                            </Grid>
+                                        </Grid>
                                     }
                                 </Grid>
                             </Grid>

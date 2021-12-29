@@ -229,7 +229,7 @@ const Footer = ({setModalOpen, setmodalView, loggedIn}) => {
                                 <Link to="/cart" className={classes.link} onClick={() => window.scrollTo({top: 0, left: 0})}>Krepšelis</Link>
                             </Box>
                             <Box className={classes.linkBox}>
-                                <Link to="/" className={classes.link} onClick={() => window.scrollTo({top: 0, left: 0})}>Apmokėjimas</Link>
+                                <Link to="/mokejimobudai" className={classes.link} onClick={() => window.scrollTo({top: 0, left: 0})}>Mokėjimo būdai</Link>
                             </Box>
                         </Box>
                     </Grid>
@@ -270,9 +270,9 @@ const Footer = ({setModalOpen, setmodalView, loggedIn}) => {
                             <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
                                 <p className={classes.textt}>AB „Swedbank“</p>
                             </Box>
-                            <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
+                            {/* <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
                                 <p className={classes.textt}>Daugėlių g. 79B, Kuršėnai, LT-81116 Šiaulių r.</p>
-                            </Box>
+                            </Box> */}
                         </Box>
                     </Grid>
                 </Grid>

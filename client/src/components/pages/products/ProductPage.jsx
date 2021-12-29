@@ -18,6 +18,7 @@ import axios from "axios";
 import ProductAddedModal from './ProductAddedModal.jsx';
 import MaketavimoKaina from './MaketavimoKaina';
 import Comments from './Comments'
+import Galery from './Galery'
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -897,6 +898,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                 return obj.link === encodeURIComponent(link)
             });
             if (result) {
+                console.log(result);
                 setProduct(result);
                 var copy18 = []; 
                 if (!cartItemID) {
@@ -1469,6 +1471,13 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                             </Grid>
                         </Grid>
                         <Comments product={product} firstName={firstName} personalas={personalas} token={token}/>
+                        {product.name && 
+                            <>
+                                {product.galerija.length > 0 &&
+                                    <Galery product={product}/>
+                                }
+                            </>
+                        }
                     </Box>
                 </Box>  
             </Box>

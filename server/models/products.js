@@ -23,6 +23,10 @@ const Product = new Schema({
         type: Array,
         default: [],
     },
+    galerija: {
+        type: Array,
+        default: [],
+    },
     oneDayLimit: {
         type: Number,
         default: 1,

@@ -261,9 +261,20 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '1.8rem',
         },
     },
+    paragraph: {
+        fontSize: '1.2rem',
+        margin: 0,
+        padding: 0,
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.62rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '2.4rem',
+        },
+    },
 }));
 
-const Profile = ({ token, username, loggedIn }) => {
+const Profile = ({ token, username, loggedIn, loyaltydiscountLevel, loyaltydiscount }) => {
 
     const classes = useStyles();
 
@@ -647,6 +658,19 @@ const Profile = ({ token, username, loggedIn }) => {
 
                             </Grid>
                         </Grid>
+
+                        <h1 className={classes.header}>Tavo reklama klubas</h1>
+
+                        <Box className={classes.gridBox}>
+                            <Grid container display='flex' justifyContent='center' className={classes.grid}>
+                                <Grid item xl={6} xs={12} md={6} sm={6} lg={6} className={classes.griditem}>
+                                    <h2 className={classes.paragraph}>Lygis: {loyaltydiscountLevel}</h2>
+                                </Grid>
+                                <Grid item xl={6} xs={12} md={6} sm={6} lg={6} className={classes.griditem}>
+                                    <h2 className={classes.paragraph}>Nuolaida: {loyaltydiscount}%</h2>
+                                </Grid>
+                            </Grid>
+                        </Box>
 
                         <h1 className={classes.header}>Keisti slaptažodį</h1>
 

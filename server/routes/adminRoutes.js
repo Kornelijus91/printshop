@@ -279,7 +279,7 @@ router.post("/getProducts", verifyUser, async (req, res, next) => {
         try {
             Product.paginate({}, {
                 page: req.body.page,
-                limit: 12,
+                limit: 10,
                 sort: { createdAt: -1 },
             }, function (err, result) {
                 if (!err) {
@@ -466,6 +466,19 @@ router.post("/deleteProduct",  verifyUser, async (req, res, next) => {
                                 }
                             })
                         } 
+                        for (const galeryImage of product.galerija) {
+                            if (fs.existsSync(`./private/uploads/${galeryImage.substring(galeryImage.lastIndexOf('/') + 1)}`)) {
+                                fs.unlink(`./private/uploads/${galeryImage.substring(galeryImage.lastIndexOf('/') + 1)}`, (err) => {
+                                    if (err) {
+                                        console.log(err);
+                                        // res.send({ 
+                                        //     success: false, 
+                                        //     error: err
+                                        // })
+                                    }
+                                })
+                            }
+                        }
                         try {
                             Comment.deleteMany({productName: product.name}).exec();
                             // product.remove(function (err) {
@@ -767,6 +780,93 @@ router.post("/deleteCarouselItem",  verifyUser, async (req, res, next) => {
             success: false, 
             error: 'Nesate administratorius.'
         })
+    }
+});
+
+router.post("/galeryUpload", verifyUser, upload.array("images"), (req, res, next) => {
+    if (req.user.administracija) {
+        const url = process.env.MAIN_URL;
+        Product.findById(req.body.productID, function (err, product) {
+            if (!err) {
+
+                var addToGalery = [];
+                if (req.files.length > 0) {
+                    for (const image of req.files) {
+                        addToGalery.push(url + '/euploads/' + image.filename); 
+                    }
+                }
+                const finalGalery = product.galerija.concat(addToGalery);
+                product.galerija = finalGalery;
+                product.save(function( err, result){
+                    if (err) {
+                        res.send({ 
+                            success: false, 
+                            error: err
+                        });
+                    } else {
+                        res.send({ 
+                            success: true, 
+                            error: '',
+                            galery: result.galerija
+                        });
+                    }
+                });
+            } else {
+                res.send({ 
+                    success: false, 
+                    error: err
+                });
+            }
+        });
+    } else {
+        res.send({ 
+            success: false, 
+            error: 'Nesate administratorius.'
+        });
+    }
+});
+
+router.post("/deleteGaleryItem", verifyUser, (req, res, next) => {
+    if (req.user.administracija) {
+        Product.findById(req.body.productID, function (err, product) {
+            if (!err) {
+                if (fs.existsSync(`./private/uploads/${req.body.image.substring(req.body.image.lastIndexOf('/') + 1)}`)) {
+                    fs.unlink(`./private/uploads/${req.body.image.substring(req.body.image.lastIndexOf('/') + 1)}`, (err) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                    })
+                }
+                var newGalery = product.galerija.filter(function(value, index, arr){ 
+                    return value !== req.body.image;
+                });
+                product.galerija = newGalery;
+                product.save(function( err, result){
+                    if (err) {
+                        res.send({ 
+                            success: false, 
+                            error: err
+                        });
+                    } else {
+                        res.send({ 
+                            success: true, 
+                            error: '',
+                            galery: result.galerija
+                        });
+                    }
+                });
+            } else {
+                res.send({ 
+                    success: false, 
+                    error: err
+                });
+            }
+        });
+    } else {
+        res.send({ 
+            success: false, 
+            error: 'Nesate administratorius.'
+        });
     }
 });
 
@@ -1103,9 +1203,9 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
         res.send({ 
             success: false, 
             error: 'Nesate administratorius.'
-        })
+        });
     }
-})
+});
 
 router.post("/searchOrders", verifyUser, async (req, res, next) => {
     if (req.user.personalas || req.user.administracija) {

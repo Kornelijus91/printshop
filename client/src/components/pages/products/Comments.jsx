@@ -224,7 +224,7 @@ const Comments = ({ product, firstName, personalas, token }) => {
 
     const [vardas, setVardas] = useState('');
     const [komentaras, setKomentaras] = useState('');
-    const [rating, setRating] = useState(4);
+    const [rating, setRating] = useState(5);
     const [submitting, setSubmitting] = useState(false);
     const [page, setPage] = useState(1);
     const [comments, setComments] = useState({
@@ -290,7 +290,7 @@ const Comments = ({ product, firstName, personalas, token }) => {
                         totalRating: comments.totalRating + response.comment.rating,
                     });
                     setKomentaras('');
-                    setRating(4);
+                    setRating(5);
                     
                 } else {
                     setSubmitting(false); 
@@ -458,7 +458,7 @@ const Comments = ({ product, firstName, personalas, token }) => {
                         <div className={classes.ratingBox}>
                             <Rating 
                                 name="size-large" 
-                                defaultValue={4} 
+                                defaultValue={5} 
                                 size="large" 
                                 onChange={handleRatingChange} 
                                 value={rating}

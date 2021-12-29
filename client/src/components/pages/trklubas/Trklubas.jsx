@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Trklubas = () => {
+const Trklubas = ({ loyalty, loyaltydiscount }) => {
 
     const classes = useStyles();
 
@@ -117,7 +117,14 @@ const Trklubas = () => {
                     <Link to='/klubas' className={classes.breadcrumbLinkDisabled}>Tavo Reklama klubas</Link>
                 </Breadcrumbs>
                 <h1>Tavo Reklama klubas</h1>
-       
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque cum exercitationem iusto quasi asperiores architecto id, laborum deleniti, quo ut doloremque dolorem nisi rem repudiandae voluptates facere impedit, itaque deserunt.</p>
+                {loyalty.length > 0 &&
+                    <>
+                        {loyalty.map((item, i) => 
+                            <p style={item.discount === loyaltydiscount ? {fontWeight: 'bold'} : {fontWeight: 'normal'}}>Lygis {i + 1} - Nuo: {item.money}€ - Nuolaida: {item.discount}%</p>
+                        )}
+                    </>
+                }
             </Box>
         </Box>
     )

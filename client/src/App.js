@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { useCallback, useEffect, useState } from 'react';
 import { BrowserRouter  as Router, Switch, Route, Link } from 'react-router-dom'; // Link
-import { Snackbar, IconButton, Fade } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { Snackbar, Button, Fade } from '@material-ui/core';
+// import CloseIcon from '@material-ui/icons/Close';
 import LoginRegisterModal from './components/loginModal/LoginRegisterModal.jsx';
 import Navigation from './components/header/Navigation.jsx';
 import Homepage from './components/pages/homepage/Homepage';
@@ -24,6 +24,7 @@ import Pristatymas from './components/pages/terms/Pristatymas.jsx';
 import Grazinimas from './components/pages/terms/Grazinimas.jsx';
 import Order from './components/pages/orders/Order.jsx';
 import Trklubas from './components/pages/trklubas/Trklubas.jsx'
+import Apmokejimas from './components/pages/terms/Apmokejimas.jsx';
 import ReactGA from 'react-ga';
 
 const useStyles = makeStyles((theme) => ({
@@ -56,11 +57,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   closeiconButton: {
+    backgroundColor: 'transparent',
+    color: '#4075bf',
     [theme.breakpoints.up('xxl')]: {
-      padding: '.5em'
+      padding: '.5em',
+      fontSize: '1.2rem',
     },
     [theme.breakpoints.up('xxxl')]: {
-      padding: '1em'
+      padding: '1em',
+      fontSize: '1.8rem',
     },
   },
 }));
@@ -398,9 +403,10 @@ const App = () => {
           open={cookieWarningOpen}
           onClose={handleCookieWarningClose}
           action={
-            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCookieWarningClose} classes={{root: classes.closeiconButton}}>
-              <CloseIcon fontSize="small" className={classes.closeicon}/>
-            </IconButton>
+            <Button size="small" aria-label="close" color="inherit" onClick={handleCookieWarningClose} classes={{root: classes.closeiconButton}}>
+              {/* <CloseIcon fontSize="small" className={classes.closeicon}/> */}
+              Supratau
+            </Button>
           }
           message={
             <p>
@@ -453,16 +459,19 @@ const App = () => {
             <PrivacyPolicy />
           </Route>
           <Route exact path="/klubas">
-            <Trklubas />
+            <Trklubas loyalty={loyalty} loyaltydiscount={loyaltydiscount}/>
           </Route>
           <Route exact path="/profile">
-            <Profile token={token} username={username} loggedIn={loggedIn}/>
+            <Profile token={token} username={username} loggedIn={loggedIn} loyaltydiscount={loyaltydiscount} loyaltydiscountLevel={loyaltydiscountLevel}/>
           </Route>
           <Route exact path="/addresses">
             <Addresses token={token} loggedIn={loggedIn} getAddresses={getAddresses} addresses={addresses}/>
           </Route>
           <Route exact path="/orders">
             <Orders token={token} loggedIn={loggedIn}/>
+          </Route>
+          <Route exact path="/mokejimobudai">
+            <Apmokejimas />
           </Route>
           <Route exact path="/order">
             <Order 
