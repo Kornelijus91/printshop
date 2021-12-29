@@ -85,6 +85,7 @@ const Galery = ({ product }) => {
     return (
         <Box classes={{root: classes.root}}>
             <h1 className={classes.header}>Galerija</h1>
+            <hr />
             <Box display='flex' flexWrap='wrap' justifyContent='flex-start' alignItems='center' classes={{root: classes.galerijaBox}}>
                 {product.galerija.map((item, index) => 
                     <Box key={index} classes={{root: classes.imageBox}} onClick={() => setImgViewer({ ...imgViewer, open: true, currentImage: index})}>
