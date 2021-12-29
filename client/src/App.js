@@ -122,7 +122,7 @@ const App = () => {
   });
   const [cookieWarningOpen, setCookieWarningOpen] = useState(false);
 
-  ReactGA.initialize('G-KY52LQ59R2');
+  ReactGA.initialize('UA-215960228-1');
   ReactGA.pageview(window.location.pathname + window.location.search);
 
   const roundTwoDec = (num) => { 
