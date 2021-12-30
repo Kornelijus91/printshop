@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const compression = require('compression');
 const morgan = require('morgan');
 const passport = require('passport');
 const Product = require("./models/products");
@@ -41,6 +42,12 @@ process.on('unhandledRejection', (reason, promise) => {
 })
 
 const app = express();
+const shouldCompress = (req, res) => {
+    if (req.headers['x-no-compression']) {
+        return false;
+    }
+    return compression.filter(req, res);
+};
 
 app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use(express.urlencoded({ extended: true }));
@@ -52,6 +59,11 @@ app.use((req, res, next) => {
     res.locals.path = req.path;
     next();
 });
+
+app.use(compression({
+    filter: shouldCompress,
+    threshold: 0
+}));
 
 const corsOptions = {
     origin: process.env.WHITELISTED_DOMAINS,
@@ -121,6 +133,49 @@ cron.schedule('0 0 4 * * *', async () => {
     timezone: "Europe/Vilnius"
 });
 
+var keywords = '';
+var prodinfo = [];
+
+Product.find({}, 'name description image', function (err, product) {
+    if (!err && product.length > 0) {
+
+        var tempkeywords = [process.env.PROJECTTITLE];
+        var tempprodArray = [];
+        for (const item of product) {
+            tempkeywords.push(item.name);
+            tempprodArray.push({
+                name: item.name,
+                description: item.description,
+                image: item.image,
+            });
+        }
+        keywords = tempkeywords.join(", ");
+        prodinfo = tempprodArray;
+    }
+});
+    
+cron.schedule('0 0 */2 * * *', async () => {
+    Product.find({}, 'name description image', function (err, product) {
+        if (!err && product.length > 0) {
+            var tempkeywords2 = [process.env.PROJECTTITLE];
+            var tempprodArray2 = [];
+            for (const item of product) {
+                tempkeywords2.push(item.name);
+                tempprodArray2.push({
+                    name: item.name,
+                    description: item.description,
+                    image: item.image,
+                });
+            }
+            keywords = tempkeywords2.join(", ");
+            prodinfo = tempprodArray2;
+        }
+    });
+}, {
+    scheduled: true,
+    timezone: "Europe/Vilnius"
+});      
+
 app.get('/', (req, res, next) => {
     const indexPath  = path.resolve(__dirname, '../client/build', 'index.html')
     fs.readFile(indexPath, 'utf8', (err, data) => {
@@ -128,42 +183,32 @@ app.get('/', (req, res, next) => {
             console.error('Error during file reading', err);
             return res.status(404).end()
         }
-        Product.find({}, 'name', function (err, product) {
-            if (!err && product.length > 0) {
-                var keywords = [process.env.PROJECTTITLE];
-                for (const item of product) {
-                    keywords.push(item.name);
-                }
-                data = data.replace(
-                    "<title>__TITLE__</title>",
-                    `<title>${process.env.PROJECTTITLE}</title>`
-                )
-                .replace(/__META_OG_TITLE__/, `${process.env.PROJECTTITLE}`)
-                // .replace(/__META_OG_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
-                .replace(/__META_OG_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
-                // .replace(/__META_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
-                .replace(/__META_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
-                // .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
-                .replace(/__META_OG_IMAGE__/, `https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png`)
-                .replace(/__META_KEYWORDS__/, `${keywords.join(", ")}`)
-                .replace(/__META_URL__/, process.env.MAIN_URL)
-                .replace(
-                    '<script type="application/ld+json">__JSON_META_TAGS__</script>',
-                    `<script type="application/ld+json">
-                    {         
-                        "@context": "https://schema.org/",         
-                        "@type": "WebSite",         
-                        "@id": "#WebSite",         
-                        "url": "${process.env.MAIN_URL}",          
-                        "name": "${process.env.PROJECTTITLE}"
-                    } 
-                    </script>`
-                )
-                res.send(data);
-            } else {
-                res.send(data);
-            }
-        });
+        data = data.replace(
+            "<title>__TITLE__</title>",
+            `<title>${process.env.PROJECTTITLE}</title>`
+        )
+        .replace(/__META_OG_TITLE__/, `${process.env.PROJECTTITLE}`)
+        // .replace(/__META_OG_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
+        .replace(/__META_OG_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
+        // .replace(/__META_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
+        .replace(/__META_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
+        // .replace(/__META_OG_IMAGE__/, `https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png`)
+        .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
+        .replace(/__META_KEYWORDS__/, `${keywords}`)
+        .replace(/__META_URL__/, process.env.MAIN_URL)
+        .replace(
+            '<script type="application/ld+json">__JSON_META_TAGS__</script>',
+            `<script type="application/ld+json">
+            {         
+                "@context": "https://schema.org/",         
+                "@type": "WebSite",         
+                "@id": "#WebSite",         
+                "url": "${process.env.MAIN_URL}",          
+                "name": "${process.env.PROJECTTITLE}"
+            } 
+            </script>`
+        )
+        res.send(data);
     });
 });
 
@@ -174,42 +219,32 @@ app.get('/products', (req, res, next) => {
             console.error('Error during file reading', err);
             return res.status(404).end()
         }
-        Product.find({}, 'name', function (err, product) {
-            if (!err && product.length > 0) {
-                var keywords = [process.env.PROJECTTITLE];
-                for (const item of product) {
-                    keywords.push(item.name);
-                }
-                data = data.replace(
-                    "<title>__TITLE__</title>",
-                    `<title>Produktai | ${process.env.PROJECTTITLE}</title>`
-                )
-                .replace(/__META_OG_TITLE__/, `Produktai | ${process.env.PROJECTTITLE}`)
-                // .replace(/__META_OG_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
-                // .replace(/__META_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
-                .replace(/__META_OG_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
-                .replace(/__META_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
-                // .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
-                .replace(/__META_OG_IMAGE__/, `https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png`) //https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png
-                .replace(/__META_KEYWORDS__/, `${keywords.join(", ")}`)
-                .replace(/__META_URL__/, process.env.MAIN_URL)
-                .replace(
-                    '<script type="application/ld+json">__JSON_META_TAGS__</script>',
-                    `<script type="application/ld+json">
-                    {         
-                        "@context": "https://schema.org/",         
-                        "@type": "WebSite",         
-                        "@id": "#WebSite",         
-                        "url": "${process.env.MAIN_URL}",          
-                        "name": "${process.env.PROJECTTITLE}"
-                    } 
-                    </script>`
-                )
-                res.send(data);
-            } else {
-                res.send(data);
-            }
-        });
+        data = data.replace(
+            "<title>__TITLE__</title>",
+            `<title>Produktai | ${process.env.PROJECTTITLE}</title>`
+        )
+        .replace(/__META_OG_TITLE__/, `Produktai | ${process.env.PROJECTTITLE}`)
+        // .replace(/__META_OG_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
+        // .replace(/__META_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
+        .replace(/__META_OG_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
+        .replace(/__META_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
+        .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
+        // .replace(/__META_OG_IMAGE__/, `https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png`) //https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png
+        .replace(/__META_KEYWORDS__/, `${keywords}`)
+        .replace(/__META_URL__/, process.env.MAIN_URL)
+        .replace(
+            '<script type="application/ld+json">__JSON_META_TAGS__</script>',
+            `<script type="application/ld+json">
+            {         
+                "@context": "https://schema.org/",         
+                "@type": "WebSite",         
+                "@id": "#WebSite",         
+                "url": "${process.env.MAIN_URL}",          
+                "name": "${process.env.PROJECTTITLE}"
+            } 
+            </script>`
+        )
+        res.send(data);
     });
 });
 
@@ -220,37 +255,32 @@ app.get('/products/*', (req, res, next) => {
             console.error('Error during file reading', err);
             return res.status(404).end()
         }
-        Product.find({ name: req.params[0]}, 'name description image', function (err, product) {
-            if (!err && product.length > 0) {
-                data = data.replace(
-                    "<title>__TITLE__</title>",
-                    `<title>${product[0].name} | ${process.env.PROJECTTITLE}</title>`
-                )
-                .replace(/__META_OG_TITLE__/, `${product[0].name} | ${process.env.PROJECTTITLE}`)
-                .replace(/__META_OG_DESCRIPTION__/, product[0].description)
-                .replace(/__META_DESCRIPTION__/, product[0].description)
-                .replace(/__META_OG_IMAGE__/, product[0].image)
-                .replace(/__META_KEYWORDS__/, `${process.env.PROJECTTITLE}, ${product[0].name}`)
-                .replace(/__META_URL__/, process.env.MAIN_URL)
-                .replace(
-                    '<script type="application/ld+json">__JSON_META_TAGS__</script>',
-                    `<script type="application/ld+json">
-                    {
-                      "@context": "https://schema.org/",
-                      "@type": "Product",
-                      "name": "${product[0].name}",
-                      "image": [
-                        "${product[0].image}" 
-                       ],
-                      "description": "${product[0].description}",
-                    }
-                    </script>`
-                )
-                res.send(data);
-            } else {
-                res.send(data);
+        const pos = prodinfo.map(function(e) { return e.name; }).indexOf(req.params[0]);
+        data = data.replace(
+            "<title>__TITLE__</title>",
+            `<title>${prodinfo[pos].name} | ${process.env.PROJECTTITLE}</title>`
+        )
+        .replace(/__META_OG_TITLE__/, `${prodinfo[pos].name} | ${process.env.PROJECTTITLE}`)
+        .replace(/__META_OG_DESCRIPTION__/, prodinfo[pos].description)
+        .replace(/__META_DESCRIPTION__/, prodinfo[pos].description)
+        .replace(/__META_OG_IMAGE__/, prodinfo[pos].image)
+        .replace(/__META_KEYWORDS__/, `${process.env.PROJECTTITLE}, ${prodinfo[pos].name}`)
+        .replace(/__META_URL__/, process.env.MAIN_URL)
+        .replace(
+            '<script type="application/ld+json">__JSON_META_TAGS__</script>',
+            `<script type="application/ld+json">
+            {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                "name": "${prodinfo[pos].name}",
+                "image": [
+                "${prodinfo[pos].image}" 
+                ],
+                "description": "${prodinfo[pos].description}",
             }
-        });
+            </script>`
+        )
+        res.send(data);
     });
 });
 

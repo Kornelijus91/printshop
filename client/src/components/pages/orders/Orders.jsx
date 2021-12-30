@@ -400,11 +400,12 @@ const Orders = ({ token, loggedIn }) => {
 
     const handlePageChange = (event, value) => {
         setPage(value);
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+        window.scrollTo({top: 0, left: 0});
     };
 
     const orderAgain = (productLink, carItemID) => {
-        history.push(`/products/${productLink}/${carItemID}`)
+        history.push(`/products/${productLink}/${carItemID}`);
+        window.scrollTo({top: 0, left: 0});
     };
 
     const getMyOrders = async (orderPage) => {

@@ -1,31 +1,31 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, Suspense } from 'react';
 import { BrowserRouter  as Router, Switch, Route, Link } from 'react-router-dom'; // Link
-import { Snackbar, Button, Fade } from '@material-ui/core';
-// import CloseIcon from '@material-ui/icons/Close';
+import { Snackbar, Button, Fade, Box, CircularProgress } from '@material-ui/core';
 import LoginRegisterModal from './components/loginModal/LoginRegisterModal.jsx';
 import Navigation from './components/header/Navigation.jsx';
 import Homepage from './components/pages/homepage/Homepage';
-import PageNotFound from './components/pages/pageNotFound/PageNotFound';
 import ResetPassword from './components/loginModal/ResetPassword';
-import TermsOfService from './components/pages/terms/TermsOfService';
-import PrivacyPolicy from './components/pages/privacy/PrivacyPolicy';
 import Products from './components/pages/products/Products';
 import ProductPage from './components/pages/products/ProductPage';
-import Contact from './components/pages/contact/Contact';
 import Footer from './components/footer/Footer';
-import Profile from './components/pages/profile/Profile.jsx';
-import Addresses from './components/pages/addresses/Addresses.jsx';
 import Orders from './components/pages/orders/Orders.jsx';
 import SearchPage from './components/pages/searchpage/SearchPage';
 import CartPage from './components/pages/cart/CartPage';
-import BuyRules from './components/pages/terms/BuyRules.jsx';
-import Pristatymas from './components/pages/terms/Pristatymas.jsx';
-import Grazinimas from './components/pages/terms/Grazinimas.jsx';
 import Order from './components/pages/orders/Order.jsx';
-import Trklubas from './components/pages/trklubas/Trklubas.jsx'
-import Apmokejimas from './components/pages/terms/Apmokejimas.jsx';
 import ReactGA from 'react-ga';
+import Profile from './components/pages/profile/Profile.jsx';
+import Addresses from './components/pages/addresses/Addresses.jsx';
+import Trklubas from './components/pages/trklubas/Trklubas.jsx'
+
+const BuyRules = React.lazy(() => import('./components/pages/terms/BuyRules.jsx'));
+const PrivacyPolicy = React.lazy(() => import('./components/pages/privacy/PrivacyPolicy'));
+const PageNotFound = React.lazy(() => import('./components/pages/pageNotFound/PageNotFound'));
+const TermsOfService = React.lazy(() => import('./components/pages/terms/TermsOfService'));
+const Contact = React.lazy(() => import('./components/pages/contact/Contact'));
+const Pristatymas = React.lazy(() => import('./components/pages/terms/Pristatymas.jsx'));
+const Grazinimas = React.lazy(() => import('./components/pages/terms/Grazinimas.jsx'));
+const Apmokejimas = React.lazy(() => import('./components/pages/terms/Apmokejimas.jsx'));
 
 const useStyles = makeStyles((theme) => ({
   cookieWarningSnackbar: {
@@ -66,6 +66,23 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('xxxl')]: {
       padding: '1em',
       fontSize: '1.8rem',
+    },
+  },
+  lazyFallback: {
+    backgroundColor: theme.myTheme.trecia,
+    width: '100%',
+    minHeight: '85vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  lazyFallbackIcon: {
+    color: theme.myTheme.sriftoSpalva,
+    [theme.breakpoints.up('xxl')]: {
+      transform: 'scale(1.35)'
+    },
+    [theme.breakpoints.up('xxxl')]: {
+      transform: 'scale(2)'
     },
   },
 }));
@@ -122,8 +139,7 @@ const App = () => {
   });
   const [cookieWarningOpen, setCookieWarningOpen] = useState(false);
 
-  ReactGA.initialize('UA-215960228-1');
-  ReactGA.pageview(window.location.pathname + window.location.search);
+  const lazyFallback = <Box classes={{root: classes.lazyFallback}}><CircularProgress size={30} className={classes.lazyFallbackIcon} /></Box>;
 
   const roundTwoDec = (num) => { 
     const result = Math.round(Number((Math.abs(num) * 100).toPrecision(15))) / 100 * Math.sign(num);
@@ -302,6 +318,8 @@ const App = () => {
       getLoyalty();
       getCart();
       getSettings();
+      ReactGA.initialize('UA-215960228-1');
+      ReactGA.pageview(window.location.pathname + window.location.search);
       // eslint-disable-next-line
   }, [])
 
@@ -396,7 +414,6 @@ const App = () => {
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          // classes={{root: classes.cookieSnackbar}}
           ContentProps={{
             className: classes.cookieWarningSnackbar
           }}
@@ -404,7 +421,6 @@ const App = () => {
           onClose={handleCookieWarningClose}
           action={
             <Button size="small" aria-label="close" color="inherit" onClick={handleCookieWarningClose} classes={{root: classes.closeiconButton}}>
-              {/* <CloseIcon fontSize="small" className={classes.closeicon}/> */}
               Supratau
             </Button>
           }
@@ -438,25 +454,37 @@ const App = () => {
             />
           </Route>
           <Route exact path="/contact">
-            <Contact username={username}/>
+            <Suspense fallback={lazyFallback}>
+              <Contact />
+            </Suspense>
           </Route>
           <Route path='/resetpassword/:token'>
             <ResetPassword />
           </Route>
           <Route exact path="/termsofservice">
-            <TermsOfService />
+            <Suspense fallback={lazyFallback}>
+              <TermsOfService />
+            </Suspense>
           </Route>
           <Route exact path="/pristatymas">
-            <Pristatymas />
+            <Suspense fallback={lazyFallback}>
+              <Pristatymas />
+            </Suspense>
           </Route>
           <Route exact path="/grazinimas">
-            <Grazinimas />
+            <Suspense fallback={lazyFallback}>
+              <Grazinimas />
+            </Suspense>
           </Route>
           <Route exact path="/pirkimotaisykles">
-            <BuyRules />
+            <Suspense fallback={lazyFallback}>
+              <BuyRules />
+            </Suspense>
           </Route>
           <Route exact path="/privatumopolitika">
-            <PrivacyPolicy />
+            <Suspense fallback={lazyFallback}>
+              <PrivacyPolicy />
+            </Suspense>
           </Route>
           <Route exact path="/klubas">
             <Trklubas loyalty={loyalty} loyaltydiscount={loyaltydiscount}/>
@@ -471,7 +499,9 @@ const App = () => {
             <Orders token={token} loggedIn={loggedIn}/>
           </Route>
           <Route exact path="/mokejimobudai">
-            <Apmokejimas />
+            <Suspense fallback={lazyFallback}>
+              <Apmokejimas />
+            </Suspense>
           </Route>
           <Route exact path="/order">
             <Order 
@@ -510,7 +540,9 @@ const App = () => {
             />
           </Route>
           <Route path='*'>
-            <PageNotFound />
+            <Suspense fallback={lazyFallback}>
+              <PageNotFound />
+            </Suspense>
           </Route>
         </Switch>
         <Footer setmodalView={setmodalView} setModalOpen={setModalOpen} loggedIn={loggedIn} />
