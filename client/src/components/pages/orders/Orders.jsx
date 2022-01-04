@@ -483,8 +483,8 @@ const Orders = ({ token, loggedIn }) => {
                                         <p className={classes.PriceText}>Kaina:</p>
                                         {order.price !== order.discountPrice ? 
                                             <Box display='flex' justifyContent='flex-start' alignItems='center'>
-                                                <span className={classes.Isbraukta}>{order.price}€</span>
-                                                <p className={classes.DiscountedPriceText}>{order.discountPrice}€</p>
+                                                <span className={classes.Isbraukta}>{order.price.toFixed(2)}€</span>
+                                                <p className={classes.DiscountedPriceText}>{order.discountPrice.toFixed(2)}€</p>
                                             </Box>
                                         :
                                             <p className={classes.PriceText}>{order.price}€</p>
