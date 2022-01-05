@@ -266,8 +266,7 @@ const UserOrders = ({ userId, setSnackbar, token, getOrders, ordersPage, setView
                                         createdAt: item.createdAt,
                                         price: item.price,
                                         discountPrice: item.discountPrice,
-                                        nuolaidosKodas: item.nuolaidosKodas,
-                                        nuolaidosKodoNuolaida: item.nuolaidosKodoNuolaida,
+                                        gamybosLaikas: item.gamybosLaikas,
                                         status: item.status,
                                         uzsakymoNr: item.uzsakymoNr,
                                         sanaudos: item.sanaudos,
@@ -286,7 +285,7 @@ const UserOrders = ({ userId, setSnackbar, token, getOrders, ordersPage, setView
                                 }
                                 <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
-                                        <p>Pateiktas: {new Date(item.createdAt).getFullYear()+"-"+(new Date(item.createdAt).getMonth() + 1)+"-"+new Date(item.createdAt).getDate()}</p>
+                                        <p>Pateiktas: {new Date(item.createdAt).getFullYear()+"-"+('0' + (new Date(item.createdAt).getMonth() + 1)).slice(-2)+"-"+('0' + new Date(item.createdAt).getDate()).slice(-2)}</p>
                                     </Box>
                                 </Grid>
                                 <Grid item xl={7} lg={7} md={7} sm={6} xs={6}>

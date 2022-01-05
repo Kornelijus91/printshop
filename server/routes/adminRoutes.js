@@ -1257,19 +1257,38 @@ router.post("/getStats", verifyUser, async (req, res, next) => {
         try {
             const orders = await Order.find({ createdAt: { $gte: req.body.nuo, $lte: req.body.iki }, status: 'Įvykdytas' }).sort('createdAt').exec();
 
+            var dataGroupedByProduct = [];
+
+            for (const lll of orders) {
+                for (const nnn of lll.cartItems) {
+                    if (dataGroupedByProduct.filter(e => e.name === nnn.name).length > 0) {
+                        const index = dataGroupedByProduct.findIndex( (element) => element.name === nnn.name);
+                        dataGroupedByProduct[index].value = roundTwoDec(dataGroupedByProduct[index].value + nnn.discountedPrice);
+                    } else {
+                        dataGroupedByProduct.push({
+                            name: nnn.name,
+                            value: roundTwoDec(nnn.discountedPrice)
+                        });
+                    }
+                }
+            }
+
             const datename = item => moment(item.createdAt, 'YYYY-MM-DD').format('YYYY-MM-DD');
             const result = _.groupBy(orders, datename);
 
             var data = [];
 
             for (const item in result) {
+                
                 var totalPrice = 0;
                 var totalDiscountedPrice = 0;
                 var totalOrders = 0;
                 var totalSanaudos = 0;
                 for (const inner of result[item]) {
+                    // console.log(inner);
                     totalPrice = totalPrice + inner.price;
                     totalDiscountedPrice = totalDiscountedPrice + inner.discountPrice;
+                    // totalDiscountedPrice = totalDiscountedPrice + (inner.price * ((100 - inner.discount) / 100)) + inner.maketavimoKaina
                     totalOrders = totalOrders + 1;
                     totalSanaudos = totalSanaudos + inner.sanaudos;
                 }
@@ -1281,10 +1300,10 @@ router.post("/getStats", verifyUser, async (req, res, next) => {
                     totalOrders: totalOrders,
                 });
             }
-
             res.send({ 
                 success: true, 
                 data: data,
+                groupedProducts: dataGroupedByProduct,
                 error: ''
             })
         } catch (error) {

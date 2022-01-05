@@ -1,5 +1,6 @@
 import SalesChart from './SalesChart'
-import { Box, Button, CircularProgress } from '@material-ui/core';
+import PieChartComponent from './PieChartComponent'
+import { Box, Button, CircularProgress, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -145,15 +146,23 @@ const useStyles = makeStyles((theme) => ({
     },
     sumUpBox: {
         width: '100%',
-        color: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.antra,
+        color: theme.myTheme.sriftoSpalva,
+        borderRadius: '5px',
         fontFamily: theme.myTheme.sriftas,
+        padding: '1em 3em',
         '& h2': {
             fontSize: '1.6rem'
         },
         '& p': {
             fontSize: '1.2rem'
         },
+        [theme.breakpoints.up('lg')]: {
+            width: 'unset',
+        },
         [theme.breakpoints.up('xxl')]: {
+            borderRadius: '7px',
+            padding: '1.35em 4em',
             '& h2': {
                 fontSize: '2.16rem'
             },
@@ -162,12 +171,31 @@ const useStyles = makeStyles((theme) => ({
             },
         },
         [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '9px',
+            padding: '2em 6em',
             '& h2': {
                 fontSize: '3.2rem'
             },
             '& p': {
                 fontSize: '2.4rem'
             },
+        }, 
+    },
+    bottomBox: {
+        paddingLeft: '2em',
+        width: '100%',
+    },
+    piechartbox: {
+        // width: '40rem',
+        height: '20em',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        [theme.breakpoints.up('xxl')]: {
+            height: '27em',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: '40em',
         }, 
     },
 }));
@@ -182,6 +210,7 @@ const SalesStats = ({ user, setSnackbar }) => {
     });
 
     const [stats, setStats] = useState([]);
+    const [productstats, setProductStats] = useState([]);
     const [totals, setTotals] = useState({
         price: 0,
         discountedPrice: 0,
@@ -245,7 +274,8 @@ const SalesStats = ({ user, setSnackbar }) => {
             const response = await req.json();
             if (response.success) {
                 setGettingstats(false);
-                setStats(response.data)
+                setStats(response.data);
+                setProductStats(response.groupedProducts);
             } else {
                 setGettingstats(false);
                 setSnackbar({
@@ -353,13 +383,35 @@ const SalesStats = ({ user, setSnackbar }) => {
                     </Box> 
                 }
             </Box>
-            <Box classes={{root: classes.sumUpBox}}>
-                <h2>Laikotarpio suvestinė:</h2>
-                <p>Užsakymai: <b>{totals.orders}</b></p>
-                <p>Apyvarta: <b>{totals.price !== totals.discountedPrice ? (totals.discountedPrice).toFixed(2) : (totals.price).toFixed(2)}€</b></p>
-                <p>Sanaudos: <b>{(totals.sanaudos).toFixed(2)}€</b></p>
-                <p>Pelnas: <b>{(totals.discountedPrice - totals.sanaudos).toFixed(2)}€</b></p>
-            </Box>
+            {/* <Box display='flex' flexWrap='wrap' justifyContent='flex-start' alignItems='flex-start' classes={{root: classes.bottomBox}}>
+                <Box classes={{root: classes.sumUpBox}}>
+                    <h2>Laikotarpio suvestinė:</h2>
+                    <p>Užsakymai: <b>{totals.orders}</b></p>
+                    <p>Apyvarta: <b>{totals.price !== totals.discountedPrice ? (totals.discountedPrice).toFixed(2) : (totals.price).toFixed(2)}€</b></p>
+                    <p>Sanaudos: <b>{(totals.sanaudos).toFixed(2)}€</b></p>
+                    <p>Pelnas: <b>{(totals.discountedPrice - totals.sanaudos).toFixed(2)}€</b></p>
+                </Box>
+                <Box classes={{root: classes.piechartbox}}>
+                    <PieChartComponent stats={productstats}/>
+                </Box> 
+            </Box> */}
+            <Grid container>
+                <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+                    <Box classes={{root: classes.sumUpBox}}>
+                        <h2>Laikotarpio suvestinė:</h2>
+                        <p>Užsakymai: <b>{totals.orders}</b></p>
+                        <p>Apyvarta: <b>{totals.price !== totals.discountedPrice ? (totals.discountedPrice).toFixed(2) : (totals.price).toFixed(2)}€</b></p>
+                        <p>Sanaudos: <b>{(totals.sanaudos).toFixed(2)}€</b></p>
+                        <p>Pelnas: <b>{(totals.discountedPrice - totals.sanaudos).toFixed(2)}€</b></p>
+                    </Box>
+                </Grid>
+                <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
+                    <Box classes={{root: classes.piechartbox}}>
+                        <PieChartComponent stats={productstats}/>
+                    </Box> 
+                </Grid>
+            </Grid>
+            
         </Box>
     )
 }

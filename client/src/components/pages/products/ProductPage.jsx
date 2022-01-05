@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Hidden, StepConnector, ListItemText, ListItem, MenuItem, Select, FormControl, Box, Grid, Breadcrumbs, Stepper, Step, StepLabel, Collapse, TextField, Button, Divider, Snackbar, ClickAwayListener, CircularProgress } from '@material-ui/core';
+import { Hidden, StepConnector, Box, Grid, Breadcrumbs, Stepper, Step, StepLabel, Collapse, TextField, Button, Divider, Snackbar, ClickAwayListener, CircularProgress } from '@material-ui/core'; // ListItemText, ListItem, MenuItem, Select, FormControl,
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Helmet } from "react-helmet";
 import { ProjectName } from '../../../Variables.jsx' 
 import { Link, useHistory } from 'react-router-dom'; 
 import MuiAlert from '@material-ui/lab/Alert';
-// import Skeleton from '@material-ui/lab/Skeleton';
 import NumberDoubleOption from './NumberDoubleOption.jsx';
 import NumberOption from './NumberOption.jsx';
 import PictureOption from './PictureOption.jsx'
@@ -443,19 +442,6 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '2.4rem',
         },
     },
-    formVariantSelect: {
-        width: '100%',
-        marginBottom: '1rem',
-        
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: '1.5rem',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: '2rem',
-            fontSize: '1.9rem',
-        },
-    },
     variantSelect: {
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,
@@ -489,59 +475,6 @@ const useStyles = makeStyles((theme) => ({
             }, 
         },
     },
-    variantSelectIcon: {
-        color: theme.myTheme.sriftoSpalva,
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5)',
-            marginRight: '1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)',
-            marginRight: '1.5rem'
-        },
-    },
-    menuPaper: {
-        maxHeight: '22rem',
-        overflowY: 'auto',
-        [theme.breakpoints.up('xxl')]: {
-            maxHeight: '33rem',
-            borderRadius: '7px',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            maxHeight: '44rem',
-            borderRadius: '9px',
-        },
-    },
-    menuItem: {
-        width: '100%',
-        overflowWrap: 'break-word',
-    },
-    listItem: {
-        margin: '0 1rem 0 1rem',
-        padding: '0',
-        overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.5rem 0 1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 2rem 0 2rem',
-        },
-    },
-    primaryListText: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        maxWidth: '13rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            maxWidth: '20rem',
-            margin: '1rem 0'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-            maxWidth: '26rem',
-            margin: '1.5rem 0'
-        },
-    },
     icon: {
         color: theme.myTheme.trecia,
         [theme.breakpoints.up('xxl')]: {
@@ -561,23 +494,6 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.up('xxxl')]: {
             margin: '1rem 0 0 0',
-            fontSize: '1.8rem',
-        },
-    },
-    selectRenderBox: {
-        paddingLeft: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            paddingLeft: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            paddingLeft: '2rem',
-        },
-    },
-    selectRenderValue: {
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
             fontSize: '1.8rem',
         },
     },
@@ -610,7 +526,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, maketavimoKaina, firstName, personalas, token }) => {
+const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, maketavimoKaina, firstName, personalas, token, kodoNuolaida, findMaxDiscount }) => {
 
     let { link, cartItemID } = useParams();
     const classes = useStyles();
@@ -634,16 +550,16 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
         price: 0,
         discount: 0
     });
-    const [gamybosLaikas, setGamybosLaikas] = useState([]);
     const [amountArray, setAmountArray] = useState([]);
-    const [pasirinktasGamybosLaikas, setPasirinktasGamybosLaikas] = useState('3-5 darbo dienos.');
-    const [gamybosPabrangimas, setGamybosPabrangimas] = useState(1);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [uploading, setUploading] = useState(false);
     const [addModalOpen, setAddModalOpen] = useState(false);
     const [cartItemId, setCartItemId] = useState('');
     const [papildomaMaketavimoKaina, setPapildomaMaketavimoKaina] = useState(0);
-    // const [imgLoaded, setImgLoaded] = useState(false);
+    const [appliedDiscount, setAppliedDiscount] = useState({
+        discountName: '',
+        discount: 0
+    });
 
     const resetEverything = () => {
         setPastaba('');
@@ -658,8 +574,6 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
             price: 0,
             discount: 0
         });
-        setPasirinktasGamybosLaikas('3-5 darbo dienos.');
-        setGamybosPabrangimas(1);
         setCartItemId('');
     };
 
@@ -678,19 +592,15 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
     const getDiscountedPrice = () => {
         if (amountArray.length > 0) {
             if (kiekis <= amountArray[0].amount) {
-                const dscnt = 1 - (amountArray[0].discount / 100) - (loyaltydiscount / 100);
+                const dscnt = 1 - (appliedDiscount.discount / 100);
                 const roundedTotalDiscountedPrice = roundTwoDec(unitPrice.price * amountArray[0].amount * dscnt + papildomaMaketavimoKaina);
                 return roundedTotalDiscountedPrice.toFixed(2);
             } else {
-                const dscnt = 1 - (unitPrice.discount / 100) - (loyaltydiscount / 100);
+                const dscnt = 1 - (appliedDiscount.discount / 100);
                 const roundedTotalDiscountedPrice = roundTwoDec(unitPrice.price * Math.round(kiekis) * dscnt + papildomaMaketavimoKaina);
                 return roundedTotalDiscountedPrice.toFixed(2);
             } 
         }
-    };
-
-    const handleGamybosLaikasChange = (e) => {
-        setPasirinktasGamybosLaikas(e.target.value);
     };
 
     const handlePastabaChange = (e) => {
@@ -699,25 +609,11 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
 
     const handleKiekisChange = (e) => {
         setKiekis(e.target.value);
-        gamybosLaikoKorekcija(Number(e.target.value));
-    };
-
-    const gamybosLaikoKorekcija = (quantity) => {
-        if (gamybosLaikas.length > 0) {
-            if (pasirinktasGamybosLaikas === gamybosLaikas[1].name && gamybosLaikas[1].limit < quantity) {
-                setPasirinktasGamybosLaikas(gamybosLaikas[0].name);
-                setGamybosPabrangimas((gamybosLaikas[0].price / 100) + 1);
-            } else if (pasirinktasGamybosLaikas === gamybosLaikas[2].name && gamybosLaikas[2].limit < quantity) {
-                setPasirinktasGamybosLaikas(gamybosLaikas[1].name);
-                setGamybosPabrangimas((gamybosLaikas[1].price / 100) + 1);
-            }
-        }
     };
 
     const handleKiekisCorrection = () => {
         if (Number(kiekis) < amountArray[0].amount) {
             setKiekis(Math.round(amountArray[0].amount));
-            gamybosLaikoKorekcija((Math.round(amountArray[0].amount)));
         } 
     };
 
@@ -785,7 +681,6 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
             formData.append('options', JSON.stringify(optionsValues));
             formData.append('pastaba', pastaba);
             formData.append('quantity', Number(kiekis));
-            formData.append('gamybosLaikas', pasirinktasGamybosLaikas);
             formData.append('discount', Number(unitPrice.discount)); 
             formData.append('maketavimoKaina', papildomaMaketavimoKaina);
             if (unitPrice.discount > 0 || loyaltydiscount > 0) {
@@ -814,7 +709,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                 }
                 getCart();
                 setAddModalOpen(true);
-            }
+            } 
         } catch (error) {
             setUploading(false);
         }
@@ -877,7 +772,6 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                     } else {
                         setKiekis(1);
                     }
-                    setPasirinktasGamybosLaikas(response.data.gamybosLaikas);
                     setCartItemId('');
                     return true;
                 } else {
@@ -898,7 +792,6 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                 return obj.link === encodeURIComponent(link)
             });
             if (result) {
-                console.log(result);
                 setProduct(result);
                 var copy18 = []; 
                 if (!cartItemID) {
@@ -909,6 +802,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                                 value: item.menuOptions[0].variantName,
                                 price: item.menuOptions[0].priceAdd,
                                 summon: item.summon,
+                                summonID: item.menuOptions[0].summonID,
                                 type: item.type,
                             });
                         } else if (item.type === 1) {
@@ -1005,7 +899,6 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                         } else {
                             setKiekis(1);
                         }
-                        setPasirinktasGamybosLaikas(cartItem.gamybosLaikas);
                         setPapildomaMaketavimoKaina(cartItem.maketavimoKaina);
                         setCartItemId(cartItemID);
                     } else {
@@ -1016,24 +909,6 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                         } 
                     }
                 }
-                
-                setGamybosLaikas([
-                    {
-                        name: '3-5 darbo dienos.',
-                        limit: Math.pow(10, 1000),
-                        price: 0
-                    },
-                    {
-                        name: '1-2 darbo dienos.',
-                        limit: result.twoDayLimit,
-                        price: result.twoDayPriceIncreace
-                    },
-                    {
-                        name: 'Iki 24H.',
-                        limit: result.oneDayLimit,
-                        price: result.oneDayPriceIncreace
-                    },
-                ]);
             } else {
                 history.push('/pageNotFound')
             }
@@ -1066,24 +941,29 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                 addonPrice = roundTwoDec(addonPrice + y.price);
             }
         }
-        gamybosLaikoKorekcija(kiekis);
         setUnitPrice({
-            price: roundTwoDec((unitPrice + addonPrice) * gamybosPabrangimas),
+            price: roundTwoDec(unitPrice + addonPrice), // * gamybosPabrangimas
             discount: unitDiscount
         });
         // eslint-disable-next-line
-    }, [amountArray, kiekis, optionsValues, gamybosPabrangimas]);
+    }, [amountArray, kiekis, optionsValues ]); //gamybosPabrangimas
 
     useEffect(() => {
-        if (gamybosLaikas.length > 0) {
-            for (const item of gamybosLaikas) {
-                if (item.name === pasirinktasGamybosLaikas) {
-                    setGamybosPabrangimas((item.price / 100) + 1);
-                }
-            }
+        const maxdiscount = findMaxDiscount(unitPrice.discount);
+        if (maxdiscount[1] > 0) {
+            setAppliedDiscount({
+                discountName: maxdiscount[0],
+                discount: maxdiscount[1]
+            });
+        } else {
+            setAppliedDiscount({
+                discountName: '',
+                discount: 0
+            });
         }
+        
         // eslint-disable-next-line
-    }, [pasirinktasGamybosLaikas]);
+    }, [kiekis, unitPrice, loyaltydiscount, kodoNuolaida]);
 
     return (
         <>
@@ -1106,12 +986,11 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                     productName={product.name}
                     kiekis={kiekis}
                     unitPrice={unitPrice}
-                    pasirinktasGamybosLaikas={pasirinktasGamybosLaikas}
                     pastaba={pastaba}
-                    loyaltydiscount={loyaltydiscount}
                     getDiscountedPrice={getDiscountedPrice}
                     getPrice={getPrice}
                     papildomaMaketavimoKaina={papildomaMaketavimoKaina}
+                    appliedDiscount={appliedDiscount}
                 />
                 <Box display='flex' justifyContent='center' style={{paddingBottom: '2rem'}}>
                     <Box classes={{root: classes.content}}>
@@ -1254,11 +1133,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                                             }
                                             </>
                                         )}
-                                        <MaketavimoKaina 
-                                            maketavimoKaina={maketavimoKaina}
-                                            papildomaMaketavimoKaina={papildomaMaketavimoKaina}
-                                            setPapildomaMaketavimoKaina={setPapildomaMaketavimoKaina}
-                                        />
+                                       
                                         <h2 className={classes.OptionTitleHeader}>Pastaba</h2>
                                         <TextField 
                                             id="pastaba" 
@@ -1365,40 +1240,11 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                                         }}
                                     />
                                 </ClickAwayListener>
-                                <h2 className={classes.OptionTitleHeader}>Gamybos laikas</h2>
-                                <FormControl classes={{root: classes.formVariantSelect}} focused={false}>
-                                    <Select
-                                        id="simple-select-outlined"
-                                        variant='outlined'
-                                        classes={{
-                                            outlined: classes.variantSelect, 
-                                            iconOutlined: classes.variantSelectIcon,
-                                        }}
-                                        value={pasirinktasGamybosLaikas}
-                                        onChange={handleGamybosLaikasChange}
-                                        defaultValue={pasirinktasGamybosLaikas}
-                                        MenuProps={{ classes: { list: classes.menuPaper } }}
-                                        renderValue={(value) => 
-                                            <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.selectRenderBox}}>
-                                                <p className={classes.selectRenderValue}>{value}</p>
-                                            </Box>
-                                        }
-                                    >
-                                        {gamybosLaikas.map((item) => 
-                                            <MenuItem value={item.name} classes={{root: classes.menuItem}} disabled={item.limit < kiekis}>
-                                                <ListItem classes={{root: classes.listItem}}>
-                                                    <ListItemText 
-                                                        classes={{
-                                                            primary: classes.primaryListText,
-                                                        }}
-                                                        primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
-                                                        primary={item.name} 
-                                                    />
-                                                </ListItem>
-                                            </MenuItem>
-                                        )}
-                                    </Select>
-                                </FormControl>
+                                <MaketavimoKaina 
+                                    maketavimoKaina={maketavimoKaina}
+                                    papildomaMaketavimoKaina={papildomaMaketavimoKaina}
+                                    setPapildomaMaketavimoKaina={setPapildomaMaketavimoKaina}
+                                />
                                 {optionsValues.map((item, index) => 
                                     <>
                                         {item.type === 0 && (!item.summon || item.summon === 0) ? 
@@ -1430,15 +1276,15 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                                 )}
                                 <p className={classes.summaryText}>Kiekis: <b>{kiekis}</b></p>
                                 <p className={classes.summaryText}>Vieneto kaina: <b>{unitPrice.price.toFixed(2)}€</b></p>
-                                <p className={classes.summaryText}>Gamybos Laikas: <b>{pasirinktasGamybosLaikas}</b></p>
                                 <Collapse in={papildomaMaketavimoKaina > 0}>
                                     <p className={classes.summaryText}>Maketavimo kaina: <b>{papildomaMaketavimoKaina}€</b></p>
                                 </Collapse>
-                                <p className={classes.summaryText}>Pastaba: <b>{pastaba}</b></p>
-                                <Collapse in={unitPrice.discount > 0}>
-                                    <p className={classes.discountText}>Nuolaida: <b>{unitPrice.discount}%</b></p>
+                                <Collapse in={pastaba !== ''}>
+                                    <p className={classes.summaryText}>Pastaba: <b>{pastaba}</b></p>
                                 </Collapse>
-                                <p className={classes.discountText}>Tavo reklama klubo nuolaida: <b>{loyaltydiscount}%</b></p>
+                                <Collapse in={appliedDiscount.discount > 0}>
+                                    <p className={classes.discountText}>{appliedDiscount.discountName}: <b>{appliedDiscount.discount}%</b></p>
+                                </Collapse>
                                 <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
                                     <p className={classes.PriceText}>Kaina:</p>
                                     {unitPrice.discount > 0 || loyaltydiscount > 0 ? 

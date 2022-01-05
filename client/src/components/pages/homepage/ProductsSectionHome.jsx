@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductsSectionHome = ({products, loyaltydiscount}) => {
+const ProductsSectionHome = ({ products, loyaltydiscount }) => {     
 
     const classes = useStyles();
 
@@ -75,9 +75,6 @@ const ProductsSectionHome = ({products, loyaltydiscount}) => {
             <ProductSkeleton/>,
             <ProductSkeleton/>
         ];
-        // for (var i = 0; i < 6; i++) {
-        //     skeletons.push(<ProductSkeleton/>);
-        // }
         return skeletons;
     };
 

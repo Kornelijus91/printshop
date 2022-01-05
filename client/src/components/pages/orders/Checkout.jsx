@@ -386,7 +386,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, loyaltydiscount, kodoNuolaida, priceSum, loggedIn, token, setKodoNuolaida }) => {
+const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuolaida, priceSum, loggedIn, token, setKodoNuolaida, pasirinktasGamybosLaikas, findMaxDiscount, getItemProductionCost, roundTwoDec }) => {
 
     const classes = useStyles();
     const history = useHistory();
@@ -412,6 +412,7 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, loyaltyd
                         delivery: delivery,
                         kodoNuolaida: kodoNuolaida,
                         priceSum: priceSum,
+                        production: pasirinktasGamybosLaikas,
                     }),
                 });
                 const response = await res.json();
@@ -454,6 +455,7 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, loyaltyd
                         delivery: delivery,
                         kodoNuolaida: kodoNuolaida,
                         priceSum: priceSum,
+                        production: pasirinktasGamybosLaikas,
                     }),
                 });
                 const response = await res.json();
@@ -524,35 +526,23 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, loyaltyd
                                 <Box display='flex' justifyContent='space-between' alignItems='center'>
                                     <p className={classes.paragraph} key={index}>{item.name}: <b>x{item.quantity}</b></p>
                                     <Box display='flex' justifyContent='flex-start' alignItems='center'>
-                                        {item.discountedPrice !== item.price && loyaltydiscount <= 0 ? 
-                                            <Box display='flex' justifyContent='flex-start' alignItems='center'>
-                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{(item.discountedPrice + item.maketavimoKaina).toFixed(2)}€</p>
+                                         {findMaxDiscount(item.discount)[1] > 0 ? 
+                                            <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
+                                                <span className={classes.Isbraukta}>{roundTwoDec(item.price * getItemProductionCost(item.oneDayPriceIncreace, item.twoDayPriceIncreace) + item.maketavimoKaina).toFixed(2)}€</span>
+                                                <p className={classes.DiscountedPriceText}>{roundTwoDec(item.price * getItemProductionCost(item.oneDayPriceIncreace, item.twoDayPriceIncreace) * (1 - (findMaxDiscount(item.discount)[1] / 100)) + item.maketavimoKaina).toFixed(2)}€</p>
                                             </Box>
-                                        : item.discountedPrice !== item.price && loyaltydiscount > 0 ?
-                                            <Box display='flex' justifyContent='flex-start' alignItems='center'>
-                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount - item.discount) / 100) + item.maketavimoKaina).toFixed(2)}€</p>
-                                            </Box>
-                                        : item.discountedPrice === item.price && loyaltydiscount > 0 ?
-                                            <Box display='flex' justifyContent='flex-start' alignItems='center'>
-                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount) / 100) + item.maketavimoKaina).toFixed(2)}€</p>
-                                            </Box>
-                                        :
-                                            <p className={classes.PriceText}>{(item.price + item.maketavimoKaina).toFixed(2)}€</p>
+                                        : 
+                                            <p className={classes.PriceText}>{roundTwoDec(item.price * getItemProductionCost(item.oneDayPriceIncreace, item.twoDayPriceIncreace) + item.maketavimoKaina).toFixed(2)}€</p>
                                         }
                                     </Box>
                                 </Box>
                             )}
                         </Box>
                         <Box display='flex' flexDirection='column' justifyContent='flex-end'>
-                            {kodoNuolaida.nuolaida > 0 &&
-                                <h4 className={classes.sumHeaderRed}>Nuolaida su kodu {kodoNuolaida.kodas}: -{kodoNuolaida.nuolaida}%</h4>
-                            }
                             {priceSum.sum !== priceSum.dscSum &&
                                 <h4 className={classes.sumHeaderRed}>Pritaikytos nuolaidos: -{(priceSum.sum - priceSum.dscSum).toFixed(2)}€</h4>
                             }
+                            <h4 className={classes.sumHeaderBlue}>Gamybos laikas: {pasirinktasGamybosLaikas}</h4>
                             <h4 className={classes.sumHeaderBlue}>Pristatymas: Nemokamas</h4>
                             <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
                                 <p className={classes.PriceText2}>Viso kaina su PVM:</p>

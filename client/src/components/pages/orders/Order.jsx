@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Order = ({ delivery, setDelivery, loggedIn, token, getAddresses, addresses, cart, loyaltydiscount, kodoNuolaida, priceSum, setCart, setKodoNuolaida }) => {
+const Order = ({ delivery, setDelivery, loggedIn, token, getAddresses, addresses, cart, kodoNuolaida, priceSum, setCart, setKodoNuolaida, pasirinktasGamybosLaikas, findMaxDiscount, getItemProductionCost, roundTwoDec }) => {
 
     const classes = useStyles();
 
@@ -143,8 +143,30 @@ const Order = ({ delivery, setDelivery, loggedIn, token, getAddresses, addresses
                 </Stepper>
                 {
                     {
-                        0: <DeliveryInfo delivery={delivery} setDelivery={setDelivery} loggedIn={loggedIn} token={token} getAddresses={getAddresses} addresses={addresses} setOrderStep={setOrderStep}/>,
-                        1: <Checkout token={token} delivery={delivery} setDelivery={setDelivery} setOrderStep={setOrderStep} cart={cart} loyaltydiscount={loyaltydiscount} kodoNuolaida={kodoNuolaida} priceSum={priceSum} loggedIn={loggedIn} setCart={setCart} setKodoNuolaida={setKodoNuolaida}/>,     
+                        0: <DeliveryInfo 
+                            delivery={delivery} 
+                            setDelivery={setDelivery} 
+                            loggedIn={loggedIn} 
+                            token={token} 
+                            getAddresses={getAddresses} 
+                            addresses={addresses} 
+                            setOrderStep={setOrderStep}
+                        />,
+                        1: <Checkout 
+                            token={token} 
+                            delivery={delivery} 
+                            setDelivery={setDelivery} 
+                            setOrderStep={setOrderStep} cart={cart} 
+                            kodoNuolaida={kodoNuolaida} 
+                            priceSum={priceSum} 
+                            loggedIn={loggedIn} 
+                            setCart={setCart} 
+                            setKodoNuolaida={setKodoNuolaida} 
+                            pasirinktasGamybosLaikas={pasirinktasGamybosLaikas} 
+                            findMaxDiscount={findMaxDiscount}
+                            getItemProductionCost={getItemProductionCost}
+                            roundTwoDec={roundTwoDec}
+                        />,     
                         2: <Thanks />
                     }[orderStep]
                 }

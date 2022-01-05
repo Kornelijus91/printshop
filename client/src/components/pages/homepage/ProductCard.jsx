@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductCard = ({ image, name, amountDiscount, link, loyaltydiscount}) => {
+const ProductCard = ({ image, name, amountDiscount, link, loyaltydiscount }) => {     //loyaltydiscount
 
     const classes = useStyles();
     const history = useHistory();
@@ -134,8 +134,9 @@ const ProductCard = ({ image, name, amountDiscount, link, loyaltydiscount}) => {
 
     const getLowestPrice = (items) => {
         items.sort((a, b) => a.amount - b.amount);
-        const price = Number((Math.abs(items[0].price * items[0].amount * (1 - (items[0].discount / 100) - (loyaltydiscount / 100))) * 100).toPrecision(15));
-        const roundedPrice = Math.round(price) / 100 * Math.sign(items[0].price * items[0].amount * (1 - (items[0].discount / 100) - (loyaltydiscount / 100)));
+        const discount = Math.max(loyaltydiscount, items[0].discount)
+        const price = Number((Math.abs(items[0].price * items[0].amount * (1 - (discount / 100))) * 100).toPrecision(15));
+        const roundedPrice = Math.round(price) / 100 * Math.sign(items[0].price * items[0].amount * (1 - (discount / 100)));
         return roundedPrice.toFixed(2);
     };
 
@@ -145,6 +146,9 @@ const ProductCard = ({ image, name, amountDiscount, link, loyaltydiscount}) => {
             if (discount < x.discount) {
                 discount = x.discount
             }
+        }
+        if (loyaltydiscount > discount) {
+            discount = loyaltydiscount;
         }
         return discount;
     };

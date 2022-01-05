@@ -114,6 +114,11 @@ const useStyles = makeStyles((theme) => ({
             padding: 0,
             fontSize: '1.2rem',
         },
+        '& h3': {
+            padding: 0,
+            margin: 0,
+            fontSize: '1.2rem',
+        },
         '& p': {
             margin: '0 0 .7em 0',
             padding: 0,
@@ -122,6 +127,10 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('md')]: {
             '& h2': {
                 margin: '0 0 1em 0',
+                padding: 0,
+                fontSize: '1.4rem',
+            },
+            '& h3': {
                 padding: 0,
                 fontSize: '1.4rem',
             },
@@ -137,6 +146,10 @@ const useStyles = makeStyles((theme) => ({
                 padding: 0,
                 fontSize: '1.89rem',
             },
+            '& h3': {
+                padding: 0,
+                fontSize: '1.89rem',
+            },
             '& p': {
                 margin: '0 0 .7em 0',
                 padding: 0,
@@ -147,6 +160,10 @@ const useStyles = makeStyles((theme) => ({
             borderBottom: '2px solid #1D3557',
             '& h2': {
                 margin: '0 0 1em 0',
+                padding: 0,
+                fontSize: '2.8rem',
+            },
+            '& h3': {
                 padding: 0,
                 fontSize: '2.8rem',
             },
@@ -261,6 +278,11 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
     const [updateingSanaudas, setUpdateingSanaudas] = useState(false);
     // const [sanaudos, setSanaudos] = useState(0);
 
+    const roundTwoDec = (num) => { 
+        const result = Math.round(Number((Math.abs(num) * 100).toPrecision(15))) / 100 * Math.sign(num);
+        return result;
+    };
+
     const handleModalOpen = () => {
         setModal(true);
     };
@@ -346,22 +368,10 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                             <h2>Užsakymo NR - {order.uzsakymoNr}</h2>
                         </Box>
                         <Box>
-                            <h2>Pateikimo data - {new Date(order.createdAt).getFullYear()+"-"+(new Date(order.createdAt).getMonth() + 1)+"-"+new Date(order.createdAt).getDate()}</h2>
+                            <h2>Pateikimo data - {new Date(order.createdAt).getFullYear()+"-"+('0' + (new Date(order.createdAt).getMonth() + 1)).slice(-2)+"-"+('0' + new Date(order.createdAt).getDate()).slice(-2)}</h2>
                         </Box>
-                        <Box display='flex' justifyContent='center'>
-                            <h2 style={{marginRight: '.2em'}}>Statusas -</h2>
-                            <h2 style={
-                                order.status === 'Įvykdytas' ? 
-                                    {color: '#26a69a'}
-                                : order.status === 'Apmokėtas' ? 
-                                    {color: '#f4a261'}
-                                : order.status === 'Atšauktas' ? 
-                                    {color: '#E63946'}
-                                : 
-                                    {color: '#1D3557'}
-                            }>
-                                {order.status}
-                            </h2>
+                        <Box>
+                            <h2>Gamybos laikas - {order.gamybosLaikas}</h2>
                         </Box>
                     </Box>
                 </Grid>
@@ -391,24 +401,15 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                 </Grid>
                 <Grid item xl={3} lg={3} md={3} sm={12} xs={12} className={classes.columnNotLast}>
                     <h2>Kainos</h2>
-                    {order.nuolaidosKodas !== '' &&
-                        <>
-                            <p>Panaudotas nuolaidos kodas: <b>{order.nuolaidosKodas}</b></p>
-                            <p>Kodo nuolaida: <b>{order.nuolaidosKodoNuolaida}%</b></p>
-                        </>
-                    }
-                    {/* {order.TRDiscount &&
-                        <p>Tavo Reklama klubo nuolaida: <b>{order.TRDiscount}%</b></p>
-                    } */}
                     {order.price !== order.discountPrice ?
                             <>  
-                                <p>Pilna kaina: <b>{(order.price).toFixed(2)}€</b></p>
-                                <p>Suteikta nuolaida: <b>{(order.price - order.discountPrice).toFixed(2)}€</b></p>
-                                <p>Galutinė kaina su nuolaidomis: <b>{(order.discountPrice).toFixed(2)}€</b></p>
+                                <p>Pilna kaina: <b>{roundTwoDec(order.price).toFixed(2)}€</b></p>
+                                <p>Suteikta nuolaida: <b>{roundTwoDec(order.price - order.discountPrice).toFixed(2)}€</b></p>
+                                <p>Galutinė kaina su nuolaidomis: <b>{roundTwoDec(order.discountPrice).toFixed(2)}€</b></p>
                             </>
                         :
                             <>  
-                                <p>Galutinė kaina: <b>{(order.price).toFixed(2)}€</b></p>
+                                <p>Galutinė kaina: <b>{roundTwoDec(order.price).toFixed(2)}€</b></p>
                             </>
                     }
                     <hr className={classes.kainuhr} />
@@ -433,6 +434,22 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                     </Button>
                 </Grid>
                 <Grid item xl={3} lg={3} md={3} sm={12} xs={12} className={classes.columnLast}>
+                    <Box display='flex' justifyContent='flex-start'>
+                        <h3 style={{marginRight: '.2em'}}>Statusas -</h3>
+                        <h3 style={
+                            order.status === 'Įvykdytas' ? 
+                                {color: '#26a69a'}
+                            : order.status === 'Apmokėtas' ? 
+                                {color: '#f4a261'}
+                            : order.status === 'Atšauktas' ? 
+                                {color: '#E63946'}
+                            : 
+                                {color: '#1D3557'}
+                        }>
+                            {order.status}
+                        </h3>
+                    </Box>
+                    <hr className={classes.kainuhr} />
                     <h2>Veiksmai</h2>
                     
                     <Button classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }} disabled={order.status !== 'Apmokėtas'} onClick={handleModalOpen}> 
@@ -456,7 +473,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                                         <p>Kiekis: {item.quantity}</p>
                                     </Grid>
                                     <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-                                        <p>Gamybos laikas: {item.gamybosLaikas}</p>
+                                        {/* <p>Gamybos laikas: {item.gamybosLaikas}</p> */}
                                     </Grid>
                                 </Grid>
                             </AccordionSummary>
@@ -487,21 +504,18 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                                     </Grid>
                                     <Grid item xl={4} lg={4} md={4} sm={12} xs={12} className={classes.accDetGridItem}>
                                         {item.discount > 0 && 
-                                            <p>Nuolaida: <b>{item.discount}%</b></p>
+                                            <p>{item.panaudotaNuolaida}: <b>{item.discount}%</b></p>
                                         }
-                                        {order.TRDiscount > 0 && 
-                                            <p>TR Klubo nuolaida: <b>{order.TRDiscount}%</b></p>
-                                        }
-                                        <p>Vieneto kaina: <b>{(item.unitPrice).toFixed(2)}€</b></p>
-                                        <p>Viso kaina: <b>{(item.price).toFixed(2)}€</b></p>
+                                        <p>Vieneto kaina: <b>{roundTwoDec(item.unitPrice).toFixed(2)}€</b></p>
                                         {item.maketavimoKaina > 0 &&
-                                            <p>Maketavimo kaina: <b>{(item.maketavimoKaina).toFixed(2)}€</b></p>
+                                            <p>Maketavimo kaina: <b>{roundTwoDec(item.maketavimoKaina).toFixed(2)}€</b></p>
                                         }
-                                        {item.price !== item.discountedPrice && 
-                                            <p>Suteiktos nuolaidos: <b>{(item.price - (item.price * ((100 - (item.discount + order.TRDiscount)) / 100))).toFixed(2)}€</b></p>
-                                        }
-                                        {item.price !== item.discountedPrice && 
-                                            <p>Viso kaina su nuolaidomis: <b>{((item.price * ((100 - (item.discount + order.TRDiscount)) / 100)) + item.maketavimoKaina).toFixed(2)}€</b></p>
+                                        <p>Viso kaina: <b>{roundTwoDec(item.price).toFixed(2)}€</b></p>
+                                        {item.discount > 0  && 
+                                            <>
+                                                <p>Suteiktos nuolaidos: <b>{roundTwoDec(item.price - item.discountedPrice).toFixed(2)}€</b></p>
+                                                <p>Viso kaina su nuolaidomis: <b>{roundTwoDec(item.discountedPrice).toFixed(2)}€</b></p>
+                                            </>
                                         }
                                     </Grid>
                                     <Grid item xl={4} lg={4} md={4} sm={12} xs={12} className={classes.accDetGridItem}>

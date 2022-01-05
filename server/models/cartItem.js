@@ -30,9 +30,21 @@ const CartItem = new Schema({
         type: Number,
         default: 1,
     },
-    gamybosLaikas: {
-        type: String,
-        default: "",
+    oneDayLimit: {
+        type: Number,
+        default: 1,
+    },
+    twoDayLimit: {
+        type: Number,
+        default: 1,
+    },
+    oneDayPriceIncreace: {
+        type: Number,
+        default: 0,
+    },
+    twoDayPriceIncreace: {
+        type: Number,
+        default: 0,
     },
     maketavimoKaina: {
         type: Number,

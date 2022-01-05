@@ -20,23 +20,15 @@ const Order = new Schema({
         type: Object,
         default: {},
     },
-    nuolaidosKodas: {
+    gamybosLaikas: {
         type: String,
         default: "",
-    },
-    nuolaidosKodoNuolaida: {
-        type: Number,
-        default: 0,
     },
     price: {
         type: Number,
         default: 0,
     },
     discountPrice: {
-        type: Number,
-        default: 0,
-    },
-    TRDiscount: {
         type: Number,
         default: 0,
     },

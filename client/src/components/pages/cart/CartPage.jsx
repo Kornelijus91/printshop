@@ -1,10 +1,9 @@
-import { Box, Grid, Tooltip, Button, TextField, Collapse, CircularProgress } from '@material-ui/core';
+import { Box, Grid, Tooltip, Button, TextField, Collapse, CircularProgress, ListItemText, ListItem, MenuItem, Select, FormControl } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from "react-helmet";
 import { ProjectName } from '../../../Variables.jsx';
-// import Skeleton from '@material-ui/lab/Skeleton';
 import { AiFillEdit } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
 import { FaArrowRight } from "react-icons/fa";
@@ -284,7 +283,7 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         width: '100%',
-        marginBottom: ".5rem",
+        marginBottom: "1rem",
         borderRadius: '6px',
         height: '2.5rem',
         color: theme.myTheme.trecia,
@@ -292,13 +291,13 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         fontWeight: "bold",
         [theme.breakpoints.up('xxl')]: {
-            marginBottom: ".75rem",
+            marginBottom: "1.35rem",
             borderRadius: '9px',
             height: '3.375rem',
             fontSize: '1.2rem',
         },
         [theme.breakpoints.up('xxxl')]: {
-            marginBottom: "1rem",
+            marginBottom: "2rem",
             borderRadius: '12px',
             height: '4.5rem',
             fontSize: '1.6rem',
@@ -309,8 +308,10 @@ const useStyles = makeStyles((theme) => ({
     },
     nuolaidosKodasBox: {
         width: '100%',
+        marginBottom: '1rem',
         [theme.breakpoints.up('md')]: {
             width: '20em',
+            marginBottom: '0',
         },
         [theme.breakpoints.up('xxl')]: {
             width: '27em',
@@ -420,14 +421,129 @@ const useStyles = makeStyles((theme) => ({
             transform: 'scale(2)',
         },
     },
+    formVariantSelect: {
+        width: '100%',
+        marginBottom: '1rem',
+        
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: '1.5rem',
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: '2rem',
+            fontSize: '1.9rem',
+        },
+    },
+    variantSelect: {
+        color: theme.myTheme.sriftoSpalva,
+        fontFamily: theme.myTheme.sriftas,
+        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
+        margin: '0',
+        padding: '0',
+        minHeight: '3.5rem',
+        textOverflow: 'ellipsis',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        '&:focus': {
+            borderRadius: '4px',
+            border: `1px solid ${theme.myTheme.sriftoSpalva}`,
+
+        },
+        [theme.breakpoints.up('xxl')]: {
+            minHeight: '5.25rem',
+            borderRadius: '7px',
+            '&:focus': {
+                 borderRadius: '7px',
+            }, 
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            border: `2px solid ${theme.myTheme.sriftoSpalva}`,
+            minHeight: '7rem',
+            borderRadius: '9px',
+            '&:focus': {
+                borderRadius: '9px',
+                border: `2px solid ${theme.myTheme.sriftoSpalva}`,
+            }, 
+        },
+    },
+    variantSelectIcon: {
+        color: theme.myTheme.sriftoSpalva,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+            marginRight: '1rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+            marginRight: '1.5rem'
+        },
+    },
+    menuPaper: {
+        maxHeight: '22rem',
+        overflowY: 'auto',
+        [theme.breakpoints.up('xxl')]: {
+            maxHeight: '33rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxHeight: '44rem',
+            borderRadius: '9px',
+        },
+    },
+    selectRenderBox: {
+        paddingLeft: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            paddingLeft: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            paddingLeft: '2rem',
+        },
+    },
+    selectRenderValue: {
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+        },
+    },
+    menuItem: {
+        width: '100%',
+        overflowWrap: 'break-word',
+    },
+    listItem: {
+        margin: '0 1rem 0 1rem',
+        padding: '0',
+        overflowWrap: 'break-word',
+        [theme.breakpoints.up('xxl')]: {
+            margin: '0 1.5rem 0 1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            margin: '0 2rem 0 2rem',
+        },
+    },
+    primaryListText: {
+        color: theme.myTheme.sriftoSpalva,
+        fontFamily: theme.myTheme.sriftas,
+        maxWidth: '13rem',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+            maxWidth: '20rem',
+            margin: '1rem 0'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+            maxWidth: '26rem',
+            margin: '1.5rem 0'
+        },
+    },
 }));
 
-const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuolaida, setKodoNuolaida }) => {
+const CartPage = ({ kodoNuolaida, roundTwoDec, pasirinktasGamybosLaikas, setPasirinktasGamybosLaikas, gamybosLaikas, setGamybosLaikas, cart, getCart, setCart, priceSum, setKodoNuolaida, findMaxDiscount, getItemProductionCost }) => { 
 
     const classes = useStyles();
     const history = useHistory();
-
-    // const [imgLoaded, setImgLoaded] = useState({});
+    
     const [deleteModal, setDeleteModal] = useState({
         open: false,
         itemID: '',
@@ -440,6 +556,10 @@ const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuola
 
     const handleNuolaidosKodasChange = (e) => {
         setNuolaidosKodas(e.target.value);
+    };
+
+    const handleGamybosLaikasChange = (e) => {
+        setPasirinktasGamybosLaikas(e.target.value);
     };
 
     const applyDiscountCode = async () => {
@@ -493,12 +613,40 @@ const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuola
         return false;
     };
 
-    // const imageLoadedSet = (indx) => {
-    //     setImgLoaded({
-    //         ...imgLoaded,
-    //         [indx]: true
-    //     });
-    // };
+    useEffect(() => {
+        setPasirinktasGamybosLaikas('3-5 darbo dienos.');
+        if (cart.length > 0) {
+            var one = false;
+            var two = false;
+            for (const cartItem of cart) {
+                if (cartItem.quantity > cartItem.oneDayLimit) {
+                    one = true;
+                }
+                if (cartItem.quantity > cartItem.twoDayLimit) {
+                    two = true;
+                }
+            }
+            setGamybosLaikas({
+                fivedays: false,
+                twodays: two,
+                oneday: one,
+            });
+        } else {
+            setGamybosLaikas({
+                fivedays: false,
+                twodays: false,
+                oneday: false,
+            });
+        }
+        // eslint-disable-next-line
+    }, [cart]);
+
+    useEffect(() => {
+        if (kodoNuolaida.kodas !== '') {
+            setNuolaidosKodas(kodoNuolaida.kodas);
+        }
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <Box classes={{root: classes.root}}>
@@ -586,7 +734,7 @@ const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuola
                                             }
                                         </>
                                     )}
-                                    <p className={classes.summaryText}>Gamybos Laikas: <b>{item.gamybosLaikas}</b></p>
+                                    {/* <p className={classes.summaryText}>Gamybos Laikas: <b>{item.gamybosLaikas}</b></p> */}
                                     <p className={classes.summaryText}>Kiekis: <b>{item.quantity}</b></p>
                                     <p className={classes.summaryText}>Vieneto kaina: <b>{item.unitPrice.toFixed(2)}€</b></p>
                                     {item.maketavimoKaina > 0 &&
@@ -597,29 +745,18 @@ const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuola
                                     }
                                 </Grid>
                                 <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-                                    {item.discountedPrice !== item.price &&
-                                        <p className={classes.discountText}>Nuolaida: <b>{item.discount}%</b></p>
+                                    {findMaxDiscount(item.discount)[1] > 0 &&
+                                        <p className={classes.discountText}>{findMaxDiscount(item.discount)[0]}: <b>{findMaxDiscount(item.discount)[1]}%</b></p>
                                     }
-                                    <p className={classes.discountText}>Tavo reklama klubo nuolaida: <b>{loyaltydiscount}%</b></p>
                                     <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
                                         <p className={classes.PriceText}>Kaina:</p>
-                                        {item.discountedPrice !== item.price && loyaltydiscount <= 0 ? 
+                                        {findMaxDiscount(item.discount)[1] > 0 ? 
                                             <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
-                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{(item.discountedPrice + item.maketavimoKaina).toFixed(2)}€</p>
+                                                <span className={classes.Isbraukta}>{roundTwoDec(item.price * getItemProductionCost(item.oneDayPriceIncreace, item.twoDayPriceIncreace) + item.maketavimoKaina).toFixed(2)}€</span>
+                                                <p className={classes.DiscountedPriceText}>{roundTwoDec(item.price * getItemProductionCost(item.oneDayPriceIncreace, item.twoDayPriceIncreace) * (1 - (findMaxDiscount(item.discount)[1] / 100)) + item.maketavimoKaina).toFixed(2)}€</p>
                                             </Box>
-                                        : item.discountedPrice !== item.price && loyaltydiscount > 0 ?
-                                            <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
-                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount - item.discount) / 100) + item.maketavimoKaina).toFixed(2)}€</p>
-                                            </Box>
-                                        : item.discountedPrice === item.price && loyaltydiscount > 0 ?
-                                            <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
-                                                <span className={classes.Isbraukta}>{(item.price + item.maketavimoKaina).toFixed(2)}€</span>
-                                                <p className={classes.DiscountedPriceText}>{(item.price * ((100 - loyaltydiscount) / 100) + item.maketavimoKaina).toFixed(2)}€</p>
-                                            </Box>
-                                        :
-                                            <p className={classes.PriceText}>{(item.price + item.maketavimoKaina).toFixed(2)}€</p>
+                                        : 
+                                            <p className={classes.PriceText}>{roundTwoDec(item.price * getItemProductionCost(item.oneDayPriceIncreace, item.twoDayPriceIncreace) + item.maketavimoKaina).toFixed(2)}€</p>
                                         }
                                     </Box>
                                 </Grid>
@@ -646,8 +783,9 @@ const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuola
                             classes={{root: classes.pastaba}}
                             value={nuolaidosKodas}
                             onChange={handleNuolaidosKodasChange}
-                            // type='number'
-                            // style={{marginBottom: '1rem'}}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') applyDiscountCode();
+                            }}
                             InputProps={{
                                 classes: {
                                     root: classes.cssOutlinedInput2,
@@ -660,10 +798,67 @@ const CartPage = ({ cart, getCart, loyaltydiscount, setCart, priceSum, kodoNuola
                             {chekingCode ? <CircularProgress size={20} className={classes.loadingIcon}/> : 'Pritaikyti'}
                         </Button>
                     </Box>
+                    <Box classes={{root: classes.nuolaidosKodasBox}} >
+                        <p className={classes.PriceText}>Gamybos laikas:</p>
+                        <FormControl classes={{root: classes.formVariantSelect}} focused={false} disabled={cart.length <= 0}>
+                            <Select
+                                id="simple-select-outlined"
+                                variant='outlined'
+                                classes={{
+                                    outlined: classes.variantSelect, 
+                                    iconOutlined: classes.variantSelectIcon,
+                                }}
+                                value={pasirinktasGamybosLaikas}
+                                onChange={handleGamybosLaikasChange}
+                                defaultValue={pasirinktasGamybosLaikas}
+                                MenuProps={{ classes: { list: classes.menuPaper } }}
+                                renderValue={(value) => 
+                                    <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.selectRenderBox}}>
+                                        <p className={classes.selectRenderValue}>{value}</p>
+                                    </Box>
+                                }
+                            >
+                               
+                                <MenuItem value={'3-5 darbo dienos.'} classes={{root: classes.menuItem}} disabled={gamybosLaikas.fivedays}>
+                                    <ListItem classes={{root: classes.listItem}}>
+                                        <ListItemText 
+                                            classes={{
+                                                primary: classes.primaryListText,
+                                            }}
+                                            primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
+                                            primary={'3-5 darbo dienos.'} 
+                                        />
+                                    </ListItem>
+                                </MenuItem>
+
+                                <MenuItem value={'1-2 darbo dienos.'} classes={{root: classes.menuItem}} disabled={gamybosLaikas.twodays}>
+                                    <ListItem classes={{root: classes.listItem}}>
+                                        <ListItemText 
+                                            classes={{
+                                                primary: classes.primaryListText,
+                                            }}
+                                            primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
+                                            primary={'1-2 darbo dienos.'} 
+                                        />
+                                    </ListItem>
+                                </MenuItem>
+
+                                <MenuItem value={'Iki 24H.'} classes={{root: classes.menuItem}} disabled={gamybosLaikas.oneday}>
+                                    <ListItem classes={{root: classes.listItem}}>
+                                        <ListItemText 
+                                            classes={{
+                                                primary: classes.primaryListText,
+                                            }}
+                                            primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
+                                            primary={'Iki 24H.'} 
+                                        />
+                                    </ListItem>
+                                </MenuItem>
+                                
+                            </Select>
+                        </FormControl>
+                    </Box>
                     <Box classes={{root: classes.pradetipirkimaBox}}>
-                        <Collapse in={kodoNuolaida.nuolaida > 0}>
-                            <p className={classes.DiscountedPriceText}>Nuolaida su kodu {kodoNuolaida.kodas}: -{kodoNuolaida.nuolaida}%</p>
-                        </Collapse>
                         <Box display='flex' justifyContent='flex-start' alignItems='flex-end'>
                             <p className={classes.PriceText}>Viso kaina su PVM:</p>
                             {priceSum.sum !== priceSum.dscSum ?

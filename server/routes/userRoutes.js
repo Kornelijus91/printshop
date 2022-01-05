@@ -61,11 +61,11 @@ const getCartItemPrice = async (cartItem) => {
   });
   var unitPrice = 0;
   var unitDiscount = 0;
-  var gamybosPabrangimas = 1;
+  // var gamybosPabrangimas = 1;
   for (const x of min) {
     if (cartItem.quantity >= x.amount) {
       unitPrice = roundTwoDec(x.price);
-      unitDiscount = 1 - (x.discount / 100);
+      unitDiscount = x.discount;
     } else {
       break;
     }
@@ -97,18 +97,11 @@ const getCartItemPrice = async (cartItem) => {
     };
   };
 
-  if (cartItem.gamybosLaikas === '1-2 darbo dienos.') {
-    gamybosPabrangimas = (product.twoDayPriceIncreace / 100) + 1;
-  } else if (cartItem.gamybosLaikas === 'Iki 24H.') {
-    gamybosPabrangimas = (product.oneDayPriceIncreace / 100) + 1;
-  };
-
-  const roundedUnitPrice = roundTwoDec(unitPrice * gamybosPabrangimas);
+  const roundedUnitPrice = roundTwoDec(unitPrice);  // * gamybosPabrangimas
   const roundedTotalPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity);
-  const roundedTotalDiscountedPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity * unitDiscount);
-  const discount1 = 100 - (unitDiscount * 100);
+  const roundedTotalDiscountedPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity * (1 - (unitDiscount / 100)));
 
-  return [roundedTotalPrice, roundedTotalDiscountedPrice, roundedUnitPrice, discount1];
+  return [roundedTotalPrice, roundedTotalDiscountedPrice, roundedUnitPrice, unitDiscount];
 };
 
 const sendThanksEmail = (email) => {
@@ -302,15 +295,17 @@ router.post("/getMyOrders", verifyUser, async (req, res, next) => {
 });
 
 router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
+  var cartItemsIDS = [];
+  var cart = [];
+  var loyaltyDiscount = 0;
+  var codeDiscount = 0;
+  var prc = 0;
+  var dscPrc = 0;
+  var discountUsed = {
+    name: '',
+    discount: 0
+  }
   try {
-
-    var cartItemsIDS = [];
-    var cart = [];
-    var loyaltyDiscount = 0;
-    var codeDiscount = 0;
-    var prc = 0;
-    var dscPrc = 0;
-
     try{
       User.findById(req.user._id, function (err, user){
         if (!err) {
@@ -346,34 +341,6 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         companyPVM: req.body.delivery.juridinis ? req.body.delivery.companyPVMCode : '',
       });
       newaddress.save();
-    }
-
-    for (const cartItem of req.body.cart) {
-      cartItemsIDS.push(cartItem._id);
-    };
-    const docs = await CartItem.find().where('_id').in(cartItemsIDS).exec();
-    
-    for (const item of docs) {
-      const itemPrices = await getCartItemPrice(item);
-      const cartItemWithPrices = {
-        name: item.name,
-        productID: item.productID,
-        productLink: item.productLink,
-        options: item.options,
-        pastaba: item.pastaba,
-        image: item.image,
-        quantity: item.quantity,
-        gamybosLaikas: item.gamybosLaikas,
-        maketavimoKaina: item.maketavimoKaina,
-        _id: item._id,
-        modifiedAt: item.modifiedAt,
-        createdAt: item.createdAt,
-        price: itemPrices[0],
-        discountedPrice: itemPrices[1],
-        unitPrice: itemPrices[2],
-        discount: itemPrices[3],
-      };
-      cart.push(cartItemWithPrices);
     };
 
     const loyalty = await Loyalty.find({}).sort({ money: 'asc'});
@@ -390,39 +357,96 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
       codeDiscount = discountCode.discount;
     };
 
-    if (loyaltyDiscount <= 0) {
-      for (const item of cart) {
-          prc = prc + item.price + item.maketavimoKaina;
-          dscPrc = dscPrc + item.discountedPrice + item.maketavimoKaina;
+    for (const cartItem of req.body.cart) {
+      cartItemsIDS.push(cartItem._id);
+    };
+    const docs = await CartItem.find().where('_id').in(cartItemsIDS).exec();
+    
+    for (const item of docs) {
+      const itemPrices = await getCartItemPrice(item);
+
+      const maxDiscount = Math.max(codeDiscount, itemPrices[3], loyaltyDiscount);
+      if (maxDiscount === codeDiscount && req.body.kodoNuolaida.kodas !== '') {
+        discountUsed = {
+          name: `Nuolaida su kodu ${req.body.kodoNuolaida.kodas}`,
+          discount: maxDiscount
+        }
+      } else if (maxDiscount === loyaltyDiscount) {
+        discountUsed = {
+          name: 'Tavo Reklama klubo nuolaida',
+          discount: maxDiscount
+        }
+      } else if (maxDiscount === itemPrices[3]) {
+        discountUsed = {
+          name: 'Nuolaida',
+          discount: maxDiscount
+        }
+      } else {
+        discountUsed = {
+          name: '',
+          discount: 0
+        }
+      }
+
+      var productionCost = 1;
+      if (req.body.production === '1-2 darbo dienos.') {
+        productionCost = 1 + (item.twoDayPriceIncreace / 100);
+      } else if (req.body.production === 'Iki 24H.') {
+        productionCost = 1 + (item.oneDayPriceIncreace / 100);
+      } 
+
+      const cartItemWithPrices = {
+        name: item.name,
+        productID: item.productID,
+        productLink: item.productLink,
+        options: item.options,
+        pastaba: item.pastaba,
+        image: item.image,
+        quantity: item.quantity,
+        // gamybosLaikas: item.gamybosLaikas,
+        oneDayLimit: item.oneDayLimit,
+        twoDayLimit: item.twoDayLimit,
+        oneDayPriceIncreace: item.oneDayPriceIncreace,
+        twoDayPriceIncreace: item.twoDayPriceIncreace,
+        maketavimoKaina: item.maketavimoKaina,
+        _id: item._id,
+        modifiedAt: item.modifiedAt,
+        createdAt: item.createdAt,
+        // price: itemPrices[0],
+        // discountedPrice: itemPrices[1],
+        price: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost + item.maketavimoKaina),
+        discountedPrice: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost * (1 - (maxDiscount / 100)) + item.maketavimoKaina),
+        unitPrice: itemPrices[2],
+        discount: maxDiscount,
+        panaudotaNuolaida: discountUsed.name,
       };
-      prc = roundTwoDec(prc),
-      dscPrc = roundTwoDec(dscPrc * ((100 - codeDiscount) / 100))
-      
-    } else {
-      for (const item of cart) {
-          dscPrc = dscPrc + (item.price * ((100 - loyaltyDiscount - item.discount) / 100) + item.maketavimoKaina);
-          prc = prc + item.price + item.maketavimoKaina;
-      };
-      prc = roundTwoDec(prc),
-      dscPrc = roundTwoDec(dscPrc * ((100 - codeDiscount) / 100));
-    }
+      cart.push(cartItemWithPrices);
+    };
+
+    for (const item of cart) {
+      prc = prc + item.price;
+      dscPrc = dscPrc + item.discountedPrice;
+    };
 
     //================================================//
     // TURBUT REIKES ISSIUSTI SIUNTIMO NUORODA
     // PADARYTI KAD BUTU ISTRINTI KREPSELIO ITEMAI PRIEMUS UZSAKYMA
     //================================================//
 
-    if (req.body.priceSum.sum === prc && req.body.priceSum.dscSum === dscPrc) {
+    // console.log('REQ PRICE', req.body.priceSum.sum);
+    // console.log('SERVER PRICE', prc);
+    // console.log('REQ DISC PRICE', req.body.priceSum.dscSum);
+    // console.log('SERVER DISC PRICE', dscPrc);
+
+    if (req.body.priceSum.sum === roundTwoDec(prc) && req.body.priceSum.dscSum === roundTwoDec(dscPrc)) {
       const orderObject = new Order({ 
         clientID: req.user._id,
         clientUsername: req.user.username,
         cartItems: cart,
         delivery: req.body.delivery,
-        nuolaidosKodas: req.body.kodoNuolaida.kodas,
-        nuolaidosKodoNuolaida: codeDiscount,
         price: prc,
         discountPrice: dscPrc,
-        TRDiscount: loyaltyDiscount
+        gamybosLaikas: req.body.production,
       });
       orderObject.save(function (err) {
         if (err) {
@@ -456,15 +480,17 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
 });
 
 router.post("/createOrder", async (req, res, next) => {
+  var cartItemsIDS = [];
+  var cart = [];
+  var codeDiscount = 0;
+  var prc = 0;
+  var dscPrc = 0;
+  var clientID = '';
+  var discountUsed = {
+    name: '',
+    discount: 0
+  }
   try {
-
-    var cartItemsIDS = [];
-    var cart = [];
-    var codeDiscount = 0;
-    var prc = 0;
-    var dscPrc = 0;
-    var clientID = '';
-
     const ooser = await User.find({ username: req.body.delivery.email }).exec();
     if (ooser.length <= 0) {
       const newOoser = new User({ 
@@ -521,6 +547,11 @@ router.post("/createOrder", async (req, res, next) => {
       }
     };
 
+    if (req.body.kodoNuolaida.kodas !== '') {
+      const discountCode = await Code.findOne({ code: req.body.kodoNuolaida.kodas }).exec();
+      codeDiscount = discountCode.discount;
+    };
+
     for (const cartItem of req.body.cart) {
       cartItemsIDS.push(cartItem._id);
     };
@@ -528,6 +559,32 @@ router.post("/createOrder", async (req, res, next) => {
     
     for (const item of docs) {
       const itemPrices = await getCartItemPrice(item);
+
+      const maxDiscount = Math.max(codeDiscount, itemPrices[3]);
+      if (maxDiscount === codeDiscount && req.body.kodoNuolaida.kodas !== '') {
+        discountUsed = {
+          name: `Nuolaida su kodu ${req.body.kodoNuolaida.kodas}`,
+          discount: maxDiscount
+        }
+      }  else if (maxDiscount === itemPrices[3]) {
+        discountUsed = {
+          name: 'Nuolaida',
+          discount: maxDiscount
+        }
+      } else {
+        discountUsed = {
+          name: '',
+          discount: 0
+        }
+      }
+
+      var productionCost = 1;
+      if (req.body.production === '1-2 darbo dienos.') {
+        productionCost = 1 + (item.twoDayPriceIncreace / 100);
+      } else if (req.body.production === 'Iki 24H.') {
+        productionCost = 1 + (item.oneDayPriceIncreace / 100);
+      } 
+
       const cartItemWithPrices = {
         name: item.name,
         productID: item.productID,
@@ -536,47 +593,53 @@ router.post("/createOrder", async (req, res, next) => {
         pastaba: item.pastaba,
         image: item.image,
         quantity: item.quantity,
-        gamybosLaikas: item.gamybosLaikas,
+        // gamybosLaikas: item.gamybosLaikas,
+        oneDayLimit: item.oneDayLimit,
+        twoDayLimit: item.twoDayLimit,
+        oneDayPriceIncreace: item.oneDayPriceIncreace,
+        twoDayPriceIncreace: item.twoDayPriceIncreace,
         maketavimoKaina: item.maketavimoKaina,
         _id: item._id,
         modifiedAt: item.modifiedAt,
         createdAt: item.createdAt,
-        price: itemPrices[0],
-        discountedPrice: itemPrices[1],
+        // price: itemPrices[0],
+        // discountedPrice: itemPrices[1],
+        price: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost + item.maketavimoKaina),
+        discountedPrice: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost * (1 - (maxDiscount / 100)) + item.maketavimoKaina),
         unitPrice: itemPrices[2],
-        discount: itemPrices[3],
+        discount: maxDiscount,
+        panaudotaNuolaida: discountUsed.name,
       };
       cart.push(cartItemWithPrices);
     };
-    
-    if (req.body.kodoNuolaida.kodas !== '') {
-      const discountCode = await Code.findOne({ code: req.body.kodoNuolaida.kodas }).exec();
-      codeDiscount = discountCode.discount;
-    };
 
     for (const item of cart) {
-        prc = prc + item.price + item.maketavimoKaina;
-        dscPrc = dscPrc + item.discountedPrice + item.maketavimoKaina;
+      // var productionCost = 1;
+      // if (req.body.production === '1-2 darbo dienos.') {
+      //   productionCost = 1 + (item.twoDayPriceIncreace / 100);
+      // } else if (req.body.production === 'Iki 24H.') {
+      //   productionCost = 1 + (item.oneDayPriceIncreace / 100);
+      // } 
+      // prc = prc + roundTwoDec(item.price * productionCost + item.maketavimoKaina);
+      // dscPrc = dscPrc + roundTwoDec((item.price * productionCost * (1 - (item.discount / 100))) + item.maketavimoKaina);
+      prc = prc + item.price;
+      dscPrc = dscPrc + item.discountedPrice;
     };
-    prc = roundTwoDec(prc),
-    dscPrc = roundTwoDec(dscPrc * ((100 - codeDiscount) / 100))
 
     //================================================//
     // TURBUT REIKES ISSIUSTI SIUNTIMO NUORODA
     // PADARYTI KAD BUTU ISTRINTI KREPSELIO ITEMAI PRIEMUS UZSAKYMA
     //================================================//
 
-    if (req.body.priceSum.sum === prc && req.body.priceSum.dscSum === dscPrc) {
+    if (req.body.priceSum.sum === roundTwoDec(prc) && req.body.priceSum.dscSum === roundTwoDec(dscPrc)) {
       const orderObject = new Order({ 
         clientID: clientID,
         clientUsername: req.body.delivery.email,
         cartItems: cart,
         delivery: req.body.delivery,
-        nuolaidosKodas: req.body.kodoNuolaida.kodas,
-        nuolaidosKodoNuolaida: codeDiscount,
         price: prc,
         discountPrice: dscPrc,
-        TRDiscount: 0
+        gamybosLaikas: req.body.production,
       });
       orderObject.save(function (err) {
         if (err) {
@@ -661,7 +724,10 @@ router.post("/getCart", async (req, res, next) => {
         pastaba: item.pastaba,
         image: item.image,
         quantity: item.quantity,
-        gamybosLaikas: item.gamybosLaikas,
+        oneDayLimit: item.oneDayLimit,
+        twoDayLimit: item.twoDayLimit,
+        oneDayPriceIncreace: item.oneDayPriceIncreace,
+        twoDayPriceIncreace: item.twoDayPriceIncreace,
         maketavimoKaina: item.maketavimoKaina,
         _id: item._id,
         modifiedAt: item.modifiedAt,
@@ -680,7 +746,7 @@ router.post("/getCart", async (req, res, next) => {
   } catch (error) {
     res.send({ 
       success: false, 
-      error: "Klaida! Pabandykite vėliau."
+      error: error
     })
   }
 });
@@ -845,21 +911,6 @@ router.post("/addToCart", upload.single("image"), async (req, res, next) => {
               return;
             };
 
-            const gamybosPabrangimas = [
-              '3-5 darbo dienos.',
-              '1-2 darbo dienos.',
-              'Iki 24H.'
-            ];
-            
-            if (!gamybosPabrangimas.includes(req.body.gamybosLaikas)) {
-              res.send({ 
-                success: false, 
-                error: 'Neatitinka gamybos kiekis.'
-              });
-              deleteFile(req.file.filename);
-              return;
-            };
-
             if (req.body.id === '') {
               var cartItemObj = {
                   name: product.name,
@@ -868,7 +919,10 @@ router.post("/addToCart", upload.single("image"), async (req, res, next) => {
                   options: OptionsConstructor,
                   pastaba: req.body.pastaba,
                   quantity: Number(req.body.quantity),
-                  gamybosLaikas: req.body.gamybosLaikas,
+                  oneDayLimit: product.oneDayLimit,
+                  twoDayLimit: product.twoDayLimit,
+                  oneDayPriceIncreace: product.oneDayPriceIncreace,
+                  twoDayPriceIncreace: product.twoDayPriceIncreace,
                   image: req.file ? url + '/uploads/' + req.file.filename : req.body.imageURL || '',
                   maketavimoKaina: maketavimoKaina,
               }
@@ -901,9 +955,9 @@ router.post("/addToCart", upload.single("image"), async (req, res, next) => {
                   item.options = OptionsConstructor;
                   item.pastaba = req.body.pastaba;
                   item.quantity = Number(req.body.quantity);
-                  item.gamybosLaikas = req.body.gamybosLaikas;
+                  // item.gamybosLaikas = req.body.gamybosLaikas;
                   item.image = image;
-                  item.maketavimoKaina= maketavimoKaina;
+                  item.maketavimoKaina = maketavimoKaina;
                   item.save();
                   res.send({ 
                     success: true, 

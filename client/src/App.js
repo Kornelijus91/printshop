@@ -138,6 +138,12 @@ const App = () => {
     pastabaKurjeriui: '',
   });
   const [cookieWarningOpen, setCookieWarningOpen] = useState(false);
+  const [gamybosLaikas, setGamybosLaikas] = useState({
+    fivedays: false,
+    twodays: false,
+    oneday: false,
+  });
+  const [pasirinktasGamybosLaikas, setPasirinktasGamybosLaikas] = useState('3-5 darbo dienos.');
 
   const lazyFallback = <Box classes={{root: classes.lazyFallback}}><CircularProgress size={30} className={classes.lazyFallbackIcon} /></Box>;
 
@@ -307,11 +313,39 @@ const App = () => {
     setCookieWarningOpen(false);
   };
 
+  const findMaxDiscount = (unitDscnt) => {
+    const maxDiscount = Math.max(kodoNuolaida.nuolaida, unitDscnt, loyaltydiscount);
+    if (maxDiscount === kodoNuolaida.nuolaida) {
+        return [`Nuolaida su kodu ${kodoNuolaida.kodas}`, kodoNuolaida.nuolaida];
+    } else if (maxDiscount === loyaltydiscount) {
+        return ['Tavo Reklama klubo nuolaida', loyaltydiscount];
+    } else if (maxDiscount === unitDscnt) {
+        return ['Nuolaida', unitDscnt];
+    } else {
+        return ['', 0];
+    }
+  };
+
+  const getItemProductionCost = (onedayProdCost, twodayProdCost) => {
+    var productionCost = 1;
+    if (pasirinktasGamybosLaikas === '1-2 darbo dienos.') {
+      productionCost = 1 + (twodayProdCost / 100);
+    } else if (pasirinktasGamybosLaikas === 'Iki 24H.') {
+      productionCost = 1 + (onedayProdCost / 100);
+    } 
+    return productionCost;
+  };
+
+
   useEffect(() => {
       verifyUser();
   }, [verifyUser, oAuthWindow])
 
   useEffect(() => {
+      const cookieConsent = JSON.parse(localStorage.getItem("cookieConsent"));
+      if (cookieConsent === null || cookieConsent === false) {
+        setCookieWarningOpen(true);
+      }
       if(products.length <= 0) {
         getProducts();
       }
@@ -345,35 +379,32 @@ const App = () => {
   useEffect(() => {
     var prc = 0;
     var dscPrc = 0;
-    if (loyaltydiscount <= 0) {
-        for (const item of cart) {
-            prc = prc + item.price + item.maketavimoKaina;
-            dscPrc = dscPrc + item.discountedPrice + item.maketavimoKaina;
-        };
-        setPriceSum({
-          sum: roundTwoDec(prc),
-          dscSum: roundTwoDec(dscPrc * ((100 - kodoNuolaida.nuolaida) / 100))
-        });
-    } else {
-        for (const item of cart) {
-            dscPrc = dscPrc + (item.price * ((100 - loyaltydiscount - item.discount) / 100)) + item.maketavimoKaina;
-            prc = prc + item.price + item.maketavimoKaina;
-        };
-        setPriceSum({
-          sum: roundTwoDec(prc),
-          dscSum: roundTwoDec(dscPrc * ((100 - kodoNuolaida.nuolaida) / 100))
-        });
-    }
+    for (const item of cart) {
+      var productionCost = 1;
+      if (pasirinktasGamybosLaikas === '1-2 darbo dienos.') {
+        productionCost = 1 + (item.twoDayPriceIncreace / 100);
+      } else if (pasirinktasGamybosLaikas === 'Iki 24H.') {
+        productionCost = 1 + (item.oneDayPriceIncreace / 100);
+      } 
+      prc = prc + roundTwoDec(item.price * productionCost + item.maketavimoKaina);
+      dscPrc = dscPrc + roundTwoDec((item.price * productionCost * (1 - (findMaxDiscount(item.discount)[1] / 100))) + item.maketavimoKaina);
+    };
+    setPriceSum({
+      sum: roundTwoDec(prc),
+      dscSum: roundTwoDec(dscPrc)
+    });
     // eslint-disable-next-line
-  }, [cart, loyaltydiscount, kodoNuolaida]);
+  }, [cart, loyaltydiscount, kodoNuolaida, pasirinktasGamybosLaikas]);
 
   useEffect(() => {
-    const cookieConsent = JSON.parse(localStorage.getItem("cookieConsent"));
-    if (cookieConsent === null || cookieConsent === false) {
-      setCookieWarningOpen(true);
+    if (cart.length <= 0) {
+      setKodoNuolaida({
+          kodas: '',
+          nuolaida: 0
+      });
     }
     // eslint-disable-next-line
-  }, [])
+  }, [cart]);
 
   return (
     <div style={{width: '100%'}}>
@@ -451,6 +482,8 @@ const App = () => {
               firstName={firstName}
               personalas={personalas}
               token={token}
+              kodoNuolaida={kodoNuolaida}
+              findMaxDiscount={findMaxDiscount}
             />
           </Route>
           <Route exact path="/contact">
@@ -512,11 +545,14 @@ const App = () => {
               getAddresses={getAddresses} 
               addresses={addresses}
               cart={cart}
-              loyaltydiscount={loyaltydiscount} 
               kodoNuolaida={kodoNuolaida}
               priceSum={priceSum}
               setCart={setCart}
               setKodoNuolaida={setKodoNuolaida}
+              pasirinktasGamybosLaikas={pasirinktasGamybosLaikas}
+              findMaxDiscount={findMaxDiscount}
+              getItemProductionCost={getItemProductionCost}
+              roundTwoDec={roundTwoDec}
             />
           </Route>
           <Route exact path="/searchpage">
@@ -532,11 +568,18 @@ const App = () => {
             <CartPage
               cart={cart} 
               getCart={getCart} 
-              loyaltydiscount={loyaltydiscount} 
+              // loyaltydiscount={loyaltydiscount} 
               setCart={setCart} 
               priceSum={priceSum}
               kodoNuolaida={kodoNuolaida}
               setKodoNuolaida={setKodoNuolaida}
+              findMaxDiscount={findMaxDiscount}
+              gamybosLaikas={gamybosLaikas}
+              setGamybosLaikas={setGamybosLaikas}
+              pasirinktasGamybosLaikas={pasirinktasGamybosLaikas}
+              setPasirinktasGamybosLaikas={setPasirinktasGamybosLaikas}
+              roundTwoDec={roundTwoDec}
+              getItemProductionCost={getItemProductionCost}
             />
           </Route>
           <Route path='*'>

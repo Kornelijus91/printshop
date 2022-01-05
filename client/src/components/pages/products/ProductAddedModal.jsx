@@ -255,7 +255,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductAddedModal = ({ papildomaMaketavimoKaina, getDiscountedPrice, getPrice, addModalOpen, setAddModalOpen, file, optionsValues, collapseOpen, productName, kiekis, unitPrice, pasirinktasGamybosLaikas, pastaba, loyaltydiscount }) => {
+const ProductAddedModal = ({ appliedDiscount, papildomaMaketavimoKaina, getDiscountedPrice, getPrice, addModalOpen, setAddModalOpen, file, optionsValues, collapseOpen, productName, kiekis, unitPrice, pastaba, loyaltydiscount }) => { // pasirinktasGamybosLaikas
 
     const classes = useStyles();
     const history = useHistory();
@@ -326,22 +326,24 @@ const ProductAddedModal = ({ papildomaMaketavimoKaina, getDiscountedPrice, getPr
                                                 }
                                             </>
                                         )}
-                                        <p className={classes.summaryText}>Gamybos Laikas: {pasirinktasGamybosLaikas}</p>
+                                        {/* <p className={classes.summaryText}>Gamybos Laikas: {pasirinktasGamybosLaikas}</p> */}
                                         <p className={classes.summaryText}>Kiekis: {kiekis}</p>
                                         <p className={classes.summaryText}>Vieneto kaina: {unitPrice.price.toFixed(2)}€</p>
                                         {papildomaMaketavimoKaina > 0 &&
                                             <p className={classes.summaryText}>Maketavimas: {papildomaMaketavimoKaina}€</p>
                                         }
-                                        <p className={classes.summaryText}>Pastaba: {pastaba}</p>
+                                        {pastaba !== '' &&
+                                            <p className={classes.summaryText}>Pastaba: {pastaba}</p>
+                                        }
                                     </Grid>
                                     <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
-                                        {unitPrice.discount > 0 &&
-                                            <p className={classes.discountText}>Nuolaida: {unitPrice.discount}%</p>
+                                        {appliedDiscount.discount > 0 &&
+                                            <p className={classes.discountText}>{appliedDiscount.discountName}: <b>{appliedDiscount.discount}%</b></p>
                                         }
-                                        <p className={classes.discountText}>Tavo reklama klubo nuolaida: {loyaltydiscount}%</p>
+                                        {/* <p className={classes.discountText}>Tavo reklama klubo nuolaida: {loyaltydiscount}%</p> */}
                                         <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
                                             <p className={classes.PriceText}>Kaina:</p>
-                                            {unitPrice.discount > 0 || loyaltydiscount > 0 ? 
+                                            {appliedDiscount.discount > 0 ? 
                                                 <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
                                                     {/* <p className={classes.Isbraukta}>{getPrice()}€</p> */}
                                                     <span className={classes.Isbraukta}>{getPrice()}€</span>

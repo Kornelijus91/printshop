@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Products = ({ products, loyaltydiscount }) => {
+const Products = ({ products, loyaltydiscount }) => {  
 
     const classes = useStyles();
 

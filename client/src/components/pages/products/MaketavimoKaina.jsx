@@ -198,7 +198,7 @@ const MaketavimoKaina = ({ maketavimoKaina, papildomaMaketavimoKaina, setPapildo
                     <Grid item xl={2} lg={2} md={2} sm={2} xs={2} >
                         <Box display='flex' justifyContent='flex-end' alignItems='center'>
                             <Tooltip title={
-                                `Siūlome profesionalias maketavimo paslaugas už papildomą ${maketavimoKaina.toFixed(2)}€ kainą. Ar pageidausite maketavimo paslaugų?`
+                                `Siūlome profesionalias maketavimo paslaugas už papildomą ${maketavimoKaina.toFixed(2)}€ kainą. Maketavimui nuolaidos netaikomos. Ar pageidausite maketavimo paslaugų?`
                             } placement="top" arrow>
                                 <div>
                                     <FaInfo 

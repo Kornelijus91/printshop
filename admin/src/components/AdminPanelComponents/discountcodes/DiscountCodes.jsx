@@ -269,8 +269,7 @@ const DiscountCodes = ({ user, setSnackbar, codeModal, setCodeModal, handleCodeC
                                 </Grid>
                                 <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
-                                        <p>Galioja iki: {new Date(item.valid).getFullYear()+"-"+(new Date(item.valid).getMonth() + 1)+"-"+new Date(item.valid).getDate()}</p>
-                                        {/* <p>Galioja iki: {new Date(item.valid).getDate()+"/"+(new Date(item.valid).getMonth() + 1)+"/"+new Date(item.valid).getFullYear()}</p> */}
+                                        <p>Galioja iki: {new Date(item.valid).getFullYear()+"-"+('0' + (new Date(item.valid).getMonth() + 1)).slice(-2)+"-"+('0' + new Date(item.valid).getDate()).slice(-2)}</p>
                                     </Box>
                                 </Grid>
                                 <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>

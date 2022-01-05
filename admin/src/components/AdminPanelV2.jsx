@@ -379,10 +379,8 @@ function ResponsiveDrawer(props) {
         createdAt: '',
         price: '',
         discountPrice: '',
-        nuolaidosKodas: '',
-        nuolaidosKodoNuolaida: '',
         status: '',
-        TRDiscount: 0,
+        gamybosLaikas: '',
         uzsakymoNr: 0,
         sanaudos: 0,
     });
@@ -561,10 +559,8 @@ function ResponsiveDrawer(props) {
                 createdAt: '',
                 price: '',
                 discountPrice: '',
-                nuolaidosKodas: '',
-                nuolaidosKodoNuolaida: '',
                 status: '',
-                TRDiscount: 0,
+                gamybosLaikas: '',
                 sanaudos: 0,
                 uzsakymoNr: 0
             });
