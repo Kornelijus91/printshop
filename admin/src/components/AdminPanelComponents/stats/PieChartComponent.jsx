@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Sector, ResponsiveContainer, Text } from 'recharts';
 
 // const data = [
 //   { name: 'Group A', value: 400 },
@@ -23,9 +23,9 @@ const renderActiveShape = (props) => {
 
   return (
     <g>
-      <text scaleToFit={true} x={cx} y={cy} dy={8} textAnchor="middle" fill='#F1FAEE' >
+      <Text x={cx} y={cy} dy={8} textAnchor="middle" fill='#F1FAEE' width={120}>
         {payload.name}
-      </text>
+      </Text>
       <Sector
         cx={cx}
         cy={cy}
@@ -71,7 +71,7 @@ export default class PieChartComponent extends PureComponent {
     return (
       <ResponsiveContainer width="100%" height="100%">
         <PieChart 
-          width={400} height={400}
+          // width={400} height={400}
         >
           <Pie
             activeIndex={this.state.activeIndex}
