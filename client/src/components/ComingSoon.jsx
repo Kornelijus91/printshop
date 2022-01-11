@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Modal, Box, Backdrop } from '@material-ui/core';
+import { Modal, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Treklama01 from '../media/Treklama01.png'
 
