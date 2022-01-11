@@ -457,6 +457,7 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
           })
         } else {
           sendThanksEmail(req.body.delivery.email);
+          req.app.io.of("/valdovas").emit('newOrder');
           res.send({ 
             success: true, 
             error: ""
@@ -650,6 +651,7 @@ router.post("/createOrder", async (req, res, next) => {
           })
         } else {
           sendThanksEmail(req.body.delivery.email);
+          req.app.io.of("/valdovas").emit('newOrder');
           res.send({ 
             success: true, 
             error: ""

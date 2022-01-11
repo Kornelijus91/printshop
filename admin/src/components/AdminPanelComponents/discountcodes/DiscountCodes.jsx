@@ -114,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const DiscountCodes = ({ user, setSnackbar, codeModal, setCodeModal, handleCodeChange }) => {
+const DiscountCodes = ({ newChatrooms, newOrders, user, setSnackbar, codeModal, setCodeModal, handleCodeChange }) => {
 
     const classes = useStyles();
 
@@ -208,8 +208,8 @@ const DiscountCodes = ({ user, setSnackbar, codeModal, setCodeModal, handleCodeC
 
     return (
         <div>
-            <Helmet>
-                <title>Nuolaidų kodai | {ProjectName}</title> 
+            <Helmet defer={false}>
+                <title>{newOrders + newChatrooms > 0 ? `(${newOrders + newChatrooms})` : ''} Nuolaidų kodai | {ProjectName}</title> 
             </Helmet>
             <AddCodeModal 
                 user={user} 
@@ -237,14 +237,22 @@ const DiscountCodes = ({ user, setSnackbar, codeModal, setCodeModal, handleCodeC
                                 alignItems='center' 
                                 className={isActive(item.valid) ? classes.itemActive : classes.itemNotActive}
                                 onClick={() => {
-                                    setCodeModal({
-                                        open: true,
-                                        id: item._id,
-                                        code: item.code,
-                                        discount: item.discount,
-                                        oneuse: item.oneuse,
-                                        valid: new Date(item.valid)
-                                    });
+                                    if (user.administracija) {
+                                        setCodeModal({
+                                            open: true,
+                                            id: item._id,
+                                            code: item.code,
+                                            discount: item.discount,
+                                            oneuse: item.oneuse,
+                                            valid: new Date(item.valid)
+                                        });
+                                    } else {
+                                        setSnackbar({
+                                            message: 'Tik administratorius gali redaguoti nuolaidų kodus.',
+                                            open: true,
+                                        });
+                                    }
+                                    
                                 }}
                             >
                                 <Grid item xl={4} lg={4} md={4} sm={6} xs={6}>
@@ -275,11 +283,13 @@ const DiscountCodes = ({ user, setSnackbar, codeModal, setCodeModal, handleCodeC
                                 <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
                                         <Box display="flex" justifyContent='flex-end' alignItems='center'>
-                                            <Tooltip title='Ištrinti' placement="top" arrow>
-                                                <div className={classes.iconBox}>
-                                                    <FaTrash size={20} className={classes.deleteIcon} onClick={(e) => openDeleteModal(e, item._id)}/> 
-                                                </div>
-                                            </Tooltip>
+                                            {user.administracija &&
+                                                <Tooltip title='Ištrinti' placement="top" arrow>
+                                                    <div className={classes.iconBox}>
+                                                        <FaTrash size={20} className={classes.deleteIcon} onClick={(e) => openDeleteModal(e, item._id)}/> 
+                                                    </div>
+                                                </Tooltip>
+                                            }
                                         </Box>
                                     </Box>
                                 </Grid>

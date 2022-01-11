@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Accounts = ({ user, setView, setSnackbar, view, loyalty, getOrders, ordersPage, setOrdersView, setOrder, orderFilter }) => {
+const Accounts = ({ newChatrooms, newOrders, user, setView, setSnackbar, view, loyalty, getOrders, ordersPage, setOrdersView, setOrder, orderFilter }) => {
 
     const classes = useStyles();
     const [accountModalOpen, setAccountModalOpen] = useState(false);
@@ -190,9 +190,8 @@ const Accounts = ({ user, setView, setSnackbar, view, loyalty, getOrders, orders
 
     return (
         <Box classes={{root: classes.root}}>
-            <Helmet>
-                {/* VELIAU PAKEISTI */}
-                <title>Paskyros | {ProjectName}</title> 
+            <Helmet defer={false}>
+                <title>{newOrders + newChatrooms > 0 ? `(${newOrders + newChatrooms})` : ''} Paskyros | {ProjectName}</title> 
             </Helmet>
             <AccountModal 
                 accountModalOpen={accountModalOpen}

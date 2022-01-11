@@ -11,6 +11,8 @@ var cron = require('node-cron');
 const CartItem = require("./models/cartItem")
 const Order = require("./models/order")
 
+
+
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config()
 }
@@ -24,6 +26,8 @@ require("./strategies/LinkedInStrategy")
 require("./authenticate")
 const userRouter = require("./routes/userRoutes")
 const adminRouter = require("./routes/adminRoutes")
+const socketEvents = require("./routes/socketEvents");
+const socketAdminEvents = require("./routes/socketAdminEvents");
 
 const PORT = process.env.PORT || 3000;
 
@@ -41,7 +45,39 @@ process.on('unhandledRejection', (reason, promise) => {
     console.log(reason)
 })
 
+
+
+// ====== SOCKET ====== //
+
+// const http = require('http');
+// const server = http.createServer(app);
+// const { Server } = require("socket.io");
+// const io = new Server(server);
+
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
 const app = express();
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+    cors: {
+        origin: process.env.MAIN_URL,
+        methods: ["GET", "POST"]
+    },
+    // transports: ["websocket"]
+});
+
+// ==================== //
+
+const onConnection = (socket) => {
+    socketEvents(io, socket);
+};
+
+const onAdminConnection = (socket) => {
+    socketAdminEvents(io, socket);
+};
+
 const shouldCompress = (req, res) => {
     if (req.headers['x-no-compression']) {
         return false;
@@ -49,6 +85,7 @@ const shouldCompress = (req, res) => {
     return compression.filter(req, res);
 };
 
+app.io = io;
 app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -291,6 +328,21 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(PORT, '127.0.0.1', () => {
+io.of("/").on('connection', onConnection);
+io.of("/valdovas").on('connection', onAdminConnection);
+
+// io.on('connection', socket => {
+//     socket.on("messageFromClient", (anotherSocketId, msg) => {
+//         // socket.to(anotherSocketId).emit("private message", socket.id, msg);
+//         console.log("SOCKET ID => ", anotherSocketId);
+//         console.log('MESSAGE => ', msg);
+//     });
+// });
+
+// app.listen(PORT, '127.0.0.1', () => {
+//     console.log(`Server listening on ${PORT}`);
+// });
+
+httpServer.listen(PORT, '127.0.0.1', () => {
     console.log(`Server listening on ${PORT}`);
 });

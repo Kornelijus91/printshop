@@ -5,7 +5,7 @@ import ListCarouselItems from './ListCarouselItems';
 import { ProjectName } from '../../../Variables.jsx'
 
 
-const Carousel = ({ user, setSnackbar, carouselView, setCarouselView, carouselItemInfo, setCarouselItemInfo }) => {
+const Carousel = ({ newChatrooms, newOrders, user, setSnackbar, carouselView, setCarouselView, carouselItemInfo, setCarouselItemInfo }) => {
 
     const [items, setItems] = useState([]);
 
@@ -15,9 +15,8 @@ const Carousel = ({ user, setSnackbar, carouselView, setCarouselView, carouselIt
 
     return (
         <div>
-            <Helmet>
-                {/* VELIAU PAKEISTI */}
-                <title>Karuselė | {ProjectName}</title> 
+            <Helmet defer={false}>
+                <title>{newOrders + newChatrooms > 0 ? `(${newOrders + newChatrooms})` : ''} Karuselė | {ProjectName}</title> 
             </Helmet>
             {carouselView !== 1 ? 
                 <ListCarouselItems 

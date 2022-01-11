@@ -361,7 +361,7 @@ const useStyles = makeStyles((theme) => ({
     
 }));
 
-const Email = ({user, setSnackbar}) => {
+const Email = ({ newChatrooms, newOrders, user, setSnackbar }) => {
 
     const classes = useStyles();
 
@@ -664,9 +664,8 @@ const Email = ({user, setSnackbar}) => {
 
     return (
         <Box classes={{root: classes.topStuff}}>
-            <Helmet>
-                {/* VELIAU PAKEISTI */}
-                <title>El. Paštas | {ProjectName}</title>  
+            <Helmet defer={false}>
+                <title>{newOrders + newChatrooms > 0 ? `(${newOrders + newChatrooms})` : ''} El. Paštas | {ProjectName}</title>  
             </Helmet>
             <CreateEmailDialog 
                 modal={modal} 

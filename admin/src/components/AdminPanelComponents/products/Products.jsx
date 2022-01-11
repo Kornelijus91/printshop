@@ -173,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) => {
+const Products = ({ newOrders, newChatrooms, user, setSnackbar, productModalOpen, setProductModalOpen }) => {
 
     const classes = useStyles();
     
@@ -411,8 +411,8 @@ const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) 
 
     return (
         <Box classes={{root: classes.root}}>
-            <Helmet>
-                <title>Produktai | {ProjectName}</title>  
+            <Helmet defer={false}>
+                <title>{newOrders + newChatrooms > 0 ? `(${newOrders + newChatrooms})` : ''} Produktai | {ProjectName}</title>  
             </Helmet>
             <ProductModal 
                 productModalOpen={productModalOpen} 
@@ -450,27 +450,34 @@ const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) 
                         {pageDetails.items.map((item) => 
                             <Grid container display="flex" justifyContent='center' alignItems='center' className={classes.item} key={item._id}
                                 onClick={() => {
-                                    setProductInfo({
-                                        id: item._id,
-                                        name: item.name,
-                                        description: item.description,
-                                        price: item.price,
-                                        discountPrice: item.discount,
-                                        minOrderAmount: item.minOrderAmount,
-                                        amountDiscount: item.amountDiscount,
-                                        options: item.options,
-                                        oneDayLimit: item.oneDayLimit,
-                                        twoDayLimit: item.twoDayLimit,
-                                        oneDayPriceIncreace: item.oneDayPriceIncreace,
-                                        twoDayPriceIncreace: item.twoDayPriceIncreace,
-                                        pictureAmount: item.pictureAmount,
-                                    });
-                                    setFile({
-                                        src: null,
-                                        URL: item.image
-                                    });
-                                    fillProductOptionsMemo(item.options);
-                                    setProductModalOpen(true);
+                                    if (user.administracija) {
+                                        setProductInfo({
+                                            id: item._id,
+                                            name: item.name,
+                                            description: item.description,
+                                            price: item.price,
+                                            discountPrice: item.discount,
+                                            minOrderAmount: item.minOrderAmount,
+                                            amountDiscount: item.amountDiscount,
+                                            options: item.options,
+                                            oneDayLimit: item.oneDayLimit,
+                                            twoDayLimit: item.twoDayLimit,
+                                            oneDayPriceIncreace: item.oneDayPriceIncreace,
+                                            twoDayPriceIncreace: item.twoDayPriceIncreace,
+                                            pictureAmount: item.pictureAmount,
+                                        });
+                                        setFile({
+                                            src: null,
+                                            URL: item.image
+                                        });
+                                        fillProductOptionsMemo(item.options);
+                                        setProductModalOpen(true);
+                                    } else {
+                                        setSnackbar({
+                                            message: 'Tik administratorius gali redaguoti produktus.',
+                                            open: true,
+                                        });
+                                    }
                                 }}
                             >
                                 <Grid item xl={10} lg={10} md={10} sm={10} xs={10}>
@@ -553,11 +560,13 @@ const Products = ({ user, setSnackbar, productModalOpen, setProductModalOpen }) 
                                             <Grid item xl={4} lg={4} md={4} sm={6} xs={6}>
                                                 <Box classes={{root: classes.trashsection}}>
                                                     <Box style={{marginRight: '1rem'}} display='flex' justifyContent='center' alignItems='center'>
-                                                        <Tooltip title='Ištrinti' placement="top" arrow>
-                                                            <div>
-                                                                <FaTrash size={20} className={classes.deleteIcon} onClick={(e) => openDeleteModal(e, item._id, item.name)}/> 
-                                                            </div>
-                                                        </Tooltip>
+                                                        {user.administracija &&
+                                                            <Tooltip title='Ištrinti' placement="top" arrow>
+                                                                <div>
+                                                                    <FaTrash size={20} className={classes.deleteIcon} onClick={(e) => openDeleteModal(e, item._id, item.name)}/> 
+                                                                </div>
+                                                            </Tooltip>
+                                                        }
                                                     </Box> 
                                                 </Box>
                                             </Grid>

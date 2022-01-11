@@ -1047,7 +1047,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                                             classes: { text: classes.Step, root: classes.stepIcon } 
                                         }}
                                     >
-                                        <p className={classes.stepText}>Pasirinkite kiekį, gamybos laiką ir užsakykite</p>
+                                        <p className={classes.stepText}>Pasirinkite kiekį ir užsakykite</p>
                                     </StepLabel>
                                 </Step>
                             </Stepper>

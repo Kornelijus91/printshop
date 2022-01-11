@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Orders = ({ newOrders, setOrdersPage, orders, ordersPage, ordersView, setOrdersView, order, setOrder, setSnackbar, getOrders, user, orderFilter }) => {
+const Orders = ({ newChatrooms, newOrders, setOrdersPage, orders, ordersPage, ordersView, setOrdersView, order, setOrder, setSnackbar, getOrders, user, orderFilter }) => {
 
     const classes = useStyles();
 
     return (
         <Box classes={{root: classes.root}}>
             <Helmet defer={false}>
-                <title>{newOrders > 0 ? `(${newOrders})` : ''} Užsakymai | {ProjectName}</title>  
+                <title>{newOrders + newChatrooms > 0 ? `(${newOrders + newChatrooms})` : ''} Užsakymai | {ProjectName}</title>  
             </Helmet>
             {ordersView ? 
                 <OrderDetail order={order} user={user} getOrders={getOrders} ordersPage={ordersPage} setOrder={setOrder} setSnackbar={setSnackbar} orderFilter={orderFilter}/>

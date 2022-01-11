@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Loyalty = ({ getLoyalty, loyalty, user, setSnackbar, addLoyaltyModal, setAddLoyaltyModal, handleLoyaltyAddModalChange }) => {
+const Loyalty = ({ newChatrooms, newOrders, getLoyalty, loyalty, user, setSnackbar, addLoyaltyModal, setAddLoyaltyModal, handleLoyaltyAddModalChange }) => {
 
     const classes = useStyles();
 
@@ -118,21 +118,27 @@ const Loyalty = ({ getLoyalty, loyalty, user, setSnackbar, addLoyaltyModal, setA
                 setDeleteModal={setDeleteModal}
                 getLoyalty={getLoyalty}
             />
-            <Helmet>
-                {/* VELIAU PAKEISTI */}
-                <title>Lojalumo programa | {ProjectName}</title> 
+            <Helmet defer={false}>
+                <title>{newOrders + newChatrooms > 0 ? `(${newOrders + newChatrooms})` : ''} Tavo Reklama klubas | {ProjectName}</title> 
             </Helmet>
             <Box >
                 {loyalty.length > 0 && 
                     <Box classes={{root: classes.searchResultBox}}>
                         {loyalty.map((item, index) => 
                             <Grid container display="flex" justifyContent='flex-start' alignItems='center' className={classes.item} onClick={() => {
-                                setAddLoyaltyModal({
-                                    open: true,
-                                    id: item._id,
-                                    money: item.money,
-                                    discount: item.discount,
-                                });
+                                if (user.administracija) {
+                                    setAddLoyaltyModal({
+                                        open: true,
+                                        id: item._id,
+                                        money: item.money,
+                                        discount: item.discount,
+                                    });
+                                } else {
+                                    setSnackbar({
+                                        message: 'Tik administratorius gali redaguoti TR klubo lygius.',
+                                        open: true,
+                                    });
+                                }
                             }}>
                                 <Grid item xl={3} lg={3} md={3} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
@@ -152,11 +158,13 @@ const Loyalty = ({ getLoyalty, loyalty, user, setSnackbar, addLoyaltyModal, setA
                                 <Grid item xl={3} lg={3} md={3} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
                                         <Box display="flex" justifyContent='flex-end' alignItems='center'>
-                                            <Tooltip title='Ištrinti' placement="top" arrow>
-                                                <div className={classes.iconBox} >
-                                                    <FaTrash size={20} className={classes.deleteIcon} onClick={(e) => openDeleteModal(e, item._id)}/> 
-                                                </div>
-                                            </Tooltip>
+                                            {user.administracija &&
+                                                <Tooltip title='Ištrinti' placement="top" arrow>
+                                                    <div className={classes.iconBox} >
+                                                        <FaTrash size={20} className={classes.deleteIcon} onClick={(e) => openDeleteModal(e, item._id)}/> 
+                                                    </div>
+                                                </Tooltip>
+                                            }
                                         </Box>
                                     </Box>
                                 </Grid>

@@ -19,10 +19,12 @@
     "react-email-editor": "^1.4.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.2.0",
+    "react-linkify": "^1.0.0-alpha",
     "react-scripts": "4.0.3",
     "react-use-analytics-api": "^1.4.16",
     "react-uuid": "^1.0.2",
     "recharts": "^2.1.6",
+    "socket.io-client": "^4.4.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useCallback, useEffect } from 'react';
 import LoginForm from './components/LoginForm';
-// import AdminPanel from './components/AdminPanel';
 import AdminPanelV2 from './components/AdminPanelV2';
+import { io } from "socket.io-client";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -23,6 +23,8 @@ function App() {
     personalas: false,
     administracija: false,
   });
+
+  const socket = io("/valdovas"); 
 
   const verifyUser = useCallback(() => {
     fetch("/users/refreshToken", {
@@ -78,25 +80,18 @@ function App() {
 
   useEffect(() => {
       verifyUser();
-  }, [verifyUser])
+  }, [verifyUser]);
 
   return (
     <div className={classes.body}>
       {(user.personalas || user.administracija) && user.loggedIn ? 
-        // <AdminPanel 
-        //   token={token} 
-        //   setToken={setToken}
-        //   setLoggedIn={setLoggedIn} 
-        //   setPersonalas={setPersonalas}
-        //   administracija={administracija}
-        //   setAdministracija={setAdministracija}
-        // />
+        
         <AdminPanelV2 
           user={user}
           setUser={setUser}
+          socket={socket}
         />
       :
-        // <LoginForm setToken={setToken} setLoggedIn={setLoggedIn} setPersonalas={setPersonalas} setAdministracija={setAdministracija}/>
         <LoginForm setUser={setUser}/>
       } 
     </div>

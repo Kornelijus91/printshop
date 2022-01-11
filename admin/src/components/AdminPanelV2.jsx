@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'; //useCallback
+import { useState, useEffect, useRef } from 'react'; //useCallback
 import PropTypes from 'prop-types';
 import { Badge, Box, Snackbar, Grow, Grid, AppBar, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { FaUser, FaBoxOpen, FaUserFriends, FaCrown, FaPercent, FaClipboardList, FaChartLine } from 'react-icons/fa'; //FaChartBar
+import { IoChatboxEllipses } from "react-icons/io5"; 
 import { HiMail } from "react-icons/hi";
 import { MdViewCarousel, MdSettings } from "react-icons/md";
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
@@ -17,6 +18,8 @@ import SalesStats from './AdminPanelComponents/stats/SalesStats';
 import Treklama01 from '../media/Treklama01.png'
 import Orders from './AdminPanelComponents/orders/Orders';
 import Settings from './AdminPanelComponents/settings/Settings';
+import Chat from './AdminPanelComponents/chat/Chat';
+// import { io } from "socket.io-client";
 
 const drawerWidth = 240;
 
@@ -90,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
         // height: '100%',
     },
     contentInner: {
-        
+        height: '90%',
     },
     logo: {
         textAlign: 'center',
@@ -288,9 +291,12 @@ const useStyles = makeStyles((theme) => ({
 
 function ResponsiveDrawer(props) {
     
-    const { window, user, setUser } = props;
+    const { window, user, setUser, socket } = props;  
     const classes = useStyles();
     const theme = useTheme();
+    // {
+    //     autoConnect: false
+    // }
     const [mobileOpen, setMobileOpen] = useState(false);
     const [view, setView] = useState({
         value: 8,
@@ -386,6 +392,75 @@ function ResponsiveDrawer(props) {
     });
 
     const [orderFilter, setOrderFilter] = useState('Visi');
+
+    const [activeChatroom, setActiveChatroom] = useState('');
+    const [newChatrooms, setNewChatrooms] = useState(0);
+    const [chat, setChat] = useState({});
+    const [message, setMessage] = useState('');
+    const [disconectedID, setDisconectedID] = useState('');
+    const [getordersTrigger, setGetordersTrigger] = useState('Visi');
+
+    Notification.requestPermission();
+
+    const chatRef = useRef(chat);
+
+    const clientGone = (clientID) => {
+        setDisconectedID(clientID);
+    };
+
+    const handleIncMessage = (msg) => {
+        var convoCopy = [];
+        if ( chatRef.current[msg.socketID]) {
+            convoCopy = chatRef.current[msg.socketID].convo;
+            convoCopy.push(
+                {
+                    from: 'them',
+                    message: msg.message,
+                    time: new Date()
+                }
+            );
+        } else {
+            convoCopy = [
+                {
+                    from: 'them',
+                    message: msg.message,
+                    time: new Date()
+                }
+            ]
+        }
+
+        setMyChat({
+            ...chatRef.current,
+            [msg.socketID]: {
+                firstName: msg.firstName !== '' ? `${msg.firstName} - ${msg.username}` : `Svečias - ID: ${msg.socketID}`,
+                email: msg.username,
+                new: true,
+                convo: convoCopy,
+            }
+        });
+    };
+
+    const setMyChat = data => {
+        chatRef.current = data;
+        setChat(data);
+    };
+
+    const sendMessage = () => {
+        if (message !== '' && activeChatroom !== '') {
+            socket.emit('messageFromPersonalas', {
+                socketID: activeChatroom,
+                message: message
+            });
+            var arrayCopy = chat;
+            arrayCopy[activeChatroom].convo.push({
+                from: 'me',
+                message: message,
+                time: new Date()
+            });
+            setChat(arrayCopy);
+            setMessage('');
+        }
+    };
 
     const getOrders = async (page, filter) => {
         try {
@@ -528,6 +603,65 @@ function ResponsiveDrawer(props) {
         }
     };
 
+    const newOrderSocket = () => {
+        setGetordersTrigger(Date.now);
+        if (Notification.permission === "granted") {
+            new Notification("Tavo Reklama", {
+                icon: 'https://www.treklama.lt/TR-01.png',
+                body: 'Naujas užsakymas!',
+            });
+        }
+    };
+
+    useEffect(() => {
+        if (disconectedID !== '') {
+            setActiveChatroom('');
+            var convoCopy2 = chat;
+            delete convoCopy2[disconectedID];
+            setChat(convoCopy2);
+            setDisconectedID('');
+            var newrooms = 0;
+            for (const room of Object.entries(chat)) {
+                if (room[1].new && view.value !== 10) {
+                    newrooms = newrooms + 1;
+                }
+            };
+            setNewChatrooms(newrooms);
+        }
+        // eslint-disable-next-line
+    }, [disconectedID]);
+
+
+    useEffect(() => {
+
+        var newrooms = 0;
+        var chatCopy = chat;
+        
+        for (const room of Object.entries(chatCopy)) {
+
+            if (room[0] === activeChatroom) {
+                chatCopy[room[0]].new = false;
+            }
+
+            if (room[1].new && view.value !== 10) {
+                newrooms = newrooms + 1;
+            }
+        }
+
+        if (view.value !== 10) {
+
+            if (Notification.permission === "granted" && newrooms > newChatrooms) {
+                new Notification("Tavo Reklama", {
+                    icon: 'https://www.treklama.lt/TR-01.png',
+                    body: 'Naujas pokalbis!',
+                });
+            }
+            setChat(chatCopy);
+            setNewChatrooms(newrooms);
+        }
+        // eslint-disable-next-line
+    }, [chat]);
+
     useEffect(() => {
         getLoyalty();
         // eslint-disable-next-line
@@ -536,7 +670,7 @@ function ResponsiveDrawer(props) {
     useEffect(() => {
         getOrders(ordersPage, orderFilter);
         // eslint-disable-next-line
-    }, [ordersPage, orderFilter]);
+    }, [ordersPage, orderFilter, getordersTrigger]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -567,6 +701,18 @@ function ResponsiveDrawer(props) {
         }
         // eslint-disable-next-line
     }, [ordersView]);
+
+    useEffect(() => {
+        socket.on("messageToPersonalas", handleIncMessage);
+        socket.on("clientDisconnect", clientGone);
+        socket.on("newOrder", newOrderSocket);
+        // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        if (view.value !== 10) setActiveChatroom('');
+        // eslint-disable-next-line
+    }, [view.value]);
 
     const drawer = (
         <div className={classes.toolbarContainer}>
@@ -612,6 +758,30 @@ function ResponsiveDrawer(props) {
                         </Badge>
                     </ListItemIcon>
                     <ListItemText primary='Užsakymai' classes={{root: classes.menutext}} disableTypography={true}/>
+                </ListItem>
+                <ListItem className={classes.menuItem} button onClick={() => {
+                    if (view.value !== 10) {
+                        setView({value: 10, title: 'Pokalbiai', titleAdditional: ''});
+                        setNewChatrooms(0);
+                    }
+                    if (isWidthDown('md', props.width)) {
+                        handleDrawerToggle();
+                    }
+                }}>
+                    <ListItemIcon classes={{root: classes.menuicon}}>
+                        <Badge 
+                            badgeContent={newChatrooms} 
+                            invisible={newChatrooms <= 0} 
+                            classes={{badge: classes.badge}}
+                            anchorOrigin={{ 
+                                vertical: 'top', 
+                                horizontal: 'right'
+                            }}
+                        >
+                            <IoChatboxEllipses size={24} />
+                        </Badge>
+                    </ListItemIcon>
+                    <ListItemText primary='Pokalbiai' classes={{root: classes.menutext}} disableTypography={true}/>
                 </ListItem>
                 <ListItem className={classes.menuItem} button onClick={() => {
                     if (view.value !== 4) {
@@ -912,15 +1082,16 @@ function ResponsiveDrawer(props) {
                 <Box className={classes.contentInner}>
                     {
                         {
-                            0: <Products user={user} setSnackbar={setSnackbar} productModalOpen={productModalOpen} setProductModalOpen={setProductModalOpen}/>,
-                            1: <AccountsV2 setOrdersView={setOrdersView} setOrder={setOrder} user={user} setSnackbar={setSnackbar} setView={setView} view={view} loyalty={loyalty} getOrders={getOrders} ordersPage={ordersPage} orderFilter={orderFilter}/>,     
-                            2: <Carousel user={user} setSnackbar={setSnackbar} carouselView={carouselView} setCarouselView={setCarouselView} carouselItemInfo={carouselItemInfo} setCarouselItemInfo={setCarouselItemInfo}/>,
-                            4: <SalesStats user={user} setSnackbar={setSnackbar} />,
-                            5: <Email user={user} setSnackbar={setSnackbar}/>,
-                            6: <Loyalty user={user} setSnackbar={setSnackbar} addLoyaltyModal={addLoyaltyModal} setAddLoyaltyModal={setAddLoyaltyModal} handleLoyaltyAddModalChange={handleLoyaltyAddModalChange} loyalty={loyalty} getLoyalty={getLoyalty}/>,
-                            7: <DiscountCodes user={user} setSnackbar={setSnackbar} codeModal={codeModal} setCodeModal={setCodeModal} handleCodeChange={handleCodeChange}/>,
-                            8: <Orders user={user} orderFilter={orderFilter} getOrders={getOrders} newOrders={newOrders} setOrdersPage={setOrdersPage} orders={orders} ordersPage={ordersPage} ordersView={ordersView} setOrdersView={setOrdersView} order={order} setOrder={setOrder} setSnackbar={setSnackbar}/>,
-                            9: <Settings maketavimoKaina={maketavimoKaina} setMaketavimoKaina={setMaketavimoKaina} setSnackbar={setSnackbar}/>,
+                            0: <Products newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} productModalOpen={productModalOpen} setProductModalOpen={setProductModalOpen}/>,
+                            1: <AccountsV2 newOrders={newOrders} newChatrooms={newChatrooms} setOrdersView={setOrdersView} setOrder={setOrder} user={user} setSnackbar={setSnackbar} setView={setView} view={view} loyalty={loyalty} getOrders={getOrders} ordersPage={ordersPage} orderFilter={orderFilter}/>,     
+                            2: <Carousel newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} carouselView={carouselView} setCarouselView={setCarouselView} carouselItemInfo={carouselItemInfo} setCarouselItemInfo={setCarouselItemInfo}/>,
+                            4: <SalesStats newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} />,
+                            5: <Email newOrders={newOrders} newChatrooms={newChatrooms}user={user} setSnackbar={setSnackbar}/>,
+                            6: <Loyalty newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} addLoyaltyModal={addLoyaltyModal} setAddLoyaltyModal={setAddLoyaltyModal} handleLoyaltyAddModalChange={handleLoyaltyAddModalChange} loyalty={loyalty} getLoyalty={getLoyalty}/>,
+                            7: <DiscountCodes newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} codeModal={codeModal} setCodeModal={setCodeModal} handleCodeChange={handleCodeChange}/>,
+                            8: <Orders user={user} orderFilter={orderFilter} getOrders={getOrders} newOrders={newOrders} newChatrooms={newChatrooms} setOrdersPage={setOrdersPage} orders={orders} ordersPage={ordersPage} ordersView={ordersView} setOrdersView={setOrdersView} order={order} setOrder={setOrder} setSnackbar={setSnackbar}/>,
+                            9: <Settings newOrders={newOrders} newChatrooms={newChatrooms} maketavimoKaina={maketavimoKaina} setMaketavimoKaina={setMaketavimoKaina} setSnackbar={setSnackbar}/>,
+                            10: <Chat message={message} setMessage={setMessage} newOrders={newOrders} newChatrooms={newChatrooms} activeChatroom={activeChatroom} setActiveChatroom={setActiveChatroom} chat={chat} setChat={setChat} sendMessage={sendMessage} />
                         }[view.value]
                     }
                 </Box>

@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Settings = ({ maketavimoKaina, setMaketavimoKaina, setSnackbar }) => {
+const Settings = ({ newChatrooms, newOrders, maketavimoKaina, setMaketavimoKaina, setSnackbar }) => {
 
     const classes = useStyles();
 
@@ -89,7 +89,7 @@ const Settings = ({ maketavimoKaina, setMaketavimoKaina, setSnackbar }) => {
     return (
         <Box classes={{root: classes.root}}>
             <Helmet defer={false}>
-                <title>Nustatymai | {ProjectName}</title>  
+                <title>{newOrders + newChatrooms > 0 ? `(${newOrders + newChatrooms})` : ''} Nustatymai | {ProjectName}</title>  
             </Helmet>
             <Box classes={{root: classes.body}}>
                 <h2 className={classes.header}>Maketavimo kaina, €:</h2>

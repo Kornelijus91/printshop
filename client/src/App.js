@@ -16,7 +16,11 @@ import Order from './components/pages/orders/Order.jsx';
 import ReactGA from 'react-ga';
 import Profile from './components/pages/profile/Profile.jsx';
 import Addresses from './components/pages/addresses/Addresses.jsx';
-import Trklubas from './components/pages/trklubas/Trklubas.jsx'
+import Trklubas from './components/pages/trklubas/Trklubas.jsx';
+import Chat from './components/pages/customerchat/Chat';
+import ComingSoon from './components/ComingSoon'
+// import { io } from "socket.io-client";
+import {SocketContext, socket} from './socket.js';
 
 const BuyRules = React.lazy(() => import('./components/pages/terms/BuyRules.jsx'));
 const PrivacyPolicy = React.lazy(() => import('./components/pages/privacy/PrivacyPolicy'));
@@ -90,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
 
   const classes = useStyles();
-
+  
   const [modalOpen, setModalOpen] = useState(false);
   const [token, setToken] = useState(false);
   const [username, setUsername] = useState("");
@@ -144,6 +148,8 @@ const App = () => {
     oneday: false,
   });
   const [pasirinktasGamybosLaikas, setPasirinktasGamybosLaikas] = useState('3-5 darbo dienos.');
+
+  // const socket = io('/');
 
   const lazyFallback = <Box classes={{root: classes.lazyFallback}}><CircularProgress size={30} className={classes.lazyFallbackIcon} /></Box>;
 
@@ -421,6 +427,7 @@ const App = () => {
           setUsername={setUsername}
           setMoneySpent={setMoneySpent}
         />
+        <ComingSoon/>
         <Navigation 
           setModalOpen={setModalOpen} 
           loggedIn={loggedIn} 
@@ -440,6 +447,14 @@ const App = () => {
           priceSum={priceSum}
           loyaltydiscountLevel={loyaltydiscountLevel}
         />
+        <SocketContext.Provider value={socket}>
+          <Chat 
+            // socket={socket}
+            username={username} 
+            firstName={firstName}
+          />
+        </SocketContext.Provider>
+        
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',

@@ -200,7 +200,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SalesStats = ({ user, setSnackbar }) => {
+const SalesStats = ({ newChatrooms, newOrders, user, setSnackbar }) => {
 
     const classes = useStyles();
 
@@ -305,7 +305,7 @@ const SalesStats = ({ user, setSnackbar }) => {
     return (
         <Box classes={{root: classes.root}}>
             <Helmet defer={false}>
-                <title>Statistika | {ProjectName}</title>  
+                <title>{newOrders + newChatrooms > 0 ? `(${newOrders + newChatrooms})` : ''} Statistika | {ProjectName}</title>  
             </Helmet>
             <Box classes={{root: classes.dates}}>
                 <h2>Nuo:</h2>
