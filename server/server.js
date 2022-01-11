@@ -65,7 +65,7 @@ const io = new Server(httpServer, {
         origin: process.env.MAIN_URL,
         methods: ["GET", "POST"]
     },
-    // transports: ["websocket"]
+    transports: ["websocket"]
 });
 
 // ==================== //
