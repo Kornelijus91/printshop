@@ -44,7 +44,7 @@ function App() {
           });
           const timer = setTimeout(() => {
             verifyUser();
-          }, 5 * 60 * 1000);
+          }, 3 * 60 * 60 * 1000);
           return () => {
             clearTimeout(timer);
           };
@@ -80,7 +80,7 @@ function App() {
 
   useEffect(() => {
       verifyUser();
-  }, [verifyUser]);
+  }, [verifyUser]); 
 
   return (
     <div className={classes.body}>

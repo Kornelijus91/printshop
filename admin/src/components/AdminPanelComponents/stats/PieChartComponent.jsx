@@ -1,13 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector, ResponsiveContainer, Text } from 'recharts';
 
-// const data = [
-//   { name: 'Group A', value: 400 },
-//   { name: 'Group B', value: 300 },
-//   { name: 'Group C', value: 300 },
-//   { name: 'Group D', value: 200 },
-// ];
-
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
   const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
@@ -23,7 +16,7 @@ const renderActiveShape = (props) => {
 
   return (
     <g>
-      <Text x={cx} y={cy} dy={8} textAnchor="middle" fill='#F1FAEE' width={120}>
+      <Text x={cx} y={cy} dy={8} textAnchor="middle" fill='#1D3557' width={120}>
         {payload.name}
       </Text>
       <Sector
@@ -46,8 +39,8 @@ const renderActiveShape = (props) => {
       />
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#F1FAEE">{`Apyvarta - ${value.toFixed(2)}€`}</text>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#F1FAEE">
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#1D3557">{`Apyvarta - ${value.toFixed(2)}€`}</text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#1D3557">
         {`${(percent * 100).toFixed(2)}%`}
       </text>
     </g>
@@ -81,7 +74,7 @@ export default class PieChartComponent extends PureComponent {
             cy="50%"
             innerRadius={60}
             outerRadius={80}
-            fill="#82ca9d"
+            fill="#1D3557"
             dataKey="value"
             onMouseEnter={this.onPieEnter}
           />

@@ -30,6 +30,7 @@ const Contact = React.lazy(() => import('./components/pages/contact/Contact'));
 const Pristatymas = React.lazy(() => import('./components/pages/terms/Pristatymas.jsx'));
 const Grazinimas = React.lazy(() => import('./components/pages/terms/Grazinimas.jsx'));
 const Apmokejimas = React.lazy(() => import('./components/pages/terms/Apmokejimas.jsx'));
+const PaymentFailed = React.lazy(() => import('./components/pages/nepavykesmokejimas/PaymentFailed.jsx'));
 
 const useStyles = makeStyles((theme) => ({
   cookieWarningSnackbar: {
@@ -298,12 +299,12 @@ const App = () => {
           personalas: data.personalas,
           administracija: data.administracija,
         });
-        const timer = setTimeout(() => {
-          verifyUser();
-        }, 5 * 60 * 1000);
-        return () => {
-          clearTimeout(timer);
-        };
+        // const timer = setTimeout(() => {
+        //   verifyUser();
+        // }, 5 * 60 * 1000);
+        // return () => {
+        //   clearTimeout(timer);
+        // };
       } else {
         setToken(null);
         setLoggedIn(false);
@@ -345,7 +346,8 @@ const App = () => {
 
   useEffect(() => {
       verifyUser();
-  }, [verifyUser, oAuthWindow])
+      // eslint-disable-next-line
+  }, [oAuthWindow])  //verifyUser, 
 
   useEffect(() => {
       const cookieConsent = JSON.parse(localStorage.getItem("cookieConsent"));
@@ -549,6 +551,11 @@ const App = () => {
           <Route exact path="/mokejimobudai">
             <Suspense fallback={lazyFallback}>
               <Apmokejimas />
+            </Suspense>
+          </Route>
+          <Route exact path="/apmokejimoklaida">
+            <Suspense fallback={lazyFallback}>
+              <PaymentFailed />
             </Suspense>
           </Route>
           <Route exact path="/order">

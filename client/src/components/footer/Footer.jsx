@@ -154,6 +154,9 @@ const useStyles = makeStyles((theme) => ({
     imagePlaceHolder: {
         width: '100%',
         objectFit: 'fill',
+        [theme.breakpoints.up('sm')]: {
+            width: '50%',
+        },
         [theme.breakpoints.up('md')]: {
             width: '50%',
         },

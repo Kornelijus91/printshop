@@ -116,8 +116,8 @@ app.get('/personalas', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../admin/build', 'index.html'));
 });
 
-// app.use('/euploads', express.static('private/uploads'));
-// app.use('/uploads', express.static('public/uploads'));
+app.use('/euploads', express.static('private/uploads'));
+app.use('/uploads', express.static('public/uploads'));
 
 cron.schedule('0 0 4 * * *', async () => {
     var expiryDate = new Date();

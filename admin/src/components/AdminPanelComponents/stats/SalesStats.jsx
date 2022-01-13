@@ -158,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '1.2rem'
         },
         [theme.breakpoints.up('lg')]: {
-            width: 'unset',
+            width: '65%',
         },
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '7px',
@@ -182,22 +182,28 @@ const useStyles = makeStyles((theme) => ({
         }, 
     },
     bottomBox: {
-        paddingLeft: '2em',
+        padding: '0 .5em',
         width: '100%',
-    },
-    piechartbox: {
-        // width: '40rem',
-        height: '20em',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        [theme.breakpoints.up('xxl')]: {
-            height: '27em',
+        [theme.breakpoints.up('lg')]: {
+            paddingLeft: '0 2em',
         },
-        [theme.breakpoints.up('xxxl')]: {
-            height: '40em',
-        }, 
     },
+    // piechartbox: {
+    //     width: '30rem',
+    //     height: '20em',
+    //     display: 'flex',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     [theme.breakpoints.up('xxl')]: {
+    //         height: '27em',
+    //     },
+    //     [theme.breakpoints.up('xxxl')]: {
+    //         height: '40em',
+    //     }, 
+    // },
+    // suvestinebox: {
+    //     width: '30rem',
+    // },
 }));
 
 const SalesStats = ({ newChatrooms, newOrders, user, setSnackbar }) => {
@@ -383,19 +389,34 @@ const SalesStats = ({ newChatrooms, newOrders, user, setSnackbar }) => {
                     </Box> 
                 }
             </Box>
-            {/* <Box display='flex' flexWrap='wrap' justifyContent='flex-start' alignItems='flex-start' classes={{root: classes.bottomBox}}>
+            <Box display='flex' flexWrap='wrap' justifyContent='flex-start' alignItems='flex-start' classes={{root: classes.bottomBox}}>
                 <Box classes={{root: classes.sumUpBox}}>
-                    <h2>Laikotarpio suvestinė:</h2>
-                    <p>Užsakymai: <b>{totals.orders}</b></p>
-                    <p>Apyvarta: <b>{totals.price !== totals.discountedPrice ? (totals.discountedPrice).toFixed(2) : (totals.price).toFixed(2)}€</b></p>
-                    <p>Sanaudos: <b>{(totals.sanaudos).toFixed(2)}€</b></p>
-                    <p>Pelnas: <b>{(totals.discountedPrice - totals.sanaudos).toFixed(2)}€</b></p>
+                    <Grid container>
+                        <Grid item xl={5} lg={5} md={5} sm={12} xs={12}>
+                            <h2>Laikotarpio suvestinė:</h2>
+                            <p>Užsakymai: <b>{totals.orders}</b></p>
+                            <p>Apyvarta: <b>{totals.price !== totals.discountedPrice ? (totals.discountedPrice).toFixed(2) : (totals.price).toFixed(2)}€</b></p>
+                            <p>Sanaudos: <b>{(totals.sanaudos).toFixed(2)}€</b></p>
+                            <p>Pelnas: <b>{(totals.discountedPrice - totals.sanaudos).toFixed(2)}€</b></p>
+                        </Grid>
+                        <Grid item xl={7} lg={7} md={7} sm={12} xs={12}>
+                            <PieChartComponent stats={productstats}/>
+                        </Grid>
+                    </Grid>
+                    {/* <Box classes={{root: classes.suvestinebox}}>
+                        <h2>Laikotarpio suvestinė:</h2>
+                        <p>Užsakymai: <b>{totals.orders}</b></p>
+                        <p>Apyvarta: <b>{totals.price !== totals.discountedPrice ? (totals.discountedPrice).toFixed(2) : (totals.price).toFixed(2)}€</b></p>
+                        <p>Sanaudos: <b>{(totals.sanaudos).toFixed(2)}€</b></p>
+                        <p>Pelnas: <b>{(totals.discountedPrice - totals.sanaudos).toFixed(2)}€</b></p>
+                    </Box>
+                    <Box classes={{root: classes.piechartbox}}>
+                        <PieChartComponent stats={productstats}/>
+                    </Box>  */}
                 </Box>
-                <Box classes={{root: classes.piechartbox}}>
-                    <PieChartComponent stats={productstats}/>
-                </Box> 
-            </Box> */}
-            <Grid container>
+                
+            </Box>
+            {/* <Grid container>
                 <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
                     <Box classes={{root: classes.sumUpBox}}>
                         <h2>Laikotarpio suvestinė:</h2>
@@ -410,7 +431,7 @@ const SalesStats = ({ newChatrooms, newOrders, user, setSnackbar }) => {
                         <PieChartComponent stats={productstats}/>
                     </Box> 
                 </Grid>
-            </Grid>
+            </Grid> */}
             
         </Box>
     )
