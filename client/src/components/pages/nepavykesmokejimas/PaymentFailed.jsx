@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         '-webkit-box-shadow': 'inset 0 0 5px #000000',
         boxShadow: 'inset 0 0 5px #000000',
         fontFamily: theme.myTheme.sriftas,
-        fontSize: 'clamp(1.00rem, 0.91rem + 0.45vw, 2.00rem)',
+        fontSize: 'clamp(0.88rem, 0.80rem + 0.40vw, 1.76rem)',
         textAlign: 'center',
         padding: '2rem',
         color: theme.myTheme.sriftoSpalva,

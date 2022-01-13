@@ -44,7 +44,7 @@ function App() {
           });
           const timer = setTimeout(() => {
             verifyUser();
-          }, 3 * 60 * 60 * 1000);
+          }, 12 * 60 * 60 * 1000);
           return () => {
             clearTimeout(timer);
           };
