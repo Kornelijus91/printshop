@@ -16,6 +16,7 @@ const resetPwdHash = require("jwt-simple")
 const nodemailer = require('nodemailer');
 const multer = require('multer');
 const fs = require('fs');
+const Paysera = require('paysera-nodejs');
 // import { ResetPswEmail } from '../utils/resetPasswordEmail.js';
 
 const { getToken, COOKIE_OPTIONS, getRefreshToken, verifyUser } = require("../authenticate")
@@ -128,6 +129,38 @@ const sendThanksEmail = (email) => {
   };
   transporter.sendMail(message);
 };
+
+var payseraOptions = {
+  projectid: '227564',
+  sign_password: '5bcd64be156de0ead98f17c3e8738885',
+  accepturl: 'https://www.treklama.lt/order',
+  cancelurl: 'https://www.treklama.lt/apmokejimoklaida',
+  callbackurl: 'https://www.treklama.lt/users/handlePayment',
+  test: 1,
+};
+const paysera = new Paysera(payseraOptions);
+
+router.get("/handlePayment", async (req, res, next) => {
+  // var request = { data: req.data, ss1: req };
+  var isValid = paysera.checkCallback(req);
+  if (isValid) {
+
+    const order = paysera.decode(req.data);
+    console.log('//=====================PAYSERA ORDER CONFIRMATION INFO==================//');
+    console.log(order);
+    console.log('//======================================================================//');
+
+    // try {
+      
+    // } catch (error) {
+      
+    // }
+
+    res.send("OK")
+  } else {
+    console.log('PAYSERA REQUEST NOT VALID!!!');
+  }
+});
 
 router.post("/sendComment", async (req, res, next) => {
   try {
@@ -428,16 +461,6 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
       dscPrc = dscPrc + item.discountedPrice;
     };
 
-    //================================================//
-    // TURBUT REIKES ISSIUSTI SIUNTIMO NUORODA
-    // PADARYTI KAD BUTU ISTRINTI KREPSELIO ITEMAI PRIEMUS UZSAKYMA
-    //================================================//
-
-    // console.log('REQ PRICE', req.body.priceSum.sum);
-    // console.log('SERVER PRICE', prc);
-    // console.log('REQ DISC PRICE', req.body.priceSum.dscSum);
-    // console.log('SERVER DISC PRICE', dscPrc);
-
     if (req.body.priceSum.sum === roundTwoDec(prc) && req.body.priceSum.dscSum === roundTwoDec(dscPrc)) {
       const orderObject = new Order({ 
         clientID: req.user._id,
@@ -448,7 +471,7 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         discountPrice: dscPrc,
         gamybosLaikas: req.body.production,
       });
-      orderObject.save(function (err) {
+      orderObject.save(function (err, neworder) {
         if (err) {
           console.log(err);
           res.send({ 
@@ -458,8 +481,27 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         } else {
           sendThanksEmail(req.body.delivery.email);
           req.app.io.of("/valdovas").emit('newOrder');
+          var params = {
+            orderid: neworder.uzsakymoNr,
+            p_firstname: neworder.delivery.firstName,
+            p_lastname: neworder.delivery.lastName,
+            p_email: neworder.delivery.email,
+            p_street: neworder.delivery.address,
+            p_city: neworder.delivery.city,
+            p_zip: neworder.delivery.zipcode,
+            amount: neworder.discountPrice * 100,
+            currency: 'EUR',
+            lang: 'LIT',
+            version: 1.6,
+            payment: 'hanza',
+            country: 'LT',
+            paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name]. Apmokėjimo nr. [order_nr].`,
+          };
+          var urlToGo = paysera.buildRequestUrl(params);
+          console.log(urlToGo);
           res.send({ 
             success: true, 
+            paymentURL: urlToGo,
             error: ""
           })
         }
@@ -615,22 +657,9 @@ router.post("/createOrder", async (req, res, next) => {
     };
 
     for (const item of cart) {
-      // var productionCost = 1;
-      // if (req.body.production === '1-2 darbo dienos.') {
-      //   productionCost = 1 + (item.twoDayPriceIncreace / 100);
-      // } else if (req.body.production === 'Iki 24H.') {
-      //   productionCost = 1 + (item.oneDayPriceIncreace / 100);
-      // } 
-      // prc = prc + roundTwoDec(item.price * productionCost + item.maketavimoKaina);
-      // dscPrc = dscPrc + roundTwoDec((item.price * productionCost * (1 - (item.discount / 100))) + item.maketavimoKaina);
       prc = prc + item.price;
       dscPrc = dscPrc + item.discountedPrice;
     };
-
-    //================================================//
-    // TURBUT REIKES ISSIUSTI SIUNTIMO NUORODA
-    // PADARYTI KAD BUTU ISTRINTI KREPSELIO ITEMAI PRIEMUS UZSAKYMA
-    //================================================//
 
     if (req.body.priceSum.sum === roundTwoDec(prc) && req.body.priceSum.dscSum === roundTwoDec(dscPrc)) {
       const orderObject = new Order({ 
@@ -642,7 +671,7 @@ router.post("/createOrder", async (req, res, next) => {
         discountPrice: dscPrc,
         gamybosLaikas: req.body.production,
       });
-      orderObject.save(function (err) {
+      orderObject.save(function (err, neworder) {
         if (err) {
           console.log(err);
           res.send({ 
@@ -652,8 +681,27 @@ router.post("/createOrder", async (req, res, next) => {
         } else {
           sendThanksEmail(req.body.delivery.email);
           req.app.io.of("/valdovas").emit('newOrder');
+          var params = {
+            orderid: neworder.uzsakymoNr,
+            p_firstname: neworder.delivery.firstName,
+            p_lastname: neworder.delivery.lastName,
+            p_email: neworder.delivery.email,
+            p_street: neworder.delivery.address,
+            p_city: neworder.delivery.city,
+            p_zip: neworder.delivery.zipcode,
+            amount: neworder.discountPrice * 100,
+            currency: 'EUR',
+            lang: 'LIT',
+            version: 1.6,
+            payment: 'hanza',
+            country: 'LT',
+            paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name]. Apmokėjimo nr. [order_nr].`,
+          };
+          var urlToGo = paysera.buildRequestUrl(params);
+          console.log(urlToGo);
           res.send({ 
             success: true, 
+            paymentURL: urlToGo,
             error: ""
           })
         }

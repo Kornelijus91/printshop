@@ -436,7 +436,8 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
                         pastabaKurjeriui: '',
                     });
                     setCart([]);
-                    setOrderStep(2);
+                    window.location.replace(response.paymentURL)
+                    // setOrderStep(2);
                 } else {
                     setSubmitting(false);
                     setAlert('Klaida! Pabandykite vėliau');
@@ -463,7 +464,8 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
                     setSubmitting(false);
                     localStorage.removeItem("cartArray");
                     setCart([]);
-                    setOrderStep(2);
+                    window.location.replace(response.paymentURL)
+                    // setOrderStep(2);
                 } else {
                     setSubmitting(false);
                     setAlert('Klaida! Pabandykite vėliau');
