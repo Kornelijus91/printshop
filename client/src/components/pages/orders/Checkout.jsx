@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { AiFillEdit } from "react-icons/ai";
 import { useHistory } from 'react-router-dom';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import PaymentOptions from './PaymentOptions';
 
 const useStyles = makeStyles((theme) => ({
     leftGridItem: {
@@ -281,7 +282,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     buttonDisabled: {
-        backgroundColor: '#cc0000',
+        backgroundColor: '#ee7781',
     },
     buttonIcon: {
         color: theme.myTheme.trecia,
@@ -393,6 +394,7 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
 
     const [alert, setAlert] = useState('');
     const [submitting, setSubmitting] = useState(false);
+    const [selectedPayment, setSelectedPayment] = useState('');
 
     const pay = async () => {
         setSubmitting(true);
@@ -413,11 +415,12 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
                         kodoNuolaida: kodoNuolaida,
                         priceSum: priceSum,
                         production: pasirinktasGamybosLaikas,
+                        selectedPaymentMethod: selectedPayment,
                     }),
                 });
                 const response = await res.json();
                 if (response.success) {
-                    setSubmitting(false);
+                    // setSubmitting(false);
                     localStorage.removeItem("cartArray");
                     setKodoNuolaida({
                         kodas: '',
@@ -457,11 +460,12 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
                         kodoNuolaida: kodoNuolaida,
                         priceSum: priceSum,
                         production: pasirinktasGamybosLaikas,
+                        selectedPaymentMethod: selectedPayment,
                     }),
                 });
                 const response = await res.json();
                 if (response.success) {
-                    setSubmitting(false);
+                    // setSubmitting(false);
                     localStorage.removeItem("cartArray");
                     setCart([]);
                     window.location.replace(response.paymentURL)
@@ -563,9 +567,7 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
             </Grid>
             <Box classes={{root: classes.mokejimoBudaiBox}}>
                 <h2 className={classes.header}>Pasirinkite mokėjimo būdą.</h2>
-                <Box display='flex' justifyContent='center' alignItems='center'>
-                    <p className={classes.PriceText2}>Kol kas nera :P</p>
-                </Box>
+                <PaymentOptions selectedPayment={selectedPayment} setSelectedPayment={setSelectedPayment}/>
             </Box>
             <Box display='flex' justifyContent='space-between' flexWrap="wrap-reverse">
                 <Button 
@@ -579,7 +581,7 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
                     classes={{root: classes.addButton, disabled: classes.buttonDisabled}} 
                     onClick={pay}
                     endIcon={<FaArrowRight size={17} className={classes.buttonIcon}/>}
-                    disabled={submitting}
+                    disabled={submitting || selectedPayment === ''}
                 >
                     {submitting ? <CircularProgress size={20} className={classes.loadingIcon}/> : 'Mokėti'}
                 </Button> 

@@ -12,7 +12,6 @@ const CartItem = require("./models/cartItem")
 const Order = require("./models/order")
 
 
-
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config()
 }

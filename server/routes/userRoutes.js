@@ -493,7 +493,7 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
             currency: 'EUR',
             lang: 'LIT',
             version: 1.6,
-            payment: 'hanza',
+            payment: req.body.selectedPaymentMethod,
             country: 'LT',
             paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name]. Apmokėjimo nr. [order_nr].`,
           };
@@ -693,7 +693,7 @@ router.post("/createOrder", async (req, res, next) => {
             currency: 'EUR',
             lang: 'LIT',
             version: 1.6,
-            payment: 'hanza',
+            payment: req.body.selectedPaymentMethod,
             country: 'LT',
             paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name]. Apmokėjimo nr. [order_nr].`,
           };

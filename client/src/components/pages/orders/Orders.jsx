@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Breadcrumbs, Button } from '@material-ui/core';
+import { Box, Breadcrumbs, Button, CircularProgress } from '@material-ui/core';
 import { Helmet } from "react-helmet";
 import { ProjectName } from '../../../Variables.jsx'
 import { Link, useHistory } from 'react-router-dom'; 
 import Pagination from '@material-ui/lab/Pagination';
+import PaymentOptions from './PaymentOptions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -256,7 +257,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     ButtonDisabled: {
-        backgroundColor: 'rgba(230, 57, 70, 0.7)',
+        backgroundColor: '#ee7781',
     },
     header: {
         fontSize: '1.2rem',
@@ -376,6 +377,24 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '2.4rem',
         },
     },
+    loadingIcon: {
+        color: theme.myTheme.trecia,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.35)',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+        },
+    },
+    paymentParent: {
+        padding: '1em 1em 1em 0',
+        // [theme.breakpoints.up('xxl')]: {
+        //     padding: '1.34em 1.34em 1.34em 0',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     padding: '2em 2em 2em 0',
+        // },
+    },
 }));
 
 
@@ -397,6 +416,8 @@ const Orders = ({ token, loggedIn }) => {
         pagingCounter: 0
     });
     const [page, setPage] = useState(1);
+    const [selectedPayment, setSelectedPayment] = useState('');
+    const [submitting, setSubmitting] = useState(false);
 
     const handlePageChange = (event, value) => {
         setPage(value);
@@ -487,7 +508,7 @@ const Orders = ({ token, loggedIn }) => {
                                                 <p className={classes.DiscountedPriceText}>{order.discountPrice.toFixed(2)}€</p>
                                             </Box>
                                         :
-                                            <p className={classes.PriceText}>{order.price}€</p>
+                                            <p className={classes.PriceText}>{order.price.toFixed(2)}€</p>
                                         }
                                     </Box>
                                     
@@ -533,15 +554,19 @@ const Orders = ({ token, loggedIn }) => {
                                             </Box>
                                         </Box>
                                         <Box classes={{root: classes.mokejimoPasirinkimaiBox}}>
-                                            <h2 className={classes.header}>Mokėjimo būdai kurių kol kas nėra :P</h2>
+                                            <h2 className={classes.header}>Pasirinkite mokėjimo būdą.</h2>
+                                            <Box classes={{root: classes.paymentParent}}>
+                                                <PaymentOptions selectedPayment={selectedPayment} setSelectedPayment={setSelectedPayment}/>
+                                            </Box>
                                         </Box>
                                         <Box display='flex' justifyContent='flex-end'>
                                             <Button 
                                                 classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }}  
                                                 style={{width: '12%'}}
+                                                disabled={submitting || selectedPayment === ''}
                                                 // onClick={() => orderAgain(cartItem.productLink, cartItem._id)}                                              
                                             >
-                                                Mokėti
+                                                {submitting ? <CircularProgress size={20} className={classes.loadingIcon}/> : 'Mokėti'}
                                             </Button>
                                         </Box>
                                     </Box>
