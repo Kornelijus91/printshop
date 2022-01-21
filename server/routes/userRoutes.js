@@ -498,7 +498,7 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
             paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name]. Apmokėjimo nr. [order_nr].`,
           };
           var urlToGo = paysera.buildRequestUrl(params);
-          console.log(urlToGo);
+          // console.log(urlToGo);
           res.send({ 
             success: true, 
             paymentURL: urlToGo,
@@ -698,7 +698,7 @@ router.post("/createOrder", async (req, res, next) => {
             paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name]. Apmokėjimo nr. [order_nr].`,
           };
           var urlToGo = paysera.buildRequestUrl(params);
-          console.log(urlToGo);
+          // console.log(urlToGo);
           res.send({ 
             success: true, 
             paymentURL: urlToGo,
