@@ -148,14 +148,13 @@ router.get("/handlePayment", async (req, res, next) => {
     ss2: req.query.ss2,
   };
   const isValid = paysera.checkCallback(request);
-  console.log('IS VALID ???? => ', isValid );
   if (isValid) {
 
     const payseraResponse = paysera.decode(req.query.data);
-    console.log('//===================== PAYSERA ORDER CONFIRMATION INFO ==================//');
-    console.log(payseraResponse);
-    console.log('//========================================================================//');
-
+    // console.log('//===================== PAYSERA ORDER CONFIRMATION INFO ==================//');
+    // console.log(payseraResponse);
+    // console.log('//========================================================================//');
+    console.log('CURRENCy -> ', payseraResponse.currency );
     try {
       if (payseraResponse.status === 1) {
         let dscCode = '';
