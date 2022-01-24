@@ -154,6 +154,7 @@ router.get("/handlePayment", async (req, res, next) => {
     try {
       if (payseraResponse.status === 1) {
         let dscCode = '';
+        console.log('ORDER ID => ', payseraResponse.orderid );
         Order.findOne({ uzsakymoNr: payseraResponse.orderid }, function (err, order) {
           if (!err && order.status !== 'Apmokėtas') {
             order.status = 'Apmokėtas';
@@ -162,7 +163,6 @@ router.get("/handlePayment", async (req, res, next) => {
                 dscCode = cartItm.discount.code;
               }
             }
-            console.log('ORDER => ', order );
             order.save();
           } else if (err) {
             console.log(err);
