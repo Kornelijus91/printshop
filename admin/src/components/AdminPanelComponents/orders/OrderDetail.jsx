@@ -503,15 +503,15 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                                         }
                                     </Grid>
                                     <Grid item xl={4} lg={4} md={4} sm={12} xs={12} className={classes.accDetGridItem}>
-                                        {item.discount > 0 && 
-                                            <p>{item.panaudotaNuolaida}: <b>{item.discount}%</b></p>
+                                        {item.discount.discount > 0 && 
+                                            <p>{item.discount.name}: <b>{item.discount.discount}%</b></p>
                                         }
                                         <p>Vieneto kaina: <b>{roundTwoDec(item.unitPrice).toFixed(2)}€</b></p>
                                         {item.maketavimoKaina > 0 &&
                                             <p>Maketavimo kaina: <b>{roundTwoDec(item.maketavimoKaina).toFixed(2)}€</b></p>
                                         }
                                         <p>Viso kaina: <b>{roundTwoDec(item.price).toFixed(2)}€</b></p>
-                                        {item.discount > 0  && 
+                                        {item.discount.discount > 0  && 
                                             <>
                                                 <p>Suteiktos nuolaidos: <b>{roundTwoDec(item.price - item.discountedPrice).toFixed(2)}€</b></p>
                                                 <p>Viso kaina su nuolaidomis: <b>{roundTwoDec(item.discountedPrice).toFixed(2)}€</b></p>

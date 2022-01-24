@@ -10,6 +10,7 @@ const Code = require("../models/code")
 const Order = require("../models/order")
 const Comment = require("../models/comment")
 const Settings = require("../models/settings")
+const Payment = require("../models/payment")
 const passport = require("passport")
 const jwt = require("jsonwebtoken")
 const resetPwdHash = require("jwt-simple")
@@ -141,31 +142,63 @@ var payseraOptions = {
 const paysera = new Paysera(payseraOptions);
 
 router.get("/handlePayment", async (req, res, next) => {
-  // console.log('//===================== PAYSERA REQUEST ===================================//');
-  // console.log('DATA => ', req.query.data);
-  // console.log('SS1 => ', req.query.ss1);
-  // console.log('SS2 => ', req.query.ss2);
-  // console.log('//======================================================================//');
-  var request = {
+  const request = {
     data: req.query.data, 
-    ss1: req.query.ss1
+    ss1: req.query.ss1,
+    ss2: req.query.ss2,
   };
-  var isValid = paysera.checkCallback(request);
+  const isValid = paysera.checkCallback(request);
   console.log('IS VALID ???? => ', isValid );
   if (isValid) {
 
-    const order = paysera.decode(req.query.data);
+    const payseraResponse = paysera.decode(req.query.data);
     console.log('//===================== PAYSERA ORDER CONFIRMATION INFO ==================//');
-    console.log(order);
+    console.log(payseraResponse);
     console.log('//========================================================================//');
 
-    // try {
-      
-    // } catch (error) {
-      
-    // }
-
-    res.send("OK")
+    try {
+      if (payseraResponse.status === 1) {
+        let dscCode = '';
+        Order.findOne({ uzsakymoNr: payseraResponse.orderid }, function (err, order) {
+          if (!err && order.status !== 'Apmokėtas') {
+            order.status = 'Apmokėtas';
+            for (const cartItm of order.cartItems) {
+              if (cartItm.discount.code !== '') {
+                dscCode = cartItm.discount.code;
+              }
+            }
+            order.save();
+          } else if (err) {
+            console.log(err);
+          }
+        });
+        if (dscCode !== '') {
+          Code.findOne({ code: dscCode }, function (err, selectedCode) {
+            if (!err) {
+              selectedCode.used = selectedCode.used + 1;
+              selectedCode.save();
+            }
+          });
+        }
+        const paymentObject = new Payment({ 
+          clientUsername: payseraResponse.p_email,
+          orderNr: payseraResponse.orderid,
+          amount: payseraResponse.amount / 100,
+          currency: payseraResponse.currency,
+          payment: payseraResponse.payment,
+          firstName: payseraResponse.p_firstname,
+          lastName: payseraResponse.p_lastname,
+          city: payseraResponse.p_city,
+          address: payseraResponse.p_street,
+          zip: payseraResponse.p_zip,
+        });
+        paymentObject.save();
+        req.app.io.of("/valdovas").emit('newOrder', false);
+        res.send("OK");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   } else {
     console.log('PAYSERA REQUEST NOT VALID!!!');
   }
@@ -345,7 +378,8 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
   var dscPrc = 0;
   var discountUsed = {
     name: '',
-    discount: 0
+    discount: 0,
+    code: ''
   }
   try {
     try{
@@ -411,22 +445,26 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
       if (maxDiscount === codeDiscount && req.body.kodoNuolaida.kodas !== '') {
         discountUsed = {
           name: `Nuolaida su kodu ${req.body.kodoNuolaida.kodas}`,
-          discount: maxDiscount
+          discount: maxDiscount,
+          code: req.body.kodoNuolaida.kodas,
         }
       } else if (maxDiscount === loyaltyDiscount) {
         discountUsed = {
           name: 'Tavo Reklama klubo nuolaida',
-          discount: maxDiscount
+          discount: maxDiscount,
+          code: '',
         }
       } else if (maxDiscount === itemPrices[3]) {
         discountUsed = {
           name: 'Nuolaida',
-          discount: maxDiscount
+          discount: maxDiscount,
+          code: '',
         }
       } else {
         discountUsed = {
           name: '',
-          discount: 0
+          discount: 0,
+          code: '',
         }
       }
 
@@ -459,8 +497,8 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         price: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost + item.maketavimoKaina),
         discountedPrice: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost * (1 - (maxDiscount / 100)) + item.maketavimoKaina),
         unitPrice: itemPrices[2],
-        discount: maxDiscount,
-        panaudotaNuolaida: discountUsed.name,
+        discount: discountUsed,
+        // panaudotaNuolaida: discountUsed.name,
       };
       cart.push(cartItemWithPrices);
     };
@@ -489,7 +527,7 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
           })
         } else {
           sendThanksEmail(req.body.delivery.email);
-          req.app.io.of("/valdovas").emit('newOrder');
+          req.app.io.of("/valdovas").emit('newOrder', true);
           var params = {
             orderid: neworder.uzsakymoNr,
             p_firstname: neworder.delivery.firstName,
@@ -504,7 +542,7 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
             version: 1.6,
             payment: req.body.selectedPaymentMethod,
             country: 'LT',
-            paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name]. Apmokėjimo nr. [order_nr].`,
+            paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name].`,
           };
           var urlToGo = paysera.buildRequestUrl(params);
           // console.log(urlToGo);
@@ -540,7 +578,8 @@ router.post("/createOrder", async (req, res, next) => {
   var clientID = '';
   var discountUsed = {
     name: '',
-    discount: 0
+    discount: 0,
+    code: '',
   }
   try {
     const ooser = await User.find({ username: req.body.delivery.email }).exec();
@@ -616,17 +655,20 @@ router.post("/createOrder", async (req, res, next) => {
       if (maxDiscount === codeDiscount && req.body.kodoNuolaida.kodas !== '') {
         discountUsed = {
           name: `Nuolaida su kodu ${req.body.kodoNuolaida.kodas}`,
-          discount: maxDiscount
+          discount: maxDiscount,
+          code: req.body.kodoNuolaida.kodas,
         }
       }  else if (maxDiscount === itemPrices[3]) {
         discountUsed = {
           name: 'Nuolaida',
-          discount: maxDiscount
+          discount: maxDiscount,
+          code: '',
         }
       } else {
         discountUsed = {
           name: '',
-          discount: 0
+          discount: 0,
+          code: '',
         }
       }
 
@@ -659,8 +701,8 @@ router.post("/createOrder", async (req, res, next) => {
         price: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost + item.maketavimoKaina),
         discountedPrice: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost * (1 - (maxDiscount / 100)) + item.maketavimoKaina),
         unitPrice: itemPrices[2],
-        discount: maxDiscount,
-        panaudotaNuolaida: discountUsed.name,
+        discount: discountUsed,
+        // panaudotaNuolaida: discountUsed.name,
       };
       cart.push(cartItemWithPrices);
     };
@@ -689,7 +731,7 @@ router.post("/createOrder", async (req, res, next) => {
           })
         } else {
           sendThanksEmail(req.body.delivery.email);
-          req.app.io.of("/valdovas").emit('newOrder');
+          req.app.io.of("/valdovas").emit('newOrder', true);
           var params = {
             orderid: neworder.uzsakymoNr,
             p_firstname: neworder.delivery.firstName,
@@ -704,7 +746,7 @@ router.post("/createOrder", async (req, res, next) => {
             version: 1.6,
             payment: req.body.selectedPaymentMethod,
             country: 'LT',
-            paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name]. Apmokėjimo nr. [order_nr].`,
+            paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name].`,
           };
           var urlToGo = paysera.buildRequestUrl(params);
           // console.log(urlToGo);

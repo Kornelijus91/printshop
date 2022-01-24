@@ -603,9 +603,9 @@ function ResponsiveDrawer(props) {
         }
     };
 
-    const newOrderSocket = () => {
+    const newOrderSocket = (showNotification) => {
         setGetordersTrigger(Date.now);
-        if (Notification.permission === "granted") {
+        if (Notification.permission === "granted" && showNotification) {
             new Notification("Tavo Reklama", {
                 icon: 'https://www.treklama.lt/TR-01.png',
                 body: 'Naujas užsakymas!',
