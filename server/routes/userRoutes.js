@@ -146,11 +146,15 @@ router.get("/handlePayment", async (req, res, next) => {
   // console.log('SS1 => ', req.query.ss1);
   // console.log('SS2 => ', req.query.ss2);
   // console.log('//======================================================================//');
-  var request = { data: req.query.data, ss1: req.query.ss1, ss2: req.query.ss2 };
+  var request = {
+    data: req.query.data, 
+    ss1: req.query.ss1
+  };
   var isValid = paysera.checkCallback(request);
+  console.log('IS VALID ???? => ', isValid );
   if (isValid) {
 
-    const order = paysera.decode(req.data);
+    const order = paysera.decode(req.query.data);
     console.log('//===================== PAYSERA ORDER CONFIRMATION INFO ==================//');
     console.log(order);
     console.log('//========================================================================//');
