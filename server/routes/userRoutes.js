@@ -142,7 +142,9 @@ const paysera = new Paysera(payseraOptions);
 
 router.get("/handlePayment", async (req, res, next) => {
   console.log('//===================== PAYSERA REQUEST ===================================//');
-  console.log(req);
+  console.log('DATA => ', req.query.data);
+  console.log('SS1 => ', req.query.ss1);
+  console.log('SS2 => ', req.query.ss2);
   console.log('//======================================================================//');
   // var request = { data: req.data, ss1: req };
   var isValid = paysera.checkCallback(req);
