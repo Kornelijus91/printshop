@@ -151,11 +151,11 @@ router.get("/handlePayment", async (req, res, next) => {
   if (isValid) {
 
     const payseraResponse = paysera.decode(req.query.data);
-    console.log('PAYSERA RESPONSE => ', payseraResponse );
+    // console.log('PAYSERA RESPONSE => ', payseraResponse );
     try {
-      if (payseraResponse.status === 1) {
+      if (parseInt(payseraResponse.status) === 1) {
         let dscCode = '';
-        Order.findOne({ uzsakymoNr: payseraResponse.orderid }, function (err, order) {
+        Order.findOne({ uzsakymoNr: parseInt(payseraResponse.orderid) }, function (err, order) {
           if (!err && order.status !== 'Apmokėtas') {
             order.status = 'Apmokėtas';
             for (const cartItm of order.cartItems) {
