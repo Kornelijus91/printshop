@@ -141,19 +141,19 @@ var payseraOptions = {
 const paysera = new Paysera(payseraOptions);
 
 router.get("/handlePayment", async (req, res, next) => {
-  console.log('//===================== PAYSERA REQUEST ===================================//');
-  console.log('DATA => ', req.query.data);
-  console.log('SS1 => ', req.query.ss1);
-  console.log('SS2 => ', req.query.ss2);
-  console.log('//======================================================================//');
-  // var request = { data: req.data, ss1: req };
-  var isValid = paysera.checkCallback(req);
+  // console.log('//===================== PAYSERA REQUEST ===================================//');
+  // console.log('DATA => ', req.query.data);
+  // console.log('SS1 => ', req.query.ss1);
+  // console.log('SS2 => ', req.query.ss2);
+  // console.log('//======================================================================//');
+  var request = { data: req.query.data, ss1: req.query.ss1, ss2: req.query.ss2 };
+  var isValid = paysera.checkCallback(request);
   if (isValid) {
 
-    // const order = paysera.decode(req.data);
-    // console.log('//===================== PAYSERA ORDER CONFIRMATION INFO==================//');
-    // console.log(order);
-    // console.log('//======================================================================//');
+    const order = paysera.decode(req.data);
+    console.log('//===================== PAYSERA ORDER CONFIRMATION INFO ==================//');
+    console.log(order);
+    console.log('//========================================================================//');
 
     // try {
       
