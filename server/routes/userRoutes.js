@@ -151,10 +151,6 @@ router.get("/handlePayment", async (req, res, next) => {
   if (isValid) {
 
     const payseraResponse = paysera.decode(req.query.data);
-    // console.log('//===================== PAYSERA ORDER CONFIRMATION INFO ==================//');
-    // console.log(payseraResponse);
-    // console.log('//========================================================================//');
-    console.log('CURRENCy -> ', payseraResponse.currency );
     try {
       if (payseraResponse.status === 1) {
         let dscCode = '';
@@ -166,6 +162,7 @@ router.get("/handlePayment", async (req, res, next) => {
                 dscCode = cartItm.discount.code;
               }
             }
+            console.log('ORDER => ', order );
             order.save();
           } else if (err) {
             console.log(err);
