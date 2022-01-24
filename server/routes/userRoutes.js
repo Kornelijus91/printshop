@@ -154,9 +154,9 @@ router.get("/handlePayment", async (req, res, next) => {
     // console.log('PAYSERA RESPONSE => ', payseraResponse );
     try {
       if (parseInt(payseraResponse.status) === 1) {
-        let dscCode = '';
         Order.findOne({ uzsakymoNr: parseInt(payseraResponse.orderid) }, function (err, order) {
           if (!err && order.status !== 'Apmokėtas') {
+            let dscCode = '';
             order.status = 'Apmokėtas';
             for (const cartItm of order.cartItems) {
               console.log('ORDER DISCOUNT CODES => ', cartItm.discount.code);
@@ -164,21 +164,20 @@ router.get("/handlePayment", async (req, res, next) => {
                 dscCode = cartItm.discount.code;
               }
             }
+            if (dscCode !== '') {
+              Code.findOne({ code: dscCode }, function (err, selectedCode) {
+                if (!err) {
+                  console.log('QUERY RESULT => ', selectedCode);
+                  selectedCode.used = selectedCode.used + 1;
+                  selectedCode.save();
+                }
+              });
+            }
             order.save();
           } else if (err) {
             console.log(err);
           }
         });
-        console.log('VARIABLE CODE => ', dscCode);
-        if (dscCode !== '') {
-          Code.findOne({ code: dscCode }, function (err, selectedCode) {
-            if (!err) {
-              console.log('QUERY RESULT => ', selectedCode);
-              selectedCode.used = selectedCode.used + 1;
-              selectedCode.save();
-            }
-          });
-        }
         const paymentObject = new Payment({ 
           clientUsername: payseraResponse.p_email,
           orderNr: payseraResponse.orderid,
