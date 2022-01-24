@@ -159,6 +159,7 @@ router.get("/handlePayment", async (req, res, next) => {
           if (!err && order.status !== 'Apmokėtas') {
             order.status = 'Apmokėtas';
             for (const cartItm of order.cartItems) {
+              console.log('ORDER DISCOUNT CODES => ', cartItm.discount.code);
               if (cartItm.discount.code !== '') {
                 dscCode = cartItm.discount.code;
               }
@@ -168,9 +169,11 @@ router.get("/handlePayment", async (req, res, next) => {
             console.log(err);
           }
         });
+        console.log('VARIABLE CODE => ', dscCode);
         if (dscCode !== '') {
           Code.findOne({ code: dscCode }, function (err, selectedCode) {
             if (!err) {
+              console.log('QUERY RESULT => ', selectedCode);
               selectedCode.used = selectedCode.used + 1;
               selectedCode.save();
             }
