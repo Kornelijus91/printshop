@@ -151,10 +151,10 @@ router.get("/handlePayment", async (req, res, next) => {
   if (isValid) {
 
     const payseraResponse = paysera.decode(req.query.data);
+    console.log('PAYSERA RESPONSE => ', payseraResponse );
     try {
       if (payseraResponse.status === 1) {
         let dscCode = '';
-        console.log('ORDER ID => ', payseraResponse.orderid );
         Order.findOne({ uzsakymoNr: payseraResponse.orderid }, function (err, order) {
           if (!err && order.status !== 'Apmokėtas') {
             order.status = 'Apmokėtas';
