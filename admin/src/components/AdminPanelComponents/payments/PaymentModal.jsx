@@ -11,27 +11,32 @@ const useStyles = makeStyles((theme) => ({
         border: 'none',
         outline: 'none',
         width: '22rem',
-        padding: '0 1rem 0 1rem',
+        padding: '1rem',
+        '& h3': {
+            marginBottom: '.5em'
+        },
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '9px',
             width: '33rem',
-            padding: '0 1.5rem 0 1.5rem',
+            padding: '1.5rem',
             '& h1': {
                 fontSize: '2.4rem'
             },
             '& h3': {
-                fontSize: '1.6rem'
+                fontSize: '1.6rem',
+                marginBottom: '.5em'
             },
         },
         [theme.breakpoints.up('xxxl')]: {
             borderRadius: '14px',
             width: '44rem',
-            padding: '0 2rem 0 2rem',
+            padding: '2rem',
             '& h1': {
                 fontSize: '3.6rem'
             },
             '& h3': {
-                fontSize: '2rem'
+                fontSize: '2rem',
+                marginBottom: '.5em'
             },
         }, 
     },

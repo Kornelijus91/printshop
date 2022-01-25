@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         color: theme.myTheme.trecia,
         '& p': {
-            margin: 0,
+            margin: '.8em',
             padding: 0,
         }, 
         [theme.breakpoints.up('xxl')]: {
@@ -245,7 +245,6 @@ const Payments = ({ user, setSnackbar, setPaymentModal }) => {
                                 });
                             } 
                         }>
-                            
                             <Grid item xl={3} lg={3} md={3} sm={6} xs={6}>
                                 <Box classes={{root: classes.infosection}}>
                                     <p>Pateiktas: {new Date(item.createdAt).getFullYear()+"-"+('0' + (new Date(item.createdAt).getMonth() + 1)).slice(-2)+"-"+('0' + new Date(item.createdAt).getDate()).slice(-2)}</p>

@@ -251,7 +251,7 @@ const UserPayments = ({ username, setSnackbar, token, setPaymentModal }) => {
                                 </Grid>
                                 <Grid item xl={4} lg={4} md={4} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
-                                        <p className={classes.namesum}>{item.amount.tofixed(2)} {item.currency}</p>
+                                        <p className={classes.namesum}>{(item.amount).toFixed(2)} {item.currency}</p>
                                     </Box>
                                 </Grid>
                                 <Grid item xl={4} lg={4} md={4} sm={6} xs={6}>
