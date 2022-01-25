@@ -235,7 +235,7 @@ const PaymentSearch = ({ token, setPaymentModal }) => {
                             </Grid>
                             <Grid item xl={3} lg={3} md={3} sm={6} xs={6}>
                                 <Box classes={{root: classes.infosection}}>
-                                    <p className={classes.namesum}>{item.amount.tofixed(2)} {item.currency}</p>
+                                    <p className={classes.namesum}>{(item.amount).toFixed(2)} {item.currency}</p>
                                 </Box>
                             </Grid>
                             <Grid item xl={3} lg={3} md={3} sm={6} xs={6}>

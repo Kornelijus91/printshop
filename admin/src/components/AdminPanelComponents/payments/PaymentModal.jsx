@@ -212,7 +212,7 @@ const PaymentModal = ({ paymentModal, setPaymentModal }) => {
                 <Container classes={{root: classes.root}}>
                     <Box>
                         <h3 style={{margin: '0 0 0 .5rem', textAlign: 'left'}}>Apmokėjimas už užsakymą Nr. {paymentModal.orderNr}</h3>
-                        <h3 style={{margin: '0 0 0 .5rem', textAlign: 'left'}}>{paymentModal.amount.toFixed(2)} {paymentModal.currency}</h3>
+                        <h3 style={{margin: '0 0 0 .5rem', textAlign: 'left'}}>{(paymentModal.amount).toFixed(2)} {paymentModal.currency}</h3>
                         <h3 style={{margin: '0 0 0 .5rem', textAlign: 'left'}}>{paymentModal.firstName} {paymentModal.lastName}</h3>
                         <h3 style={{margin: '0 0 0 .5rem', textAlign: 'left'}}>{paymentModal.clientUsername}</h3>
                         <h3 style={{margin: '0 0 0 .5rem', textAlign: 'left'}}>{
