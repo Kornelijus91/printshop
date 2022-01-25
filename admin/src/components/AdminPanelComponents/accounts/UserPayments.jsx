@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.myTheme.sriftas,
         color: theme.myTheme.trecia,
         '& p': {
-            margin: 0,
+            margin: '.8em',
             padding: 0,
         }, 
         [theme.breakpoints.up('xxl')]: {
