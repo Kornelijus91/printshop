@@ -151,7 +151,6 @@ router.get("/handlePayment", async (req, res, next) => {
   if (isValid) {
 
     const payseraResponse = paysera.decode(req.query.data);
-    // console.log('PAYSERA RESPONSE => ', payseraResponse );
     try {
       if (parseInt(payseraResponse.status) === 1) {
         Order.findOne({ uzsakymoNr: parseInt(payseraResponse.orderid) }, function (err, order) {
@@ -159,7 +158,6 @@ router.get("/handlePayment", async (req, res, next) => {
             let dscCode = '';
             order.status = 'Apmokėtas';
             for (const cartItm of order.cartItems) {
-              console.log('ORDER DISCOUNT CODES => ', cartItm.discount.code);
               if (cartItm.discount.code !== '') {
                 dscCode = cartItm.discount.code;
               }
@@ -167,7 +165,6 @@ router.get("/handlePayment", async (req, res, next) => {
             if (dscCode !== '') {
               Code.findOne({ code: dscCode }, function (err, selectedCode) {
                 if (!err) {
-                  console.log('QUERY RESULT => ', selectedCode);
                   selectedCode.used = selectedCode.used + 1;
                   selectedCode.save();
                 }
@@ -192,13 +189,59 @@ router.get("/handlePayment", async (req, res, next) => {
         });
         paymentObject.save();
         req.app.io.of("/valdovas").emit('newOrder', false);
-        res.send("OK");
+        res.set('Content-Type', 'text/plain').send("OK"); // .type('html')    
       }
     } catch (error) {
       console.log(error);
     }
   } else {
     console.log('PAYSERA REQUEST NOT VALID!!!');
+  }
+});
+
+router.post("/payForOrder", verifyUser, async (req, res, next) => {
+  try {
+    Order.findById(req.body.orderID, function (err, order) {
+      if (order && !err) {
+        let urlToGo = '';
+        if (req.body.selectedPayment !== 'cash') {
+          var params = {
+            orderid: order.uzsakymoNr,
+            p_firstname: order.delivery.firstName,
+            p_lastname: order.delivery.lastName,
+            p_email: order.delivery.email,
+            p_street: order.delivery.address,
+            p_city: order.delivery.city,
+            p_zip: order.delivery.zipcode,
+            amount: order.discountPrice * 100,
+            currency: 'EUR',
+            lang: 'LIT',
+            version: 1.6,
+            payment: req.body.selectedPayment,
+            country: 'LT',
+            paytext: `Užsakymo ${order.uzsakymoNr} apmokėjimas [site_name].`,
+          };
+          urlToGo = paysera.buildRequestUrl(params);
+        }
+        if (req.body.selectedPayment !== order.payment || req.body.selectedPayment === 'cash') {
+          if (req.body.selectedPayment !== order.payment) {
+            order.payment = req.body.selectedPayment;
+          }
+          if (req.body.selectedPayment === 'cash') {
+            order.status = 'Apmokėtas';
+          }
+          order.save();
+        }
+        // console.log(urlToGo);
+        res.send({ 
+          success: true, 
+          paymentURL: urlToGo,
+          error: ""
+        })
+      }
+    });
+  } catch(error) {
+
   }
 });
 
@@ -515,6 +558,9 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         price: prc,
         discountPrice: dscPrc,
         gamybosLaikas: req.body.production,
+        payment: req.body.selectedPaymentMethod,
+        status: req.body.selectedPaymentMethod === 'cash' ? 'Apmokėtas' : 'Pateiktas',
+        shippingMethod: req.body.shippingMethod,
       });
       orderObject.save(function (err, neworder) {
         if (err) {
@@ -526,23 +572,26 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         } else {
           sendThanksEmail(req.body.delivery.email);
           req.app.io.of("/valdovas").emit('newOrder', true);
-          var params = {
-            orderid: neworder.uzsakymoNr,
-            p_firstname: neworder.delivery.firstName,
-            p_lastname: neworder.delivery.lastName,
-            p_email: neworder.delivery.email,
-            p_street: neworder.delivery.address,
-            p_city: neworder.delivery.city,
-            p_zip: neworder.delivery.zipcode,
-            amount: neworder.discountPrice * 100,
-            currency: 'EUR',
-            lang: 'LIT',
-            version: 1.6,
-            payment: req.body.selectedPaymentMethod,
-            country: 'LT',
-            paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name].`,
-          };
-          var urlToGo = paysera.buildRequestUrl(params);
+          let urlToGo = '';
+          if (req.body.selectedPaymentMethod !== 'cash') {
+            var params = {
+              orderid: neworder.uzsakymoNr,
+              p_firstname: neworder.delivery.firstName,
+              p_lastname: neworder.delivery.lastName,
+              p_email: neworder.delivery.email,
+              p_street: neworder.delivery.address,
+              p_city: neworder.delivery.city,
+              p_zip: neworder.delivery.zipcode,
+              amount: neworder.discountPrice * 100,
+              currency: 'EUR',
+              lang: 'LIT',
+              version: 1.6,
+              payment: req.body.selectedPaymentMethod,
+              country: 'LT',
+              paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name].`,
+            };
+            urlToGo = paysera.buildRequestUrl(params);
+          }
           // console.log(urlToGo);
           res.send({ 
             success: true, 
@@ -719,6 +768,9 @@ router.post("/createOrder", async (req, res, next) => {
         price: prc,
         discountPrice: dscPrc,
         gamybosLaikas: req.body.production,
+        payment: req.body.selectedPaymentMethod,
+        status: req.body.selectedPaymentMethod === 'cash' ? 'Apmokėtas' : 'Pateiktas',
+        shippingMethod: req.body.shippingMethod,
       });
       orderObject.save(function (err, neworder) {
         if (err) {
@@ -730,23 +782,26 @@ router.post("/createOrder", async (req, res, next) => {
         } else {
           sendThanksEmail(req.body.delivery.email);
           req.app.io.of("/valdovas").emit('newOrder', true);
-          var params = {
-            orderid: neworder.uzsakymoNr,
-            p_firstname: neworder.delivery.firstName,
-            p_lastname: neworder.delivery.lastName,
-            p_email: neworder.delivery.email,
-            p_street: neworder.delivery.address,
-            p_city: neworder.delivery.city,
-            p_zip: neworder.delivery.zipcode,
-            amount: neworder.discountPrice * 100,
-            currency: 'EUR',
-            lang: 'LIT',
-            version: 1.6,
-            payment: req.body.selectedPaymentMethod,
-            country: 'LT',
-            paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name].`,
-          };
-          var urlToGo = paysera.buildRequestUrl(params);
+          let urlToGo = '';
+          if (req.body.selectedPaymentMethod !== 'cash') {
+            var params = {
+              orderid: neworder.uzsakymoNr,
+              p_firstname: neworder.delivery.firstName,
+              p_lastname: neworder.delivery.lastName,
+              p_email: neworder.delivery.email,
+              p_street: neworder.delivery.address,
+              p_city: neworder.delivery.city,
+              p_zip: neworder.delivery.zipcode,
+              amount: neworder.discountPrice * 100,
+              currency: 'EUR',
+              lang: 'LIT',
+              version: 1.6,
+              payment: req.body.selectedPaymentMethod,
+              country: 'LT',
+              paytext: `Užsakymo ${neworder.uzsakymoNr} apmokėjimas [site_name].`,
+            };
+            urlToGo = paysera.buildRequestUrl(params);
+          }
           // console.log(urlToGo);
           res.send({ 
             success: true, 

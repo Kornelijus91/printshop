@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     body:{
         width: '100%',
         [theme.breakpoints.up('lg')]: {
-            padding: '0 1em'
+            padding: '1.5em 1em 0 1em'
         }, 
         [theme.breakpoints.up('xl')]: {
             width: '60%',
@@ -164,6 +164,31 @@ const useStyles = makeStyles((theme) => ({
             width: '70%',
         },
     },
+    footerBottom: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '0 1em',
+        [theme.breakpoints.up('lg')]: {
+            padding: 0,
+        },
+        '& p': {
+            margin: '.5em 0',
+            padding: 0
+        },
+        '& a': {
+            margin: '.5em 0',
+            padding: 0,
+            color: theme.myTheme.trecia,
+        }
+    },
+    footerhr: {
+        opacity: 0.5,
+        margin: '0 1em',
+        padding: 0,
+        [theme.breakpoints.up('lg')]: {
+            margin: 0,
+        },
+    },
 }));
 
 const Footer = ({setModalOpen, setmodalView, loggedIn}) => {
@@ -279,6 +304,11 @@ const Footer = ({setModalOpen, setmodalView, loggedIn}) => {
                         </Box>
                     </Grid>
                 </Grid>
+                <hr className={classes.footerhr}/>
+                <Box classes={{root: classes.footerBottom}}>
+                    <p>{new Date().getFullYear()} &copy; treklama.lt</p>
+                    <p>IT partneris - <a href='https://www.linkedin.com/in/kornelijus-šaulys-732418212' target="_blank" rel="noreferrer" >Kornelijus Šaulys</a></p>
+                </Box>
             </Box>
         </Box>
     )

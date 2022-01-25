@@ -419,6 +419,37 @@ const Orders = ({ token, loggedIn }) => {
     const [selectedPayment, setSelectedPayment] = useState('');
     const [submitting, setSubmitting] = useState(false);
 
+    const pay = async (id) => {
+        setSubmitting(true);
+        try {
+            const res = await fetch("/users/payForOrder/", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": `JWT ${token}`,
+                },
+                body: JSON.stringify({
+                    orderID: id,
+                    selectedPayment: selectedPayment
+                }),
+            });
+            const response = await res.json();
+            if (response.success) {
+                setSubmitting(false);
+                if (response.paymentURL !== '') {
+                    window.location.replace(response.paymentURL)
+                } else {
+                    history.push('/order');
+                }
+            } else {
+                setSubmitting(false);
+            }
+        } catch (error) {
+            setSubmitting(false);
+        }
+    };
+
     const handlePageChange = (event, value) => {
         setPage(value);
         window.scrollTo({top: 0, left: 0});
@@ -512,7 +543,7 @@ const Orders = ({ token, loggedIn }) => {
                                         }
                                     </Box>
                                     
-                                    <h2 className={classes.header}>Statusas: {order.status}</h2>
+                                    <h2 className={classes.header}>Statusas: {(order.status === 'Apmokėtas' && order.payment === 'cash') ? 'Pateiktas' : order.status}</h2>
                                     
                                 </Box>
                                 {order.cartItems.map((cartItem) => 
@@ -564,7 +595,7 @@ const Orders = ({ token, loggedIn }) => {
                                                 classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }}  
                                                 style={{width: '12%'}}
                                                 disabled={submitting || selectedPayment === ''}
-                                                // onClick={() => orderAgain(cartItem.productLink, cartItem._id)}                                              
+                                                onClick={() => pay(order._id)}                                              
                                             >
                                                 {submitting ? <CircularProgress size={20} className={classes.loadingIcon}/> : 'Mokėti'}
                                             </Button>

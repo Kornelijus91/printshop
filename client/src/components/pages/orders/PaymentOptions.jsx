@@ -1,6 +1,7 @@
 import { Box, Grid, useMediaQuery, Badge } from '@material-ui/core'; 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { FaCheck } from 'react-icons/fa';
+// import paymentCash from '../../../media/paymentCash.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -108,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PaymentOptions = ({selectedPayment, setSelectedPayment}) => {
+const PaymentOptions = ({selectedPayment, setSelectedPayment, pasirinktasPristatymoBudas}) => {
 
     const classes = useStyles();
     const theme = useTheme();
@@ -173,40 +174,45 @@ const PaymentOptions = ({selectedPayment, setSelectedPayment}) => {
             code: 'wallet',
         },
         {
-            src: "https://bank.paysera.com/assets/image/payment_types/lt_post.png",
-            alt: '"Paypost" kiosks and Lithuanian post offices',
-            code: 'lt_post',
+            src: "https://www.treklama.lt/paymentCash.png",
+            alt: "Grynais pinigais pristatymo metu.",
+            code: 'cash',
         },
-        {
-            src: "https://bank.paysera.com/assets/image/payment_types/lt_perlas.png",
-            alt: 'In "Perlas" lottery terminals',
-            code: 'lt_perlas',
-        },
-        {
-            src: "https://bank.paysera.com/assets/image/payment_types/barcode.png",
-            alt: '"Lietuvos spauda" and "Narvesen" kiosks',
-            code: 'barcode',
-        },
-        {
-            src: "https://bank.paysera.com/assets/image/payment_types/maximalt.png",
-            alt: "MAXIMA Lietuva",
-            code: 'maximalt',
-        },
-        {
-            src: "https://bank.paysera.com/assets/image/payment_types/webmoney.png",
-            alt: 'International "WebMoney" system',
-            code: 'webmoney',
-        },
-        {
-            src: "https://bank.paysera.com/assets/image/payment_types/lt_gf_leasing.png",
-            alt: "General Financing",
-            code: 'lt_gf_leasing',
-        },
-        {
-            src: "https://bank.paysera.com/assets/image/payment_types/lt_mokilizingas.png",
-            alt: "Mokilizingas",
-            code: 'lt_mokilizingas',
-        },
+        // {
+        //     src: "https://bank.paysera.com/assets/image/payment_types/lt_post.png",
+        //     alt: '"Paypost" kiosks and Lithuanian post offices',
+        //     code: 'lt_post',
+        // },
+        // {
+        //     src: "https://bank.paysera.com/assets/image/payment_types/lt_perlas.png",
+        //     alt: 'In "Perlas" lottery terminals',
+        //     code: 'lt_perlas',
+        // },
+        // {
+        //     src: "https://bank.paysera.com/assets/image/payment_types/barcode.png",
+        //     alt: '"Lietuvos spauda" and "Narvesen" kiosks',
+        //     code: 'barcode',
+        // },
+        // {
+        //     src: "https://bank.paysera.com/assets/image/payment_types/maximalt.png",
+        //     alt: "MAXIMA Lietuva",
+        //     code: 'maximalt',
+        // },
+        // {
+        //     src: "https://bank.paysera.com/assets/image/payment_types/webmoney.png",
+        //     alt: 'International "WebMoney" system',
+        //     code: 'webmoney',
+        // },
+        // {
+        //     src: "https://bank.paysera.com/assets/image/payment_types/lt_gf_leasing.png",
+        //     alt: "General Financing",
+        //     code: 'lt_gf_leasing',
+        // },
+        // {
+        //     src: "https://bank.paysera.com/assets/image/payment_types/lt_mokilizingas.png",
+        //     alt: "Mokilizingas",
+        //     code: 'lt_mokilizingas',
+        // },
 
     ]
 
@@ -222,9 +228,9 @@ const PaymentOptions = ({selectedPayment, setSelectedPayment}) => {
                         className={classes.gridItemParent} 
                         key={index} 
                         onClick={() => setSelectedPayment(option.code)}
-                        // style={option.code === selectedPayment ? {
-                        //     boxShadow: `0 0 0 2px ${theme.myTheme.pirma}`
-                        // }: {}}
+                        style={option.code === 'cash' && pasirinktasPristatymoBudas !== 'Kurjeriu, nurodytu adresu.' ? {
+                            display: 'none'
+                        }: {}}
                     >
                         <Badge 
                             classes={{badge: classes.previewSelectedBadge, root: classes.badgecontainer}}  // 

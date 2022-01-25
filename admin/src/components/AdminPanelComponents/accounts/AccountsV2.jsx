@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Accounts = ({ newChatrooms, newOrders, user, setView, setSnackbar, view, loyalty, getOrders, ordersPage, setOrdersView, setOrder, orderFilter }) => {
+const Accounts = ({ newChatrooms, newOrders, user, setView, setSnackbar, view, loyalty, getOrders, ordersPage, setOrdersView, setOrder, orderFilter, setPaymentModal }) => {
 
     const classes = useStyles();
     const [accountModalOpen, setAccountModalOpen] = useState(false);
@@ -208,6 +208,7 @@ const Accounts = ({ newChatrooms, newOrders, user, setView, setSnackbar, view, l
                 setOrdersView={setOrdersView} 
                 setOrder={setOrder}
                 orderFilter={orderFilter}
+                setPaymentModal={setPaymentModal}
             />
             <SearchField 
                 token={user.token}

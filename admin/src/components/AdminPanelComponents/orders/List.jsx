@@ -199,7 +199,9 @@ const List = ({ orders, ordersPage, setOrdersPage, setOrdersView, setOrder, setS
                                         status: item.status,
                                         gamybosLaikas: item.gamybosLaikas,
                                         sanaudos: item.sanaudos,
-                                        uzsakymoNr: item.uzsakymoNr
+                                        uzsakymoNr: item.uzsakymoNr,
+                                        payment: item.payment,
+                                        shippingMethod: item.shippingMethod,
                                     });
                                     setOrdersView(true);
                                 } 

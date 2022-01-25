@@ -10,6 +10,7 @@ const Template = require("../models/emailtemplate")
 const Loyalty = require("../models/loyalty")
 const Code = require("../models/code")
 const Order = require("../models/order")
+const Payment = require("../models/payment")
 const Comment = require("../models/comment")
 const Settings = require("../models/settings")
 const passport = require("passport")
@@ -217,6 +218,49 @@ router.post("/getUserOrders", verifyUser, async (req, res, next) => {
     }
 });
 
+router.post("/getUserPayments", verifyUser, async (req, res, next) => {
+    if (req.user.personalas || req.user.administracija) {
+        try {
+            Payment.paginate({clientUsername: req.body.username}, {
+                page: req.body.page,
+                limit: 7,
+                sort: { createdAt: -1 },
+            }, function (err, result) {
+                if (!err) {
+                    res.send({ 
+                        success: true, 
+                        items: result.docs,
+                        totalItems: result.totalDocs,
+                        itemLimit: result.limit,
+                        currentPage: result.page,
+                        totalPages: result.totalPages,
+                        hasNextPage: result.hasNextPage,
+                        nextPage: result.nextPage,
+                        hasPrevPage: result.hasPrevPage,
+                        prevPage: result.prevPage,
+                        pagingCounter: result.pagingCounter,
+                    })
+                } else {
+                    res.send({ 
+                        success: false, 
+                        error: err
+                    })
+                }
+              });
+        } catch (error) {
+            res.send({ 
+                success: false, 
+                error: error
+            })
+        }
+    } else {
+        res.send({ 
+            success: false, 
+            error: 'Nesate personalo narys.'
+        })
+    }
+});
+
 router.post("/getOrders", verifyUser, async (req, res, next) => {
     if (req.user.personalas || req.user.administracija) {
         try {
@@ -254,6 +298,50 @@ router.post("/getOrders", verifyUser, async (req, res, next) => {
                         newOrders: newCount
                     })
                 } else {
+                    res.send({ 
+                        success: false, 
+                        error: err
+                    })
+                }
+              });
+        } catch (error) {
+            res.send({ 
+                success: false, 
+                error: error
+            })
+        }
+    } else {
+        res.send({ 
+            success: false, 
+            error: 'Nesate personalo narys.'
+        })
+    }
+});
+
+router.post("/getPayments", verifyUser, async (req, res, next) => {
+    if (req.user.personalas || req.user.administracija) {
+        try {
+            Payment.paginate({}, {
+                page: req.body.page,
+                limit: 10,
+                sort: { createdAt: -1 },
+            }, function (err, result) {
+                if (!err) {
+                    res.send({ 
+                        success: true, 
+                        items: result.docs,
+                        totalItems: result.totalDocs,
+                        itemLimit: result.limit,
+                        currentPage: result.page,
+                        totalPages: result.totalPages,
+                        hasNextPage: result.hasNextPage,
+                        nextPage: result.nextPage,
+                        hasPrevPage: result.hasPrevPage,
+                        prevPage: result.prevPage,
+                        pagingCounter: result.pagingCounter,
+                    })
+                } else {
+                    console.log('ERROR => ', err);
                     res.send({ 
                         success: false, 
                         error: err
@@ -1250,7 +1338,47 @@ router.post("/searchOrders", verifyUser, async (req, res, next) => {
             error: 'Nesate personalo narys.'
         })
     }
-})
+});
+
+router.post("/searchpayments", verifyUser, async (req, res, next) => {
+    if (req.user.personalas || req.user.administracija) {
+        try {
+            Payment.find({$or: [
+                {orderNr: isNaN(req.body.searchValue) ? null : req.body.searchValue }, 
+                {clientUsername: { "$regex": `${req.body.searchValue}`, '$options': 'i' }}, 
+                {firstName: { "$regex": `${req.body.searchValue}`, '$options': 'i' }},  
+                {lastName: { "$regex": `${req.body.searchValue}`, '$options': 'i' }},  
+                {city: { "$regex": `${req.body.searchValue}`, '$options': 'i' }},  
+                {address: { "$regex": `${req.body.searchValue}`, '$options': 'i' }},  
+                {zip: { "$regex": `${req.body.searchValue}`, '$options': 'i' }},   
+            ]}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.send({ 
+                        success: false, 
+                        error: err
+                    })
+                } else {
+                    res.send({ 
+                        success: true, 
+                        result: result
+                    })
+                }
+            }).sort('-createdAt').limit(7);
+        } catch (error) {
+            console.log(error);
+            res.send({ 
+                success: false, 
+                error: error
+            })
+        }
+    } else {
+        res.send({ 
+            success: false, 
+            error: 'Nesate personalo narys.'
+        })
+    }
+});
 
 router.post("/getStats", verifyUser, async (req, res, next) => {
     if (req.user.personalas || req.user.administracija) {

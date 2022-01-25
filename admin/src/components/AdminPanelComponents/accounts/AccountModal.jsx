@@ -162,7 +162,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const AccountModal = ({ orderFilter, accountModalOpen, setAccountModalOpen, accountModalInfo, setAccountModalOpenInfo, token, administracija, setSnackbar, loyalty, getOrders, ordersPage, setView, setOrdersView, setOrder }) => {
+const AccountModal = ({ setPaymentModal, orderFilter, accountModalOpen, setAccountModalOpen, accountModalInfo, setAccountModalOpenInfo, token, administracija, setSnackbar, loyalty, getOrders, ordersPage, setView, setOrdersView, setOrder }) => {
 
     const classes = useStyles();
     const theme = useTheme();
@@ -414,7 +414,7 @@ const AccountModal = ({ orderFilter, accountModalOpen, setAccountModalOpen, acco
                     {
                         {
                             "Užsakymai": <UserOrders userId={accountModalInfo.userId} setSnackbar={setSnackbar} token={token} getOrders={getOrders} ordersPage={ordersPage} setView={setView} setOrdersView={setOrdersView} setOrder={setOrder} orderFilter={orderFilter}/>, 
-                            "Mokėjimai": <UserPayments />,     
+                            "Mokėjimai": <UserPayments setSnackbar={setSnackbar} token={token} username={accountModalInfo.username} setPaymentModal={setPaymentModal}/>,     
                             "Adresai": <UserAddresses userId={accountModalInfo.userId} setSnackbar={setSnackbar} token={token}/>,
                         }[tab]
                     }

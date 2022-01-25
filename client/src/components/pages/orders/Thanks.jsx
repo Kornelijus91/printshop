@@ -33,13 +33,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Thanks = () => {
+const Thanks = ({ pasirinktasPristatymoBudas }) => {
     const classes = useStyles();
 
     return (
         <Box classes={{root: classes.root}}>
             <img src={signboard} alt="Aciu paveikslelis" className={classes.image}/>
-            <h3>Ačiū, kad naudojatės mūsų paslaugomis! Jūsų užsakymą pradėsime ruošti iš karto kai gausime apmokėjimą.</h3>
+            {pasirinktasPristatymoBudas === 'cash' ? 
+                <h3>Ačiū, kad naudojatės mūsų paslaugomis! Jūsų užsakymą pradėsime ruošti netrukus.</h3>
+            :
+                <h3>Ačiū, kad naudojatės mūsų paslaugomis! Jūsų užsakymą pradėsime ruošti iš karto kai gausime apmokėjimą.</h3>
+            }
             <Link to="/" className={classes.link} onClick={() => window.scrollTo({top: 0, left: 0})}>Gryžti į pagrindinį puslapį.</Link>
         </Box>
     )

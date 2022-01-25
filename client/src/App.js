@@ -149,6 +149,7 @@ const App = () => {
     oneday: false,
   });
   const [pasirinktasGamybosLaikas, setPasirinktasGamybosLaikas] = useState('3-5 darbo dienos.');
+  const [pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas] = useState('Kurjeriu, nurodytu adresu.');
 
   // const socket = io('/');
 
@@ -575,6 +576,8 @@ const App = () => {
               findMaxDiscount={findMaxDiscount}
               getItemProductionCost={getItemProductionCost}
               roundTwoDec={roundTwoDec}
+              pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}
+              setPasirinktasPristatymoBudas={setPasirinktasPristatymoBudas}
             />
           </Route>
           <Route exact path="/searchpage">
@@ -602,6 +605,8 @@ const App = () => {
               setPasirinktasGamybosLaikas={setPasirinktasGamybosLaikas}
               roundTwoDec={roundTwoDec}
               getItemProductionCost={getItemProductionCost}
+              pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}
+              setPasirinktasPristatymoBudas={setPasirinktasPristatymoBudas}
             />
           </Route>
           <Route path='*'>

@@ -24,6 +24,10 @@ const Order = new Schema({
         type: String,
         default: "",
     },
+    payment: {
+        type: String,
+        default: "",
+    },
     price: {
         type: Number,
         default: 0,
@@ -43,6 +47,10 @@ const Order = new Schema({
     sanaudos: {
         type: Number,
         default: 0,
+    },
+    shippingMethod: {
+        type: String,
+        default: "",
     },
     modifiedAt: {
         type: Date, 

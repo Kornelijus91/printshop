@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     },
     noResult: {
         width: '99%',
-        backgroundColor: theme.myTheme.ketvirta,
+        backgroundColor: theme.myTheme.antra,
         padding: '1rem',
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,

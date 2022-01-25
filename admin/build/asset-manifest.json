@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/static/css/main.93b4030a.chunk.css",
-    "main.js": "/static/js/main.7cc2d527.chunk.js",
-    "main.js.map": "/static/js/main.7cc2d527.chunk.js.map",
+    "main.js": "/static/js/main.9d9cae97.chunk.js",
+    "main.js.map": "/static/js/main.9d9cae97.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.11d5468d.js",
     "runtime-main.js.map": "/static/js/runtime-main.11d5468d.js.map",
-    "static/js/2.27928fec.chunk.js": "/static/js/2.27928fec.chunk.js",
-    "static/js/2.27928fec.chunk.js.map": "/static/js/2.27928fec.chunk.js.map",
+    "static/js/2.0b3bd2fd.chunk.js": "/static/js/2.0b3bd2fd.chunk.js",
+    "static/js/2.0b3bd2fd.chunk.js.map": "/static/js/2.0b3bd2fd.chunk.js.map",
     "index.html": "/index.html",
     "static/css/main.93b4030a.chunk.css.map": "/static/css/main.93b4030a.chunk.css.map",
-    "static/js/2.27928fec.chunk.js.LICENSE.txt": "/static/js/2.27928fec.chunk.js.LICENSE.txt",
+    "static/js/2.0b3bd2fd.chunk.js.LICENSE.txt": "/static/js/2.0b3bd2fd.chunk.js.LICENSE.txt",
     "static/media/Treklama01.d4366831.png": "/static/media/Treklama01.d4366831.png"
   },
   "entrypoints": [
     "static/js/runtime-main.11d5468d.js",
-    "static/js/2.27928fec.chunk.js",
+    "static/js/2.0b3bd2fd.chunk.js",
     "static/css/main.93b4030a.chunk.css",
-    "static/js/main.7cc2d527.chunk.js"
+    "static/js/main.9d9cae97.chunk.js"
   ]
 }

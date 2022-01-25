@@ -398,6 +398,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                     {order.delivery.pastabaKurjeriui !== '' &&
                         <p>Pastaba kurjeriui: <b>{order.delivery.pastabaKurjeriui}</b></p>
                     }
+                    <p>Pristatymo būdas: <b>{order.shippingMethod}</b></p>
                 </Grid>
                 <Grid item xl={3} lg={3} md={3} sm={12} xs={12} className={classes.columnNotLast}>
                     <h2>Kainos</h2>
@@ -449,6 +450,27 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                             {order.status}
                         </h3>
                     </Box>
+                    {order.status === 'Apmokėtas' &&
+                        <Box display='flex' justifyContent='flex-start'>
+                            <h3 style={{marginRight: '.2em'}}>Apmokėjimo būdas - {
+                                {
+                                    'card': 'Debeto / Kreditinė kortelė.',
+                                    'hanza': 'AB bank "Swedbank"',     
+                                    'vb2': 'AB bank "SEB"',
+                                    'lt_revolut': 'Revolut',
+                                    'nord': "AS bank Luminor",
+                                    'mb': 'UAB bank "Medicinos Bankas"',
+                                    'lku': "Lietuvos kredito unija",
+                                    'lt_n26': "N26",
+                                    'sb': 'AB bank "Šiaulių bankas"',
+                                    'parex': 'AS bank "Citadele"',
+                                    'wallet': "Paysera",
+                                    'cash': "Grynais pinigais pristatymo metu.",
+                                    '': '',
+                                }[order.payment]
+                            }</h3>
+                        </Box>
+                    }
                     <hr className={classes.kainuhr} />
                     <h2>Veiksmai</h2>
                     

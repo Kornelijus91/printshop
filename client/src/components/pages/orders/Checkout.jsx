@@ -387,7 +387,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuolaida, priceSum, loggedIn, token, setKodoNuolaida, pasirinktasGamybosLaikas, findMaxDiscount, getItemProductionCost, roundTwoDec }) => {
+const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuolaida, delivery, setOrderStep, cart, kodoNuolaida, priceSum, loggedIn, token, pasirinktasGamybosLaikas, findMaxDiscount, getItemProductionCost, roundTwoDec }) => {
+
+    //setPasirinktasPristatymoBudas
 
     const classes = useStyles();
     const history = useHistory();
@@ -416,31 +418,38 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
                         priceSum: priceSum,
                         production: pasirinktasGamybosLaikas,
                         selectedPaymentMethod: selectedPayment,
+                        shippingMethod: pasirinktasPristatymoBudas,
                     }),
                 });
                 const response = await res.json();
                 if (response.success) {
-                    // setSubmitting(false);
+                    
                     localStorage.removeItem("cartArray");
-                    setKodoNuolaida({
-                        kodas: '',
-                        nuolaida: 0
-                    });
-                    setDelivery({
-                        ...delivery,
-                        city: '',
-                        address: '',
-                        zipcode: '',
-                        juridinis: false,
-                        companyName: '',
-                        companyCode: '',
-                        companyAddress: '',
-                        companyPVM: '',
-                        pastabaKurjeriui: '',
-                    });
-                    setCart([]);
-                    window.location.replace(response.paymentURL)
-                    // setOrderStep(2);
+                    
+                    if (response.paymentURL !== '') {
+                        window.location.replace(response.paymentURL)
+                    } else {
+                        setSubmitting(false);
+                        setKodoNuolaida({
+                            kodas: '',
+                            nuolaida: 0
+                        });
+                        setDelivery({
+                            ...delivery,
+                            city: '',
+                            address: '',
+                            zipcode: '',
+                            juridinis: false,
+                            companyName: '',
+                            companyCode: '',
+                            companyAddress: '',
+                            companyPVM: '',
+                            pastabaKurjeriui: '',
+                        });
+                        setCart([]);
+                        setOrderStep(2);
+                        // setPasirinktasPristatymoBudas('Kurjeriu, nurodytu adresu.');
+                    }
                 } else {
                     setSubmitting(false);
                     setAlert('Klaida! Pabandykite vėliau');
@@ -461,15 +470,36 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
                         priceSum: priceSum,
                         production: pasirinktasGamybosLaikas,
                         selectedPaymentMethod: selectedPayment,
+                        shippingMethod: pasirinktasPristatymoBudas,
                     }),
                 });
                 const response = await res.json();
                 if (response.success) {
-                    // setSubmitting(false);
                     localStorage.removeItem("cartArray");
-                    setCart([]);
-                    window.location.replace(response.paymentURL)
-                    // setOrderStep(2);
+                    if (response.paymentURL !== '') {
+                        window.location.replace(response.paymentURL)
+                    } else {
+                        setSubmitting(false);
+                        setKodoNuolaida({
+                            kodas: '',
+                            nuolaida: 0
+                        });
+                        setDelivery({
+                            ...delivery,
+                            city: '',
+                            address: '',
+                            zipcode: '',
+                            juridinis: false,
+                            companyName: '',
+                            companyCode: '',
+                            companyAddress: '',
+                            companyPVM: '',
+                            pastabaKurjeriui: '',
+                        });
+                        setCart([]);
+                        setOrderStep(2);
+                        // setPasirinktasPristatymoBudas('Kurjeriu, nurodytu adresu.');
+                    }
                 } else {
                     setSubmitting(false);
                     setAlert('Klaida! Pabandykite vėliau');
@@ -550,6 +580,7 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
                             }
                             <h4 className={classes.sumHeaderBlue}>Gamybos laikas: {pasirinktasGamybosLaikas}</h4>
                             <h4 className={classes.sumHeaderBlue}>Pristatymas: Nemokamas</h4>
+                            <h4 className={classes.sumHeaderBlue}>Pristatymo būdas: {pasirinktasPristatymoBudas}</h4>
                             <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
                                 <p className={classes.PriceText2}>Viso kaina su PVM:</p>
                                 {priceSum.sum !== priceSum.dscSum ?
@@ -567,7 +598,7 @@ const Checkout = ({ setCart, delivery, setDelivery, setOrderStep, cart, kodoNuol
             </Grid>
             <Box classes={{root: classes.mokejimoBudaiBox}}>
                 <h2 className={classes.header}>Pasirinkite mokėjimo būdą.</h2>
-                <PaymentOptions selectedPayment={selectedPayment} setSelectedPayment={setSelectedPayment}/>
+                <PaymentOptions selectedPayment={selectedPayment} setSelectedPayment={setSelectedPayment} pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}/>
             </Box>
             <Box display='flex' justifyContent='space-between' flexWrap="wrap-reverse">
                 <Button 

@@ -310,20 +310,20 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         marginBottom: '1rem',
         [theme.breakpoints.up('md')]: {
-            width: '20em',
+            width: '21.5%',
             marginBottom: '0',
         },
-        [theme.breakpoints.up('xxl')]: {
-            width: '27em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            width: '40em',
-        },
+        // [theme.breakpoints.up('xxl')]: {
+        //     width: '27em',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     width: '40em',
+        // },
     },
     pradetipirkimaBox: {
         width: '100%',
         [theme.breakpoints.up('md')]: {
-            width: 'unset',
+            width: '32%',
         },
     },
     pastaba: {
@@ -500,8 +500,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     selectRenderValue: {
+        fontSize: '.8rem',
+        [theme.breakpoints.up('lg')]: {
+            fontSize: '1rem',
+        },
         [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
+            fontSize: '1.25rem',
         },
         [theme.breakpoints.up('xxxl')]: {
             fontSize: '1.8rem',
@@ -539,7 +543,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CartPage = ({ kodoNuolaida, roundTwoDec, pasirinktasGamybosLaikas, setPasirinktasGamybosLaikas, gamybosLaikas, setGamybosLaikas, cart, getCart, setCart, priceSum, setKodoNuolaida, findMaxDiscount, getItemProductionCost }) => { 
+const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, kodoNuolaida, roundTwoDec, pasirinktasGamybosLaikas, setPasirinktasGamybosLaikas, gamybosLaikas, setGamybosLaikas, cart, getCart, setCart, priceSum, setKodoNuolaida, findMaxDiscount, getItemProductionCost }) => { 
 
     const classes = useStyles();
     const history = useHistory();
@@ -560,6 +564,10 @@ const CartPage = ({ kodoNuolaida, roundTwoDec, pasirinktasGamybosLaikas, setPasi
 
     const handleGamybosLaikasChange = (e) => {
         setPasirinktasGamybosLaikas(e.target.value);
+    };
+
+    const handlePasirinktasPristatymoBudas = (e) => {
+        setPasirinktasPristatymoBudas(e.target.value);
     };
 
     const applyDiscountCode = async () => {
@@ -851,6 +859,66 @@ const CartPage = ({ kodoNuolaida, roundTwoDec, pasirinktasGamybosLaikas, setPasi
                                             }}
                                             primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
                                             primary={'Iki 24H.'} 
+                                        />
+                                    </ListItem>
+                                </MenuItem>
+                                
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box classes={{root: classes.nuolaidosKodasBox}} >
+                        <p className={classes.PriceText}>Pristatymo būdas:</p>
+                        <FormControl classes={{root: classes.formVariantSelect}} focused={false} disabled={cart.length <= 0}>
+                            <Select
+                                id="simple-select-outlined-2"
+                                variant='outlined'
+                                classes={{
+                                    outlined: classes.variantSelect, 
+                                    iconOutlined: classes.variantSelectIcon,
+                                }}
+                                value={pasirinktasPristatymoBudas}
+                                onChange={handlePasirinktasPristatymoBudas}
+                                defaultValue={pasirinktasPristatymoBudas}
+                                MenuProps={{ classes: { list: classes.menuPaper } }}
+                                renderValue={(value) => 
+                                    <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.selectRenderBox}}>
+                                        <p className={classes.selectRenderValue}>{value}</p>
+                                    </Box>
+                                }
+                            >
+                               
+                                <MenuItem value={'Kurjeriu, nurodytu adresu.'} classes={{root: classes.menuItem}}>
+                                    <ListItem classes={{root: classes.listItem}}>
+                                        <ListItemText 
+                                            classes={{
+                                                primary: classes.primaryListText,
+                                            }}
+                                            primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
+                                            primary={'Kurjeriu, nurodytu adresu.'} 
+                                        />
+                                    </ListItem>
+                                </MenuItem>
+
+                                <MenuItem value={'Į artimiausią paštomatą.'} classes={{root: classes.menuItem}}>
+                                    <ListItem classes={{root: classes.listItem}}>
+                                        <ListItemText 
+                                            classes={{
+                                                primary: classes.primaryListText,
+                                            }}
+                                            primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
+                                            primary={'Į artimiausią paštomatą.'} 
+                                        />
+                                    </ListItem>
+                                </MenuItem>
+
+                                <MenuItem value={'Autobusu.'} classes={{root: classes.menuItem}}>
+                                    <ListItem classes={{root: classes.listItem}}>
+                                        <ListItemText 
+                                            classes={{
+                                                primary: classes.primaryListText,
+                                            }}
+                                            primaryTypographyProps={{ style: { whiteSpace: "normal" } }}
+                                            primary={'Autobusu.'} 
                                         />
                                     </ListItem>
                                 </MenuItem>

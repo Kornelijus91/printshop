@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Order = ({ delivery, setDelivery, loggedIn, token, getAddresses, addresses, cart, kodoNuolaida, priceSum, setCart, setKodoNuolaida, pasirinktasGamybosLaikas, findMaxDiscount, getItemProductionCost, roundTwoDec }) => {
+const Order = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, setCart, setKodoNuolaida, delivery, setDelivery, loggedIn, token, getAddresses, addresses, cart, kodoNuolaida, priceSum, pasirinktasGamybosLaikas, findMaxDiscount, getItemProductionCost, roundTwoDec }) => {
 
     const classes = useStyles();
 
@@ -156,7 +156,8 @@ const Order = ({ delivery, setDelivery, loggedIn, token, getAddresses, addresses
                             token={token} 
                             delivery={delivery} 
                             setDelivery={setDelivery} 
-                            setOrderStep={setOrderStep} cart={cart} 
+                            setOrderStep={setOrderStep} 
+                            cart={cart} 
                             kodoNuolaida={kodoNuolaida} 
                             priceSum={priceSum} 
                             loggedIn={loggedIn} 
@@ -166,8 +167,10 @@ const Order = ({ delivery, setDelivery, loggedIn, token, getAddresses, addresses
                             findMaxDiscount={findMaxDiscount}
                             getItemProductionCost={getItemProductionCost}
                             roundTwoDec={roundTwoDec}
+                            pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}
+                            // setPasirinktasPristatymoBudas={setPasirinktasPristatymoBudas}
                         />,     
-                        2: <Thanks />
+                        2: <Thanks pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}/>
                     }[orderStep]
                 }
             </Box>

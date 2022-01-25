@@ -270,6 +270,8 @@ const UserOrders = ({ userId, setSnackbar, token, getOrders, ordersPage, setView
                                         status: item.status,
                                         uzsakymoNr: item.uzsakymoNr,
                                         sanaudos: item.sanaudos,
+                                        payment: item.payment,
+                                        shippingMethod: item.shippingMethod,
                                     });
                                     setView({value: 8, title: 'Užsakymai', titleAdditional: ''});
                                 } 

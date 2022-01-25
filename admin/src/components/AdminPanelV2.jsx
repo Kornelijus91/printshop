@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Badge, Box, Snackbar, Grow, Grid, AppBar, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { FaUser, FaBoxOpen, FaUserFriends, FaCrown, FaPercent, FaClipboardList, FaChartLine } from 'react-icons/fa'; //FaChartBar
+import { FaUser, FaBoxOpen, FaUserFriends, FaCrown, FaPercent, FaClipboardList, FaChartLine, FaMoneyBill } from 'react-icons/fa'; //FaChartBar
 import { IoChatboxEllipses } from "react-icons/io5"; 
 import { HiMail } from "react-icons/hi";
 import { MdViewCarousel, MdSettings } from "react-icons/md";
@@ -19,6 +19,8 @@ import Treklama01 from '../media/Treklama01.png'
 import Orders from './AdminPanelComponents/orders/Orders';
 import Settings from './AdminPanelComponents/settings/Settings';
 import Chat from './AdminPanelComponents/chat/Chat';
+import Payments from './AdminPanelComponents/payments/Payments';
+import PaymentModal from './AdminPanelComponents/payments/PaymentModal';
 // import { io } from "socket.io-client";
 
 const drawerWidth = 240;
@@ -324,6 +326,20 @@ function ResponsiveDrawer(props) {
         imageOriginalName: '',
         position: 0,
     });
+    const [paymentModal, setPaymentModal] = useState({
+       open: false,
+       clientUsername: '',
+       orderNr: 0,
+       amount: 0,
+       currency: '',
+       payment: '',
+       firstName: '',
+       lastName: '',
+       city: '',
+       address: '',
+       zip: '',
+       createdAt: null,   
+    });
 
     const addCarouselItemButton = () => {
         setCarouselView(1);
@@ -389,6 +405,8 @@ function ResponsiveDrawer(props) {
         gamybosLaikas: '',
         uzsakymoNr: 0,
         sanaudos: 0,
+        payment: '',
+        shippingMethod: '',
     });
 
     const [orderFilter, setOrderFilter] = useState('Visi');
@@ -672,15 +690,15 @@ function ResponsiveDrawer(props) {
         // eslint-disable-next-line
     }, [ordersPage, orderFilter, getordersTrigger]);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            getOrders(ordersPage, orderFilter);
-        }, 60 * 1000);
-        return () => {
-            clearTimeout(timer);
-        };
-        // eslint-disable-next-line
-    }, [getOrders]);
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         getOrders(ordersPage, orderFilter);
+    //     }, 60 * 1000);
+    //     return () => {
+    //         clearTimeout(timer);
+    //     };
+    //     // eslint-disable-next-line
+    // }, [getOrders]);
 
     useEffect(() => {
         if (!ordersView) {
@@ -696,7 +714,9 @@ function ResponsiveDrawer(props) {
                 status: '',
                 gamybosLaikas: '',
                 sanaudos: 0,
-                uzsakymoNr: 0
+                uzsakymoNr: 0,
+                payment: '',
+                shippingMethod: '',
             });
         }
         // eslint-disable-next-line
@@ -817,6 +837,17 @@ function ResponsiveDrawer(props) {
                     <ListItemText primary='Paskyros' classes={{root: classes.menutext}} disableTypography={true}/>
                 </ListItem>
                 <ListItem className={classes.menuItem} button onClick={() => {
+                    if (view.value !== 11) {
+                        setView({value: 11, title: 'Mokėjimai', titleAdditional: ''});
+                    }
+                    if (isWidthDown('md', props.width)) {
+                        handleDrawerToggle();
+                    }
+                }}>
+                    <ListItemIcon classes={{root: classes.menuicon}}><FaMoneyBill size={24} /></ListItemIcon>
+                    <ListItemText primary='Mokėjimai' classes={{root: classes.menutext}} disableTypography={true}/>
+                </ListItem>
+                <ListItem className={classes.menuItem} button onClick={() => {
                     if (view.value !== 2) {
                         setView({value: 2, title: 'Karuselė', titleAdditional: ''});
                     } 
@@ -893,6 +924,10 @@ function ResponsiveDrawer(props) {
                 key={snackbar.message}
             />
             <CssBaseline />
+            <PaymentModal 
+                paymentModal={paymentModal}
+                setPaymentModal={setPaymentModal}
+            />
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                     <IconButton
@@ -1083,7 +1118,7 @@ function ResponsiveDrawer(props) {
                     {
                         {
                             0: <Products newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} productModalOpen={productModalOpen} setProductModalOpen={setProductModalOpen}/>,
-                            1: <AccountsV2 newOrders={newOrders} newChatrooms={newChatrooms} setOrdersView={setOrdersView} setOrder={setOrder} user={user} setSnackbar={setSnackbar} setView={setView} view={view} loyalty={loyalty} getOrders={getOrders} ordersPage={ordersPage} orderFilter={orderFilter}/>,     
+                            1: <AccountsV2 setPaymentModal={setPaymentModal} newOrders={newOrders} newChatrooms={newChatrooms} setOrdersView={setOrdersView} setOrder={setOrder} user={user} setSnackbar={setSnackbar} setView={setView} view={view} loyalty={loyalty} getOrders={getOrders} ordersPage={ordersPage} orderFilter={orderFilter}/>,     
                             2: <Carousel newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} carouselView={carouselView} setCarouselView={setCarouselView} carouselItemInfo={carouselItemInfo} setCarouselItemInfo={setCarouselItemInfo}/>,
                             4: <SalesStats newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} />,
                             5: <Email newOrders={newOrders} newChatrooms={newChatrooms}user={user} setSnackbar={setSnackbar}/>,
@@ -1091,7 +1126,8 @@ function ResponsiveDrawer(props) {
                             7: <DiscountCodes newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} codeModal={codeModal} setCodeModal={setCodeModal} handleCodeChange={handleCodeChange}/>,
                             8: <Orders user={user} orderFilter={orderFilter} getOrders={getOrders} newOrders={newOrders} newChatrooms={newChatrooms} setOrdersPage={setOrdersPage} orders={orders} ordersPage={ordersPage} ordersView={ordersView} setOrdersView={setOrdersView} order={order} setOrder={setOrder} setSnackbar={setSnackbar}/>,
                             9: <Settings newOrders={newOrders} newChatrooms={newChatrooms} maketavimoKaina={maketavimoKaina} setMaketavimoKaina={setMaketavimoKaina} setSnackbar={setSnackbar}/>,
-                            10: <Chat message={message} setMessage={setMessage} newOrders={newOrders} newChatrooms={newChatrooms} activeChatroom={activeChatroom} setActiveChatroom={setActiveChatroom} chat={chat} setChat={setChat} sendMessage={sendMessage} />
+                            10: <Chat message={message} setMessage={setMessage} newOrders={newOrders} newChatrooms={newChatrooms} activeChatroom={activeChatroom} setActiveChatroom={setActiveChatroom} chat={chat} setChat={setChat} sendMessage={sendMessage} />,
+                            11: <Payments user={user} setSnackbar={setSnackbar} setPaymentModal={setPaymentModal}/>
                         }[view.value]
                     }
                 </Box>
