@@ -1,7 +1,7 @@
 import { Box, Grid, useMediaQuery, Badge } from '@material-ui/core'; 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { FaCheck } from 'react-icons/fa';
-// import paymentCash from '../../../media/paymentCash.png';
+import paymentCash from '../../../media/paymentCash.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     option: {
         objectFit: 'contain',
         padding: '2%',
+        width: '100%'
         // margin: '.5% 2.5%',
     },
     gridItemParent: {
@@ -174,7 +175,7 @@ const PaymentOptions = ({selectedPayment, setSelectedPayment, pasirinktasPristat
             code: 'wallet',
         },
         {
-            src: "https://www.treklama.lt/paymentCash.png",
+            src: paymentCash,
             alt: "Grynais pinigais pristatymo metu.",
             code: 'cash',
         },
