@@ -245,6 +245,23 @@ const useStyles = makeStyles((theme) => ({
             borderRadius: '9px',
         },
     },
+    Button2: {
+        backgroundColor: theme.myTheme.pirma,
+        color: theme.myTheme.trecia,
+        width: '100%',
+        '&:hover': {
+            backgroundColor: '#e31c2d',
+        },
+        [theme.breakpoints.up('xl')]: {
+            width: '22%',
+        },
+        [theme.breakpoints.up('xxl')]: {
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            borderRadius: '9px',
+        },
+    },
     ButtonLabel: {
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
@@ -562,7 +579,7 @@ const Orders = ({ token, loggedIn }) => {
                                     </Box>
                                     
                                 )}
-                                {order.status === 'Pateiktas' &&
+                                {order.status === 'Pateiktas' ?
                                     <Box classes={{root: classes.orderPaymentBox}}>
                                         <Box display='flex' flexDirection='column' justifyContent='flex-end'>
                                             {order.nuolaidosKodoNuolaida > 0 &&
@@ -600,6 +617,19 @@ const Orders = ({ token, loggedIn }) => {
                                                 {submitting ? <CircularProgress size={20} className={classes.loadingIcon}/> : 'Mokėti'}
                                             </Button>
                                         </Box>
+                                    </Box>
+                                    : order.status === 'Įvykdytas' &&
+                                    <Box classes={{root: classes.orderPaymentBox}} display='flex' justifyContent='flex-end'>
+                                        <Button 
+                                            classes={{root: classes.Button2, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }}  
+                                            component='a'
+                                            href={order.PVMSaskaitaFaktura} 
+                                            download 
+                                            disabled={order.PVMSaskaitaFaktura === '' || order.PVMSaskaitaFaktura === null || !order.PVMSaskaitaFaktura }     
+                                            onClick={() => console.log(order.PVMSaskaitaFaktura)}                                      
+                                        >
+                                            Parsisiusti sąskaitą
+                                        </Button>
                                     </Box>
                                 }
                             </Box>

@@ -52,6 +52,14 @@ const Order = new Schema({
         type: String,
         default: "",
     },
+    isankstineSaskaita: {
+        type: String,
+        default: "",
+    },
+    PVMSaskaitaFaktura: {
+        type: String,
+        default: "",
+    },
     modifiedAt: {
         type: Date, 
         default: Date.now

@@ -1266,10 +1266,10 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                                                 <p key={index} className={classes.summaryText}>{item.name}: <b>{item.value}</b></p>
                                             </Collapse>
                                         : item.type === 3 && (!item.summon || item.summon === 0) ?
-                                            <p key={index} className={classes.summaryText}>{item.name}: <b>{item.firstName}- {item.firstValue}</b></p> 
+                                            <p key={index} className={classes.summaryText}>{item.name}: <b>{item.firstValue}</b></p> 
                                         : item.type === 3 && item.summon && item.summon !== 0 &&
                                             <Collapse in={collapseOpen(item.summon)}>
-                                                <p key={index} className={classes.summaryText}>{item.name}: <b>{item.firstName}- {item.firstValue}</b></p>  
+                                                <p key={index} className={classes.summaryText}>{item.name}: <b>{item.firstValue}</b></p>  
                                             </Collapse>
                                         }
                                     </>

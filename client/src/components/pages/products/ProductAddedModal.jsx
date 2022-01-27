@@ -320,9 +320,9 @@ const ProductAddedModal = ({ appliedDiscount, papildomaMaketavimoKaina, getDisco
                                                 : item.type === 2 && item.summon && item.summon !== 0 && collapseOpen(item.summon)? 
                                                     <p key={index} className={classes.summaryText}>{item.name}: {item.value}</p>
                                                 : item.type === 3 && (!item.summon || item.summon === 0) ?
-                                                    <p key={index} className={classes.summaryText}>{item.name}: {item.firstName}- {item.firstValue}</p> 
+                                                    <p key={index} className={classes.summaryText}>{item.name}: {item.firstValue}</p> 
                                                 : item.type === 3 && item.summon && item.summon !== 0 && collapseOpen(item.summon) &&    
-                                                    <p key={index} className={classes.summaryText}>{item.name}: {item.firstName}- {item.firstValue}</p>  
+                                                    <p key={index} className={classes.summaryText}>{item.name}: {item.firstValue}</p>  
                                                 }
                                             </>
                                         )}

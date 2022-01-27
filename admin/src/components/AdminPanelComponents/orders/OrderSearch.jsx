@@ -224,6 +224,10 @@ const OrderSearch = ({ token, makeNotNew, setOrdersView, setOrder }) => {
                                 TRDiscount: item.TRDiscount,
                                 uzsakymoNr: item.uzsakymoNr,
                                 sanaudos: item.sanaudos,
+                                payment: item.payment,
+                                shippingMethod: item.shippingMethod,
+                                isankstineSaskaita: item.isankstineSaskaita,
+                                PVMSaskaitaFaktura: item.PVMSaskaitaFaktura,
                             });
                             setOrdersView(true);
                         }}>

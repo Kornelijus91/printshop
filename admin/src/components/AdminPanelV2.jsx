@@ -407,6 +407,8 @@ function ResponsiveDrawer(props) {
         sanaudos: 0,
         payment: '',
         shippingMethod: '',
+        isankstineSaskaita: '',
+        PVMSaskaitaFaktura: '',
     });
 
     const [orderFilter, setOrderFilter] = useState('Visi');
@@ -717,6 +719,8 @@ function ResponsiveDrawer(props) {
                 uzsakymoNr: 0,
                 payment: '',
                 shippingMethod: '',
+                isankstineSaskaita: '',
+                PVMSaskaitaFaktura: '',
             });
         }
         // eslint-disable-next-line

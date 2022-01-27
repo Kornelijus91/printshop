@@ -179,16 +179,19 @@ const useStyles = makeStyles((theme) => ({
         height: '2.5em',
         backgroundColor: theme.myTheme.pirma,
         color: theme.myTheme.trecia,
+        marginBottom: '1em',
         '&:hover': {
             backgroundColor: '#e31c2d',
         },
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '6px',
             height: '3.375em',
+            marginBottom: '1.35em',
         },
         [theme.breakpoints.up('xxxl')]: {
             height: '5em',
             borderRadius: '9px',
+            marginBottom: '2em',
         },
     },
     ButtonLabel: {
@@ -474,9 +477,36 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                     <hr className={classes.kainuhr} />
                     <h2>Veiksmai</h2>
                     
-                    <Button classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }} disabled={order.status !== 'Apmokėtas'} onClick={handleModalOpen}> 
+                    <Button 
+                        classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }} 
+                        disabled={order.status !== 'Apmokėtas'} 
+                        onClick={handleModalOpen}
+                    > 
                         Įvykdyti
                     </Button>
+
+                    <Button 
+                        component='a'
+                        href={order.isankstineSaskaita} 
+                        download 
+                        disabled={order.isankstineSaskaita === '' || order.isankstineSaskaita === null || !order.isankstineSaskaita }
+                        classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }}
+                        // onClick={() => console.log(order)}
+                    >
+                        Išanskstinė sąskaita
+                    </Button>
+
+                    <Button 
+                        component='a'
+                        href={order.PVMSaskaitaFaktura} 
+                        download 
+                        disabled={order.PVMSaskaitaFaktura === '' || order.PVMSaskaitaFaktura === null || !order.PVMSaskaitaFaktura }
+                        classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }}
+                        // onClick={() => console.log(order)}
+                    >
+                        PVM sąskaita faktūra
+                    </Button>
+
                 </Grid>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                     {order.cartItems.map((item) => 
@@ -513,9 +543,9 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                                                 : opt.type === 1 && opt.summon && opt.summon !== 0 && shouldShow(item.options, opt.summonID, opt.name) ?
                                                     <p key={i}>{opt.name}: <b>{opt.firstName}- {opt.firstValue}, {opt.secondName}- {opt.secondValue}</b></p>
                                                 : opt.type === 3 && (!opt.summon || opt.summon === 0) ?
-                                                    <p key={i}>{opt.name}: <b>{opt.firstName}- {opt.firstValue}</b></p>
+                                                    <p key={i}>{opt.name}: <b>{opt.firstValue}</b></p>
                                                 : opt.type === 3 && opt.summon && opt.summon !== 0 && shouldShow(item.options, opt.summonID, opt.name) &&
-                                                    <p key={i}>{opt.name}: <b>{opt.firstName}- {opt.firstValue}</b></p>
+                                                    <p key={i}>{opt.name}: <b>{opt.firstValue}</b></p>
                                                 }
                                             </>
                                         )}

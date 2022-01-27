@@ -272,6 +272,8 @@ const UserOrders = ({ userId, setSnackbar, token, getOrders, ordersPage, setView
                                         sanaudos: item.sanaudos,
                                         payment: item.payment,
                                         shippingMethod: item.shippingMethod,
+                                        isankstineSaskaita: item.isankstineSaskaita,
+                                        PVMSaskaitaFaktura: item.PVMSaskaitaFaktura,
                                     });
                                     setView({value: 8, title: 'Užsakymai', titleAdditional: ''});
                                 } 

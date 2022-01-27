@@ -202,6 +202,8 @@ const List = ({ orders, ordersPage, setOrdersPage, setOrdersView, setOrder, setS
                                         uzsakymoNr: item.uzsakymoNr,
                                         payment: item.payment,
                                         shippingMethod: item.shippingMethod,
+                                        isankstineSaskaita: item.isankstineSaskaita,
+                                        PVMSaskaitaFaktura: item.PVMSaskaitaFaktura,
                                     });
                                     setOrdersView(true);
                                 } 

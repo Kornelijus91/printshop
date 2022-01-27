@@ -1,8 +1,9 @@
 node_modules/
 admin/node_modules/
-admin/build/
+admin/build
 client/node_modules/
 client/build/
 public/
 private/
+saskaitos/
 .env

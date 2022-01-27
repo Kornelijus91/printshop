@@ -117,6 +117,7 @@ app.get('/personalas', (req, res) => {
 
 // app.use('/euploads', express.static('private/uploads'));
 // app.use('/uploads', express.static('public/uploads'));
+app.use('/saskaitos', express.static('saskaitos'));
 
 cron.schedule('0 0 4 * * *', async () => {
     var expiryDate = new Date();
