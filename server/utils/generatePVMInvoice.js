@@ -296,7 +296,7 @@ const generatePVMInvoice = (order) => {
     const doc = new PDFDocument({size: 'A4', margin: 50});
     doc.pipe(fs.createWriteStream(`./saskaitos/PVM sąskaita faktūra TR-PSF-${order.uzsakymoNr}.pdf`));
 
-    doc.image(path.resolve('server/utils/image/TreklamaLogoBlack.png'), 50, 45, { width: 145 })
+    doc.image(path.resolve('utils/image/TreklamaLogoBlack.png'), 50, 45, { width: 145 })
         .font('./server/utils/fonts/Quicksand-Bold.ttf')
 		.fillColor('#1D3557')
 		.fontSize(8)
