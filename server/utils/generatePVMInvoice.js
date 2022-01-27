@@ -1,5 +1,7 @@
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
+// const TreklamaLogoBlack = require('image/TreklamaLogoBlack.png');
+const path = require('path')
 
 function formatDate(date) {
     const day = ('0' + new Date(date).getDate()).slice(-2);
@@ -294,7 +296,7 @@ const generatePVMInvoice = (order) => {
     const doc = new PDFDocument({size: 'A4', margin: 50});
     doc.pipe(fs.createWriteStream(`./saskaitos/PVM sąskaita faktūra TR-PSF-${order.uzsakymoNr}.pdf`));
 
-    doc.image('./image/TreklamaLogoBlack.png', 50, 45, { width: 145 })
+    doc.image(path.resolve('server/utils/image/TreklamaLogoBlack.png'), 50, 45, { width: 145 })
         .font('./server/utils/fonts/Quicksand-Bold.ttf')
 		.fillColor('#1D3557')
 		.fontSize(8)
