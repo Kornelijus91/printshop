@@ -294,7 +294,7 @@ const generatePVMInvoice = (order) => {
     }
 
     const doc = new PDFDocument({size: 'A4', margin: 50});
-    doc.pipe(fs.createWriteStream(`./saskaitos/PVM sąskaita faktūra TR-PSF-${order.uzsakymoNr}.pdf`));
+    doc.pipe(fs.createWriteStream(`./saskaitos/PVM_saskaita_faktura_TR-PSF-${order.uzsakymoNr}.pdf`));
 
     doc.image(path.resolve('utils/image/TreklamaLogoBlack.png'), 50, 45, { width: 145 })
         .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
@@ -323,7 +323,7 @@ const generatePVMInvoice = (order) => {
     // console.log('/======== PDF =========/');
     // console.log(order);
     // console.log('/======== PDF =========/');
-    return `${process.env.MAIN_URL}/saskaitos/PVM sąskaita faktūra TR-PSF-${order.uzsakymoNr}.pdf`;
+    return `${process.env.MAIN_URL}/saskaitos/PVM_saskaita_faktura_TR-PSF-${order.uzsakymoNr}.pdf`;
 };
 
 module.exports = generatePVMInvoice;
