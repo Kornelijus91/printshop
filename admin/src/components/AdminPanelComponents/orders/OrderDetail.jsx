@@ -453,20 +453,20 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                             {order.status}
                         </h3>
                     </Box>
-                    {order.status === 'Apmokėtas' &&
+                    {(order.status === 'Apmokėtas' || order.status === 'Įvykdytas') &&
                         <Box display='flex' justifyContent='flex-start'>
                             <h3 style={{marginRight: '.2em'}}>Apmokėjimo būdas - {
                                 {
-                                    'card': 'Debeto / Kreditinė kortelė.',
-                                    'hanza': 'AB bank "Swedbank"',     
-                                    'vb2': 'AB bank "SEB"',
+                                    'card': 'Mokėjimo kortelė',
+                                    'hanza': 'AB bankas "Swedbank"',     
+                                    'vb2': 'AB SEB bankas',
                                     'lt_revolut': 'Revolut',
-                                    'nord': "AS bank Luminor",
-                                    'mb': 'UAB bank "Medicinos Bankas"',
-                                    'lku': "Lietuvos kredito unija",
+                                    'nord': "AS Luminor bankas",
+                                    'mb': 'UAB Medicinos bankas',
+                                    'lku': "Lietuvos kredito unijos",
                                     'lt_n26': "N26",
-                                    'sb': 'AB bank "Šiaulių bankas"',
-                                    'parex': 'AS bank "Citadele"',
+                                    'sb': 'AB Šiaulių bankas',
+                                    'parex': 'AS Citadele bankas',
                                     'wallet': "Paysera",
                                     'cash': "Grynais pinigais pristatymo metu.",
                                     '': '',

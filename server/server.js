@@ -128,13 +128,52 @@ cron.schedule('0 0 4 * * *', async () => {
         try{
             Order.find({'cartItems._id': citm._id }, async function (err, orders){
                 if (!err) {
-                    for (const oitm of orders) {
-                        if (oitm.status === 'Apmokėtas') {
-                            break;
+                    if (orders.length > 0){
+                        for (const oitm of orders) {
+                            if (oitm.status === 'Apmokėtas') {
+                                break;
+                            }
+                            const cartItemsNotExpired = await CartItem.find({ modifiedAt: { $gte: expiryDate }, image: citm.image }).exec();
+                            try {
+                                if (cartItemsNotExpired.length <= 0 && oitm.status !== 'Apmokėtas' && fs.existsSync(`./public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`)) {
+                                    fs.unlink(`./public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`, (err) => {
+                                        if (!err) {
+                                            return true;
+                                        } 
+                                    })
+                                    if (fs.existsSync(`./saskaitos/${oitm.isankstineSaskaita.substring(oitm.isankstineSaskaita.lastIndexOf('/') + 1)}`)) {
+                                        fs.unlink(`./saskaitos/${oitm.isankstineSaskaita.substring(oitm.isankstineSaskaita.lastIndexOf('/') + 1)}`, (err) => {
+                                            if (!err) {
+                                                return true;
+                                            } 
+                                        })
+                                    }
+                                    if (fs.existsSync(`./saskaitos/${oitm.PVMSaskaitaFaktura.substring(oitm.PVMSaskaitaFaktura.lastIndexOf('/') + 1)}`)) {
+                                        fs.unlink(`./saskaitos/${oitm.PVMSaskaitaFaktura.substring(oitm.PVMSaskaitaFaktura.lastIndexOf('/') + 1)}`, (err) => {
+                                            if (!err) {
+                                                return true;
+                                            } 
+                                        })
+                                    }
+                                }
+                            } catch (error) {
+                                console.log(error);
+                            }
+
+                            if (oitm.status !== 'Įvykdytas' && oitm.status !== 'Apmokėtas' && oitm.status !== 'Atšauktas') {
+                                oitm.status = 'Atšauktas';
+                            }
+
+                            Order.updateMany({'cartItems._id': citm._id}, {'$set': {
+                                'cartItems.$.image': '',
+                            }}).exec();
+                            citm.deleteOne();
+                            oitm.save();
                         }
+                    } else {
                         const cartItemsNotExpired = await CartItem.find({ modifiedAt: { $gte: expiryDate }, image: citm.image }).exec();
                         try {
-                            if (cartItemsNotExpired.length <= 0 && oitm.status !== 'Apmokėtas' && fs.existsSync(`./public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`)) {
+                            if (cartItemsNotExpired.length <= 0 && fs.existsSync(`./public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`)) {
                                 fs.unlink(`./public/uploads/${citm.image.substring(citm.image.lastIndexOf('/') + 1)}`, (err) => {
                                     if (!err) {
                                         return true;
@@ -144,16 +183,7 @@ cron.schedule('0 0 4 * * *', async () => {
                         } catch (error) {
                             console.log(error);
                         }
-
-                        if (oitm.status !== 'Įvykdytas' && oitm.status !== 'Apmokėtas' && oitm.status !== 'Atšauktas') {
-                            oitm.status = 'Atšauktas';
-                        }
-
-                        Order.updateMany({'cartItems._id': citm._id}, {'$set': {
-                            'cartItems.$.image': '',
-                        }}).exec();
-                        
-                        oitm.save();
+                        citm.deleteOne();
                     }
                 } else {
                     console.log(err);
@@ -163,7 +193,7 @@ cron.schedule('0 0 4 * * *', async () => {
         } catch (error) {
           console.log(error);
         };
-        citm.deleteOne();
+        
     }
 }, {
     scheduled: true,
