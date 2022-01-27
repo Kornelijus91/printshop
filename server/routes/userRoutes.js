@@ -194,11 +194,9 @@ router.get("/handlePayment", async (req, res, next) => {
       if (parseInt(payseraResponse.status) === 1) {
         Order.findOne({ uzsakymoNr: parseInt(payseraResponse.orderid) }, async function (err, order) {
           if (!err && order.status !== 'Apmokėtas') {
-
             const PVMSask = await generatePVMInvoice(order);
-
             sendPaymentConfirmedEmail(order.delivery.email, PVMSask);
-
+            order.PVMSaskaitaFaktura = PVMSask;
             let dscCode = '';
             order.status = 'Apmokėtas';
             for (const cartItm of order.cartItems) {
