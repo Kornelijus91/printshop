@@ -46,7 +46,7 @@ function generateHr(doc, y) {
 
 function generateCustomerInformation(doc, order) {
     doc
-        .font('./server/utils/fonts/Quicksand-Bold.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
         .fillColor('#1D3557')
         .fontSize(12)
         .text('PVM sąskaita faktūra', 50, 130,);
@@ -56,22 +56,22 @@ function generateCustomerInformation(doc, order) {
     const customerInformationTop = 160;
   
     doc
-        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
         .fontSize(8)
         .text("Dokumento nr.:", 50, customerInformationTop)
-        .font('./server/utils/fonts/Quicksand-Bold.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
         .text(`TR-PSF-${order.uzsakymoNr}`, 150, customerInformationTop)
-        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
         .text("Dokumento data:", 50, customerInformationTop + 10)
-        .font('./server/utils/fonts/Quicksand-Bold.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
         .text(formatDate(new Date()), 150, customerInformationTop + 10)
-        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
         .text("Užsakymo nr:", 50, customerInformationTop + 20)
-        .font('./server/utils/fonts/Quicksand-Bold.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
         .text(order.uzsakymoNr, 150, customerInformationTop + 20)
-        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
         .text("Apmokėjimo būdas:", 50, customerInformationTop + 30)
-        .font('./server/utils/fonts/Quicksand-Bold.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
         .text(
             order.payment === 'cash' ? 
             'Grynais pinigais pristatymo metu.' : 
@@ -99,13 +99,13 @@ function generateCustomerInformation(doc, order) {
             'Mokėjimo kortelė' : ''
         , 150, customerInformationTop + 30)
         .text('Pirkėjas', 300, customerInformationTop)
-        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
         .text(order.delivery.firstName + ' ' + order.delivery.lastName, 300, customerInformationTop + 10)
         .text(order.delivery.address + ', ' + order.delivery.zipcode + ', ' + order.delivery.city, 300, customerInformationTop + 20)
         
     if (order.delivery.juridinis) {
         doc
-            .font('./server/utils/fonts/Quicksand-Regular.ttf')
+            .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
             .fontSize(8)
             .text("Įmonės pavadinimas:", 300, customerInformationTop + 30)
             .text(order.delivery.companyName, 380, customerInformationTop + 30)
@@ -138,7 +138,7 @@ function generateCart(doc, order) {
         .stroke();
 
     doc
-        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
         .fillColor('#F1FAEE')
         .fontSize(8)
         .text("Prekė", 55, tableTop - 5)
@@ -149,7 +149,7 @@ function generateCart(doc, order) {
 
     for (const cartItem of order.cartItems) {
         doc
-            .font('./server/utils/fonts/Quicksand-Regular.ttf')
+            .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
             .fillColor('#1D3557')
             .fontSize(8)
             .text(cartItem.name, 55, cartItemsPos)
@@ -170,11 +170,11 @@ function generateCart(doc, order) {
             if (shouldShow(cartItem.options, option.summon)) {
                 if (option.type === 0 || option.type === 2) {
                     doc
-                        .font('./server/utils/fonts/Quicksand-Bold.ttf')
+                        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
                         .fillColor('#1D3557')
                         .fontSize(6)
                         .text(`${option.name}:`, 70, cartItemsPos)
-                        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+                        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
                         .text(option.value, 170, cartItemsPos)
 
                     // cartItemsPos = cartItemsPos + 8;
@@ -186,11 +186,11 @@ function generateCart(doc, order) {
                     }  
                 } else if (option.type === 1) {
                     doc
-                        .font('./server/utils/fonts/Quicksand-Bold.ttf')
+                        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
                         .fillColor('#1D3557')
                         .fontSize(6)
                         .text(`${option.name}:`, 70, cartItemsPos)
-                        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+                        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
                         .text(`${option.firstName}: ${option.firstValue}, ${option.secondName}: ${option.secondValue}`, 170, cartItemsPos)
 
                     // cartItemsPos = cartItemsPos + 8;
@@ -202,11 +202,11 @@ function generateCart(doc, order) {
                     }  
                 }  else if (option.type === 3) {
                     doc
-                        .font('./server/utils/fonts/Quicksand-Bold.ttf')
+                        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
                         .fillColor('#1D3557')
                         .fontSize(6)
                         .text(`${option.name}:`, 70, cartItemsPos)
-                        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+                        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
                         .text(`${option.firstValue}`, 170, cartItemsPos)
 
                     // cartItemsPos = cartItemsPos + 8;
@@ -221,11 +221,11 @@ function generateCart(doc, order) {
         }
         if (cartItem.maketavimoKaina > 0) {
             doc
-                .font('./server/utils/fonts/Quicksand-Bold.ttf')
+                .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
                 .fillColor('#1D3557')
                 .fontSize(6)
                 .text('Maketavimas:', 70, cartItemsPos)
-                .font('./server/utils/fonts/Quicksand-Regular.ttf')
+                .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
                 .text('Taip', 170, cartItemsPos)
 
             // cartItemsPos = cartItemsPos + 8;
@@ -238,11 +238,11 @@ function generateCart(doc, order) {
         }
         // if (cartItem.pastaba !== '') {
         //     doc
-        //         .font('./server/utils/fonts/Quicksand-Bold.ttf')
+        //         .font(path.resolve('utils/fonts/Quicksand-Bold.ttf')
         //         .fillColor('#1D3557')
         //         .fontSize(6)
         //         .text('Pastaba:', 70, cartItemsPos)
-        //         .font('./server/utils/fonts/Quicksand-Regular.ttf')
+        //         .font(path.resolve('utils/fonts/Quicksand-Regular.ttf')
         //         .text(cartItem.pastaba, 170, cartItemsPos)
 
         //     cartItemsPos = cartItemsPos + 8;
@@ -268,7 +268,7 @@ function generateCart(doc, order) {
     }  
 
     doc
-        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
         .fillColor('#1D3557')
         .fontSize(8)
         .text('Kaina be PVM:', 380, cartItemsPos, { lineBreak: false })
@@ -277,7 +277,7 @@ function generateCart(doc, order) {
         .text(`${roundTwoDec((order.discountPrice / 1.21) * 0.21).toFixed(2)} €`, { align: 'right' })
         .text('Pristatymas:', 380, cartItemsPos + 24, { lineBreak: false })
         .text('Nemokamas', { align: 'right' })
-        .font('./server/utils/fonts/Quicksand-Bold.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
         .text('Viso:', 380, cartItemsPos + 36, { lineBreak: false })
         .text(`${roundTwoDec(order.discountPrice).toFixed(2)} €`, { align: 'right' })
     // console.log('ORDER DISKAUNTED PRAIS -> ', order.discountPrice);
@@ -297,11 +297,11 @@ const generatePVMInvoice = (order) => {
     doc.pipe(fs.createWriteStream(`./saskaitos/PVM sąskaita faktūra TR-PSF-${order.uzsakymoNr}.pdf`));
 
     doc.image(path.resolve('utils/image/TreklamaLogoBlack.png'), 50, 45, { width: 145 })
-        .font('./server/utils/fonts/Quicksand-Bold.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
 		.fillColor('#1D3557')
 		.fontSize(8)
 		.text('UAB “TAURO PASLAUGOS”', 130, 45, { align: 'right' })
-        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
 		.text('Daugėlių g. 79B, Kuršėnai, LT-81116 Šiaulių r.', { align: 'right' }) 
 		.text('Įmonės kodas: 305328121', { align: 'right' }) 
         .text('PVM kodas: LT100012761116', { align: 'right' }) 
@@ -314,7 +314,7 @@ const generatePVMInvoice = (order) => {
     generateHr(doc, doc.page.height - 80);
 
     doc
-        .font('./server/utils/fonts/Quicksand-Regular.ttf')
+        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
         .text('Tai yra originali sąskaita faktūra, kurią galite atsispausdinti ir naudoti kaip buhalterinį dokumentą, atitinkantį visas apskaitos dokumentų išrašymo ir pripažinimo taisykles.', 
     50, doc.page.height - 70);
 
