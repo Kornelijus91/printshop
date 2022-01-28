@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     body:{
         width: '100%',
         [theme.breakpoints.up('lg')]: {
-            padding: '1.5em 1em 0 1em'
+            padding: '5vh 1em 0 1em'
         }, 
         [theme.breakpoints.up('xl')]: {
             width: '60%',
@@ -183,10 +183,10 @@ const useStyles = makeStyles((theme) => ({
     },
     footerhr: {
         opacity: 0.5,
-        margin: '0 1em',
+        margin: '5vh 1em 0 1em',
         padding: 0,
         [theme.breakpoints.up('lg')]: {
-            margin: 0,
+            margin: '7vh 0 0 0',
         },
     },
 }));

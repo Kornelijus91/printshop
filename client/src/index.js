@@ -88,7 +88,7 @@ const theme = createTheme({
       sm: 600,
       md: 960,
       lg: 1280,
-      xl: 1920,
+      xl: 1800,
       xxl: 2240,
       xxxl: 3740,
     },
@@ -124,7 +124,7 @@ const theme = createTheme({
     trecia: '#F1FAEE', //KREMINE
     ketvirta: '#A8DADC', //SVIESIAI MELYNA
     sriftoSpalva: '#1D3557', //TAMSIAI MELYNA
-    sriftas: "'Quicksand', sans-serif" //SRIFTAS
+    sriftas: "'Quicksand', Helvetica, sans-serif" //SRIFTAS
   },
 });
 

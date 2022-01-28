@@ -158,7 +158,7 @@ const ConfirmEmail = () => {
           <td style="overflow-wrap:break-word;word-break:break-word;padding:40px 5px;font-family:arial,helvetica,sans-serif;" align="left">
             
       <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-        <p style="font-size: 14px; line-height: 140%;"><span style="font-family: Montserrat, sans-serif; font-size: 20px; line-height: 28px; color: #1d3557;">Jūsų užsakymas paruoštas ir perduotas kurjeriui. Ačiū, kad naudojatės mūsų paslaugomis!</span></p>
+        <p style="font-size: 14px; line-height: 140%;"><span style="font-family: Montserrat, sans-serif; font-size: 20px; line-height: 28px; color: #1d3557;">Jūsų užsakymas paruoštas ir išsiūstas. Ačiū, kad naudojatės mūsų paslaugomis!</span></p>
       </div>
     
           </td>

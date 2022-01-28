@@ -259,11 +259,20 @@ const SalesStats = ({ newChatrooms, newOrders, user, setSnackbar }) => {
                 orders: totalOrders,
                 sanaudos: totalSanaudos,
             });
+        } else {
+            setTotals({
+                price: 0,
+                discountedPrice: 0,
+                orders: 0,
+                sanaudos: 0,
+            });
         }
     };
 
     const getStats = async () => {
         setGettingstats(true);
+        setStats(response.data);
+        setProductStats(response.groupedProducts);
         try {
             const req = await fetch("/administracija/getStats/", {
                 method: "POST",
