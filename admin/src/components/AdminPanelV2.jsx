@@ -692,15 +692,15 @@ function ResponsiveDrawer(props) {
         // eslint-disable-next-line
     }, [ordersPage, orderFilter, getordersTrigger]);
 
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         getOrders(ordersPage, orderFilter);
-    //     }, 60 * 1000);
-    //     return () => {
-    //         clearTimeout(timer);
-    //     };
-    //     // eslint-disable-next-line
-    // }, [getOrders]);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            getOrders(ordersPage, orderFilter);
+        },60 * 60 * 1000);
+        return () => {
+            clearTimeout(timer);
+        };
+        // eslint-disable-next-line
+    }, [getOrders]);
 
     useEffect(() => {
         if (!ordersView) {

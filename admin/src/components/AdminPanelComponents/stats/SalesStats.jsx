@@ -271,8 +271,8 @@ const SalesStats = ({ newChatrooms, newOrders, user, setSnackbar }) => {
 
     const getStats = async () => {
         setGettingstats(true);
-        setStats(response.data);
-        setProductStats(response.groupedProducts);
+        setStats([]);
+        setProductStats([]);
         try {
             const req = await fetch("/administracija/getStats/", {
                 method: "POST",
