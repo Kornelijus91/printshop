@@ -453,11 +453,11 @@ const Orders = ({ token, loggedIn }) => {
             });
             const response = await res.json();
             if (response.success) {
-                setSubmitting(false);
                 if (response.paymentURL !== '') {
                     window.location.replace(response.paymentURL)
                 } else {
                     history.push('/order');
+                    setSubmitting(false);
                 }
             } else {
                 setSubmitting(false);

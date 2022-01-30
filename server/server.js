@@ -10,7 +10,12 @@ const fs = require("fs");
 var cron = require('node-cron');
 const CartItem = require("./models/cartItem")
 const Order = require("./models/order")
+const { SitemapStream, streamToPromise } = require('sitemap')
+const { createGzip } = require('zlib')
+const { Readable } = require('stream')
 
+let sitemap 
+let sitemapAge = new Date();
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config()
@@ -351,6 +356,43 @@ app.get('/products/*', (req, res, next) => {
     });
 });
 
+app.get('/sitemap.xml', function(req, res) {
+    res.header('Content-Type', 'application/xml');
+    res.header('Content-Encoding', 'gzip');
+    // if we have a cached entry send it
+    if (sitemap && sitemapAge < new Date().getTime() + (24 * 60 * 60 * 1000)) {
+        res.send(sitemap)
+        return
+    }
+    sitemapAge = new Date();
+
+    try {
+        const smStream = new SitemapStream({ hostname: process.env.MAIN_URL })
+        const pipeline = smStream.pipe(createGzip())
+
+        for (const product of prodinfo) {
+            // console.log(product);
+            smStream.write({ 
+                url: `${process.env.MAIN_URL}/products/${encodeURIComponent(product.name)}`,  
+                changefreq: 'weekly', 
+                priority: 0.9,
+                img: {
+                    url: product.image,
+                    title: product.name,
+                    caption: product.description,
+                } 
+            })
+        }
+
+        streamToPromise(pipeline).then(sm => sitemap = sm)
+        smStream.end()
+        pipeline.pipe(res).on('error', (e) => {throw e})
+    } catch (e) {
+        console.error(e)
+        res.status(500).end()
+    }
+})
+
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(express.static(path.resolve(__dirname, '../admin/build')));
 
@@ -360,18 +402,6 @@ app.get('*', (req, res) => {
 
 io.of("/").on('connection', onConnection);
 io.of("/valdovas").on('connection', onAdminConnection);
-
-// io.on('connection', socket => {
-//     socket.on("messageFromClient", (anotherSocketId, msg) => {
-//         // socket.to(anotherSocketId).emit("private message", socket.id, msg);
-//         console.log("SOCKET ID => ", anotherSocketId);
-//         console.log('MESSAGE => ', msg);
-//     });
-// });
-
-// app.listen(PORT, '127.0.0.1', () => {
-//     console.log(`Server listening on ${PORT}`);
-// });
 
 httpServer.listen(PORT, '127.0.0.1', () => {
     console.log(`Server listening on ${PORT}`);
