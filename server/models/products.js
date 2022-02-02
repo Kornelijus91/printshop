@@ -55,6 +55,10 @@ const Product = new Schema({
         type: String,
         default: "",
     },
+    templateID: {
+        type: String,
+        default: "",
+    },
     createdAt: {
         type: Date, 
         default: Date.now

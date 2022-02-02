@@ -11,13 +11,14 @@ import NumberOption from './NumberOption.jsx';
 import PictureOption from './PictureOption.jsx'
 import SelectOption from './SelectOption.jsx';
 import { AiOutlineCloudUpload } from "react-icons/ai";
-import { FaExchangeAlt, FaShoppingCart } from "react-icons/fa";
+import { FaExchangeAlt, FaShoppingCart, FaPaintBrush } from "react-icons/fa";
 import ProductSkeleton from './ProductSkeleton.jsx';
 import axios from "axios";
 import ProductAddedModal from './ProductAddedModal.jsx';
 import MaketavimoKaina from './MaketavimoKaina';
 import Comments from './Comments'
 import Galery from './Galery'
+import SelectTemplateModal from './SelectTemplateModal'
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -249,16 +250,16 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         backgroundColor: theme.myTheme.pirma,
         fontFamily: theme.myTheme.sriftas,
-        margin: '.5rem 0 1rem 0',
+        margin: '.5rem 0',
         color: theme.myTheme.trecia,
         [theme.breakpoints.up('xxl')]: {
-            margin: '.75rem 0 1.5rem 0',
+            margin: '.75rem 0',
             height: '3.375rem',
             borderRadius: '7px',
             fontSize: '1.2rem',
         },
         [theme.breakpoints.up('xxxl')]: {
-            margin: '1rem 0 2rem 0',
+            margin: '1rem 0',
             height: '5rem',
             borderRadius: '9px',
             fontSize: '1.8rem',
@@ -526,7 +527,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, maketavimoKaina, firstName, personalas, token, kodoNuolaida, findMaxDiscount }) => {
+const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTwoDec, maketavimoKaina, firstName, personalas, token, kodoNuolaida, findMaxDiscount }) => {
 
     let { link, cartItemID } = useParams();
     const classes = useStyles();
@@ -560,6 +561,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
         discountName: '',
         discount: 0
     });
+    const [selectTemplateModalOpen, setSelectTemplateModalOpen] = useState(false);
 
     const resetEverything = () => {
         setPastaba('');
@@ -965,6 +967,12 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
         // eslint-disable-next-line
     }, [kiekis, unitPrice, loyaltydiscount, kodoNuolaida]);
 
+    // useEffect(() => {
+    //     console.log(product);
+        
+    //     // eslint-disable-next-line
+    // }, [product]);
+
     return (
         <>
             { products.length <= 0 ? 
@@ -977,6 +985,15 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                 <Snackbar open={snackbar !== ''} autoHideDuration={5000} onClose={handleClose}> 
                     <Alert severity="warning">{snackbar}</Alert>
                 </Snackbar>
+                <SelectTemplateModal 
+                    selectTemplateModalOpen={selectTemplateModalOpen}
+                    setSelectTemplateModalOpen={setSelectTemplateModalOpen}
+                    userid={userid}
+                    productID={product._id}
+                    productName={product.name}
+                    productTemplateID={product.templateID}
+                    setFile={setFile}
+                />
                 <ProductAddedModal 
                     addModalOpen={addModalOpen} 
                     setAddModalOpen={setAddModalOpen}
@@ -1038,7 +1055,7 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                                             classes: { text: classes.Step, root: classes.stepIcon } 
                                         }}
                                     >
-                                        <p className={classes.stepText}>Įkelkite failą</p>
+                                        <p className={classes.stepText}>Įkelkite failą, arba susikurkite dizainą.</p>
                                     </StepLabel>
                                 </Step>
                                 <Step active={true}>
@@ -1208,6 +1225,17 @@ const ProductPage = ({ products, loyaltydiscount, getCart, cart, roundTwoDec, ma
                                                 onChange={handleFile}
                                             />
                                         </Box>
+                                       
+                                        <Button 
+                                            variant="contained" 
+                                            color="primary" component="span" 
+                                            classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} 
+                                            startIcon={<FaPaintBrush size={20} className={classes.icon}/>}
+                                            onClick={() => setSelectTemplateModalOpen(true)}
+                                        >
+                                            Kurti dizainą
+                                        </Button>
+                                       
                                     </Box>
                                     <Hidden smDown>
                                         <Divider orientation="vertical" flexItem classes={{root: classes.divider2}}/>

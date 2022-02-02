@@ -83,7 +83,7 @@ const FreeShippingSection = () => {
                     
                     <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
                         <h2 className={classes.header}>Nemokamas siuntimas!</h2>
-                        <p className={classes.parag}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates eligendi, suscipit nostrum, voluptatem ab, quod voluptate ipsam libero magnam delectus architecto. Tempore illum nihil reprehenderit eligendi quibusdam itaque sed cum?</p>
+                        <p className={classes.parag}>Jūsų užsakymas visada pristatomas nemokamai Jus pasirinktu būdu: kurjerių tarnyba, autobusų siuntomis arba į Jūsų nurodytą paštomatą.</p>
                     </Grid>
                 </Grid>
             </Box>

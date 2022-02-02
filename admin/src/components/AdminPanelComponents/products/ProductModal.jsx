@@ -313,6 +313,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
             oneDayPriceIncreace: 0,
             twoDayPriceIncreace: 0,
             pictureAmount: 1,
+            templateID: ''
         });
         setFile({
             src: null,
@@ -429,6 +430,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                 }
                 formData.append('id', productInfo.id);
                 formData.append('name', productInfo.name);
+                formData.append('templateID', productInfo.templateID);
                 formData.append('link', encodeURIComponent(productInfo.name));
                 formData.append('description', productInfo.description);
                 formData.append('mainImage', file.URL);
@@ -481,6 +483,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                         oneDayPriceIncreace: 0,
                         twoDayPriceIncreace: 0,
                         pictureAmount: 1,
+                        templateID: ''
                     });
                     setFile({
                         src: null,
@@ -609,6 +612,22 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                                                 value={productInfo.name}
                                                 placeholder='Pavadinimas...'
                                                 onChange={handleProductInfoChange('name')}
+                                                classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
+                                                autoComplete='off'
+                                            />
+                                        </FormControl>    
+                                    </Box>
+                                    <Box>
+                                        <h3 className={classes.header} style={{marginBottom: '1rem'}}>Šablonų kategorijos ID</h3>
+                                    </Box>
+                                    <Box>
+                                        <FormControl className={classes.formName} variant="outlined">
+                                            <OutlinedInput
+                                                id="template_id"
+                                                type='text'
+                                                value={productInfo.templateID}
+                                                placeholder='ID...'
+                                                onChange={handleProductInfoChange('templateID')}
                                                 classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
                                                 autoComplete='off'
                                             />

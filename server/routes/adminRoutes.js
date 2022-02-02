@@ -1024,6 +1024,7 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
             try {
                 var productObj = {
                     name: req.body.name,
+                    templateID: req.body.templateID,
                     link: req.body.link,
                     description: req.body.description,
                     image: url + '/euploads/' + req.files[0].filename,
@@ -1220,6 +1221,7 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                         }
 
                         product.name = req.body.name;
+                        product.templateID = req.body.templateID,
                         product.link = req.body.link;
                         product.description = req.body.description;
                         product.image = mainImageX;

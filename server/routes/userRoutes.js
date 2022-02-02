@@ -1,4 +1,6 @@
+const fetch = require('node-fetch');
 const express = require("express")
+const md5 = require('md5')
 const router = express.Router()
 const User = require("../models/user")
 const Address = require("../models/address")
@@ -284,6 +286,44 @@ router.post("/payForOrder", verifyUser, async (req, res, next) => {
     });
   } catch(error) {
 
+  }
+});
+
+router.post("/getTemplates", async (req, res, next) => {
+  try {
+    const timestamp = Math.floor(new Date().getTime() / 1000);
+    const request = await fetch('https://api.pitchprint.io/runtime/fetch-designs', {
+      method: "POST",
+      // credentials: "include",
+      headers: {
+          "Content-Type": "application/json",
+          // "authorization": `JWT ${user.token}`,
+      },
+      body: JSON.stringify({
+        apiKey: process.env.PPRINT_API_KEY,
+        timestamp: timestamp,
+        categoryId: req.body.categoryId,
+        signature: md5(process.env.PPRINT_API_KEY + process.env.PPRINT_SECRET_KEY + timestamp)
+      }),
+    });
+    const response = await request.json();
+    if (response.error) {
+      res.send({ 
+        success: false, 
+        error: response.message
+      })
+    } else {
+      res.send({ 
+        success: true, 
+        templates: response.data.items
+      })
+    }
+    
+  } catch(error) {
+    res.send({ 
+      success: false, 
+      error: error
+    })
   }
 });
 
@@ -1338,6 +1378,7 @@ router.post("/refreshToken", (req, res, next) => {
                     administracija: user.administracija,
                     username: user.username,
                     firstName: user.firstName,
+                    userid: user._id,
                     moneySpent: user.moneySpent,
                     token 
                   })

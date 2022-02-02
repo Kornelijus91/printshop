@@ -211,6 +211,7 @@ const Products = ({ newOrders, newChatrooms, user, setSnackbar, productModalOpen
         oneDayPriceIncreace: 0,
         twoDayPriceIncreace: 0,
         pictureAmount: 1,
+        templateID: ''
     });
 
     const [deleteModal, setDeleteModal] = useState({
@@ -465,6 +466,7 @@ const Products = ({ newOrders, newChatrooms, user, setSnackbar, productModalOpen
                                             oneDayPriceIncreace: item.oneDayPriceIncreace,
                                             twoDayPriceIncreace: item.twoDayPriceIncreace,
                                             pictureAmount: item.pictureAmount,
+                                            templateID: item.templateID,
                                         });
                                         setFile({
                                             src: null,

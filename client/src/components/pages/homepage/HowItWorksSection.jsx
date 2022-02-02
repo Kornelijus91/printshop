@@ -83,7 +83,7 @@ const HowItWorksSection = () => {
                     
                     <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
                         <h2 className={classes.header}>Kaip tai veikia?</h2>
-                        <p className={classes.parag}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates eligendi, suscipit nostrum, voluptatem ab, quod voluptate ipsam libero magnam delectus architecto. Tempore illum nihil reprehenderit eligendi quibusdam itaque sed cum?</p>
+                        <p className={classes.parag}>Pasirinkite produktą  ir jo parametrus, Įkelkite, susikurkite arba užsakykite failą ir pasirinkę dominantį kiekį įdėkite produktą į krepšelį. Pasirinkite gamybos terminą ir pristatymo būdą. Apmokėjus užsakymą jis bus pradėtas gamintis.</p>
                     </Grid>
                 </Grid>
             </Box>

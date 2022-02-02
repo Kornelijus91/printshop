@@ -73,7 +73,7 @@ const ApieMusSection = () => {
                 <Grid container>
                     <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
                         <h2 className={classes.header}>Apie mus!</h2>
-                        <p className={classes.parag}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates eligendi, suscipit nostrum, voluptatem ab, quod voluptate ipsam libero magnam delectus architecto. Tempore illum nihil reprehenderit eligendi quibusdam itaque sed cum?</p>
+                        <p className={classes.parag}>Tavo Reklama tai naujas inovaryvus projektas kurio tikslas palengvinti ir pagreitinti visus procesus susijusius su spauda. Internetinė spaustuvė sukurta taupyti Jūsų laika ir pinigus, užsakykite ar sukurkite Jums reikalingus gaminius ir mes pasirūpinsime kad jie Jus pasiektu laiku.</p>
                     </Grid>
                     <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
                         <Hidden smDown implementation="css">

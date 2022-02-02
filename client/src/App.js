@@ -99,6 +99,7 @@ const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [token, setToken] = useState(false);
   const [username, setUsername] = useState("");
+  const [userid, setUserid] = useState("");
   const [firstName, setFirstName] = useState("");
   const [personalas, setPersonalas] = useState({
     personalas: false,
@@ -292,6 +293,7 @@ const App = () => {
       if (response.ok) {
         const data = await response.json()
         setToken(data.token);
+        setUserid(data.userid);
         setUsername(data.username);
         setFirstName(data.firstName);
         setMoneySpent(data.moneySpent);
@@ -502,6 +504,7 @@ const App = () => {
               token={token}
               kodoNuolaida={kodoNuolaida}
               findMaxDiscount={findMaxDiscount}
+              userid={userid}
             />
           </Route>
           <Route exact path="/contact">
