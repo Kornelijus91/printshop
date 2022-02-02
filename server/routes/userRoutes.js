@@ -291,6 +291,7 @@ router.post("/payForOrder", verifyUser, async (req, res, next) => {
 
 router.post("/getTemplates", async (req, res, next) => {
   try {
+    console.log('API KEY => ', process.env.PPRINT_API_KEY);
     const timestamp = Math.floor(new Date().getTime() / 1000);
     const request = await fetch('https://api.pitchprint.io/runtime/fetch-designs', {
       method: "POST",
