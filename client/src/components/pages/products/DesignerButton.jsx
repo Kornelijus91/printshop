@@ -70,7 +70,7 @@ const DesignerButton = ({ userid, productID, productName, setSelectTemplateModal
         });
         window.ppclient.on('app-validated', openApp);
         window.ppclient.on('project-saved', projectSaved);
-        // window.ppclient.on('after-close-app', clearSelectedTemplateId);
+        window.ppclient.on('after-close-app', appClosed);
         window.ppclient.on('editor-shown', clearSelectedTemplateId);
     };
 
@@ -95,6 +95,10 @@ const DesignerButton = ({ userid, productID, productName, setSelectTemplateModal
         setIsSubmitting(false);
         setSelectedTemplate('');
         setSelectTemplateModalOpen(false);
+    };
+
+    const appClosed = () => {
+        document.body.style.overflow = "auto";
     };
 
     
