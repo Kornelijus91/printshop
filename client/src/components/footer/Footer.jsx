@@ -265,13 +265,13 @@ const Footer = ({setModalOpen, setmodalView, loggedIn}) => {
                         <Box classes={{root: classes.section}}>
                             <h3 className={classes.text} style={{marginBottom: '1.5rem'}}>Sekite mus</h3>
                             <Box className={classes.linkBox}>
-                                <a href="/" className={classes.facebook} target="_blank">facebook</a>
+                                <a href="https://www.facebook.com/TauroReklama" className={classes.facebook} target="_blank" rel="noreferrer">facebook</a>
                             </Box>
                             <Box className={classes.linkBox}>
-                                <a href="/" className={classes.link} target="_blank"><EtsyLogo className={classes.etsy}/></a>
+                                <a href="https://www.etsy.com/shop/25page" className={classes.link} target="_blank" rel="noreferrer"><EtsyLogo className={classes.etsy}/></a>
                             </Box>
                             <Box className={classes.linkBox} display='flex' justifyContent='flex-start'>
-                                <a href="/" className={classes.link} target="_blank"><LinkedInLogo className={classes.linkedIn}/></a>
+                                <a href="https://www.linkedin.com/company/tavoreklama" className={classes.link} target="_blank" rel="noreferrer"><LinkedInLogo className={classes.linkedIn}/></a>
                             </Box>
                         </Box>
                     </Grid>

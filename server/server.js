@@ -169,7 +169,7 @@ cron.schedule('0 0 4 * * *', async () => {
                                 oitm.status = 'Atšauktas';
                             }
 
-                            Order.updateMany({'cartItems._id': citm._id}, {'$set': {
+                            Order.updateMany({'cartItems._id': citm._id, 'cartItems.projectId': ''}, {'$set': {
                                 'cartItems.$.image': '',
                             }}).exec();
                             citm.deleteOne();
