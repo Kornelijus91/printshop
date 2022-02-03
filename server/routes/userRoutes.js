@@ -671,7 +671,7 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
                     itm.PVMSaskaitaFaktura = PVMSask;
                     User.findById(itm.clientID, function (err, selectedUser) {
                       if (!err && selectedUser) {
-                        selectedUser.moneySpent = selectedUser.moneySpent + order.discountPrice;
+                        selectedUser.moneySpent = selectedUser.moneySpent + itm.discountPrice;
                         selectedUser.save();
                       }
                     });
@@ -902,7 +902,7 @@ router.post("/createOrder", async (req, res, next) => {
                     itm.PVMSaskaitaFaktura = PVMSask;
                     User.findById(itm.clientID, function (err, selectedUser) {
                       if (!err && selectedUser) {
-                        selectedUser.moneySpent = selectedUser.moneySpent + order.discountPrice;
+                        selectedUser.moneySpent = selectedUser.moneySpent + itm.discountPrice;
                         selectedUser.save();
                       }
                     });
