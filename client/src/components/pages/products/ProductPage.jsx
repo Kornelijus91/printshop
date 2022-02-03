@@ -11,7 +11,7 @@ import NumberOption from './NumberOption.jsx';
 import PictureOption from './PictureOption.jsx'
 import SelectOption from './SelectOption.jsx';
 import { AiOutlineCloudUpload } from "react-icons/ai";
-import { FaExchangeAlt, FaShoppingCart, FaPaintBrush } from "react-icons/fa";
+import { FaExchangeAlt, FaShoppingCart, FaPaintBrush, FaTrashAlt } from "react-icons/fa";
 import ProductSkeleton from './ProductSkeleton.jsx';
 import axios from "axios";
 import ProductAddedModal from './ProductAddedModal.jsx';
@@ -19,6 +19,7 @@ import MaketavimoKaina from './MaketavimoKaina';
 import Comments from './Comments'
 import Galery from './Galery'
 import SelectTemplateModal from './SelectTemplateModal'
+import EditDesignButtom from './EditDesignButtom.jsx';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -320,13 +321,13 @@ const useStyles = makeStyles((theme) => ({
     },
     image: {
         width: '100%',
-        maxHeight: '30rem',
-        objectFit: 'contain',
+        maxHeight: '14rem',
+        objectFit: 'cover',
         [theme.breakpoints.up('xxl')]: {
-            maxHeight: '45rem',
+            maxHeight: '18.9rem',
         },
         [theme.breakpoints.up('xxxl')]: {
-            maxHeight: '60rem',
+            maxHeight: '28rem',
         },
     },
     pdf: {
@@ -543,7 +544,9 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
         URL: '',
         type: '',
         size: 0,
-        name: ''
+        name: '',
+        projectPreviewArray: [],
+        projectId: ''
     });
     const [snackbar, setSnackbar] = useState('');
     const [kiekis, setKiekis] = useState(1);
@@ -562,6 +565,7 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
         discount: 0
     });
     const [selectTemplateModalOpen, setSelectTemplateModalOpen] = useState(false);
+    const [selectedTemplate, setSelectedTemplate] = useState('');
 
     const resetEverything = () => {
         setPastaba('');
@@ -570,7 +574,9 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
             URL: '',
             type: '',
             size: 0,
-            name: ''
+            name: '',
+            projectPreviewArray: [],
+            projectId: ''
         });
         setUnitPrice({
             price: 0,
@@ -656,6 +662,8 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                 type: imagefile.type,
                 size: imagefile.size,
                 name: imagefile.name,
+                projectPreviewArray: [],
+                projectId: ''
             });
         } 
     };
@@ -676,6 +684,8 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
             } else if (file.URL) {
                 formData.append('imageURL', file.URL);
             }
+            formData.append('projectPreviewArray', JSON.stringify(file.projectPreviewArray));
+            formData.append('projectId', file.projectId);
             formData.append('name', product.name);
             formData.append('productID', product._id);
             formData.append('productLink', product.link);
@@ -762,7 +772,9 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                         URL: response.data.image,
                         type: imgType2 === 'pdf' ? 'application/pdf': `image/${imgType2}`,
                         size: 0,
-                        name: ''
+                        name: '',
+                        projectPreviewArray: response.data.projectPreviewArray,
+                        projectId: response.data.projectId,
                     });
                     var min3 = result.amountDiscount;
                     if (min3) {
@@ -889,7 +901,9 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                             URL: cartItem.image,
                             type: imgType === 'pdf' ? 'application/pdf': `image/${imgType}`,
                             size: 0,
-                            name: ''
+                            name: '',
+                            projectPreviewArray: cartItem.projectPreviewArray,
+                            projectId: cartItem.projectId
                         });
                         var min2 = result.amountDiscount;
                         if (min2) {
@@ -988,6 +1002,8 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                 <SelectTemplateModal 
                     selectTemplateModalOpen={selectTemplateModalOpen}
                     setSelectTemplateModalOpen={setSelectTemplateModalOpen}
+                    selectedTemplate={selectedTemplate}
+                    setSelectedTemplate={setSelectedTemplate}
                     userid={userid}
                     productID={product._id}
                     productName={product.name}
@@ -1186,16 +1202,32 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                                     <Box style={{width: '100%'}}>
                                         <Box>
                                             { file.URL ? 
-                                                <Box>
-                                                    {/* {!imgLoaded && <Skeleton variant="rect" classes={{root: classes.skeleton}}/>}
-                                                    onLoad={() => setImgLoaded(true)}
-                                                    onLoad={() => setImgLoaded(true)} */}
-                                                    {file.type === 'application/pdf' ? 
-                                                        <embed src={`${file.URL}#toolbar=0&navpanes=0&scrollbar=0`} className={classes.pdf} /> 
-                                                    : 
-                                                        <img className={classes.image} src={file.URL} alt=""/>
+                                                <>
+                                                    { file.projectPreviewArray.length > 0 ? 
+                                                        <>
+                                                            {file.projectPreviewArray.map((prieviewPic) => 
+                                                                <Box>
+                                                                    {file.type === 'application/pdf' ? 
+                                                                        <embed src={`${file.URL}#toolbar=0&navpanes=0&scrollbar=0`} className={classes.pdf} /> 
+                                                                    : 
+                                                                        <img className={classes.image} src={`${prieviewPic}?${+ new Date().getTime()}`} alt=""/>
+                                                                    }
+                                                                </Box>
+                                                            )}
+                                                        </>
+                                                    :
+                                                        <Box>
+                                                            {/* {!imgLoaded && <Skeleton variant="rect" classes={{root: classes.skeleton}}/>}
+                                                            onLoad={() => setImgLoaded(true)}
+                                                            onLoad={() => setImgLoaded(true)} */}
+                                                            {file.type === 'application/pdf' ? 
+                                                                <embed src={`${file.URL}#toolbar=0&navpanes=0&scrollbar=0`} className={classes.pdf} /> 
+                                                            : 
+                                                                <img className={classes.image} src={file.URL} alt=""/>
+                                                            }
+                                                        </Box>
                                                     }
-                                                </Box>
+                                                </>
                                             :
                                                 <p className={classes.pictureText}>
                                                     Priimame visus paveikslėlių failo formatus ir PDF formatą. Rekomenduojame PDF formatą. Jeigu gaminys turi daugiau negu vieną paveikslėlį, paruoškite failą PDF formatu. Abu paveikslėliai turi būti pateikti viename PDF faile. Maksimalus failo dydis 100MB.
@@ -1204,17 +1236,81 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                                         </Box>
                                         <Box>     
                                             {file.URL ?
-                                                <label htmlFor="upload_product_icon">
-                                                    <Button variant="contained" color="primary" component="span" classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} startIcon={<FaExchangeAlt size={17} className={classes.icon}/>}>
-                                                        Pakeisti
-                                                    </Button>
-                                                </label>
+                                                <>
+                                                    {file.projectId !== '' ?
+                                                        <>
+                                                            <EditDesignButtom 
+                                                                userid={userid}
+                                                                productID={product._id}
+                                                                productName={product.name}
+                                                                file={file}
+                                                                setFile={setFile}
+                                                            />
+                                                            <Button 
+                                                                variant="contained" 
+                                                                color="primary" 
+                                                                component="span" 
+                                                                classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} 
+                                                                startIcon={<FaTrashAlt size={17} className={classes.icon}/>}
+                                                                onClick={() => setFile({
+                                                                    src: null,
+                                                                    URL: '',
+                                                                    type: '',
+                                                                    size: 0,
+                                                                    name: '',
+                                                                    projectPreviewArray: [],
+                                                                    projectId: ''
+                                                                })}
+                                                            >
+                                                                Trinti
+                                                            </Button>
+                                                        </>
+                                                    :
+                                                        <>
+                                                            <label htmlFor="upload_product_icon">
+                                                                <Button variant="contained" color="primary" component="span" classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} startIcon={<FaExchangeAlt size={17} className={classes.icon}/>}>
+                                                                    Pakeisti
+                                                                </Button>
+                                                            </label>
+                                                            <Button 
+                                                                variant="contained" 
+                                                                color="primary" 
+                                                                component="span" 
+                                                                classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} 
+                                                                startIcon={<FaTrashAlt size={17} className={classes.icon}/>}
+                                                                onClick={() => setFile({
+                                                                    src: null,
+                                                                    URL: '',
+                                                                    type: '',
+                                                                    size: 0,
+                                                                    name: '',
+                                                                    projectPreviewArray: [],
+                                                                    projectId: ''
+                                                                })}
+                                                            >
+                                                                Trinti
+                                                            </Button>
+                                                        </>
+                                                    }
+                                                </>
+                                                
                                             : 
-                                                <label htmlFor="upload_product_icon">
-                                                    <Button variant="contained" color="primary" component="span" classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} startIcon={<AiOutlineCloudUpload size={27} className={classes.icon}/>}>
-                                                        Įkelti
+                                                <>
+                                                    <label htmlFor="upload_product_icon">
+                                                        <Button variant="contained" color="primary" component="span" classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} startIcon={<AiOutlineCloudUpload size={27} className={classes.icon}/>}>
+                                                            Įkelti
+                                                        </Button>
+                                                    </label>
+                                                    <Button 
+                                                        variant="contained" 
+                                                        color="primary" component="span" 
+                                                        classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} 
+                                                        startIcon={<FaPaintBrush size={20} className={classes.icon}/>}
+                                                        onClick={() => setSelectTemplateModalOpen(true)}
+                                                    >
+                                                        Kurti dizainą
                                                     </Button>
-                                                </label>
+                                                </>
                                             }
                                             <input
                                                 type="file" 
@@ -1225,17 +1321,6 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                                                 onChange={handleFile}
                                             />
                                         </Box>
-                                       
-                                        <Button 
-                                            variant="contained" 
-                                            color="primary" component="span" 
-                                            classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} 
-                                            startIcon={<FaPaintBrush size={20} className={classes.icon}/>}
-                                            onClick={() => setSelectTemplateModalOpen(true)}
-                                        >
-                                            Kurti dizainą
-                                        </Button>
-                                       
                                     </Box>
                                     <Hidden smDown>
                                         <Divider orientation="vertical" flexItem classes={{root: classes.divider2}}/>

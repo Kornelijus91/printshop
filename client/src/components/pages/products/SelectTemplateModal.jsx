@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, CircularProgress, Grid, Card, CardContent } from '@material-ui/core';
+import { Box, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, CircularProgress, Grid, Card, CardContent, CardMedia } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles'; // useTheme
 import DesignerButton from './DesignerButton';
@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '99.5vw',
-        maxHeight: '99vw',
+        maxHeight: '90vh',
         [theme.breakpoints.up('lg')]: {
             width: '70vw',
         },
@@ -144,16 +144,41 @@ const useStyles = makeStyles((theme) => ({
         },
 
     },
+    media: {
+        height: 140,
+        [theme.breakpoints.up('xxl')]: {
+            height: 185,
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            height: 280,
+        },
+        // width: '100%'
+    },
+    CardContentParent: {
+        width: '100%',
+        // height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    CardContentPicBox: {
+        width: '100%',
+        // height: '100%',
+    },
+    CardContentTitleBox: {
+        width: '100%',
+        // height: '100%',
+    },
 }));
 
-const SelectTemplateModal = ({ selectTemplateModalOpen, setSelectTemplateModalOpen, userid, productID, productName, productTemplateID, setFile }) => {
+const SelectTemplateModal = ({ selectedTemplate, setSelectedTemplate, selectTemplateModalOpen, setSelectTemplateModalOpen, userid, productID, productName, productTemplateID, setFile }) => {
 
     const classes = useStyles();
     // const theme = useTheme();
 
     const [fetching, setFetching] = useState(false);
     const [templates, setTemplates] = useState([]);
-    const [selectedTemplate, setSelectedTemplate] = useState('');
 
     const handleClose = () => {
         setSelectTemplateModalOpen(false);
@@ -233,13 +258,27 @@ const SelectTemplateModal = ({ selectTemplateModalOpen, setSelectTemplateModalOp
                                                 className={selectedTemplate === item.id ? classes.templateCardSelected : classes.templateCard} 
                                                 onClick={() => setSelectedTemplate(item.id)}
                                             >
+                                                <CardMedia 
+                                                    className={classes.media}
+                                                    image={`${item.previews[0]}`}
+                                                    title={`${item.title}`}
+                                                />
                                                 <CardContent classes={{root: classes.cardContent}}>
-                                                    <Box>
-                                                        <Box display="flex" justifyContent='center' alignItems='center' style={{height: '100%', width: '100%'}}>
-                                                            <img src={item.previews[0]} alt={item.title} className={classes.img} />
+                                                    {/* <Box classes={{root: classes.CardContentParent}}> 
+                                                        <Box classes={{root: classes.CardContentPicBox}}>
+                                                            <Box>
+                                                                <img src={item.previews[0]} alt={item.title} className={classes.img} />
+                                                            </Box>
                                                         </Box>
-                                                        <p className={classes.cardText}>{item.title}</p>
-                                                    </Box>
+                                                        <Box classes={{root: classes.CardContentTitleBox}}>
+                                                            <Box>
+                                                                <p className={classes.cardText}>{item.title}</p>
+                                                            </Box>
+                                                        </Box>
+                                                    </Box> */}
+
+                                                    <p className={classes.cardText}>{item.title}</p>
+
                                                 </CardContent>
                                             </Card>
                                         </Grid>

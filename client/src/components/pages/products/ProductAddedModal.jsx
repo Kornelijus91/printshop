@@ -294,7 +294,15 @@ const ProductAddedModal = ({ appliedDiscount, papildomaMaketavimoKaina, getDisco
                                                 {file.type === 'application/pdf' ? 
                                                     <embed src={`${file.URL}#toolbar=0&navpanes=0&scrollbar=0`} className={classes.pdf} />
                                                 : 
-                                                    <img className={classes.image} src={file.URL} alt=""/>
+                                                    <img 
+                                                        className={classes.image} 
+                                                        src={file.projectId !== '' ?
+                                                            `${file.URL}?${+ new Date().getTime()}`
+                                                            :
+                                                            file.URL
+                                                        } 
+                                                        alt=""
+                                                    />
                                                 }
                                             </Box>
                                         :

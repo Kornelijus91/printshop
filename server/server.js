@@ -320,14 +320,15 @@ app.get('/products', (req, res, next) => {
     });
 });
 
-app.get('/products/*', (req, res, next) => {
+app.get('/products/:productName/*', (req, res, next) => {
     const indexPath  = path.resolve(__dirname, '../client/build', 'index.html')
     fs.readFile(indexPath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error during file reading', err);
             return res.status(404).end()
         }
-        const pos = prodinfo.map(function(e) { return e.name; }).indexOf(req.params[0]);
+        const pos = prodinfo.map(function(e) { return e.name; }).indexOf(req.params.productName);
+        
         data = data.replace(
             "<title>__TITLE__</title>",
             `<title>${prodinfo[pos].name} | ${process.env.PROJECTTITLE}</title>`

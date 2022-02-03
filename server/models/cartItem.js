@@ -26,6 +26,14 @@ const CartItem = new Schema({
         type: String,
         default: "",
     },
+    projectPreviewArray: {
+        type: Array,
+        default: [],
+    },
+    projectId: {
+        type: String,
+        default: "",
+    },
     quantity: {
         type: Number,
         default: 1,

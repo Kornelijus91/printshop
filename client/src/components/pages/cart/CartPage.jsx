@@ -715,7 +715,7 @@ const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, k
                                                 {item.image.substring(item.image.lastIndexOf(".")) === '.pdf' ? 
                                                 <embed src={`${item.image}#toolbar=0&navpanes=0&scrollbar=0`} className={classes.pdf} /> //onLoad={() => imageLoadedSet(index)}
                                             : 
-                                                <img className={classes.image} src={item.image} alt="" /> //onLoad={() => imageLoadedSet(index)}
+                                                <img className={classes.image} src={`${item.image}?${+ new Date().getTime()}`} alt="" /> //onLoad={() => imageLoadedSet(index)}
                                             }
                                         </Box>
                                     :

@@ -1,24 +1,23 @@
 import { Button, CircularProgress } from '@material-ui/core'; 
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { FaPaintBrush } from "react-icons/fa";
 
 const useStyles = makeStyles((theme) => ({
     uploadButton: {
-        width: '14rem',
+        width: '100%',
         backgroundColor: theme.myTheme.pirma,
         fontFamily: theme.myTheme.sriftas,
-       
+        
         color: theme.myTheme.trecia,
         [theme.breakpoints.up('xxl')]: {
-            
-            width: '18.5rem',
+           
             height: '3.375rem',
             borderRadius: '7px',
             fontSize: '1.2rem',
         },
         [theme.breakpoints.up('xxxl')]: {
             
-            width: '28rem',
             height: '5rem',
             borderRadius: '9px',
             fontSize: '1.8rem',
@@ -37,15 +36,27 @@ const useStyles = makeStyles((theme) => ({
             transform: 'scale(2)'
         },
     },
+    icon: {
+        color: theme.myTheme.trecia,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.35)',
+            marginRight: '1rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+            marginRight: '1.5rem'
+        },
+    },
 }));
 
-const DesignerButton = ({ userid, productID, productName, setSelectTemplateModalOpen, selectedTemplate, setSelectedTemplate, setFile }) => {
+const EditDesignButtom = ({ userid, productID, productName, file, setFile }) => {
 
     const classes = useStyles();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const openApp = () => {
+       
         window.ppclient.showApp();	
     };
 
@@ -53,9 +64,10 @@ const DesignerButton = ({ userid, productID, productName, setSelectTemplateModal
         setIsSubmitting(true);
         /* eslint-disable-next-line */
         window.ppclient = new PitchPrintClient({
-            apiKey: 'key_b81eacdf1beec537a9ad736dca46a35b',		//Kinldy provide your own APIKey
-            designId: selectedTemplate, 
-            // projectId: file.projectId !== '' ? file.projectId : null,
+            apiKey: 'key_b81eacdf1beec537a9ad736dca46a35b',		
+            // designId: selectedTemplate, 
+            projectId: file.projectId,
+            mode: 'edit',
             custom: true,
             product: {
                 id: productID, 
@@ -72,8 +84,10 @@ const DesignerButton = ({ userid, productID, productName, setSelectTemplateModal
     };
 
     var projectSaved = (_val) => {
-        let _data = _val.data;									
-        
+        let _data = _val.data;	
+        console.log('REDAGUOTI SAVED !!!');								
+        console.log(_val);
+        console.log('PREVIEW LINK', _data.previews[0])
         setFile({
             src: null,
             URL: _data.previews[0],
@@ -87,8 +101,6 @@ const DesignerButton = ({ userid, productID, productName, setSelectTemplateModal
 
     const clearSelectedTemplateId = () => {
         setIsSubmitting(false);
-        setSelectedTemplate('');
-        setSelectTemplateModalOpen(false);
     };
 
     const appClosed = () => {
@@ -103,12 +115,13 @@ const DesignerButton = ({ userid, productID, productName, setSelectTemplateModal
             component="span"
             classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} 
             onClick={() => validateApp()}
-            disabled={selectedTemplate === ''}
+            disabled={file.projectId === ''}
+            startIcon={<FaPaintBrush size={20} className={classes.icon}/>}
         >
-            {isSubmitting ? <CircularProgress size={20} className={classes.spinner}/> : "Kurti dizainą" }
+            {isSubmitting ? <CircularProgress size={20} className={classes.spinner}/> : "Redaguoti dizainą" }
         </Button>
 
     </div>;
 };
 
-export default DesignerButton;
+export default EditDesignButtom;

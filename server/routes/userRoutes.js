@@ -214,6 +214,12 @@ router.get("/handlePayment", async (req, res, next) => {
                 }
               });
             }
+            User.findById(order.clientID, function (err, selectedUser) {
+              if (!err && selectedUser) {
+                selectedUser.moneySpent = selectedUser.moneySpent + order.discountPrice;
+                selectedUser.save();
+              }
+            });
             order.save();
           } else if (err) {
             console.log(err);
@@ -238,9 +244,7 @@ router.get("/handlePayment", async (req, res, next) => {
     } catch (error) {
       console.log(error);
     }
-  } else {
-    console.log('PAYSERA REQUEST NOT VALID!!!');
-  }
+  } 
 });
 
 router.post("/payForOrder", verifyUser, async (req, res, next) => {
@@ -272,6 +276,12 @@ router.post("/payForOrder", verifyUser, async (req, res, next) => {
             order.payment = req.body.selectedPayment;
           }
           if (req.body.selectedPayment === 'cash') {
+            User.findById(order.clientID, function (err, selectedUser) {
+              if (!err && selectedUser) {
+                selectedUser.moneySpent = selectedUser.moneySpent + order.discountPrice;
+                selectedUser.save();
+              }
+            });
             order.status = 'Apmokėtas';
           }
           order.save();
@@ -605,8 +615,9 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         options: item.options,
         pastaba: item.pastaba,
         image: item.image,
+        projectPreviewArray: item.projectPreviewArray,
+        projectId: item.projectId,
         quantity: item.quantity,
-        // gamybosLaikas: item.gamybosLaikas,
         oneDayLimit: item.oneDayLimit,
         twoDayLimit: item.twoDayLimit,
         oneDayPriceIncreace: item.oneDayPriceIncreace,
@@ -615,13 +626,10 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         _id: item._id,
         modifiedAt: item.modifiedAt,
         createdAt: item.createdAt,
-        // price: itemPrices[0],
-        // discountedPrice: itemPrices[1],
         price: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost + item.maketavimoKaina),
         discountedPrice: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost * (1 - (maxDiscount / 100)) + item.maketavimoKaina),
         unitPrice: itemPrices[2],
         discount: discountUsed,
-        // panaudotaNuolaida: discountUsed.name,
       };
       cart.push(cartItemWithPrices);
     };
@@ -661,6 +669,12 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
                   if (req.body.selectedPaymentMethod === 'cash') {
                     const PVMSask = await generatePVMInvoice(itm);
                     itm.PVMSaskaitaFaktura = PVMSask;
+                    User.findById(itm.clientID, function (err, selectedUser) {
+                      if (!err && selectedUser) {
+                        selectedUser.moneySpent = selectedUser.moneySpent + order.discountPrice;
+                        selectedUser.save();
+                      }
+                    });
                   }
                   itm.save();
                   sendThanksEmail(req.body.delivery.email, isankstineSask);
@@ -832,8 +846,9 @@ router.post("/createOrder", async (req, res, next) => {
         options: item.options,
         pastaba: item.pastaba,
         image: item.image,
+        projectPreviewArray: item.projectPreviewArray,
+        projectId: item.projectId,
         quantity: item.quantity,
-        // gamybosLaikas: item.gamybosLaikas,
         oneDayLimit: item.oneDayLimit,
         twoDayLimit: item.twoDayLimit,
         oneDayPriceIncreace: item.oneDayPriceIncreace,
@@ -842,13 +857,10 @@ router.post("/createOrder", async (req, res, next) => {
         _id: item._id,
         modifiedAt: item.modifiedAt,
         createdAt: item.createdAt,
-        // price: itemPrices[0],
-        // discountedPrice: itemPrices[1],
         price: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost + item.maketavimoKaina),
         discountedPrice: roundTwoDec(roundTwoDec(itemPrices[2] * item.quantity) * productionCost * (1 - (maxDiscount / 100)) + item.maketavimoKaina),
         unitPrice: itemPrices[2],
         discount: discountUsed,
-        // panaudotaNuolaida: discountUsed.name,
       };
       cart.push(cartItemWithPrices);
     };
@@ -888,6 +900,12 @@ router.post("/createOrder", async (req, res, next) => {
                   if (req.body.selectedPaymentMethod === 'cash') {
                     const PVMSask = await generatePVMInvoice(itm);
                     itm.PVMSaskaitaFaktura = PVMSask;
+                    User.findById(itm.clientID, function (err, selectedUser) {
+                      if (!err && selectedUser) {
+                        selectedUser.moneySpent = selectedUser.moneySpent + order.discountPrice;
+                        selectedUser.save();
+                      }
+                    });
                   }
                   itm.save();
                   sendThanksEmail(req.body.delivery.email, isankstineSask);
@@ -993,6 +1011,8 @@ router.post("/getCart", async (req, res, next) => {
         options: item.options,
         pastaba: item.pastaba,
         image: item.image,
+        projectPreviewArray: item.projectPreviewArray,
+        projectId: item.projectId,
         quantity: item.quantity,
         oneDayLimit: item.oneDayLimit,
         twoDayLimit: item.twoDayLimit,
@@ -1050,6 +1070,7 @@ router.post("/addToCart", upload.single("image"), async (req, res, next) => {
     const url = process.env.MAIN_URL;
     try {
         const OptionsArray = JSON.parse(req.body.options);
+        const ProjectPreviewArray = JSON.parse(req.body.projectPreviewArray);
         let OptionsConstructor = []
         
         for (const item of OptionsArray) {
@@ -1188,6 +1209,8 @@ router.post("/addToCart", upload.single("image"), async (req, res, next) => {
                   productLink: product.link,
                   options: OptionsConstructor,
                   pastaba: req.body.pastaba,
+                  projectPreviewArray: ProjectPreviewArray,
+                  projectId: req.body.projectId,
                   quantity: Number(req.body.quantity),
                   oneDayLimit: product.oneDayLimit,
                   twoDayLimit: product.twoDayLimit,
@@ -1224,6 +1247,8 @@ router.post("/addToCart", upload.single("image"), async (req, res, next) => {
                   }
                   item.options = OptionsConstructor;
                   item.pastaba = req.body.pastaba;
+                  item.projectPreviewArray = ProjectPreviewArray;
+                  item.projectId = req.body.projectId;
                   item.quantity = Number(req.body.quantity);
                   // item.gamybosLaikas = req.body.gamybosLaikas;
                   item.image = image;

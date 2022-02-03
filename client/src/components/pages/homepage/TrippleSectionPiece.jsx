@@ -53,15 +53,15 @@ const useStyles = makeStyles((theme) => ({
     parag: {
         margin: '0 0 1em 0',
         padding: '0',
-        fontSize: '1.2rem',
-        fontWeight: 'bold',
+        fontSize: '1.1rem',
+        // fontWeight: 'bold',
         textAlign: 'justify',
         textJustify: 'inter-word',
         [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.6rem',
+            fontSize: '1.474rem',
         },
         [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
+            fontSize: '2.2rem',
         },
     },
 }));
