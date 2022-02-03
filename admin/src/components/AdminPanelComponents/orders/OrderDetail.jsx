@@ -571,20 +571,31 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                                         }
                                     </Grid>
                                     <Grid item xl={4} lg={4} md={4} sm={12} xs={12} className={classes.accDetGridItem}>
-                                        <Button 
-                                            component='a'
-                                            href={item.projectId !== '' ?
-                                                `https://pdf.pitchprint.com/${item.projectId}`
-                                                :
-                                                item.image
-                                            } 
-                                            download 
-                                            disabled={item.image === '' || item.image === null || !item.image }
-                                            classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }}
-                                            startIcon={<FaRegImage size={20} className={classes.icon}/>}
-                                        >
-                                            Parsisiusti
-                                        </Button>
+                                        {item.projectId !== '' ?
+                                            <Button 
+                                                component='a'
+                                                href={`https://pdf.pitchprint.com/${item.projectId}`}
+                                                target="_blank" 
+                                                rel="noreferrer"
+                                                // download 
+                                                disabled={item.image === '' || item.image === null || !item.image }
+                                                classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }}
+                                                startIcon={<FaRegImage size={20} className={classes.icon}/>}
+                                            >
+                                                Parsisiusti
+                                            </Button>
+                                        :
+                                            <Button 
+                                                component='a'
+                                                href={item.image} 
+                                                download 
+                                                disabled={item.image === '' || item.image === null || !item.image }
+                                                classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }}
+                                                startIcon={<FaRegImage size={20} className={classes.icon}/>}
+                                            >
+                                                Parsisiusti
+                                            </Button>
+                                        }
                                     </Grid>
                                 </Grid>
                             </AccordionDetails>
