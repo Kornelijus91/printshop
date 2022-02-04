@@ -371,6 +371,28 @@ app.get('/sitemap.xml', function(req, res) {
         const smStream = new SitemapStream({ hostname: process.env.MAIN_URL })
         const pipeline = smStream.pipe(createGzip())
 
+        smStream.write({ 
+            url: process.env.MAIN_URL,  
+            changefreq: 'weekly', 
+            priority: 1,
+            img: {
+                url: process.env.PROJECTIMAGE,
+                title: process.env.PROJECTTITLE,
+                caption: 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!',
+            } 
+        })
+
+        smStream.write({ 
+            url: `${process.env.MAIN_URL}/products`,
+            changefreq: 'weekly', 
+            priority: 0.8,
+            img: {
+                url: process.env.PROJECTIMAGE,
+                title: process.env.PROJECTTITLE,
+                caption: 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!',
+            } 
+        })
+
         for (const product of prodinfo) {
             // console.log(product);
             smStream.write({ 
