@@ -200,14 +200,19 @@ const useStyles = makeStyles((theme) => ({
   },
   sideHr: {
     width: '30%',
+    borderTop: '1px solid rgba(29, 53, 87, 0.7)',
+    [theme.breakpoints.up('xxxl')]:{
+      borderTop: '2px solid rgba(29, 53, 87, 0.7)',
+    },
   },
   hr: {
     width: '100%',
+    borderTop: '1px solid rgba(29, 53, 87, 0.7)',
     [theme.breakpoints.up('xxl')]:{
       marginBottom: '1rem'
     },
     [theme.breakpoints.up('xxxl')]:{
-      marginBottom: '1.5rem'
+      borderTop: '2px solid rgba(29, 53, 87, 0.7)',
     },
   },
   greitasprisijungimasBox: {

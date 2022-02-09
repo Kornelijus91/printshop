@@ -149,7 +149,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const UserOrders = ({ userId, setSnackbar, token, getOrders, ordersPage, setView, setOrdersView, setOrder, orderFilter }) => {
+const UserOrders = ({ username, setSnackbar, token, getOrders, ordersPage, setView, setOrdersView, setOrder, orderFilter }) => {
 
     const classes = useStyles();
 
@@ -207,7 +207,7 @@ const UserOrders = ({ userId, setSnackbar, token, getOrders, ordersPage, setView
                 },
                 body: JSON.stringify({
                     page: page,
-                    userId: userId,
+                    username: username,
                 }),
             });
             const getOrdersResponse = await getOrdersRequest.json();

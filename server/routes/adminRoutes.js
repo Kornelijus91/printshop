@@ -179,7 +179,7 @@ router.post("/makeNotNew", verifyUser, async (req, res, next) => {
 router.post("/getUserOrders", verifyUser, async (req, res, next) => {
     if (req.user.personalas || req.user.administracija) {
         try {
-            Order.paginate({clientID: req.body.userId}, {
+            Order.paginate({clientUsername: req.body.username}, {
                 page: req.body.page,
                 limit: 7,
                 sort: { createdAt: -1 },

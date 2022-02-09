@@ -336,7 +336,7 @@ const AccountModal = ({ setPaymentModal, orderFilter, accountModalOpen, setAccou
                                                     <p className={classes.paragraph}>Išleista pinigų:</p>
                                                 </Grid>
                                                 <Grid item xl={8} lg={8} md={8} sm={8} xs={11}>
-                                                    <p className={classes.paragraph}>{accountModalInfo.moneySpent && accountModalInfo.moneySpent} €</p>
+                                                    <p className={classes.paragraph}>{accountModalInfo.moneySpent && (accountModalInfo.moneySpent).toFixed(2)} €</p>
                                                 </Grid>
                                             </Grid>
                                         </Box>
@@ -413,7 +413,7 @@ const AccountModal = ({ setPaymentModal, orderFilter, accountModalOpen, setAccou
                     <Box>
                     {
                         {
-                            "Užsakymai": <UserOrders userId={accountModalInfo.userId} setSnackbar={setSnackbar} token={token} getOrders={getOrders} ordersPage={ordersPage} setView={setView} setOrdersView={setOrdersView} setOrder={setOrder} orderFilter={orderFilter}/>, 
+                            "Užsakymai": <UserOrders username={accountModalInfo.username} setSnackbar={setSnackbar} token={token} getOrders={getOrders} ordersPage={ordersPage} setView={setView} setOrdersView={setOrdersView} setOrder={setOrder} orderFilter={orderFilter}/>, 
                             "Mokėjimai": <UserPayments setSnackbar={setSnackbar} token={token} username={accountModalInfo.username} setPaymentModal={setPaymentModal}/>,     
                             "Adresai": <UserAddresses userId={accountModalInfo.userId} setSnackbar={setSnackbar} token={token}/>,
                         }[tab]

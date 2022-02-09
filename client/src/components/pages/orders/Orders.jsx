@@ -567,7 +567,7 @@ const Orders = ({ token, loggedIn }) => {
                                     
                                     <Box classes={{root: classes.cartitms}}>
                                         <h2 className={classes.header}>{`${cartItem.name} x${cartItem.quantity}`}</h2>
-                                        {cartItem.image !== '' && cartItem.productLink &&
+                                        {cartItem.image !== '' && cartItem.productLink && order.status === 'Įvykdytas' &&
                                             <Button 
                                                 classes={{root: classes.Button, label: classes.ButtonLabel, disabled: classes.ButtonDisabled }}  
                                                 onClick={() => orderAgain(cartItem.productLink, cartItem._id)}     
