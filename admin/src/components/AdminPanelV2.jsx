@@ -976,7 +976,10 @@ function ResponsiveDrawer(props) {
                                                         boxShadow: '0 5px 0 0 #1D3557'
                                                     }
                                             }
-                                            onClick={() => setOrderFilter('Visi')}
+                                            onClick={() => {
+                                                setOrdersPage(1);
+                                                setOrderFilter('Visi')
+                                            }}
                                         >
                                             Visi
                                         </Button>
@@ -992,7 +995,10 @@ function ResponsiveDrawer(props) {
                                                         boxShadow: '0 5px 0 0 #1D3557'
                                                     }
                                             }
-                                            onClick={() => setOrderFilter('Apmokėti')}
+                                            onClick={() => {
+                                                setOrdersPage(1);
+                                                setOrderFilter('Apmokėti')
+                                            }}
                                         >
                                             Apmokėti
                                         </Button>
@@ -1008,7 +1014,10 @@ function ResponsiveDrawer(props) {
                                                         boxShadow: '0 5px 0 0 #1D3557'
                                                     }
                                             }
-                                            onClick={() => setOrderFilter('Įvykdyti')}
+                                            onClick={() =>{ 
+                                                setOrdersPage(1);
+                                                setOrderFilter('Įvykdyti')
+                                            }}
                                         >
                                             Įvykdyti
                                         </Button>
@@ -1024,7 +1033,10 @@ function ResponsiveDrawer(props) {
                                                         boxShadow: '0 5px 0 0 #1D3557'
                                                     }
                                             }
-                                            onClick={() => setOrderFilter('Pateikti')}
+                                            onClick={() => {
+                                                setOrdersPage(1);
+                                                setOrderFilter('Pateikti')
+                                            }}
                                         >
                                             Pateikti
                                         </Button>
@@ -1040,7 +1052,10 @@ function ResponsiveDrawer(props) {
                                                         boxShadow: '0 5px 0 0 #1D3557'
                                                     }
                                             }
-                                            onClick={() => setOrderFilter('Atšaukti')}
+                                            onClick={() => {
+                                                setOrdersPage(1);
+                                                setOrderFilter('Atšaukti')
+                                            }}
                                         >
                                             Atšaukti
                                         </Button>
