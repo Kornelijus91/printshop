@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: '#0d1726',
         },
         [theme.breakpoints.up('md')]: {
-            maxWidth: '99%',
+            maxWidth: '98.5%',
         },
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '10px',

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     carouselContent: {
         width: '100%',
+        maxWidth: '3840px',
         position: 'absolute',
         [theme.breakpoints.up('md')]: {
             width: '80%',

@@ -418,7 +418,12 @@ const App = () => {
   }, [cart]);
 
   return (
-    <div style={{width: '100%'}}>
+    <div style={{
+      width: '100%',
+      maxWidth: '3840px',
+      margin: '0 auto',
+      backgroundColor: 'pink',
+    }}>
       <Router>
         <LoginRegisterModal 
           value={modalView}

@@ -1029,8 +1029,12 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                     description: req.body.description,
                     image: url + '/euploads/' + req.files[0].filename,
                     price: req.body.price,
+                    kiekioPasirinkimoModelis: req.body.kiekioPasirinkimas,
                     amountDiscount: amountDiscountConstructor,
                     options: optionsConstructor,
+                    kainosModelis: req.body.kainosModelis,
+                    basePrice: req.body.basePrice,
+                    baseDiscount: req.body.baseDiscount,
                 }
                 if (req.body.discountPrice === null || req.body.discountPrice === 0) {
                     productObj.discount = 0;
@@ -1226,6 +1230,10 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                         product.description = req.body.description;
                         product.image = mainImageX;
                         product.price = req.body.price;
+                        product.kiekioPasirinkimoModelis = req.body.kiekioPasirinkimas;
+                        product.kainosModelis = req.body.kainosModelis;
+                        product.basePrice = req.body.basePrice;
+                        product.baseDiscount = req.body.baseDiscount;
                         product.amountDiscount = amountDiscountConstructor;
                         product.options = optionsConstructor;
                         

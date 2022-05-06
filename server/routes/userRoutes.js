@@ -64,12 +64,13 @@ const roundTwoDec = (num) => {
 const getCartItemPrice = async (cartItem) => {
   const product = await Product.findById(cartItem.productID).exec();
   var min = product.amountDiscount;
-  min.sort(function (a, b) {
-    return a.amount - b.amount
-  });
+    min.sort(function (a, b) {
+      return a.amount - b.amount
+    });
   var unitPrice = 0;
   var unitDiscount = 0;
-  // var gamybosPabrangimas = 1;
+  var baseUnitPrice = product.basePrice
+
   for (const x of min) {
     if (cartItem.quantity >= x.amount) {
       unitPrice = roundTwoDec(x.price);
@@ -78,38 +79,74 @@ const getCartItemPrice = async (cartItem) => {
       break;
     }
   };
-  for (const opt of cartItem.options) {
-    for (const productOpt of product.options) {
-      if (opt.name === productOpt.name && opt.type === productOpt.type) {
-        if (opt.type === 0) {
-          for (const menuItem of productOpt.menuOptions) {
-            if (menuItem.variantName === opt.value) {
-              unitPrice = unitPrice + roundTwoDec(menuItem.priceAdd);
+
+  let roundedUnitPrice = 0
+  let roundedTotalPrice = 0
+  let roundedTotalDiscountedPrice = 0
+
+  if (product.kainosModelis !== 1){
+    for (const opt of cartItem.options) {
+      for (const productOpt of product.options) {
+        if (opt.name === productOpt.name && opt.type === productOpt.type) {
+          if (opt.type === 0) {
+            for (const menuItem of productOpt.menuOptions) {
+              if (menuItem.variantName === opt.value) {
+                unitPrice = unitPrice + roundTwoDec(menuItem.priceAdd);
+              }
             }
-          }
-        } else if (opt.type === 1) {
-          var firstTotalPrice = ((opt.firstValue - productOpt.fistItemMinValue) / productOpt.fiststItemUnit) * productOpt.firstItemAdditionalPrice;
-          var secondTotalPrice = ((opt.secondValue - productOpt.secondItemMinValue) / productOpt.secondItemUnit) * productOpt.secondItemAdditionalPrice;
-          unitPrice = unitPrice + roundTwoDec(firstTotalPrice) + roundTwoDec(secondTotalPrice);
-        } else if (opt.type === 2) {
-          for (const menuItem of productOpt.menuOptions) {
-            if (menuItem.variantName === opt.value) {
-              unitPrice = unitPrice + roundTwoDec(menuItem.priceAdd);
+          } else if (opt.type === 1) {
+            var firstTotalPrice = ((opt.firstValue - productOpt.fistItemMinValue) / productOpt.fiststItemUnit) * productOpt.firstItemAdditionalPrice;
+            var secondTotalPrice = ((opt.secondValue - productOpt.secondItemMinValue) / productOpt.secondItemUnit) * productOpt.secondItemAdditionalPrice;
+            unitPrice = unitPrice + roundTwoDec(firstTotalPrice) + roundTwoDec(secondTotalPrice);
+          } else if (opt.type === 2) {
+            for (const menuItem of productOpt.menuOptions) {
+              if (menuItem.variantName === opt.value) {
+                unitPrice = unitPrice + roundTwoDec(menuItem.priceAdd);
+              }
             }
+          } else if (opt.type === 3) {
+            var firstTotalPrice2 = ((opt.firstValue - productOpt.fistItemMinValue) / productOpt.fiststItemUnit) * productOpt.firstItemAdditionalPrice;
+            unitPrice = unitPrice + roundTwoDec(firstTotalPrice2);
           }
-        } else if (opt.type === 3) {
-          var firstTotalPrice2 = ((opt.firstValue - productOpt.fistItemMinValue) / productOpt.fiststItemUnit) * productOpt.firstItemAdditionalPrice;
-          unitPrice = unitPrice + roundTwoDec(firstTotalPrice2);
         }
-      }
+      };
     };
-  };
-
-  const roundedUnitPrice = roundTwoDec(unitPrice);  // * gamybosPabrangimas
-  const roundedTotalPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity);
-  const roundedTotalDiscountedPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity * (1 - (unitDiscount / 100)));
-
-  return [roundedTotalPrice, roundedTotalDiscountedPrice, roundedUnitPrice, unitDiscount];
+    roundedUnitPrice = roundTwoDec(unitPrice);  // * gamybosPabrangimas
+    roundedTotalPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity);
+    roundedTotalDiscountedPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity );
+    return [roundedTotalPrice, roundedTotalDiscountedPrice, roundedUnitPrice, unitDiscount];
+  } else {
+    for (const opt of cartItem.options) {
+      for (const productOpt of product.options) {
+        if (opt.name === productOpt.name && opt.type === productOpt.type) {
+          if (opt.type === 0) {
+            for (const menuItem of productOpt.menuOptions) {
+              if (menuItem.variantName === opt.value) {
+                baseUnitPrice = baseUnitPrice + roundTwoDec(menuItem.priceAdd);
+              }
+            }
+          } else if (opt.type === 1) {
+            var firstTotalPrice = ((opt.firstValue - productOpt.fistItemMinValue) / productOpt.fiststItemUnit) * productOpt.firstItemAdditionalPrice;
+            var secondTotalPrice = ((opt.secondValue - productOpt.secondItemMinValue) / productOpt.secondItemUnit) * productOpt.secondItemAdditionalPrice;
+            baseUnitPrice = baseUnitPrice + roundTwoDec(firstTotalPrice) + roundTwoDec(secondTotalPrice);
+          } else if (opt.type === 2) {
+            for (const menuItem of productOpt.menuOptions) {
+              if (menuItem.variantName === opt.value) {
+                baseUnitPrice = baseUnitPrice + roundTwoDec(menuItem.priceAdd);
+              }
+            }
+          } else if (opt.type === 3) {
+            var firstTotalPrice2 = ((opt.firstValue - productOpt.fistItemMinValue) / productOpt.fiststItemUnit) * productOpt.firstItemAdditionalPrice;
+            baseUnitPrice = baseUnitPrice + roundTwoDec(firstTotalPrice2);
+          }
+        }
+      };
+    };
+    roundedUnitPrice = roundTwoDec(baseUnitPrice * ((100 - unitDiscount) / 100));  // * gamybosPabrangimas
+    roundedTotalPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity);
+    roundedTotalDiscountedPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity );
+    return [roundedTotalPrice, roundedTotalDiscountedPrice, roundedUnitPrice, product.baseDiscount];
+  }
 };
 
 const sendThanksEmail = (email, invoice) => {
@@ -1218,6 +1255,9 @@ router.post("/addToCart", upload.single("image"), async (req, res, next) => {
                   twoDayPriceIncreace: product.twoDayPriceIncreace,
                   image: req.file ? url + '/uploads/' + req.file.filename : req.body.imageURL || '',
                   maketavimoKaina: maketavimoKaina,
+                  kainosModelis: product.kainosModelis,
+                  basePrice: product.basePrice,
+                  baseDiscount: product.baseDiscount,
               }
               CartItem.create(cartItemObj, function (err, item) {
                 if (err) {
@@ -1253,6 +1293,9 @@ router.post("/addToCart", upload.single("image"), async (req, res, next) => {
                   // item.gamybosLaikas = req.body.gamybosLaikas;
                   item.image = image;
                   item.maketavimoKaina = maketavimoKaina;
+                  item.kainosModelis = product.kainosModelis,
+                  item.basePrice = product.basePrice,
+                  item.baseDiscount = itproductem.baseDiscount,
                   item.save();
                   res.send({ 
                     success: true, 

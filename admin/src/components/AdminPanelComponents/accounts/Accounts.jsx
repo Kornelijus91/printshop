@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
     },
     accountsBoxInner: {
         height: '95%',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        overflowX: 'hidden',
     },
     accountsBoxPagination: {
         marginTop: '.2rem'
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '7px',
         padding: '.3rem .3rem .3rem 1.5rem',
         margin: '.5rem',
-        maxWidth: '99%',
+        maxWidth: '96%',
         '&:hover': {
             cursor: "pointer",
             backgroundColor: '#0d1726',

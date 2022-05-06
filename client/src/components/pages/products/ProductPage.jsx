@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Hidden, StepConnector, Box, Grid, Breadcrumbs, Stepper, Step, StepLabel, Collapse, TextField, Button, Divider, Snackbar, ClickAwayListener, CircularProgress } from '@material-ui/core'; // ListItemText, ListItem, MenuItem, Select, FormControl,
+import { Select, MenuItem, FormControl, Hidden, StepConnector, Box, Grid, Breadcrumbs, Stepper, Step, StepLabel, Collapse, TextField, Button, Divider, Snackbar, ClickAwayListener, CircularProgress } from '@material-ui/core'; // ListItemText, ListItem, MenuItem, Select, FormControl,
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Helmet } from "react-helmet";
 import { ProjectName } from '../../../Variables.jsx' 
@@ -526,6 +526,98 @@ const useStyles = makeStyles((theme) => ({
             height: 500,
         },
     },
+    formVariantSelect: {
+        width: '100%',
+        marginBottom: '1rem',
+        [theme.breakpoints.up('xxl')]: {
+            marginBottom: '1.5rem',
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            marginBottom: '2rem',
+            fontSize: '1.9rem',
+        },
+    },
+    variantSelectIcon: {
+        color: theme.myTheme.sriftoSpalva,
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'scale(1.5)',
+            marginRight: '1rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            transform: 'scale(2)',
+            marginRight: '1.5rem'
+        },
+    },
+    menuitself: {
+        color: theme.myTheme.sriftoSpalva,
+        fontFamily: theme.myTheme.sriftas,
+        [theme.breakpoints.up('lg')]: {
+            width: '13rem'
+        },
+        [theme.breakpoints.up('xxl')]: {
+            width: '19.5rem'
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            width: '26rem'
+        },
+    },
+    menuPaper: {
+        maxHeight: '22rem',
+        overflowY: 'auto',
+        [theme.breakpoints.up('xxl')]: {
+            maxHeight: '33rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            maxHeight: '44rem',
+            borderRadius: '9px',
+        },
+    },
+    menuItem: {
+        width: '100%',
+        overflowWrap: 'break-word',
+    },
+    selectRenderOuterBox: {
+        height: '100%',
+        paddingLeft: '1rem',
+        width: '90%', 
+        whitespace: 'nowrap', 
+        textOverflow: 'ellipsis',
+        [theme.breakpoints.up('xxl')]: {
+            paddingLeft: '1.5rem',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            paddingLeft: '2rem',
+        },
+    },
+    truncateBox: {
+        width: '100%', 
+        height: '100%', 
+        display: 'inline-block',
+        overflow: 'hidden',
+        whitespace: 'nowrap', 
+        textOverflow: 'ellipsis',
+    },
+    selectRender2: {
+        width: '100%', 
+        display: 'inline-block',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        color: theme.myTheme.sriftoSpalva,
+        fontFamily: theme.myTheme.sriftas,
+        verticalAlign: 'middle',
+        [theme.breakpoints.up('xxl')]: {
+            fontSize: '1.4rem',
+            margin: 0,
+            padding: '1rem 0',
+        },
+        [theme.breakpoints.up('xxxl')]: {
+            fontSize: '1.8rem',
+            margin: 0,
+            padding: '1.5rem 0',
+        },
+    },
 }));
 
 const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTwoDec, maketavimoKaina, firstName, personalas, token, kodoNuolaida, findMaxDiscount }) => {
@@ -618,6 +710,10 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
     const handleKiekisChange = (e) => {
         setKiekis(e.target.value);
     };
+
+    // const handleFiksuotasKiekisChange = (kiekis) => {
+    //     setKiekis(kiekis);
+    // };
 
     const handleKiekisCorrection = () => {
         if (Number(kiekis) < amountArray[0].amount) {
@@ -933,34 +1029,60 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
     }, [products, link]);
 
     useEffect(() => {
-        var unitPrice = 0;
-        var addonPrice = 0;
-        var unitDiscount = 0;
-        if (amountArray.length > 0) {
-            unitPrice = roundTwoDec(amountArray[0].price);
-            unitDiscount = amountArray[0].discount;
-        } 
-        for (const x of amountArray) {
-            if (x.amount <= kiekis) {
-                unitPrice = roundTwoDec(x.price)
-                unitDiscount = x.discount;
-            } else {
-                break
+        if (product.kainosModelis !== 1)
+        {
+            var unitPrice = 0;
+            var addonPrice = 0;
+            var unitDiscount = 0;
+            if (amountArray.length > 0) {
+                unitPrice = roundTwoDec(amountArray[0].price);
+                unitDiscount = amountArray[0].discount;
+            } 
+            for (const x of amountArray) {
+                if (x.amount <= kiekis) {
+                    unitPrice = roundTwoDec(x.price)
+                    unitDiscount = x.discount;
+                } else {
+                    break
+                }
             }
-        }
-        for (const y of optionsValues) {
-            if (y.type === 1) {
-                addonPrice = roundTwoDec(addonPrice + y.firstPrice + y.secondPrice);
-            } else if (y.type === 3) {
-                addonPrice = roundTwoDec(addonPrice + y.firstPrice);
-            } else {
-                addonPrice = roundTwoDec(addonPrice + y.price);
+            for (const y of optionsValues) {
+                if (y.type === 1) {
+                    addonPrice = roundTwoDec(addonPrice + y.firstPrice + y.secondPrice);
+                } else if (y.type === 3) {
+                    addonPrice = roundTwoDec(addonPrice + y.firstPrice);
+                } else {
+                    addonPrice = roundTwoDec(addonPrice + y.price);
+                }
             }
+            setUnitPrice({
+                price: roundTwoDec(unitPrice + addonPrice), // * gamybosPabrangimas
+                discount: unitDiscount
+            });
+        } else {
+            var addonPrice2 = 0;
+            var unitDiscount2 = 0;
+
+            for (const dalykas of product.amountDiscount) {
+                if (kiekis >= dalykas.amount){
+                    unitDiscount2 = (100 - dalykas.discount) / 100
+                }
+            }
+
+            for (const y of optionsValues) {
+                if (y.type === 1) {
+                    addonPrice2 = roundTwoDec(addonPrice2 + y.firstPrice + y.secondPrice);
+                } else if (y.type === 3) {
+                    addonPrice2 = roundTwoDec(addonPrice2 + y.firstPrice);
+                } else {
+                    addonPrice2 = roundTwoDec(addonPrice2 + y.price);
+                }
+            }
+            setUnitPrice({
+                price: roundTwoDec((product.basePrice  + addonPrice2) * unitDiscount2), // * gamybosPabrangimas
+                discount: product.baseDiscount
+            });
         }
-        setUnitPrice({
-            price: roundTwoDec(unitPrice + addonPrice), // * gamybosPabrangimas
-            discount: unitDiscount
-        });
         // eslint-disable-next-line
     }, [amountArray, kiekis, optionsValues ]); //gamybosPabrangimas
 
@@ -1335,24 +1457,52 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                                     <h2>Pasirinkite kiekį, gamybos laiką ir užsakykite</h2>
                                 </Box>
                                 <h2 className={classes.OptionTitleHeader}>Kiekis</h2>
-                                <ClickAwayListener onClickAway={handleKiekisCorrection}>
-                                    <TextField 
-                                        id="kiekis" 
-                                        variant="outlined" 
-                                        classes={{root: classes.pastaba}}
-                                        value={kiekis}
-                                        onChange={handleKiekisChange}
-                                        type='number'
-                                        style={{marginBottom: '1rem'}}
-                                        InputProps={{
-                                            classes: {
-                                                root: classes.cssOutlinedInput2,
-                                                focused: classes.cssFocused,
-                                                notchedOutline: classes.notchedOutline,
-                                            },
-                                        }}
-                                    />
-                                </ClickAwayListener>
+                                {product.kiekioPasirinkimoModelis === 1 ? 
+                                    <FormControl variant="outlined" classes={{root: classes.formVariantSelect}} focused={false}>
+                                        <Select
+                                            id="fiksuoto_kiekio_select"
+                                            variant='outlined'
+                                            classes={{outlined: classes.variantSelect, iconOutlined: classes.variantSelectIcon}}
+                                            value={kiekis}
+                                            onChange={handleKiekisChange}
+                                            defaultValue={kiekis}
+                                            MenuProps={{ classes: { paper: classes.menuitself, list: classes.menuPaper } }}
+                                            renderValue={(value) => 
+                                                <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.selectRenderOuterBox}}>
+                                                    <Box classes={{root: classes.truncateBox}}> 
+                                                        <p className={classes.selectRender2}>{value}</p>
+                                                    </Box>
+                                                </Box> 
+                                            }
+                                        >
+                                            {product.amountDiscount.map((value) => 
+                                            
+                                                <MenuItem value={value.amount} classes={{root: classes.menuItem}}>
+                                                    {value.amount}
+                                                </MenuItem>
+                                            )}
+                                        </Select>
+                                    </FormControl>
+                                :
+                                    <ClickAwayListener onClickAway={handleKiekisCorrection}>
+                                        <TextField 
+                                            id="kiekis" 
+                                            variant="outlined" 
+                                            classes={{root: classes.pastaba}}
+                                            value={kiekis}
+                                            onChange={handleKiekisChange}
+                                            type='number'
+                                            style={{marginBottom: '1rem'}}
+                                            InputProps={{
+                                                classes: {
+                                                    root: classes.cssOutlinedInput2,
+                                                    focused: classes.cssFocused,
+                                                    notchedOutline: classes.notchedOutline,
+                                                },
+                                            }}
+                                        />
+                                    </ClickAwayListener>
+                                }
                                 <MaketavimoKaina 
                                     maketavimoKaina={maketavimoKaina}
                                     papildomaMaketavimoKaina={papildomaMaketavimoKaina}

@@ -14,6 +14,7 @@ import Treklama01 from '../../media/Treklama01.png'
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+    // maxWidth: '3840px',
     padding: ".4rem",
     margin: '0',
     backgroundColor: theme.myTheme.pirma,
@@ -159,7 +160,7 @@ const Navigation = ({ loyaltydiscountLevel, priceSum, personalas, setPersonalas,
     };
 
     return (
-        <Box maxWidth='xl' classes={{root: classes.root}}>
+        <Box classes={{root: classes.root}}>
             <Grid container className={classes.grid} >
                 <Grid item xl={3} lg={4} md={4} sm={4} xs={6}>
                     <Box display='flex' justifyContent="center" alignItems="center" classes={{root: classes.logoBox}}>

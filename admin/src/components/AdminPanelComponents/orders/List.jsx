@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: '#0d1726',
         },
         [theme.breakpoints.up('md')]: {
-            maxWidth: '99%',
+            maxWidth: '98.8%',
             padding: '.3rem .3rem .3rem 1.5rem',
         },
         [theme.breakpoints.up('xxl')]: {

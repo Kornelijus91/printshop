@@ -263,6 +263,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
     const theme = useTheme();
 
     const [selectOption, setSelectOption] = useState(0);
+    // const [kiekioPasirinkimas, setKiekioPasirinkimas] = useState(0);
     const [submitting, setSubmitting] = useState(false);
 
     const screenSizexxl = useMediaQuery(theme.breakpoints.up('xxl'));
@@ -313,7 +314,11 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
             oneDayPriceIncreace: 0,
             twoDayPriceIncreace: 0,
             pictureAmount: 1,
-            templateID: ''
+            templateID: '',
+            kiekioPasirinkimas: 0,
+            kainosModelis: 0,
+            basePrice: 0,
+            baseDiscount: 0,
         });
         setFile({
             src: null,
@@ -431,6 +436,10 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                 formData.append('id', productInfo.id);
                 formData.append('name', productInfo.name);
                 formData.append('templateID', productInfo.templateID);
+                formData.append('kiekioPasirinkimas', productInfo.kiekioPasirinkimas);
+                formData.append('kainosModelis', productInfo.kainosModelis);
+                formData.append('basePrice', productInfo.basePrice);
+                formData.append('baseDiscount', productInfo.baseDiscount);
                 formData.append('link', encodeURIComponent(productInfo.name));
                 formData.append('description', productInfo.description);
                 formData.append('mainImage', file.URL);
@@ -483,7 +492,11 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                         oneDayPriceIncreace: 0,
                         twoDayPriceIncreace: 0,
                         pictureAmount: 1,
-                        templateID: ''
+                        templateID: '',
+                        kiekioPasirinkimas: 0,
+                        kainosModelis: 0,
+                        basePrice: 0,
+                        baseDiscount: 0,
                     });
                     setFile({
                         src: null,
@@ -536,14 +549,20 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
             firstItemAdditionalPrice: 0,
             secondItemAdditionalPrice: 0,
             additionalPrice: 0,
-            summon: 0
+            summon: 0,
+            // kiekioPasirinkimas: 0
         }]});
         setSelectOption(0);
+        // setKiekioPasirinkimas(0);
     };
 
     const handleSelectOptionChange = (e) => {
         setSelectOption(e.target.value);
     };
+
+    // const handleKiekioPasirinkimoModelis = (e) => {
+    //     setKiekioPasirinkimas(e.target.value);
+    // };
 
     useEffect(() => {
         if (productModalOpen) {
@@ -658,6 +677,131 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                                 </Box>
                             </Grid>
                         </Grid>
+                    </Grid>
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className={classes.contentSection} style={{margin: '1rem 0 0 0'}}>
+                        <Grid container>
+                            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                <Box style={{margin: '1em 0'}}>
+                                    <h3 className={classes.header}>Kainos modelis:</h3>
+                                </Box>
+                            </Grid> 
+                            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                <FormControl variant="standard" disableUnderline className={classes.formVariantSelect}>
+                                    <Select
+                                        id="produkto_kiekio_pasirinkimo_modelis"
+                                        disableUnderline
+                                        classes={{root: classes.variantSelect, icon: classes.variantSelectIcon}}
+                                        value={productInfo.kainosModelis}
+                                        onChange={handleProductInfoChange('kainosModelis')}
+                                        defaultValue={0}
+                                    >
+                                        <MenuItem value={0}>Pirmas</MenuItem>
+                                        <MenuItem value={1}>Antras</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className={classes.contentSection} style={{margin: '1rem 0 0 0'}}>
+                        {productInfo.kainosModelis === 1 ?
+                            <Grid container>
+                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                    <Grid container>
+                                        <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
+                                            <Grid container>
+                                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                                    <Box style={{margin: '1em 0'}}>
+                                                        <h3 className={classes.header}>Vieneto kaina, €:</h3>
+                                                    </Box>
+                                                </Grid> 
+                                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                                    <FormControl className={classes.formPrice} variant="outlined">
+                                                        <OutlinedInput
+                                                            id='bazine_kaina'
+                                                            onWheel={(e) => e.target.blur()}
+                                                            type='text'
+                                                            value={productInfo.basePrice}
+                                                            placeholder='Eur...'
+                                                            onChange={handleProductInfoChange('basePrice')}
+                                                            classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
+                                                            autoComplete='off'
+                                                        />
+                                                    </FormControl>  
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
+                                            <Grid container>
+                                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                                    <Box style={{margin: '1em 0'}}>
+                                                        <h3 className={classes.header}>Nuolaida-Akcija, %:</h3>
+                                                    </Box>
+                                                </Grid> 
+                                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                                    <FormControl className={classes.formPrice} variant="outlined">
+                                                        <OutlinedInput
+                                                            id='bazine_nuolaida'
+                                                            onWheel={(e) => e.target.blur()}
+                                                            type='text'
+                                                            value={productInfo.baseDiscount}
+                                                            placeholder='%...'
+                                                            onChange={handleProductInfoChange('baseDiscount')}
+                                                            classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
+                                                            autoComplete='off'
+                                                        />
+                                                    </FormControl>  
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
+                                            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                                <Box style={{margin: '1em 0'}}>
+                                                    <h3 className={classes.header}>Kiekio pasirinkimas:</h3>
+                                                </Box>
+                                            </Grid> 
+                                            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                                <FormControl variant="standard" disableUnderline className={classes.formVariantSelect}>
+                                                    <Select
+                                                        id="produkto_kiekio_pasirinkimo_modelis"
+                                                        disableUnderline
+                                                        classes={{root: classes.variantSelect, icon: classes.variantSelectIcon}}
+                                                        value={productInfo.kiekioPasirinkimas}
+                                                        onChange={handleProductInfoChange('kiekioPasirinkimas')}
+                                                        defaultValue={0}
+                                                    >
+                                                        <MenuItem value={0}>Laisvas</MenuItem>
+                                                        <MenuItem value={1}>Fiksuotas</MenuItem>
+                                                    </Select>
+                                                </FormControl>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        :
+                            <Grid container>
+                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                    <Box style={{margin: '1em 0'}}>
+                                        <h3 className={classes.header}>Kiekio pasirinkimas:</h3>
+                                    </Box>
+                                </Grid> 
+                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                    <FormControl variant="standard" disableUnderline className={classes.formVariantSelect}>
+                                        <Select
+                                            id="produkto_kiekio_pasirinkimo_modelis"
+                                            disableUnderline
+                                            classes={{root: classes.variantSelect, icon: classes.variantSelectIcon}}
+                                            value={productInfo.kiekioPasirinkimas}
+                                            onChange={handleProductInfoChange('kiekioPasirinkimas')}
+                                            defaultValue={0}
+                                        >
+                                            <MenuItem value={0}>Laisvas</MenuItem>
+                                            <MenuItem value={1}>Fiksuotas</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                            </Grid>
+                        }
                     </Grid>
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className={classes.contentSection} style={{margin: '1rem 0 0 0'}}>
                         <Price 

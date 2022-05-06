@@ -43,10 +43,22 @@ const Product = new Schema({
         type: Number,
         default: 0,
     },
-    // pictureAmount: {
-    //     type: Number,
-    //     default: 1,
-    // },
+    kiekioPasirinkimoModelis: {
+        type: Number,
+        default: 0,
+    },
+    kainosModelis: {
+        type: Number,
+        default: 0,
+    },
+    basePrice: {
+        type: Number,
+        default: 0,
+    },
+    baseDiscount: {
+        type: Number,
+        default: 0,
+    },
     homepage: {
         type: Boolean,
         default: false,

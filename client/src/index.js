@@ -114,6 +114,9 @@ const theme = createTheme({
       light: "#26a69a",
       dark: "#26a69a",
     },
+    background: {
+      default: "#F1FAEE"
+    },
     action: {
       disabledBackground: '#f7bbc0',
     }

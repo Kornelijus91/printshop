@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: '#0d1726',
         },
         [theme.breakpoints.up('md')]: {
-            maxWidth: '99%',
+            maxWidth: '98.8%',
             padding: '.3rem .3rem .3rem 1.5rem',
         },
         [theme.breakpoints.up('xxl')]: {
@@ -211,7 +211,11 @@ const Products = ({ newOrders, newChatrooms, user, setSnackbar, productModalOpen
         oneDayPriceIncreace: 0,
         twoDayPriceIncreace: 0,
         pictureAmount: 1,
-        templateID: ''
+        templateID: '',
+        kiekioPasirinkimas: 0,
+        kainosModelis: 0,
+        basePrice: 0,
+        baseDiscount: 0,
     });
 
     const [deleteModal, setDeleteModal] = useState({
@@ -467,6 +471,10 @@ const Products = ({ newOrders, newChatrooms, user, setSnackbar, productModalOpen
                                             twoDayPriceIncreace: item.twoDayPriceIncreace,
                                             pictureAmount: item.pictureAmount,
                                             templateID: item.templateID,
+                                            kiekioPasirinkimas: item.kiekioPasirinkimoModelis,
+                                            kainosModelis: item.kainosModelis,
+                                            basePrice: item.basePrice,
+                                            baseDiscount: item.baseDiscount,
                                         });
                                         setFile({
                                             src: null,

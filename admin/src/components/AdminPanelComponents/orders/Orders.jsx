@@ -8,7 +8,7 @@ import { ProjectName } from '../../../Variables.jsx'
 const useStyles = makeStyles((theme) => ({
     root: {
         // backgroundColor: 'pink',
-        width: '99.5%',
+        width: '97%',
         marginTop: '1em',
         [theme.breakpoints.up('xxl')]: {
             marginTop: '2em',

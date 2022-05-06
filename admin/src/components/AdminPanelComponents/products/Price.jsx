@@ -145,25 +145,27 @@ const Price = ({ productInfo, addAmountDiscount, handleAmountDiscountChange, del
                                                     </FormControl>  
                                                 </Box>  
                                             </Grid>
-                                            <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-                                                <Box>
-                                                    <h3 className={classes.header}>Vieneto kaina, €</h3>
-                                                </Box>
-                                                <Box>
-                                                    <FormControl className={classes.formPrice} variant="outlined">
-                                                        <OutlinedInput
-                                                            id={`Amount_${index}`}
-                                                            onWheel={(e) => e.target.blur()}
-                                                            type='number'
-                                                            value={productInfo.amountDiscount[index].price}
-                                                            placeholder='Eur...'
-                                                            onChange={handleAmountDiscountChange('price', index)}
-                                                            classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
-                                                            autoComplete='off'
-                                                        />
-                                                    </FormControl>  
-                                                </Box>  
-                                            </Grid>
+                                            {productInfo.kainosModelis !== 1 &&
+                                                <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
+                                                    <Box>
+                                                        <h3 className={classes.header}>Vieneto kaina, €</h3>
+                                                    </Box>
+                                                    <Box>
+                                                        <FormControl className={classes.formPrice} variant="outlined">
+                                                            <OutlinedInput
+                                                                id={`Amount_${index}`}
+                                                                onWheel={(e) => e.target.blur()}
+                                                                type='number'
+                                                                value={productInfo.amountDiscount[index].price}
+                                                                placeholder='Eur...'
+                                                                onChange={handleAmountDiscountChange('price', index)}
+                                                                classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
+                                                                autoComplete='off'
+                                                            />
+                                                        </FormControl>  
+                                                    </Box>  
+                                                </Grid>
+                                            }
                                             <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
                                                 <Box>
                                                     <h3 className={classes.header}>Nuolaida, %</h3>
