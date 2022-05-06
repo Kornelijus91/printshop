@@ -348,11 +348,11 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
         if (productInfo.description === '') {
             missing.push('aprašymo');
         }
-        if (productInfo.amountDiscount.length <= 0 ) {
+        if (productInfo.amountDiscount.length <= 0 || productInfo.kainosModelis !== 1) {
             missing.push('kainos');
         } else {
             for (const item of productInfo.amountDiscount) {
-                if (!item.price || item.price <= 0) {
+                if (!item.price || item.price <= 0 || productInfo.kainosModelis !== 1) {
                     missing.push('kainos');
                     break;
                 }
