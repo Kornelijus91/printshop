@@ -388,7 +388,7 @@ const CarouselContent = ({carousel}) => {
                                                 <h3 className={classes.contentTextRed}>{item.redtext}</h3>
                                             </Box>
                                         }
-                                        {item.productLink &&
+                                        {item.productLink !== '' &&
                                             <Box classes={{root: classes.contentButtonBox}}>
                                                 <Link to={`/products/${item.productLink}`} className={classes.contentButton}>Užsakyti...</Link>
                                             </Box>
