@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         maxWidth: '3840px',
         position: 'relative',
+       
+        // zIndex: 5000,
         // [theme.breakpoints.up('md')]: {
         //     width: '80%',
         // },
@@ -23,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     },
     carouselGrid: {
         width: '100%',
+        // '&:hover': {
+        //     display: 'block'
+        // },
     },
     carouselItem: {
         height: '20rem',
@@ -123,15 +128,16 @@ const useStyles = makeStyles((theme) => ({
             height: '2.2rem'
         },
         [theme.breakpoints.up('md')]: {
-            height: '2.35rem'
+            height: 'clamp(2.38rem, 1.98vw, 4.75rem)',
+            fontSize: 'clamp(1.19rem, 0.99vw, 2.38rem)',
         },
-        [theme.breakpoints.up('lg')]: {
-            height: '2.5rem'
-        },
-        [theme.breakpoints.up('lg')]: {
-            height: 'clamp(3.00rem, 2.50vw, 6.00rem)',
-            fontSize: 'clamp(1.50rem, 1.25vw, 3.00rem)',
-        },
+        // [theme.breakpoints.up('lg')]: {
+        //     height: '2.5rem'
+        // },
+        // [theme.breakpoints.up('lg')]: {
+        //     height: 'clamp(3.00rem, 2.50vw, 6.00rem)',
+        //     fontSize: 'clamp(1.50rem, 1.25vw, 3.00rem)',
+        // },
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '7px',
             padding: '.6rem 1.05rem .6rem 1.05rem',
@@ -270,7 +276,8 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex: '10',
     },
     indicator: {
         fontSize: 20,
@@ -355,9 +362,19 @@ const CarouselContent = ({carousel}) => {
         <Box style={{height: '100%'}}>
             <Box classes={{root: classes.carouselContent}}>
                 {carousel.map((item, index) => 
-                    <Box classes={{root: classes.carouselGridContainer}}>
+                    <Box 
+                        classes={{root: classes.carouselGridContainer}}
+                        style={carouselItem === index ?
+                            {zIndex: '10'}
+                            :
+                            {zIndex: '1'}
+                        }
+                    >
                         <Fade in={carouselItem === index} key={index}>
-                            <Grid container classes={{root: classes.carouselGrid}}>
+                            <Grid 
+                                container 
+                                classes={{root: classes.carouselGrid}}
+                            >
                                 <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
                                     <Box style={{width: '100%'}} classes={{root: classes.leftCarouselSideContent}}>
                                         <Box style={{width: '100%'}}> 
