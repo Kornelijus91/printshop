@@ -125,39 +125,50 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductCard = ({ image, name, amountDiscount, link, loyaltydiscount }) => {     //loyaltydiscount
+const ProductCard = ({ produktas, loyaltydiscount }) => {     //loyaltydiscount
 
     const classes = useStyles();
     const history = useHistory();
+    const sortedAmountDiscount = produktas.amountDiscount.sort((a, b) => a.amount - b.amount);
 
     const [imgLoaded, setImgLoaded] = useState(false);
 
-    const getLowestPrice = (items) => {
-        items.sort((a, b) => a.amount - b.amount);
-        const discount = Math.max(loyaltydiscount, items[0].discount)
-        const price = Number((Math.abs(items[0].price * items[0].amount * (1 - (discount / 100))) * 100).toPrecision(15));
-        const roundedPrice = Math.round(price) / 100 * Math.sign(items[0].price * items[0].amount * (1 - (discount / 100)));
-        return roundedPrice.toFixed(2);
+    const getLowestPrice = () => {
+        if (produktas.kainosModelis !== 1){ 
+            const discount = Math.max(loyaltydiscount, sortedAmountDiscount[0].discount)
+            const price = Number((Math.abs(sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount * (1 - (discount / 100))) * 100).toPrecision(15));
+            const roundedPrice = Math.round(price) / 100 * Math.sign(sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount * (1 - (discount / 100)));
+            return roundedPrice.toFixed(2);
+        } else {
+            const discount2 = Math.max(loyaltydiscount, produktas.baseDiscount)
+            const price2 = Number((Math.abs(produktas.basePrice * sortedAmountDiscount[0].amount * (1 - (discount2 / 100))) * 100).toPrecision(15));
+            const roundedPrice2 = Math.round(price2) / 100 * Math.sign(produktas.basePrice * sortedAmountDiscount[0].amount * (1 - (discount2 / 100)));
+            return roundedPrice2.toFixed(2);
+        }
     };
 
-    const getHighestDiscount = (items) => {
-        var discount = items[0].discount;
-        for (const x of items) {
-            if (discount < x.discount) {
-                discount = x.discount
+    const getHighestDiscount = () => {
+        if (produktas.kainosModelis !== 1){ 
+            var discount = sortedAmountDiscount[0].discount;
+            for (const x of sortedAmountDiscount) {
+                if (discount < x.discount) {
+                    discount = x.discount
+                }
             }
+            if (loyaltydiscount > discount) {
+                discount = loyaltydiscount;
+            }
+            return discount;
+        } else {
+            return Math.max(loyaltydiscount, produktas.baseDiscount)
         }
-        if (loyaltydiscount > discount) {
-            discount = loyaltydiscount;
-        }
-        return discount;
     };
 
     return (
         <Card 
             classes={{root: classes.card}} 
             onClick={() => {
-                    history.push(`/products/${link}`);
+                    history.push(`/products/${produktas.link}`);
                     window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
                 }}
             > 
@@ -165,18 +176,18 @@ const ProductCard = ({ image, name, amountDiscount, link, loyaltydiscount }) => 
                 <Box>
                     <Box display="flex" justifyContent='center' alignItems='center' style={{height: '100%', width: '100%'}}>
                         {!imgLoaded && <Skeleton variant="rect" animation='wave' classes={{root: classes.skeletonPicture}}/>}
-                        <img src={image} alt={name} className={classes.img} onLoad={() => setImgLoaded(true)} />
+                        <img src={produktas.image} alt={produktas.name} className={classes.img} onLoad={() => setImgLoaded(true)} />
                     </Box>
-                    <h3 className={classes.cardText}>{name}</h3>
-                    <h3 className={classes.cardText}>Nuo {getLowestPrice(amountDiscount)} &euro;</h3>
-                    {getHighestDiscount(amountDiscount) > 0 &&
-                        <h3 className={classes.cardTextRed}>Nuolaidos iki {getHighestDiscount(amountDiscount)}%</h3>
+                    <h3 className={classes.cardText}>{produktas.name}</h3>
+                    <h3 className={classes.cardText}>Nuo {getLowestPrice(produktas.amountDiscount)} &euro;</h3>
+                    {getHighestDiscount(produktas.amountDiscount) > 0 &&
+                        <h3 className={classes.cardTextRed}>Nuolaidos iki {getHighestDiscount(produktas.amountDiscount)}%</h3>
                     }
                 </Box>
             </CardContent>
             
             <CardActions classes={{root: classes.cardActions}}>
-                <Link to={`/products/${link}`} className={classes.cardButton}>Užsakyti</Link>
+                <Link to={`/products/${produktas.link}`} className={classes.cardButton}>Užsakyti</Link>
             </CardActions>
             
         </Card> 

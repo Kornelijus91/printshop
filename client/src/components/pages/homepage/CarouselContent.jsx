@@ -7,11 +7,22 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     carouselContent: {
         width: '100%',
+        height: '100%',
         maxWidth: '3840px',
+        position: 'relative',
+        // [theme.breakpoints.up('md')]: {
+        //     width: '80%',
+        // },
+        // [theme.breakpoints.up('lg')]: {
+        //     width: '100%',
+        // },
+    },
+    carouselGridContainer : {
         position: 'absolute',
-        [theme.breakpoints.up('md')]: {
-            width: '80%',
-        },
+        width: '100%',
+    },
+    carouselGrid: {
+        width: '100%',
     },
     carouselItem: {
         height: '20rem',
@@ -21,8 +32,11 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('md')]: {
             height: '30rem',
         },
+        // [theme.breakpoints.up('lg')]: {
+        //     height: '40rem',
+        // },
         [theme.breakpoints.up('lg')]: {
-            height: '40rem',
+            height: 'clamp(40.00rem, 33.33vw, 80.00rem)',
         },
     },
     contentTextHeader: {
@@ -38,14 +52,14 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '2.4rem',
         },
         [theme.breakpoints.up('lg')]: {
-            fontSize: '3rem',
+            fontSize: 'clamp(3.00rem, 2.50vw, 6.00rem)',
         },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '5rem',
-        },
+        // [theme.breakpoints.up('xxl')]: {
+        //     fontSize: '4rem',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     fontSize: '5rem',
+        // },
     },
     contentTextBlue: {
         margin: '0',
@@ -60,14 +74,14 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '1.35rem',
         },
         [theme.breakpoints.up('lg')]: {
-            fontSize: '1.5rem',
+            fontSize: 'clamp(1.50rem, 1.25vw, 3.00rem)',
         },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
-        },
+        // [theme.breakpoints.up('xxl')]: {
+        //     fontSize: '2rem',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     fontSize: '2.4rem',
+        // },
     },
     contentTextRed: {
         margin: '0',
@@ -82,14 +96,14 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '1.35rem',
         },
         [theme.breakpoints.up('lg')]: {
-            fontSize: '1.5rem',
+            fontSize: 'clamp(1.50rem, 1.25vw, 3.00rem)',
         },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
-        },
+        // [theme.breakpoints.up('xxl')]: {
+        //     fontSize: '2rem',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     fontSize: '2.4rem',
+        // },
     },
     contentButton: {
         padding: '.4rem .7rem .4rem .7rem',
@@ -114,15 +128,15 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             height: '2.5rem'
         },
+        [theme.breakpoints.up('lg')]: {
+            height: 'clamp(3.00rem, 2.50vw, 6.00rem)',
+            fontSize: 'clamp(1.50rem, 1.25vw, 3.00rem)',
+        },
         [theme.breakpoints.up('xxl')]: {
-            height: '3rem',
-            fontSize: '1.6rem',
             borderRadius: '7px',
             padding: '.6rem 1.05rem .6rem 1.05rem',
         },
         [theme.breakpoints.up('xxxl')]: {
-            height: '3.5rem',
-            fontSize: '2rem',
             borderRadius: '9px',
             padding: '.8rem 1.4rem .8rem 1.05rem',
         },
@@ -251,19 +265,12 @@ const useStyles = makeStyles((theme) => ({
         
     },
     carouselIndicators: {
-        marginTop: '17rem',
-        [theme.breakpoints.up('md')]: {
-            marginTop: '27rem',
-        },
-        [theme.breakpoints.up('lg')]: {
-            marginTop: '37rem',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            marginTop: '44rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginTop: '47rem',
-        },
+        position: 'absolute',
+        bottom: '0',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     indicator: {
         fontSize: 20,
@@ -290,17 +297,20 @@ const useStyles = makeStyles((theme) => ({
         
     },
     leftCarouselSideContent: {
-        width: '70%',
+        // width: '70%',
         display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
         overflowWrap: 'break-word',
-        [theme.breakpoints.up('md')]: {
-            width: '90%',
-        },
-        [theme.breakpoints.up('lg')]: {
-            width: '70%',
-        },
+        height: '100%',
+        padding: 'clamp(1.00rem, 0.83vw, 2.00rem)',
+        // [theme.breakpoints.up('md')]: {
+        //     width: '90%',
+        // },
+        // [theme.breakpoints.up('lg')]: {
+        //     width: '70%',
+        // },
     },
     contentButtonBox: {
         marginTop: '.8rem',
@@ -342,88 +352,85 @@ const CarouselContent = ({carousel}) => {
     }, [carouselItem])
 
     return (
-        <>
-            {carousel.map((item, index) => 
-                <Fade in={carouselItem === index} key={index}>
-                    <Box classes={{root: classes.carouselContent}}>
-                        <Grid container display="flex" justifyContent='center' alignItems='center'>
-                            <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
-                                <Box classes={{root: classes.leftCarouselSideContentParent}}>
-                                    <Box classes={{root: classes.leftCarouselSideContent}}>
-                                        <Box>
-                                            <Box > 
-                                                <h1 className={classes.contentTextHeader}>{item.title}</h1>
-                                            </Box>
-                                            <Box >
-                                                <h3 className={classes.contentTextBlue}>{item.bluetext}</h3>
-                                            </Box>
-                                            {item.redtext &&
-                                                <Box >
-                                                    <h3 className={classes.contentTextRed}>{item.redtext}</h3>
-                                                </Box>
-                                            }
-                                            {item.productLink &&
-                                                <Box classes={{root: classes.contentButtonBox}}>
-                                                    <Link to={`/products/${item.productLink}`} className={classes.contentButton}>Užsakyti...</Link>
-                                                </Box>
-                                            }
-                                        </Box>
-                                    </Box>
-                                </Box>
-                            </Grid>
-                            <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
-                                <Box classes={{root: classes.carouselItem}}>
-                                    <img 
-                                        src={item.imageURL} 
-                                        alt={item.title}
-                                        className={
-                                            {
-                                                0: classes.animation0,
-                                                1: classes.animation1,     
-                                                2: classes.animation2,
-                                                3: classes.animation3,
-                                                4: classes.animation4,
-                                                5: classes.animation5,
-                                                6: classes.animation6,
-                                            }[item.animation]
-                                        }
-                                        style={{
-                                            width: `${
-                                                screenSizexxxl ?  item.size * 1.8 : 
-                                                screenSizexxl ?  item.size * 1.35 : 
-                                                screenSizelg ? item.size : 
-                                                screenSizeMd ? item.size / 1.5 : 
-                                                screenSizeSm ? item.size / 2 : 
-                                                item.size / 3.5
-                                                // screenSizeXs && item.size / 3.5
-                                            }rem`,
-                                            borderRadius: `${
-                                                screenSizexxxl ?  item.borderRadius * 1.8 : 
-                                                screenSizexxl ?  item.borderRadius * 1.35 : 
-                                                screenSizelg ? item.borderRadius : 
-                                                screenSizeMd ? item.borderRadius / 1.5 : 
-                                                screenSizeSm ? item.borderRadius / 2 : 
-                                                item.borderRadius / 3.5
-                                            }rem`,
-                                            objectFit: 'contain',
-                                        }}
-                                    />
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </Fade>
-            )}
-
-            <Box classes={{root: classes.carouselIndicators}} display="flex" justifyContent='center' alignItems='center'>
+        <Box style={{height: '100%'}}>
+            <Box classes={{root: classes.carouselContent}}>
                 {carousel.map((item, index) => 
-                    <IconButton  onClick={() => setCarouselItem(index)} variant="contained" key={index}>
-                        <GoPrimitiveDot style={{
-                            color: carouselItem === index ? `${theme.myTheme.antra}` : `${theme.myTheme.ketvirta}`}} className={classes.indicator}/>
-                    </IconButton >
+                    <Box classes={{root: classes.carouselGridContainer}}>
+                        <Fade in={carouselItem === index} key={index}>
+                            <Grid container classes={{root: classes.carouselGrid}}>
+                                <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+                                    <Box style={{width: '100%'}} classes={{root: classes.leftCarouselSideContent}}>
+                                        <Box style={{width: '100%'}}> 
+                                            <h1 className={classes.contentTextHeader}>{item.title}</h1>
+                                        </Box>
+                                        <Box style={{width: '100%'}}>
+                                            <h3 className={classes.contentTextBlue}>{item.bluetext}</h3>
+                                        </Box>
+                                        {item.redtext &&
+                                            <Box style={{width: '100%'}}>
+                                                <h3 className={classes.contentTextRed}>{item.redtext}</h3>
+                                            </Box>
+                                        }
+                                        {item.productLink &&
+                                            <Box classes={{root: classes.contentButtonBox}}>
+                                                <Link to={`/products/${item.productLink}`} className={classes.contentButton}>Užsakyti...</Link>
+                                            </Box>
+                                        }
+                                    </Box>
+                                </Grid>
+                                <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+                                    <Box classes={{root: classes.carouselItem}}>
+                                        <img 
+                                            src={item.imageURL} 
+                                            alt={item.title}
+                                            className={
+                                                {
+                                                    0: classes.animation0,
+                                                    1: classes.animation1,     
+                                                    2: classes.animation2,
+                                                    3: classes.animation3,
+                                                    4: classes.animation4,
+                                                    5: classes.animation5,
+                                                    6: classes.animation6,
+                                                }[item.animation]
+                                            }
+                                            style={{
+                                                width: `${
+                                                    screenSizexxxl ?  item.size * 1.8 : 
+                                                    screenSizexxl ?  item.size * 1.35 : 
+                                                    screenSizelg ? item.size : 
+                                                    screenSizeMd ? item.size / 1.5 : 
+                                                    screenSizeSm ? item.size / 2 : 
+                                                    item.size / 3.5
+                                                    // screenSizeXs && item.size / 3.5
+                                                }rem`,
+                                                borderRadius: `${
+                                                    screenSizexxxl ?  item.borderRadius * 1.8 : 
+                                                    screenSizexxl ?  item.borderRadius * 1.35 : 
+                                                    screenSizelg ? item.borderRadius : 
+                                                    screenSizeMd ? item.borderRadius / 1.5 : 
+                                                    screenSizeSm ? item.borderRadius / 2 : 
+                                                    item.borderRadius / 3.5
+                                                }rem`,
+                                                objectFit: 'contain',
+                                            }}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </Fade>
+                    </Box>
                 )}
-            </Box> 
-        </>
+                <Box classes={{root: classes.carouselIndicators}} >
+                    {carousel.map((item, index) => 
+                        <IconButton  onClick={() => setCarouselItem(index)} variant="contained" key={index}>
+                            <GoPrimitiveDot style={{
+                                color: carouselItem === index ? `${theme.myTheme.antra}` : `${theme.myTheme.ketvirta}`}} className={classes.indicator}/>
+                        </IconButton >
+                    )}
+                </Box> 
+            </Box>
+        </Box>
     )
 }
 

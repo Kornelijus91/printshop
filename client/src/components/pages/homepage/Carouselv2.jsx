@@ -13,12 +13,12 @@ const useStyles = makeStyles((theme) => ({
         '-moz-box-shadow': 'inset 0 0 5px #000000',
         '-webkit-box-shadow': 'inset 0 0 5px #000000',
         boxShadow: 'inset 0 0 5px #000000',
-        [theme.breakpoints.up('xxl')]: {
-            height: '55rem', 
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            height: '65rem', 
-        },
+        // [theme.breakpoints.up('xxl')]: {
+        //     height: '55rem', 
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     height: '65rem', 
+        // },
     },
     carousel: {
         width: '100%',
@@ -27,11 +27,14 @@ const useStyles = makeStyles((theme) => ({
         height: '20rem',
         [theme.breakpoints.up('md')]: {
             height: '30rem',
-            width: '80%',
+            // width: '80%',
         },
         [theme.breakpoints.up('lg')]: {
-            height: '40rem',
-            width: '80%',
+            height: 'clamp(40.00rem, 33.33vw, 80.00rem);',
+            // width: '100%',
+        },
+        [theme.breakpoints.up('xl')]: {
+            width: '60%',
         },
     },
 }));

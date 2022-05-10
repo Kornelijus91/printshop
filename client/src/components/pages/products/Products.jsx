@@ -140,10 +140,11 @@ const Products = ({ products, loyaltydiscount }) => {
                                 <Grid item xl={2} lg={2} md={3} sm={4} xs={6} key={item._id} style={{display: 'flex', justifyContent: 'center'}}>
                                     <Box classes={{root: classes.cardShadow}} style={{display: 'flex', justifyContent: 'center'}}>
                                         <ProductCard 
-                                            image={item.image}
-                                            name={item.name}
-                                            amountDiscount={item.amountDiscount}
-                                            link={item.link}
+                                            // image={item.image}
+                                            // name={item.name}
+                                            // amountDiscount={item.amountDiscount}
+                                            // link={item.link}
+                                            produktas={item}
                                             loyaltydiscount={loyaltydiscount}
                                         />
                                     </Box>
