@@ -3,25 +3,24 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Fab, Box, Fade, TextField, InputAdornment, Badge } from '@material-ui/core';
 import { IoChatboxEllipses } from "react-icons/io5"; 
 import { IoMdClose, IoIosSend } from "react-icons/io"; 
-import Treklama01 from '../../../media/Treklama01.png';
+import Treklama01 from '../../../media/logo.png';
 import {SocketContext} from '../../../socket';
 import Linkify from 'react-linkify';
-// import { io } from "socket.io-client";
 
 const useStyles = makeStyles((theme) => ({
     icon: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.35)'
+            transform: 'scale(1.4)'
         },
         [theme.breakpoints.up('xxxl')]: {
             transform: 'scale(2)'
         },
     },
     iconsend: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         '&:hover': {
-            color: '#335d99',
+            color: theme.myTheme.tZalia.light,
             cursor: 'pointer'
         },
         [theme.breakpoints.up('xxl')]: {
@@ -49,81 +48,58 @@ const useStyles = makeStyles((theme) => ({
         right: 20,
         bottom: 20,
         zIndex: '20',
-        backgroundColor: theme.myTheme.ketvirta,
+        backgroundColor: theme.myTheme.balta,
         margin: 0,
         padding: 0,
-        width: '3rem',
-        height: '3rem',
+        width: 'clamp(3rem, 2.4vw, 6rem)',
+        height: 'clamp(3rem, 2.4vw, 6rem)',
         borderRadius: '50%',
         '&:hover': {
-            backgroundColor: theme.myTheme.antra,
-        },
-        [theme.breakpoints.up('xxl')]: {
-            width: '4.05rem',
-            height: '4.05rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            width: '6rem',
-            height: '6rem',
+            backgroundColor: theme.myTheme.sZalia.dark,
         },
     },
     chatWindow: {
-        width: '20em',
-        height: '35em',
+        width: 'clamp(20rem, 16vw, 40rem)',
+        height: 'clamp(35rem, 28.3vw, 70rem)',
         position: 'fixed',
         right: 20,
         bottom: 85,
         zIndex: '20',
-        borderRadius: '5px',
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         boxShadow: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)',
-        backgroundColor: theme.myTheme.ketvirta,
+        backgroundColor: theme.myTheme.sZalia.main,
         [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
             boxShadow: '0px 4px 7px -1.35px rgb(0 0 0 / 20%), 0px 8px 13px 0px rgb(0 0 0 / 14%), 0px 1.35px 24px 0px rgb(0 0 0 / 12%)',
-            width: '27em',
-            height: '47.25em',
-            right: 27,
-            bottom: 114,
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
             boxShadow: '0px 6px 10px -2px rgb(0 0 0 / 20%), 0px 12px 20px 0px rgb(0 0 0 / 14%), 0px 2px 36px 0px rgb(0 0 0 / 12%)',
-            width: '40em',
-            height: '70em',
-            right: 40,
-            bottom: 170,
         },
     },
     chatWindowTop: {
         width: '100%',
         height: '10%',
-        backgroundColor: theme.myTheme.pirma,
+        backgroundColor: theme.myTheme.juoda,
         borderRadius: '5px 5px 0 0',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '0 1em',
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingRight: theme.myTheme.sizeM,
+        paddingLeft: theme.myTheme.sizeM,
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '7px 7px 0 0',
-            padding: '0 1.35em',
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px 9px 0 0',
-            padding: '0 2em',
+            borderRadius: '10px 10px 0 0',
         },
     },
     chatWindowMiddle: {
         width: '100%',
         height: '78%',
         overflowY: 'auto',
-        backgroundColor: theme.myTheme.trecia,
-        padding: '1em',
-        [theme.breakpoints.up('xxl')]: {
-            padding: '1.35em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '2em',
-        },
+        backgroundColor: theme.myTheme.balta,
+        padding: theme.myTheme.sizeM,
     },
     chatWindowBottom: {
         width: '100%',
@@ -132,12 +108,15 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: '0 0 5px 5px',
-        padding: '0 0 0 1em',
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingRight: 0,
+        paddingLeft: theme.myTheme.sizeM,
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '0 0 7px 7px',
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '0 0 9px 9px',
+            borderRadius: '0 0 10px 10px',
         },
     },
     trlogo: {
@@ -149,51 +128,29 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
     input: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '1rem',
-        
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.3rem',
-            paddingRight: '1em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-            paddingRight: '1em',
-        },
+        fontSize: theme.myTheme.sizeM,
+        paddingRight: theme.myTheme.sizeM,
     },
     messageParent: {
         width: '100%'
     },
     messageBox: {
         maxWidth: '80%',
-        padding: '.5em',
-        marginBottom: '1em',
-        color: theme.myTheme.sriftoSpalva,
+        padding: theme.myTheme.sizeXS,
+        marginBottom: theme.myTheme.sizeM,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '1rem',
-        borderRadius: '5px 5px',
+        fontSize: theme.myTheme.sizeM,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px 7px',
-            fontSize: '1.3rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px 9px',
-            fontSize: '2rem',
-        },
     },
     timeBox: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         opacity: 0.75,
-        fontSize: '.8rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.08rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.6rem',
-        },
+        fontSize: theme.myTheme.sizeS,
     },
     fabIconBox: {
         width: '100%',
@@ -205,28 +162,28 @@ const useStyles = makeStyles((theme) => ({
     badge: {
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '.67rem',
-        backgroundColor: '#26a69a',
+        fontSize: theme.myTheme.sizeXS,
+        backgroundColor: theme.myTheme.sZalia.dark,
         transform:  'translate(1rem, -1rem)',
         boxShadow: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)',
         [theme.breakpoints.up('xxl')]: {
-            // fontSize: '.95rem',
             transform:  'translate(1.7rem, -1.7rem) scale(1.35)',
-            // transform: 'scale(1.35)',
         },
         [theme.breakpoints.up('xxxl')]: {
-            // fontSize: '1.34rem',
+            fontSize: theme.myTheme.sizeXXS,
             transform:  'translate(2.7rem, -2.7rem) scale(2)',
-            // transform: 'scale(1.35)',
         },
     },
     message: {
-        margin: '0 0 .5em 0',
+        marginTop:0,
+        marginBottom: theme.myTheme.sizeXS,
+        marginRight: 0,
+        marginLeft: 0,
         padding: 0
     },
 }));
 
-const Chat = ({ username, firstName }) => {  // socket
+const Chat = ({ username, firstName }) => {  
 
     const classes = useStyles();
 
@@ -353,11 +310,11 @@ const Chat = ({ username, firstName }) => {  // socket
                                     style={
                                         item.from === 'me' ?
                                             {
-                                                backgroundColor: '#7fcacc',
+                                                backgroundColor: '#56c2bf',
                                             }
                                         :
                                             {
-                                                backgroundColor: '#A8DADC',
+                                                backgroundColor: '#369693',
                                             }
                                     }
                                 >

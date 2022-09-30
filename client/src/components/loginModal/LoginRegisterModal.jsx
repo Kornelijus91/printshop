@@ -19,12 +19,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   root: {
-    backgroundColor: theme.myTheme.trecia,
+    backgroundColor: theme.myTheme.ruda.main,
     fontFamily: theme.myTheme.sriftas,
     border: 'none',
-    width: '25rem',
+    width: 'clamp(25rem, 20vw, 50rem)',
     outline: 'none',
-    borderRadius: "6px",
+    borderRadius: theme.myTheme.sizeBorderRadiusSmall,
     textAlign: "center",
     position: "absolute",  
     top: "15%",
@@ -32,64 +32,53 @@ const useStyles = makeStyles((theme) => ({
       top: "5%",
       width: '20rem',
     },
-    [theme.breakpoints.up('xxl')]:{
-      width: '33.75rem',
-      borderRadius: "9px",
-    },
-    [theme.breakpoints.up('xxxl')]:{
-      width: '50rem',
-      borderRadius: "14px",
-    },
   },
   tabs: {
-    marginBottom: "1.2rem",
-    backgroundColor: theme.myTheme.pirma,
+    width: '100%',
+    
+    marginBottom: theme.myTheme.sizeMM,
+    backgroundColor: theme.myTheme.juoda,
     borderRadius: "6px 6px 0px 0px",
     zIndex: '1',
     position: 'relative',
+    height: 'clamp(3rem, 2.4vw, 6rem)',
     [theme.breakpoints.up('xxl')]:{
-      marginBottom: "1.35rem",
-      borderRadius: "9.45px 9.45px 0px 0px",
-      height: '3.8rem',
+      borderRadius: "8.4px 8.4px 0px 0px",
     },
     [theme.breakpoints.up('xxxl')]:{
-      marginBottom: "2rem",
-      borderRadius: "14px 14px 0px 0px",
-      height: '6rem',
+      borderRadius: "12px 12px 0px 0px",
     },
   },
   tab: {
-    color: `${theme.myTheme.trecia} !important`,
+    color: `${theme.myTheme.balta} !important`,
+    transition:'color .4s ease', 
     fontFamily: theme.myTheme.sriftas,
     fontWeight: "bold",
     zIndex: '10',
-    width: '10rem',
+    width: 'clamp(10rem, 8vw, 20rem)',
+    fontSize: theme.myTheme.sizeM,
+    marginTop: theme.myTheme.sizeXXXS,
     [theme.breakpoints.up('xxl')]:{
-      width: '13.5rem',
-      fontSize: '1.15rem',
-      marginTop: '.5rem',
+      marginTop: theme.myTheme.sizeXXS,
     },
     [theme.breakpoints.up('xxxl')]:{
-      width: '20rem',
-      fontSize: '1.6rem',
-      marginTop: '1.2rem',
+      fontSize: theme.myTheme.sizeS,
     },
   },
   tabFocused: {
-    color: `${theme.myTheme.sriftoSpalva} !important`,
+    color: `${theme.myTheme.juoda} !important`,
+    transition:'color .4s ease', 
     fontFamily: theme.myTheme.sriftas,
     fontWeight: "bold",
     zIndex: '10',
-    width: '10rem',
+    width: 'clamp(10rem, 8vw, 20rem)',
+    fontSize: theme.myTheme.sizeM,
+    marginTop: theme.myTheme.sizeXXXS,
     [theme.breakpoints.up('xxl')]:{
-      marginTop: '.5rem',
-      width: '13.5rem',
-      fontSize: '1.15rem',
+      marginTop: theme.myTheme.sizeXXS,
     },
     [theme.breakpoints.up('xxxl')]:{
-      width: '20rem',
-      fontSize: '1.6rem',
-      marginTop: '1.2rem',
+      fontSize: theme.myTheme.sizeS,
     },
   },
   tablabel: {
@@ -97,143 +86,110 @@ const useStyles = makeStyles((theme) => ({
   },
   TabLeft: {
     width: '100%', 
-    height: '.8rem', 
+    height: theme.myTheme.sizeS,
     backgroundColor: 'transparent', 
     borderRadius: "0 0 7px 0", 
-    boxShadow: '5px 5px 0 #F1FAEE',
+    boxShadow: '5px 5px 0 #dddfd4',
     [theme.breakpoints.up('xxl')]:{
-      height: '1.3rem', 
-      borderRadius: "0 0 10px 0", 
-      boxShadow: '8px 10px 0 #F1FAEE',
+      borderRadius: "0 0 9.8px 0", 
+      boxShadow: '8px 10px 0 #dddfd4',
     },
     [theme.breakpoints.up('xxxl')]:{
-      height: '1.6rem', 
       borderRadius: "0 0 14px 0", 
-      boxShadow: '10px 10px 0 #F1FAEE',
+      boxShadow: '10px 10px 0 #dddfd4',
     },
   },
   Tabmiddle: {
     width: '100%', 
-    height: '3rem', 
-    backgroundColor: theme.myTheme.trecia,
+    height: 'clamp(3rem, 2.4vw, 6rem)',
+    backgroundColor: theme.myTheme.ruda.main,
     borderRadius: "7px 7px 0px 0px",
     [theme.breakpoints.up('xxl')]:{
-      height: '3.82rem', 
-    },
-    [theme.breakpoints.up('xxxl')]:{
-      height: '6rem', 
-    },
-  },
-  tabmiddlegriditem: {
-    backgroundColor: theme.myTheme.trecia,
-    borderRadius: "7px 7px 0px 0px",
-    [theme.breakpoints.up('xxl')]:{
-      borderRadius: "10px 10px 0px 0px",
-      boxShadow: '0 5px 0 #F1FAEE',
+      borderRadius: "9.8px 9.8px 0px 0px",
     },
     [theme.breakpoints.up('xxxl')]:{
       borderRadius: "14px 14px 0px 0px",
     },
   },
-  TabRight: {
-    width: '100%', 
-    height: '.8rem', 
-    backgroundColor: 'transparent', 
-    borderRadius: "0 0 0 7px", 
-    boxShadow: '-5px 5px 0 #F1FAEE',
+  tabmiddlegriditem: {
+    backgroundColor: theme.myTheme.ruda.main,
+    borderRadius: "7px 7px 0px 0px",
     [theme.breakpoints.up('xxl')]:{
-      height: '1.3rem', 
-      borderRadius: "0 0 0 10px", 
-      boxShadow: '-8px 10px 0 #F1FAEE',
+      borderRadius: "9.8px 9.8px 0px 0px",
+      boxShadow: '0 10px 0 #dddfd4',
     },
     [theme.breakpoints.up('xxxl')]:{
-      height: '1.6rem', 
+      borderRadius: "14px 14px 0px 0px",
+      boxShadow: '0 15px 0 #dddfd4',
+    },
+  },
+  TabRight: {
+    width: '100%', 
+    height: theme.myTheme.sizeS,
+    backgroundColor: 'transparent', 
+    borderRadius: "0 0 0 7px", 
+    boxShadow: '-5px 5px 0 #dddfd4',
+    [theme.breakpoints.up('xxl')]:{
+      borderRadius: "0 0 0 9.8px", 
+      boxShadow: '-7px 7px 0 #dddfd4',
+    },
+    [theme.breakpoints.up('xxxl')]:{
       borderRadius: "0 0 0 14px", 
-      boxShadow: '-10px 10px 0 #F1FAEE',
+      boxShadow: '-10px 10px 0 #dddfd4',
     },
   },
   h2: {
     margin: 0,
-    color: theme.myTheme.sriftoSpalva,
+    color: theme.myTheme.juoda,
     padding: 0,
     width: '22ch',
-    [theme.breakpoints.up('xxl')]:{
-      fontSize: '1.4rem',
-      
-    },
-    [theme.breakpoints.up('xxxl')]:{
-      fontSize: '2rem',
-      
-    },
+    fontSize: theme.myTheme.sizeM,
+
   },
   viewLink: {
     margin: '0',
     padding: '0',
     textDecoration: 'underline',
-    color: theme.myTheme.antra,
+    color: theme.myTheme.sZalia.main,
     cursor: 'pointer',
-    [theme.breakpoints.up('xxl')]:{
-      fontSize: '1.2rem'
-    },
-    [theme.breakpoints.up('xxxl')]:{
-      fontSize: '1.7rem'
-    },
+    fontSize: theme.myTheme.sizeS,
   },
   indicator: {
     height: '100%',
     backgroundColor: 'transparent',
   },
   bottomText: {
-    color: theme.myTheme.sriftoSpalva,
-    margin: '0 1rem 1rem .9rem',
-    [theme.breakpoints.up('xxl')]:{
-      margin: '0 1.35rem 1.35rem 1.215rem',
-      fontSize: '1.2rem'
-    },
-    [theme.breakpoints.up('xxxl')]:{
-      margin: '0 2rem 2rem 1.8rem',
-      fontSize: '1.7rem'
-    },
+    color: theme.myTheme.juoda,
+    fontSize: theme.myTheme.sizeS,
+    marginTop:0,
+    marginBottom: theme.myTheme.sizeM,
   },
   backdropp: {
     overflow: 'hidden !important'
   },
   sideHr: {
     width: '30%',
-    borderTop: '1px solid rgba(29, 53, 87, 0.7)',
-    [theme.breakpoints.up('xxxl')]:{
-      borderTop: '2px solid rgba(29, 53, 87, 0.7)',
-    },
+    height: theme.myTheme.sizeXXXS,
+    backgroundColor: theme.myTheme.sZalia.main,
+    borderRadius: theme.myTheme.sizeBorderRadiusLarge,
   },
   hr: {
     width: '100%',
-    borderTop: '1px solid rgba(29, 53, 87, 0.7)',
-    [theme.breakpoints.up('xxl')]:{
-      marginBottom: '1rem'
-    },
-    [theme.breakpoints.up('xxxl')]:{
-      borderTop: '2px solid rgba(29, 53, 87, 0.7)',
-    },
+    height: theme.myTheme.sizeXXXS,
+    backgroundColor: theme.myTheme.sZalia.main,
+    borderRadius: theme.myTheme.sizeBorderRadiusLarge,
+    marginBottom: theme.myTheme.sizeXS,
   },
   greitasprisijungimasBox: {
     width: '100%',
-    paddingTop: '.5rem',
-    [theme.breakpoints.up('xxl')]:{
-      paddingTop: '.75rem',
-    },
-    [theme.breakpoints.up('xxxl')]:{
-      paddingTop: '1rem',
-    },
+    paddingTop: theme.myTheme.sizeXS,
   },
   greitasPrisijungimasPaernt: {
     width: '100%',
-    padding: '0 1rem',
-    [theme.breakpoints.up('xxl')]:{
-      padding: '0 1.35rem',
-    },
-    [theme.breakpoints.up('xxxl')]:{
-      padding: '0 2rem',
-    },
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingRight: theme.myTheme.sizeM,
+    paddingLeft: theme.myTheme.sizeM,
   },
 }));
 
@@ -329,7 +285,7 @@ export default function LoginRegisterModal({modalOpen, setModalOpen, setToken, s
           <Container classes={{root: classes.root}}>
             <Collapse 
               in={views.collapse} 
-              collapsedSize={screenSizexxxl ? 580 : screenSizexxl ? 391 : 290 }
+              collapsedSize={screenSizexxxl ? 560 : screenSizexxl ? 370 : 300 }
             >
                 {views.loginView ?
                   <Fade 
@@ -343,7 +299,7 @@ export default function LoginRegisterModal({modalOpen, setModalOpen, setToken, s
                         indicatorColor="secondary"
                         // textColor="secondary"
                         TabIndicatorProps={{ children: 
-                          <div>
+
                             <Grid container display='flex' justifyContent="center" alignItems='flex-end'>
                               <Grid item xl={1} xs={1} md={1} sm={1} lg={1}>
                                 <Box classes={{root: classes.TabLeft}}/>
@@ -355,7 +311,6 @@ export default function LoginRegisterModal({modalOpen, setModalOpen, setToken, s
                                 <Box classes={{root: classes.TabRight}}/>
                               </Grid>
                             </Grid>
-                          </div>
                         }}
                         centered
                         classes={{root: classes.tabs, indicator: classes.indicator}}
@@ -388,16 +343,16 @@ export default function LoginRegisterModal({modalOpen, setModalOpen, setToken, s
                       </Collapse>
                       <Box classes={{root: classes.greitasPrisijungimasPaernt}}>
                         <Box display='flex' justifyContent='center' alignItems='center' className={classes.greitasprisijungimasBox}>
-                          <hr className={classes.sideHr}/>
+                          <div className={classes.sideHr}/>
                           <h3 className={classes.h2}>Greitas prisijungimas:</h3>
-                          <hr className={classes.sideHr}/>
+                          <div className={classes.sideHr}/>
                         </Box>
                         <Box display='flex' justifyContent='center' alignItems='center'>
                           <GoogleAuthButton setModalOpen={setModalOpen} setLoggedIn={setLoggedIn} socialSubmitting={socialSubmitting} setSocialSubmitting={setSocialSubmitting} setOAuthWindow={setOAuthWindow} oAuthWindow={oAuthWindow}/>
                           <FacebookAuthButton setModalOpen={setModalOpen} setLoggedIn={setLoggedIn} socialSubmitting={socialSubmitting} setSocialSubmitting={setSocialSubmitting} setOAuthWindow={setOAuthWindow} oAuthWindow={oAuthWindow}/>
                           <LinkedInAuthButton setModalOpen={setModalOpen} setLoggedIn={setLoggedIn} socialSubmitting={socialSubmitting} setSocialSubmitting={setSocialSubmitting} setOAuthWindow={setOAuthWindow} oAuthWindow={oAuthWindow}/>
                         </Box>
-                        <hr className={classes.hr}/>
+                        <div className={classes.hr}/>
                       </Box>
                     </Box> 
                   </Fade>

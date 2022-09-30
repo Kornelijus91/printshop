@@ -1,5 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap'); */
+
+@font-face {
+  font-family: GilroyBold;
+  src: url(./fonts/gilroybold.OTF);
+}
+@font-face {
+  font-family: GilroyLight;
+  src: url(./fonts/gilroylight.OTF);
+}
+@font-face {
+  font-family: Grotesk;
+  src: url(./fonts/grotesk.OTF);
+}
+@font-face {
+  font-family: LogoFont;
+  src: url(./fonts/logofont.OTF);
+}
 
 /* Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-outer-spin-button,

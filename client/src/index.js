@@ -95,9 +95,9 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#E63946",
-      light: "#eb606c",
-      dark: "#e31c2d",
+      main: '#173e43',
+      light: '#21585f',
+      dark: '#0d2326',
     },
     warning: {
       main: "#f44336",
@@ -115,19 +115,62 @@ const theme = createTheme({
       dark: "#26a69a",
     },
     background: {
-      default: "#F1FAEE"
+      default: "#dddfd4"
     },
     action: {
       disabledBackground: '#f7bbc0',
     }
   },
   myTheme: {
+
+    //===== SENI ======//
+
     pirma: '#E63946', //RAUDONA
     antra: '#457B9D', //MELYNA
     trecia: '#F1FAEE', //KREMINE
     ketvirta: '#A8DADC', //SVIESIAI MELYNA
     sriftoSpalva: '#1D3557', //TAMSIAI MELYNA
-    sriftas: "'Quicksand', Helvetica, sans-serif" //SRIFTAS
+    // sriftas: "'Quicksand', Helvetica, sans-serif", //SRIFTAS
+
+    //================//
+    juoda: '#000000',
+    balta: '#ffffff',
+    sZalia: {
+      main: '#3fb0ac',
+      light: '#56c2bf',
+      dark: '#369693',
+    },
+    tZalia: {
+      main: '#173e43',
+      light: '#21585f',
+      dark: '#0d2326',
+    },
+    ruda: {
+      main: '#dddfd4',
+      light: '#f3f4f0',
+      dark: '#c5c9b6',
+    },
+    sriftas: "'GilroyLight', Helvetica, sans-serif", 
+    sriftasBold: "'GilroyBold', Helvetica, sans-serif", 
+    sriftasGrotesk: "'Grotesk', Helvetica, sans-serif", 
+    sriftasLogo: "'LogoFont', Helvetica, sans-serif", 
+
+    // ====== Dydziai ====== //
+
+    sizeBorderRadiusSmall: 'clamp(0.3125rem, 0.25vw, 0.625rem)', // 5px border radius
+    sizeBorderRadiusLarge: 'clamp(20rem, 16vw, 40rem)',
+    sizeXXXS: 'clamp(.2rem, 0.16vw, .4rem)',
+    sizeXXS: 'clamp(.4rem, 0.32vw, .8rem)',
+    sizeXS: 'clamp(.6rem, 0.48vw, 1.2rem)',
+    sizeS: 'clamp(.8rem, 0.648vw, 1.6rem)',
+    sizeM: 'clamp(1rem, 0.8vw, 2rem)',
+    sizeMM: 'clamp(1.2rem, 0.97vw, 2.4rem)',
+    sizeL: 'clamp(1.25rem, 1vw, 2.5rem)',
+    sizeXL: 'clamp(1.5rem, 1.2vw, 3rem)',
+    sizeXXL: 'clamp(2rem, 1.6vw, 4rem)',
+    sizeXXXL: 'clamp(2.5rem, 2, 5rem)',
+
+    // ===================== //
   },
 });
 

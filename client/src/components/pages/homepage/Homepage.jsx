@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         margin: '0',
         padding: '0',
-        backgroundColor: theme.myTheme.pirma,
+        // backgroundColor: theme.myTheme.pirma,
     },
 }));
 

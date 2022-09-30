@@ -1,4 +1,4 @@
-import { Grid, Box, Hidden, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { Grid, Box, Hidden, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'; //Divider
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -9,16 +9,14 @@ import User from './User';
 import Cart from './Cart';
 import { FaBoxOpen, FaUser, FaHome, FaClipboardList, FaDoorOpen, FaSearch } from 'react-icons/fa';
 import { BsFillChatDotsFill } from "react-icons/bs";
-import Treklama01 from '../../media/Treklama01.png'
+import Treklama01 from '../../media/logo.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    // maxWidth: '3840px',
-    padding: ".4rem",
+    padding: theme.myTheme.sizeXXS, 
     margin: '0',
-    backgroundColor: theme.myTheme.pirma,
-    // boxShadow: '3px 3px 5px 6px #ccc'
+    backgroundColor: theme.myTheme.juoda,
   },
   grid: {
     textAlign: "center",
@@ -32,39 +30,35 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   gridItem: {
-      padding: ".7rem"
+      padding: theme.myTheme.sizeXS, 
   },
   link: {
-    color: theme.myTheme.sriftoSpalva,
+    color: theme.myTheme.balta,
     fontFamily: theme.myTheme.sriftas,
-    margin: '0 2rem 0 0',
     textDecoration: 'none',
-    fontSize: '1.5rem',
-    // fontWeight: 'bold',
-    // backgroundColor: 'none',
+    fontSize: theme.myTheme.sizeMM, 
     transition:'color .4s ease', 
     '&:hover': {
-        color: '#2d5286',
-    },
-    [theme.breakpoints.up('xxl')]: {
-        fontSize: '2.025rem',
-        margin: '0 3rem 0 0',
-    },
-    [theme.breakpoints.up('xxxl')]: {
-        fontSize: '3rem',
-        margin: '0 4rem 0 0',
+        color: theme.myTheme.sZalia.main,
     },
   },
+  menuDivider: {
+    width: theme.myTheme.sizeXXXS, 
+    height: theme.myTheme.sizeL, 
+    backgroundColor: theme.myTheme.sZalia.main,
+    borderRadius: theme.myTheme.sizeBorderRadiusSmall, 
+    margin: `0 ${theme.myTheme.sizeXXL}`,
+  },
   drawerlnk: {
-    color: theme.myTheme.sriftoSpalva,
+    color: theme.myTheme.balta,
     fontFamily: theme.myTheme.sriftas,
     textDecoration: 'none',
-    fontSize: '1.2rem',
-    padding: '.5rem .7rem .5rem 0rem',
+    fontSize: theme.myTheme.sizeMM, 
+    padding: `${theme.myTheme.sizeXXS}, ${theme.myTheme.sizeXS}, ${theme.myTheme.sizeXXS}, 0`, 
     overflowWrap: 'break-word',
   },
   icon: {
-    color: theme.myTheme.sriftoSpalva,
+    color: theme.myTheme.balta,
     '&:hover': {
         cursor: 'pointer',
     },
@@ -72,52 +66,53 @@ const useStyles = makeStyles((theme) => ({
   list: {
     width: 250,
     height: '100%',
-    backgroundColor: theme.myTheme.pirma,
+    backgroundColor: theme.myTheme.juoda,
   },
   drawer: {
-    backgroundColor: theme.myTheme.pirma,
+    backgroundColor: theme.myTheme.juoda,
   },
-  divider: {
-    background: 'rgba(29, 53, 87, 0.3)',
-    marginTop: '.5rem'
-  },
+//   divider: {
+//     background: theme.myTheme.balta,
+//     marginTop: theme.myTheme.sizeXS,
+//   },
   logoBox: {
     width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: "center",
+    alignItems: "center",
   },
   mainLogo: {
-    width: '100%', 
+    width: '70%', 
     objectFit: 'contain',
-    padding: '.2rem 0',
-    [theme.breakpoints.up('lg')]: {
-        width: '70%', 
-    },
     [theme.breakpoints.up('xl')]: {
         width: '55%', 
     },
-    [theme.breakpoints.up('xxl')]: {
-        margin: '1rem' 
-    },
-    [theme.breakpoints.up('xxxl')]: {
-        margin: '2rem' 
-    },
+  },
+  logoLink: {
+    display: 'flex',
+    justifyContent: "center",
+    alignItems: "center",
   },
   drawerLogo: {
     width: '90%',
-    marginTop: '.5rem',
+    marginTop: theme.myTheme.sizeXXS,
     objectFit: 'contain'
   },
   drawerLogoLink: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: theme.myTheme.sizeM,
   },
   mobilemenuIconBox: {
     width: '100%',
-    paddingRight: '.5rem',
+    paddingRight: theme.myTheme.sizeXXS,
   },
+
 }));
 
-const Navigation = ({ loyaltydiscountLevel, priceSum, personalas, setPersonalas, firstName, setSearchResult, setSearchValue, searchResult, handlesearchValueChange, searchValue, setModalOpen, loggedIn, setLoggedIn, token, setToken, username, setMoneySpent }) => {
+const Navigation = ({ priceSum, personalas, setPersonalas, firstName, setSearchResult, setSearchValue, searchResult, handlesearchValueChange, searchValue, setModalOpen, loggedIn, setLoggedIn, token, setToken, username, setMoneySpent }) => { //loyaltydiscountLevel, 
 
     const classes = useStyles();
     const [drawer, setDrawer] = useState(false);
@@ -163,14 +158,17 @@ const Navigation = ({ loyaltydiscountLevel, priceSum, personalas, setPersonalas,
         <Box classes={{root: classes.root}}>
             <Grid container className={classes.grid} >
                 <Grid item xl={3} lg={4} md={4} sm={4} xs={6}>
-                    <Box display='flex' justifyContent="center" alignItems="center" classes={{root: classes.logoBox}}>
-                        <Link to="/"><img src={Treklama01} alt='Tavo reklama' className={classes.mainLogo}/></Link>
+                    <Box classes={{root: classes.logoBox}}>
+                        <Link to="/" className={classes.logoLink}><img src={Treklama01} alt='Tavo reklama' className={classes.mainLogo}/></Link>
                     </Box>
                 </Grid>
                 <Grid item xl={5} lg={5} md={false} sm={false} xs={false}>
                     <Hidden mdDown implementation="css">
                         <Box display='flex' justifyContent='flex-start' alignItems="center">
                             <Link to="/products" className={classes.link}>Produktai</Link>
+                            <div className={classes.menuDivider}/>
+                            <Link to="/klubas" className={classes.link}>Tavo reklama klubas</Link>
+                            <div className={classes.menuDivider}/>
                             <Link to="/contact" className={classes.link}>Susisiekite</Link>
                         </Box>
                     </Hidden>
@@ -204,7 +202,7 @@ const Navigation = ({ loyaltydiscountLevel, priceSum, personalas, setPersonalas,
                                         handleLogout={handleLogout}
                                         firstName={firstName}
                                         personalas={personalas}
-                                        loyaltydiscountLevel={loyaltydiscountLevel}
+                                        // loyaltydiscountLevel={loyaltydiscountLevel}
                                     />
                                 </Box>
                             </Grid>
@@ -228,7 +226,7 @@ const Navigation = ({ loyaltydiscountLevel, priceSum, personalas, setPersonalas,
                         <Box display='flex' justifyContent="center" alignItems="center">
                             <Link to="/" className={classes.drawerLogoLink}><img src={Treklama01} alt='Tavo reklama' className={classes.drawerLogo}/></Link>
                         </Box>
-                        <Divider className={classes.divider} />
+                        {/* <Divider className={classes.divider} /> */}
                         <List classes={{root: classes.drawer}}>
                             {!loggedIn ?
                                 <ListItem button onClick={handleUserOpen} style={{marginBottom: '.5rem', marginTop: '.5rem', paddingBottom: '0', paddingTop: '0'}}>
@@ -253,7 +251,7 @@ const Navigation = ({ loyaltydiscountLevel, priceSum, personalas, setPersonalas,
                                         <ListItemIcon><FaDoorOpen size={24} className={classes.icon} /></ListItemIcon>
                                         <ListItemText classes={{root:classes.drawerlnk}} disableTypography={true}>Atsijungti</ListItemText>
                                     </ListItem>
-                                    <Divider className={classes.divider} />
+                                    {/* <Divider className={classes.divider} /> */}
                                 </>
                             }
                             <ListItem button>

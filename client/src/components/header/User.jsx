@@ -1,143 +1,110 @@
 import { FaUser } from 'react-icons/fa';
 import { makeStyles } from '@material-ui/core/styles';
-import { useEffect, useState } from 'react';
-import { Box, Badge, Menu, MenuItem, Divider } from '@material-ui/core';
+// import { useEffect, useState } from 'react';
+import { Badge, Menu, MenuItem, Divider } from '@material-ui/core'; //Box,
 import { Link } from 'react-router-dom';
-import { FaCrown } from 'react-icons/fa'; 
+// import { FaCrown } from 'react-icons/fa'; 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        // marginTop: ".4rem",
-        fontSize: '24px',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '32.4px',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '48px',
-        },
+        fontSize: theme.myTheme.sizeXL,
+        color: theme.myTheme.balta,
+        transition:'color .4s ease', 
         '&:hover': {
-            color: '#2d5286',
+            color: theme.myTheme.sZalia.main,
             cursor: 'pointer'
         },
-        color: theme.myTheme.sriftoSpalva,
     },
     badge: {
-        border: `2px solid ${theme.myTheme.pirma}`,
-        borderRadius: "50%",
-        height: ".75rem",
-        width: ".75rem",
-        [theme.breakpoints.up('xxl')]: {
-            // transform: 'scale(1.35)'
-            border: `3px solid ${theme.myTheme.pirma}`,
-            height: "1.0125rem",
-            width: "1.0125rem",
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            // transform: 'scale(2) translate(1rem 1rem)'
-            border: `4px solid ${theme.myTheme.pirma}`,
-            height: "1.5rem",
-            width: "1.5rem",
-        },
+        border: `clamp(2px, 0.1vw, 4px) solid ${theme.myTheme.juoda}`,
+        borderRadius: theme.myTheme.sizeBorderRadiusLarge,
+        height: theme.myTheme.sizeS,
+        width: theme.myTheme.sizeS,
     },
     menu: {
-        marginTop: ".5rem",
-        // boxShadow: "1px 3px 5px #888888",
-        minWidth: '10rem',
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-            minWidth: '13.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
-            minWidth: '20rem',
-        },
+        marginTop: theme.myTheme.sizeXXS,
+        minWidth: 'clamp(10rem, 8vw, 20rem)',
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
     },
     menuItem: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         textDecoration: 'none',
         height: '100%',
         width: '100%',
-        margin: '.2em .2em',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.3rem',
-            margin: '.3em .2em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-            margin: '.4em .2em',
-        },
+        marginTop: theme.myTheme.sizeXXXS,
+        marginBottom: theme.myTheme.sizeXXXS,
+        marginRight: theme.myTheme.sizeXXXS,
+        marginLeft: theme.myTheme.sizeMM,
+        padding: '0rem',
+        fontSize: theme.myTheme.sizeM,
     },
     text: {
-        margin: '0 1em .4em 1.2em',
+        marginTop: '0rem',
+        marginBottom: theme.myTheme.sizeXXS,
+        marginRight: theme.myTheme.sizeM,
+        marginLeft: theme.myTheme.sizeMM,
         padding: '0',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.3rem',
-            margin: '0 1.35em .4em 1em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-            margin: '0 2em .5em .8em',
-        },
+        fontSize: theme.myTheme.sizeM,
+    },
+    menuListItem: {
+        paddingLeft: 0,
     },
     menuHeader: {
-        margin: '0 0 0 1.2em',
-        padding: '0',
-        color: theme.myTheme.sriftoSpalva,
+        marginTop: '0rem',
+        marginBottom: '0rem',
+        marginRight: '0rem',
+        marginLeft: theme.myTheme.sizeMM,
+        padding: '0rem',
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.3rem',
-            margin: '.1em 0 0 1em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-            margin: '.3em 0 0 .8em',
-        },
+        fontSize: theme.myTheme.sizeM,
     },
-    crownBox: {
-        width: '6rem',
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-        [theme.breakpoints.up('xxl')]: {
-            width: '8.1rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            width: '12rem',
-        },
+    menuDivider: {
+        marginBottom: theme.myTheme.sizeXXXS,
     },
-    crownBadge: {
-        transform: 'translate(2.6rem, -1.3rem)',
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'translate(3.4rem, -1.5rem)',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'translate(4.84rem, -2rem)',
-        },
-    },
-    crownIcon: {
-        color: '#e9c46a',
-        fontSize: '1rem',
-        margin: '0 .2em',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-        },
-    }
+    // crownBox: {
+    //     width: '6rem',
+    //     display: 'flex',
+    //     flexWrap: 'wrap',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     [theme.breakpoints.up('xxl')]: {
+    //         width: '8.1rem',
+    //     },
+    //     [theme.breakpoints.up('xxxl')]: {
+    //         width: '12rem',
+    //     },
+    // },
+    // crownBadge: {
+    //     transform: 'translate(2.6rem, -1.3rem)',
+    //     [theme.breakpoints.up('xxl')]: {
+    //         transform: 'translate(3.4rem, -1.5rem)',
+    //     },
+    //     [theme.breakpoints.up('xxxl')]: {
+    //         transform: 'translate(4.84rem, -2rem)',
+    //     },
+    // },
+    // crownIcon: {
+    //     color: '#e9c46a',
+    //     fontSize: '1rem',
+    //     margin: '0 .2em',
+    //     [theme.breakpoints.up('xxl')]: {
+    //         fontSize: '1.35rem',
+    //     },
+    //     [theme.breakpoints.up('xxxl')]: {
+    //         fontSize: '2rem',
+    //     },
+    // }
 }));
 
-const User = ({ loyaltydiscountLevel, firstName, loggedIn, handleLogout, username, handleUserOpen, handleUserClose, anchorEl, menuOpen, personalas }) => {
+const User = ({ firstName, loggedIn, handleLogout, username, handleUserOpen, handleUserClose, anchorEl, menuOpen, personalas }) => { //loyaltydiscountLevel
 
     const classes = useStyles();
 
-    const [karunos, setKarunos] = useState([]);
+    // const [karunos, setKarunos] = useState([]);
 
     const kreipinys = () => {
         var last2 = firstName.slice(-2);
@@ -175,24 +142,24 @@ const User = ({ loyaltydiscountLevel, firstName, loggedIn, handleLogout, usernam
         return name;
     };
 
-    const kiekkarunu = () => {
-        var tempArray = [];
-        for (var i = 1; i <= loyaltydiscountLevel; i++) {
-            tempArray.push(<FaCrown className={classes.crownIcon} /> );
-        }
-        setKarunos(tempArray);
-    };
+    // const kiekkarunu = () => {
+    //     var tempArray = [];
+    //     for (var i = 1; i <= loyaltydiscountLevel; i++) {
+    //         tempArray.push(<FaCrown className={classes.crownIcon} /> );
+    //     }
+    //     setKarunos(tempArray);
+    // };
 
-    useEffect(() => {
-        if (loyaltydiscountLevel > 0) {
-            kiekkarunu();
-        }
-        // eslint-disable-next-line
-    }, [loyaltydiscountLevel]);
+    // useEffect(() => {
+    //     if (loyaltydiscountLevel > 0) {
+    //         kiekkarunu();
+    //     }
+    //     // eslint-disable-next-line
+    // }, [loyaltydiscountLevel]);
 
     return (
         <>
-            <Badge 
+            {/* <Badge 
                 invisible={loyaltydiscountLevel <= 0} 
                 classes={{badge: classes.crownBadge}}
                 anchorOrigin={{ vertical: 'top', horizontal: 'right',}}
@@ -201,7 +168,7 @@ const User = ({ loyaltydiscountLevel, firstName, loggedIn, handleLogout, usernam
                         {karunos}
                     </Box>
                 }
-            >
+            > */}
                 <Badge 
                     color="error" 
                     variant="dot" 
@@ -211,7 +178,7 @@ const User = ({ loyaltydiscountLevel, firstName, loggedIn, handleLogout, usernam
                 >
                     <FaUser onClick={handleUserOpen} className={classes.root}/>
                 </Badge>
-            </Badge>
+            {/* </Badge> */}
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}
@@ -242,14 +209,14 @@ const User = ({ loyaltydiscountLevel, firstName, loggedIn, handleLogout, usernam
                         <p className={classes.text}>{username}</p>
                     </>
                 }
-                <Divider style={{marginBottom: '.2rem'}}/>
+                <Divider classes={{root: classes.menuDivider}}/>
                 {(personalas.personalas || personalas.administracija) &&
-                    <MenuItem><a href='/personalas' className={classes.menuItem}>Personalas</a></MenuItem>
+                    <MenuItem classes={{root: classes.menuListItem}}><a href='/personalas' className={classes.menuItem}>Personalas</a></MenuItem>
                 }
-                <MenuItem onClick={handleUserClose}><Link to="/profile" className={classes.menuItem}>Profilis</Link></MenuItem>
-                <MenuItem onClick={handleUserClose}><Link to="/addresses" className={classes.menuItem}>Adresai</Link></MenuItem>
-                <MenuItem onClick={handleUserClose}><Link to="/orders" className={classes.menuItem}>Užsakymai</Link></MenuItem>
-                <MenuItem onClick={handleLogout}><p className={classes.menuItem}>Atsijungti</p></MenuItem>
+                <MenuItem classes={{root: classes.menuListItem}} onClick={handleUserClose}><Link to="/profile" className={classes.menuItem}>Profilis</Link></MenuItem>
+                <MenuItem classes={{root: classes.menuListItem}} onClick={handleUserClose}><Link to="/addresses" className={classes.menuItem}>Adresai</Link></MenuItem>
+                <MenuItem classes={{root: classes.menuListItem}} onClick={handleUserClose}><Link to="/orders" className={classes.menuItem}>Užsakymai</Link></MenuItem>
+                <MenuItem classes={{root: classes.menuListItem}} onClick={handleLogout}><p className={classes.menuItem}>Atsijungti</p></MenuItem>
             </Menu>
         </>
     )

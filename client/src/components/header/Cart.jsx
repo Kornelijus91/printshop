@@ -5,41 +5,28 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        fontSize: '24px',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '32.4px',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '48px',
-        },
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeXL,
+        color: theme.myTheme.balta,
+        transition:'color .4s ease', 
         '&:hover': {
-            color: '#2d5286',
+            color: theme.myTheme.sZalia.main,
             cursor: 'pointer'
         },
     },
     badge: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '.67rem',
-        backgroundColor: '#26a69a',
-        transform: (valuex) => `translate(${(valuex).toFixed(2).length + 0.5}ch, -1rem)`,
-        boxShadow: `0 0 0 2px ${theme.myTheme.pirma}`,
-        [theme.breakpoints.up('xl')]: {
-            transform: (valuex) => `translate(${(valuex).toFixed(2).length + 0.5}ch, -.7rem)`,
-        },
+        fontSize: 'clamp(0.67rem, 0.54vw, 1.34rem)',
+        backgroundColor: theme.myTheme.sZalia.main,
+        transform: (valuex) => `translate(${(valuex).toFixed(2).length + 0.5}ch, -.7rem)`,
+        boxShadow: `0 0 0 clamp(2px, 0.1vw, 4px) ${theme.myTheme.juoda}`,
+        padding: theme.myTheme.sizeXS,
+        borderRadius: theme.myTheme.sizeBorderRadiusLarge,
         [theme.breakpoints.up('xxl')]: {
-            fontSize: '.9rem',
-            // transform: 'translate(3rem, -1.1rem)',
-            transform: (valuex) => `translate(${(valuex).toFixed(2).length + 0.5}ch, -1.1rem)`,
-            boxShadow: `0 0 0 3px ${theme.myTheme.pirma}`,
-            padding: '.9em .6em',
-            borderRadius: '5rem'
+            transform: (valuex) => `translate(${(valuex).toFixed(2).length + 0.5}ch, -.98rem)`,
         },
         [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.34rem',
-            transform: (valuex) => `translate(${(valuex).toFixed(2).length + 0.5}ch, -1.5rem)`,
-            boxShadow: `0 0 0 4px ${theme.myTheme.pirma}`,
+            transform: (valuex) => `translate(${(valuex).toFixed(2).length + 0.5}ch, -1.4rem)`,
         },
     },
 }));

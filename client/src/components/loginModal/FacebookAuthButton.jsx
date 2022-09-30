@@ -5,27 +5,19 @@ import { FaFacebookSquare } from "react-icons/fa";
 
 const useStyles = makeStyles((theme) => ({
     button: {
-        // width: "80%",
-        // height: "2.5rem",
-        // marginBottom: "1rem",
-        // fontFamily: "'Titillium Web', sans-serif",
-        // fontSize: "1.5rem",
-        // padding: "0 0 .2rem 0",
-        // textTransform: 'lowercase',
-        // backgroundColor: "#4267B2",
-        // borderRadius: '10rem',
-        // boxShadow: "0px 2px 2px #888888",
-        margin: '0 .5rem .2rem .5rem',
+        marginTop:0,
+        marginBottom: theme.myTheme.sizeXXXS,
+        marginRight: theme.myTheme.sizeXXS,
+        marginLeft: theme.myTheme.sizeXXS,
+        '&:hover': {
+            backgroundColor: 'white',
+            transition:'background-color .4s ease', 
+        },
         [theme.breakpoints.up('xxl')]:{
-            margin: '0 .75rem .4rem .75rem',
             padding: '1.7rem',
         },
         [theme.breakpoints.up('xxxl')]:{
-            margin: '0 1rem .4rem 1rem',
             padding: '3rem',
-        },
-        '&:hover': {
-            backgroundColor: 'white',
         },
     },
     icon: {

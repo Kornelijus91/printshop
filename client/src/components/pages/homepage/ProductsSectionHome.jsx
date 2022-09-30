@@ -7,58 +7,78 @@ import ProductCard from './ProductCard';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: "100%",
+        height: 'clamp(30rem, 24vw, 60rem)',
+        backgroundColor: theme.myTheme.sZalia.main,
+        // [theme.breakpoints.up('lg')]: {
+        //     width: "90%",
+        // },
+        // [theme.breakpoints.up('xl')]: {
+        //     width: "80%",
+        // },
+        
+    },
+    innerBox: {
+        width: "100%",
+        backgroundColor: theme.myTheme.sZalia.main,
         [theme.breakpoints.up('lg')]: {
             width: "90%",
         },
         [theme.breakpoints.up('xl')]: {
-            width: "60%",
+            width: "80%",
         },
-        
     },
     header: {
-        margin: '1rem 0 .5rem 0',
+        // margin: '1rem 0 .5rem 0',
+        marginTop: theme.myTheme.sizeM,
+        marginBottom: theme.myTheme.sizeXXS,
+        marginRight: 0,
+        marginLeft: 0,
         padding: '0',
-        fontSize: '2rem',
+        fontSize: theme.myTheme.sizeXXL,
         textAlign: 'center',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '3rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '4rem',
-        },
+        // [theme.breakpoints.up('xxl')]: {
+        //     fontSize: '3rem',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     fontSize: '4rem',
+        // },
     },
     link: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         margin: '.5rem 0 1rem 0',
+        marginTop: theme.myTheme.sizeXXS,
+        marginBottom: theme.myTheme.sizeM,
+        marginRight: 0,
+        marginLeft: 0,
         textDecoration: 'none',
-        fontSize: '1.2rem',
+        fontSize: theme.myTheme.sizeMM,
         fontWeight: 'bold',
         textAlign: 'center',
         transition:'color .4s ease', 
         '&:hover': {
             color: '#2d5286',
         },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.8rem',
-            padding: '1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
-            padding: '1.4rem'
-        },
+        // [theme.breakpoints.up('xxl')]: {
+        //     fontSize: '1.8rem',
+        //     padding: '1rem'
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     fontSize: '2.4rem',
+        //     padding: '1.4rem'
+        // },
     },
     cardMargin: {
-        margin: '.7rem',
+        margin: theme.myTheme.sizeM,
         width: '100%',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '1.05rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '1.4rem',
-        },
+        // [theme.breakpoints.up('xxl')]: {
+        //     margin: '1.05rem',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     margin: '1.4rem',
+        // },
     },
 }));
 
@@ -79,9 +99,9 @@ const ProductsSectionHome = ({ products, loyaltydiscount }) => {
     };
 
     return (
-        <Box display="flex" justifyContent='center' alignItems='center'> 
-            <Box classes={{root: classes.root}}>
-                <h2 className={classes.header}>Produktai</h2>
+        <Box display="flex" justifyContent='center' alignItems='center' classes={{root: classes.root}}> 
+            <Box classes={{root: classes.innerBox}}>
+                {/* <h2 className={classes.header}>Produktai</h2> */}
                 {products.length > 0 ?
                     <Grid container display="flex" justifyContent='center' >
                         {products.map((item) => 
@@ -110,9 +130,9 @@ const ProductsSectionHome = ({ products, loyaltydiscount }) => {
                         )}
                     </Grid>    
                 }
-                <Box display="flex" justifyContent='center' alignItems='center'>
+                {/* <Box display="flex" justifyContent='center' alignItems='center'>
                     <Link to="/products" className={classes.link} onClick={() => window.scrollTo({top: 0, left: 0})}>Žiūrėti visus produktus</Link>
-                </Box>
+                </Box> */}
             </Box>
         </Box>
     )

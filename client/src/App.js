@@ -18,7 +18,7 @@ import Profile from './components/pages/profile/Profile.jsx';
 import Addresses from './components/pages/addresses/Addresses.jsx';
 import Trklubas from './components/pages/trklubas/Trklubas.jsx';
 import Chat from './components/pages/customerchat/Chat';
-import ComingSoon from './components/ComingSoon'
+// import ComingSoon from './components/ComingSoon'
 // import { io } from "socket.io-client";
 import {SocketContext, socket} from './socket.js';
 
@@ -437,7 +437,7 @@ const App = () => {
           setUsername={setUsername}
           setMoneySpent={setMoneySpent}
         />
-        <ComingSoon/>
+        {/* <ComingSoon/> */}
         <Navigation 
           setModalOpen={setModalOpen} 
           loggedIn={loggedIn} 
@@ -455,7 +455,7 @@ const App = () => {
           personalas={personalas}
           setPersonalas={setPersonalas}
           priceSum={priceSum}
-          loyaltydiscountLevel={loyaltydiscountLevel}
+          // loyaltydiscountLevel={loyaltydiscountLevel}
         />
         <SocketContext.Provider value={socket}>
           <Chat 

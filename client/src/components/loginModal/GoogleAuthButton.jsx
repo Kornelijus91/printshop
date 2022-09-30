@@ -2,36 +2,24 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton , Box, CircularProgress } from '@material-ui/core';
 import { FcGoogle } from "react-icons/fc";
-// import { ReactComponent as GoogleLogo } from '../../media/social/Googlelogo.svg';
 
 const useStyles = makeStyles((theme) => ({
     button: {
-        // width: "80%",
-        // height: "2.5rem",
-        // marginBottom: "1rem",
-        // backgroundColor: "white",
-        // borderRadius: '10rem',
-        // fontSize: "2rem",
-        // padding: ".1rem 0 0 0",
-        // boxShadow: "0px 2px 2px #888888",
-        margin: '0 .5rem .2rem .5rem',
+        marginTop:0,
+        marginBottom: theme.myTheme.sizeXXXS,
+        marginRight: theme.myTheme.sizeXXS,
+        marginLeft: theme.myTheme.sizeXXS,
+        '&:hover': {
+            backgroundColor: 'white',
+            transition:'background-color .4s ease', 
+        },
         [theme.breakpoints.up('xxl')]:{
-            margin: '0 .75rem .4rem .75rem',
             padding: '1.7rem',
         },
         [theme.breakpoints.up('xxxl')]:{
-            margin: '0 1rem .4rem 1rem',
             padding: '3rem',
         },
-        '&:hover': {
-            backgroundColor: 'white',
-        },
     },
-    // logo: {
-    //     margin: ".1rem 0 0 0",
-    //     padding: "0px",
-    //     height: "1.7rem",
-    // },
     icon: {
         [theme.breakpoints.up('xxl')]:{
             transform: 'scale(1.35)'
@@ -89,7 +77,6 @@ const GoogleAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSoci
                 classes={{root: classes.button}}
                 disabled={socialSubmitting.someone}
             >
-                {/* <GoogleLogo className={classes.logo}/> */}
                 {socialSubmitting.google ? <CircularProgress size={50} className={classes.icon}/> : <FcGoogle size={50} className={classes.icon}/>} 
             </IconButton >
         </Box>
