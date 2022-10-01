@@ -603,7 +603,7 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
             <Box display='flex' justifyContent='space-between' flexWrap="wrap-reverse">
                 <Button 
                     classes={{root: classes.addButton}} 
-                    onClick={() => {setOrderStep(0); window.scrollTo({top: 0, left: 0, behavior: 'smooth'});}}
+                    onClick={() => {setOrderStep(0); window.scrollTo({top: 0, left: 0});}}
                     startIcon={<FaArrowLeft size={17} className={classes.buttonIcon}/>}
                 >
                     Atgal

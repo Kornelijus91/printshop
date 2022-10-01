@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Fab, Box, Fade, TextField, InputAdornment, Badge } from '@material-ui/core';
 import { IoChatboxEllipses } from "react-icons/io5"; 
 import { IoMdClose, IoIosSend } from "react-icons/io"; 
-import Treklama01 from '../../../media/logo.png';
+import Treklama01 from '../../../media/logo.webp';
 import {SocketContext} from '../../../socket';
 import Linkify from 'react-linkify';
 

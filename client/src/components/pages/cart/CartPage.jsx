@@ -946,7 +946,7 @@ const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, k
                             color="primary" 
                             classes={{root: classes.button, label: classes.buttonDisabled}} 
                             disabled={cart.length <= 0} 
-                            onClick={() => {history.push('/order'); window.scrollTo({top: 0, left: 0, behavior: 'smooth'});}}
+                            onClick={() => {history.push('/order'); window.scrollTo({top: 0, left: 0});}}
                             endIcon={<FaArrowRight size={17} className={classes.buttonIcon}/>}
                         >
                             Pradėti pirkimą

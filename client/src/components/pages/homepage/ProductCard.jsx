@@ -169,7 +169,7 @@ const ProductCard = ({ produktas, loyaltydiscount }) => {     //loyaltydiscount
             classes={{root: classes.card}} 
             onClick={() => {
                     history.push(`/products/${produktas.link}`);
-                    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+                    window.scrollTo({top: 0, left: 0});
                 }}
             > 
             <CardContent classes={{root: classes.cardContent}}>

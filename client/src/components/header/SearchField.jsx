@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     searchOnFocus: {
         width: 'clamp(14rem, 11vw, 28rem)',
-        transition: "width .5s, backgroundc-color 1s",
+        transition: "all .5s, backgroundc-color 1s",
         borderRadius: theme.myTheme.sizeBorderRadiusLarge,
         backgroundColor: theme.myTheme.balta,
         paddingTop: theme.myTheme.sizeXXXS,
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         width: 'clamp(2.4rem, 1.9vw, 4.8rem)',
         borderRadius: theme.myTheme.sizeBorderRadiusLarge,
         backgroundColor: 'transparent',
-        transition: "width .5s, background-color 1s",
+        transition: "all .5s, background-color 1s",
         paddingTop: theme.myTheme.sizeXXXS,
         paddingBottom: theme.myTheme.sizeXXXS,
         paddingRight: theme.myTheme.sizeXXS,
@@ -95,7 +95,7 @@ export default function Searchfield({setSearchResult, setSearchValue, handlesear
 
   const linkTo = (link) => {
     history.push(`/products/${link}`);
-    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    window.scrollTo({top: 0, left: 0});
     setSearchValue('');
     setSearchResult([]);
     setIsInputFocused(false);

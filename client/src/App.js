@@ -491,7 +491,7 @@ const App = () => {
           
         <Switch>
           <Route exact path="/">
-            <Homepage products={products} carousel={carousel} setCarousel={setCarousel} loyaltydiscount={loyaltydiscount}/>
+            <Homepage products={products} carousel={carousel} setCarousel={setCarousel}/>
           </Route>
           <Route exact path="/products">
             <Products products={products} loyaltydiscount={loyaltydiscount}/>

@@ -1,89 +1,54 @@
-import { Box, Grid, Hidden } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import crown from '../../../media/crown.png';
+import { useHistory } from 'react-router-dom';
+import klubas from '../../../media/klubaswebp.webp';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        // backgroundColor: theme.myTheme.ketvirta,
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
+        backgroundColor: theme.myTheme.tZalia.main,
+        fontSize: theme.myTheme.sizeM,
         display: 'flex',
         justifyContent: 'center',
-        padding: '2em 0'
-    },
-    body: {
-        width: '100%',
-        padding: '1em',
-        [theme.breakpoints.up('lg')]: {
-            width: '60%',
+        alignItems: 'center',
+        padding: '6em 2em 3em 2em',
+        '&:hover': {
+            cursor: 'pointer'
         },
-    },
-    header: {
-        margin: '0 0 .5em 0',
-        padding: '0',
-        fontSize: '2rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '3rem',
-            
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '4rem',
-            
-        },
-    },
-    parag: {
-        margin: '0',
-        padding: '0',
-        fontSize: '1.2rem',
-        textAlign: 'justify',
-        textJustify: 'inter-word',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.62rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
+        [theme.breakpoints.up('xl')]: {
+            padding: '10em 2em 6em 2em',
         },
     },
     image: {
-        width: 'clamp(6rem, 10vw + 2rem, 32rem)',
-        height: 'clamp(6rem, 10vw + 2rem, 32rem)',
-        objectFit: 'fill'
-    },
-    imageBox: {
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center',
-        [theme.breakpoints.up('lg')]: {
-            display: 'flex', 
-            justifyContent: 'flex-end', 
-            alignItems: 'center'
+        fontSize: theme.myTheme.sizeM,
+        height: '6em',
+        objectFit: 'contain',
+        [theme.breakpoints.up('sm')]: {
+            height: '8em',
         },
-        
-    },
+        [theme.breakpoints.up('md')]: {
+            height: '10em',
+        },
+        [theme.breakpoints.up('xl')]: {
+            height: '12em',
+        },
+    }
 }));
 
 const ClubSection = () => {
 
     const classes = useStyles();
+    const history = useHistory();
 
     return (
-        <Box classes={{root: classes.root}}>
-            <Box classes={{root: classes.body}}>
-                <Grid container>
-                    <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
-                        <h2 className={classes.header}>Tavo Reklama klubas!</h2>
-                        <p className={classes.parag}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates eligendi, suscipit nostrum, voluptatem ab, quod voluptate ipsam libero magnam delectus architecto. Tempore illum nihil reprehenderit eligendi quibusdam itaque sed cum?</p>
-                    </Grid>
-                    <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-                        <Hidden smDown implementation="css">
-                            <Box classes={{root: classes.imageBox}}>
-                                <img src={crown} alt="Klubo ikona" className={classes.image}/>
-                            </Box>
-                        </Hidden>
-                    </Grid>
-                </Grid>
-            </Box>
+        <Box 
+            classes={{root: classes.root}} 
+            onClick={() => {
+                history.push('/klubas');
+                window.scrollTo({top: 0, left: 0});
+            }}
+    >
+            <img src={klubas} alt="Tavo Rekalama Klubas" className={classes.image}/>
         </Box>
     )
 }

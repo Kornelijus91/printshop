@@ -9,7 +9,7 @@ import User from './User';
 import Cart from './Cart';
 import { FaBoxOpen, FaUser, FaHome, FaClipboardList, FaDoorOpen, FaSearch } from 'react-icons/fa';
 import { BsFillChatDotsFill } from "react-icons/bs";
-import Treklama01 from '../../media/logo.png'
+import Treklama01 from '../../media/logo.webp'
 
 const useStyles = makeStyles((theme) => ({
   root: {

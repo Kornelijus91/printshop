@@ -3,165 +3,120 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LinkedInLogo } from '../../media/social/LinkedInLogoNoColor.svg';
 import { ReactComponent as EtsyLogo } from '../../media/social/Etsy_logo.svg';
-import TreklamaLogoWhite from '../../media/TreklamaLogoWhite.png'
+import TreklamaLogoWhite from '../../media/logo.webp'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        minHeight: '20rem',
+        fontSize: theme.myTheme.sizeM,
+        minHeight: '20em',
         margin: '0',
         padding: '0',
-        backgroundColor: theme.myTheme.sriftoSpalva,
-        fontSize: '.9rem',
-        color: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.juoda,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: "flex-start",
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.3rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-        },
     },
     body:{
         width: '100%',
+        fontSize: theme.myTheme.sizeM,
+        [theme.breakpoints.up('md')]: {
+            padding: '0 5em'
+        }, 
         [theme.breakpoints.up('lg')]: {
-            padding: '5vh 1em 0 1em'
+            padding: '0 1em'
         }, 
         [theme.breakpoints.up('xl')]: {
-            width: '60%',
+            width: '80%',
         }, 
     },
     section: {
-        // width: '15rem',
         margin: '0',
-        padding: '.5rem 1rem',
-        // minWidth: '12rem',
-        [theme.breakpoints.up('lg')]: {
-            padding: '0',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            padding: '0',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '0',
-        },
+        padding: '2em 1em',
     },
     text: {
+        fontSize: theme.myTheme.sizeMM,
         margin: '1.5em 0',
         padding: '0',
         fontWeight: 'bold',
     },
     link: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         padding: '0',
         textDecoration: 'none',
-        fontSize: '.9rem',
+        fontSize: theme.myTheme.sizeM,
         textAlign: 'center',
+        transition:'color .4s ease', 
         '&:hover': {
-            color: theme.myTheme.ketvirta,
-        },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.3rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
+            color: theme.myTheme.sZalia.main,
+            transition:'color .4s ease', 
         },
     },
     textt: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         padding: 0,
         margin: 0,
-        fontSize: '.9rem',
+        fontSize: theme.myTheme.sizeM,
         textAlign: 'left',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.3rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-        },
     },
     linkBox: {
-        marginBottom: '1rem',
+        fontSize: theme.myTheme.sizeM,
+        marginBottom: '1em',
         padding: '0',
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: '2rem',
-        },
     },
     facebook: {
-        color: theme.myTheme.trecia,
+        fontSize: theme.myTheme.sizeXXL,
+        color: theme.myTheme.balta,
         fontFamily: "'Titillium Web', sans-serif",
         padding: '0',
-        margin: '-1.5rem 0 -1rem 0',
         textDecoration: 'none',
-        fontSize: '1.6rem',
         textAlign: 'center',
+        transition:'color .4s ease', 
         '&:hover': {
-            color: theme.myTheme.ketvirta,
-        },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2.4rem',
-            margin: '-1.5rem 0 -1.5rem 0',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '3.2rem',
-            margin: '-1.5rem 0 -2rem 0',
+            color: theme.myTheme.sZalia.main,
+            transition:'color .4s ease', 
         },
     },
     etsy: {
-        height: '1.8rem',
-        margin: '-.3rem 0 .2rem -.1rem',
-        fill: theme.myTheme.trecia,
+        fontSize: theme.myTheme.sizeM,
+        height: '1.8em',
+        margin: '-.3em 0 .2em -.1em',
+        fill: theme.myTheme.balta,
+        transition:'fill .4s ease', 
         '&:hover': {
-            fill: theme.myTheme.ketvirta,
-        },
-        [theme.breakpoints.up('xxl')]: {
-            height: '2.7rem',
-            margin: '-.3rem 0 .2rem -.15rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            height: '3.6rem',
-            margin: '-.3rem 0 .2rem -.2rem',
+            fill: theme.myTheme.sZalia.main,
+            transition:'fill .4s ease', 
         },
     },
     linkedIn: {
-        height: '1.6rem',
-        margin: '-1.5rem 0 0 .1rem',
-        fill: theme.myTheme.trecia,
+        fontSize: theme.myTheme.sizeM,
+        height: '1.6em',
+        margin: '-1.5em 0 0 .1em',
+        fill: theme.myTheme.balta,
+        transition:'fill .4s ease', 
         '&:hover': {
-            fill: theme.myTheme.ketvirta,
-        },
-        [theme.breakpoints.up('xxl')]: {
-            height: '2.4rem',
-            margin: '-1.5rem 0 0 .15rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            height: '3.2rem',
-            margin: '-1.5rem 0 0 .2rem',
+            fill: theme.myTheme.sZalia.main,
+            transition:'fill .4s ease', 
         },
     },
     imageBox: {
+        display: 'flex', 
+        justifyContent: 'flex-start', 
+        alignItems: "flex-start",
         width: '100%',
-        margin: '1.5em 0',
+        objectFit: 'contain',
+
     },
     imagePlaceHolder: {
-        width: '100%',
-        objectFit: 'fill',
-        [theme.breakpoints.up('sm')]: {
-            width: '50%',
-        },
+        maxHeight: '2em',
+        maxWidth: '10em',
+        margin: '1.5em 0 2em 0',
         [theme.breakpoints.up('md')]: {
-            width: '50%',
-        },
-        [theme.breakpoints.up('xl')]: {
-            width: '70%',
+            maxWidth: '20em',
         },
     },
     footerBottom: {
@@ -178,16 +133,14 @@ const useStyles = makeStyles((theme) => ({
         '& a': {
             margin: '.5em 0',
             padding: 0,
-            color: theme.myTheme.trecia,
+            color: theme.myTheme.balta,
         }
     },
     footerhr: {
-        opacity: 0.5,
-        margin: '5vh 1em 0 1em',
-        padding: 0,
-        [theme.breakpoints.up('lg')]: {
-            margin: '7vh 0 0 0',
-        },
+        height: '.1em',
+        width: '100%',
+        backgroundColor: theme.myTheme.sZalia.main,
+        borderRadius: theme.myTheme.sizeBorderRadiusLarge,
     },
 }));
 
@@ -263,7 +216,7 @@ const Footer = ({setModalOpen, setmodalView, loggedIn}) => {
                     </Grid>
                     <Grid item xl={3} lg={3} md={6} sm={6} xs={6}>
                         <Box classes={{root: classes.section}}>
-                            <h3 className={classes.text} style={{marginBottom: '1.5rem'}}>Sekite mus</h3>
+                            <h3 className={classes.text}>Sekite mus</h3>
                             <Box className={classes.linkBox}>
                                 <a href="https://www.facebook.com/TauroReklama" className={classes.facebook} target="_blank" rel="noreferrer">facebook</a>
                             </Box>
@@ -304,7 +257,8 @@ const Footer = ({setModalOpen, setmodalView, loggedIn}) => {
                         </Box>
                     </Grid>
                 </Grid>
-                <hr className={classes.footerhr}/>
+                {/* <hr className={classes.footerhr}/> */}
+                <div className={classes.footerhr}/>
                 <Box classes={{root: classes.footerBottom}}>
                     <p>{new Date().getFullYear()} &copy; treklama.lt</p>
                     <p>IT partneris - <a href='https://www.linkedin.com/in/kornelijus-šaulys-732418212' target="_blank" rel="noreferrer" >Kornelijus Šaulys</a></p>

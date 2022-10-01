@@ -326,13 +326,13 @@ const DeliveryInfo = ({ delivery, setDelivery, loggedIn, token, getAddresses, ad
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (missing.length > 0) {
             setAlert(`Įrašykite ${missing.join(', ')}.`);
-            window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+            window.scrollTo({top: 0, left: 0});
         } else if (!re.test(String(delivery.email).toLowerCase())) {
             setAlert('Neteisingas El. Pašto adresas.');
-            window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+            window.scrollTo({top: 0, left: 0});
         } else {
             setOrderStep(1);
-            window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+            window.scrollTo({top: 0, left: 0});
         }
     };
 

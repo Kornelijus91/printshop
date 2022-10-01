@@ -6,6 +6,7 @@ import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Helmet } from "react-helmet";
 import { ProjectName} from './Variables.jsx' //, ProjectDescription, ProjectLogo, ProjectURL 
+// import { unset } from 'lodash';
 
 const breakpoints = createBreakpoints({})
 breakpoints.values.xxl = 2240
@@ -76,11 +77,21 @@ const theme = createTheme({
         },
       },
     },
+    MuiCardContent: {
+      root: {
+        "&:last-child": {
+          paddingBottom: 'clamp(2rem, 1.6vw, 4rem)',
+        }
+      },
+    },
   },
   props: {
     MuiContainer: {
       disableGutters: true,
     },
+    // MuiCardContent: {
+    //   disablePadding: true
+    // },
   },
   breakpoints: {
     values: {
@@ -158,6 +169,7 @@ const theme = createTheme({
     // ====== Dydziai ====== //
 
     sizeBorderRadiusSmall: 'clamp(0.3125rem, 0.25vw, 0.625rem)', // 5px border radius
+    sizeBorderRadiusMedium: 'clamp(.8rem, 0.648vw, 1.6rem)',
     sizeBorderRadiusLarge: 'clamp(20rem, 16vw, 40rem)',
     sizeXXXS: 'clamp(.2rem, 0.16vw, .4rem)',
     sizeXXS: 'clamp(.4rem, 0.32vw, .8rem)',
