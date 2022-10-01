@@ -1,5 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
-import { useMediaQuery, Radio, FormControlLabel, RadioGroup, Box, Grid, FormControl, OutlinedInput, Select, MenuItem, Button, Slider, CircularProgress } from '@material-ui/core';
+import { 
+    // useMediaQuery, 
+    // Radio, 
+    // FormControlLabel, 
+    // RadioGroup, 
+    Box, 
+    // Grid, 
+    FormControl, 
+    OutlinedInput, 
+    // Select, 
+    // MenuItem, 
+    Button, 
+    // Slider, 
+    CircularProgress 
+} from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -91,18 +105,26 @@ const useStyles = makeStyles((theme) => ({
             borderRadius: '9px',
         },
     },
+    imagePreview: {
+        width: '100%',
+        objectFit: 'contain',
+        padding: 0,
+        margin: 0
+    },
     previewBoxInnerTop: {
         margin: '1rem 0 1rem 0',
         minHeight: '35rem',
         backgroundColor: theme.myTheme.trecia,
-        [theme.breakpoints.up('xxl')]: {
-            margin: '1.5rem 0 1.5rem 0',
-            minHeight: '42.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '2rem 0 2rem 0',
-            minHeight: '70rem',
-        },
+        width: '118em',
+        objectFit: 'contain'
+        // [theme.breakpoints.up('xxl')]: {
+        //     margin: '1.5rem 0 1.5rem 0',
+        //     minHeight: '42.5rem',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     margin: '2rem 0 2rem 0',
+        //     minHeight: '70rem',
+        // },
     },
     textInput: {
         marginBottom: "1rem",
@@ -383,52 +405,57 @@ const useStyles = makeStyles((theme) => ({
     animation6: {
         
     },
+    bottomBox: {
+        display: 'flex',
+        justifyContent: 'start',
+        alignItems: 'start'
+    },
 }));
 
 const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackbar, setCarouselView, user, handlecarouselItemInfoChange, items }) => {
 
     const classes = useStyles();
     const inputField = useRef(null);
-    const theme = useTheme();
+    // const theme = useTheme();
 
-    const screenSizexxl = useMediaQuery(theme.breakpoints.up('xxl'));
-    const screenSizexxxl = useMediaQuery(theme.breakpoints.up('xxxl'));
+    // const screenSizexxl = useMediaQuery(theme.breakpoints.up('xxl'));
+    // const screenSizexxxl = useMediaQuery(theme.breakpoints.up('xxxl'));
 
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
     const [x, setX] = useState('0');
     const [submitting, setSubmitting] = useState(false);
 
-    const getAllProductsIDs = async () => {
-        try {
-            const getProductsRequest = await fetch("/administracija/getProductsIDs/", {
-                method: "GET",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                    "authorization": `JWT ${user.token}`,
-                },
-            });
-            const getProductsResponse = await getProductsRequest.json();
-            if (getProductsResponse.success) {
-                setProducts(getProductsResponse.data);
-            } else {
-                setSnackbar({
-                    message: 'Klaida! Nepavyko gauti produktų duomenų iš serverio. Pabandykite vėliau.',
-                    open: true,
-                });
-            }
+    // const getAllProductsIDs = async () => {
+    //     try {
+    //         const getProductsRequest = await fetch("/administracija/getProductsIDs/", {
+    //             method: "GET",
+    //             credentials: "include",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "authorization": `JWT ${user.token}`,
+    //             },
+    //         });
+    //         const getProductsResponse = await getProductsRequest.json();
+    //         if (getProductsResponse.success) {
+    //             setProducts(getProductsResponse.data);
+    //         } else {
+    //             setSnackbar({
+    //                 message: 'Klaida! Nepavyko gauti produktų duomenų iš serverio. Pabandykite vėliau.',
+    //                 open: true,
+    //             });
+    //         }
 
-        } catch (error) {
-            setSnackbar({
-                message: `${error}`,
-                open: true,
-            });
-        }
-    };
+    //     } catch (error) {
+    //         setSnackbar({
+    //             message: `${error}`,
+    //             open: true,
+    //         });
+    //     }
+    // };
 
-    const handleSelect = (e) => {
-        setCarouselItemInfo(prev => ({ ...prev, productLink: e.target.value }));
-    };
+    // const handleSelect = (e) => {
+    //     setCarouselItemInfo(prev => ({ ...prev, productLink: e.target.value }));
+    // };
 
     const handleFile = () => {
         const image = inputField.current.files[0];
@@ -442,25 +469,25 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
         }
     };
 
-    const handlePictureSizeRadiusChange = (prop) => (event, newValue) => {
-        // setCarouselItemInfo(prev => ({ ...prev, [prop]: newValue }));
-        if (prop === 'size') {
-            const oldValue = carouselItemInfo.size;
-            setCarouselItemInfo(prev => ({ 
-                ...prev,
-                size: newValue,
-                borderRadius: carouselItemInfo.borderRadius * (newValue / oldValue)
-            }));
-        } else {
-            setCarouselItemInfo(prev => ({ ...prev, [prop]: newValue }));
-        }
-    };
+    // const handlePictureSizeRadiusChange = (prop) => (event, newValue) => {
+    //     // setCarouselItemInfo(prev => ({ ...prev, [prop]: newValue }));
+    //     if (prop === 'size') {
+    //         const oldValue = carouselItemInfo.size;
+    //         setCarouselItemInfo(prev => ({ 
+    //             ...prev,
+    //             size: newValue,
+    //             borderRadius: carouselItemInfo.borderRadius * (newValue / oldValue)
+    //         }));
+    //     } else {
+    //         setCarouselItemInfo(prev => ({ ...prev, [prop]: newValue }));
+    //     }
+    // };
 
-    const handleRadioButtons = (e) => {
-        setX(e.target.value);
-        const num = parseInt(e.target.value);
-        setCarouselItemInfo(prev => ({ ...prev, animation: num }));
-    };
+    // const handleRadioButtons = (e) => {
+    //     setX(e.target.value);
+    //     const num = parseInt(e.target.value);
+    //     setCarouselItemInfo(prev => ({ ...prev, animation: num }));
+    // };
 
     const addUpdateCarouselItem = async () => {
         setSubmitting(true);
@@ -468,9 +495,9 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
         if (!carouselItemInfo.imageURL) {
             missing.push('paveikslėlio');
         } 
-        if (!carouselItemInfo.title) {
-            missing.push('antraštės');
-        }  
+        // if (!carouselItemInfo.title) {
+        //     missing.push('antraštės');
+        // }  
         // if (!carouselItemInfo.productID) {
         //     missing.push('nuorodos į produktą');
         // }  
@@ -550,7 +577,7 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
     };
 
     useEffect(() => {
-        getAllProductsIDs();
+        // getAllProductsIDs();
         if (!carouselItemInfo.id) {
             setCarouselItemInfo({
                 id: '',
@@ -572,10 +599,80 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
 
     return (
         <Box classes={{root: classes.root}}>
-            <Grid container>
+
+            <Box>
+                <Box display='flex' justifyContent='center' alignItems='center' classes={{root: classes.previewBoxInnerTop}}>
+                    { carouselItemInfo.imageURL &&
+                        <img 
+                            src={carouselItemInfo.imageURL} 
+                            alt=""
+                            className={classes.imagePreview}
+                            // style={{
+                            //     width: `${screenSizexxxl ? carouselItemInfo.size * 2 : screenSizexxl ? carouselItemInfo.size * 1.3 : carouselItemInfo.size}rem`,
+                            //     borderRadius: `${screenSizexxxl ? carouselItemInfo.borderRadius * 2 : screenSizexxl ? carouselItemInfo.borderRadius * 1.3 : carouselItemInfo.borderRadius}rem`,
+                            //     objectFit: 'contain',
+                            // }}
+                            // className={
+                            //     {
+                            //         0: classes.animation0,
+                            //         1: classes.animation1,     
+                            //         2: classes.animation2,
+                            //         3: classes.animation3,
+                            //         4: classes.animation4,
+                            //         5: classes.animation5,
+                            //         6: classes.animation6,
+                            //     }[carouselItemInfo.animation]
+                            // }
+                        />
+                    }
+                </Box>
+            </Box>
+            <Box classes={{root: classes.bottomBox}}>
+                <Box>
+                    <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>https://www.treklama.lt/</h3>
+                    <FormControl className={classes.formVariant} variant="outlined">
+                        <OutlinedInput
+                            id="link"
+                            type='text'
+                            value={carouselItemInfo.title}
+                            placeholder='Nuoroda...'
+                            onChange={(e) => setCarouselItemInfo(prev => ({ ...prev, productLink: e.target.value }))}
+                            classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
+                            autoComplete='off'
+                        />
+                    </FormControl> 
+                </Box>
+                <Box>
+                    <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Paveikslėlis:</h3>
+                    <label htmlFor='image_upload'>
+                        <Button variant="contained" color="primary" component="span" classes={{root: classes.forButtonScale}}>
+                            { carouselItemInfo.imageURL ? 'Pakeisti' : 'Įkelti' }
+                        </Button>
+                    </label>
+                    <input
+                        type="file" 
+                        accept=".png, .jpg, .jpeg, .webp"
+                        className={classes.input}
+                        name="photo"
+                        id='image_upload'
+                        ref={inputField}
+                        onChange={handleFile}
+                    />
+                </Box>
+                <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.buttonBox}}>
+                    <Button variant="contained" color="primary" component="span" onClick={addUpdateCarouselItem} style={{margin: '1rem 1rem 0 0'}} disabled={submitting} classes={{root: classes.forButtonScale}}>
+                        {submitting ? <CircularProgress size={20} className={classes.icon}/> : 'Išsaugoti' }
+                    </Button>
+                    <Button variant="contained" color="primary" component="span" onClick={goback} style={{marginTop: '1rem'}} classes={{root: classes.forButtonScale}}>
+                        Atgal
+                    </Button>
+                </Box>
+            </Box>
+
+            {/* <Grid container> */}
                 {/* KAIRE PUSE */}
-                <Grid item xl={6} lg={6} md={12} sm={12} xs={12}> 
-                    <Box display='flex' justifyContent='center' alignItems='center' classes={{root: classes.previewBoxInnerTop}}>
+                {/* <Grid item xl={6} lg={6} md={12} sm={12} xs={12}>  */}
+                    {/* <Box display='flex' justifyContent='center' alignItems='center' classes={{root: classes.previewBoxInnerTop}}>
                         <Box classes={{root: classes.leftBreakWord}}>
                             <Box classes={{root: classes.contentItem}}> 
                                 <h1 className={classes.contentTextHeader}>{carouselItemInfo.title}</h1>
@@ -592,8 +689,8 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                 }  
                             </Box>
                         </Box>
-                    </Box>
-                    <Box>
+                    </Box> */}
+                    {/* <Box>
                         <Grid container>
                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                 <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Antraštė:</h3>
@@ -608,8 +705,8 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                         autoComplete='off'
                                     />
                                 </FormControl> 
-                            </Grid>
-                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                            </Grid> */}
+                            {/* <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                 <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Nuoroda:</h3>
                                 <FormControl className={classes.formVariant} variant="standard" disableUnderline>
                                     <Select
@@ -625,8 +722,8 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                         )}
                                     </Select>
                                 </FormControl> 
-                            </Grid>
-                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                            </Grid> */}
+                            {/* <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                 <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Mėlynas tekstas:</h3>
                                 <FormControl className={classes.formVariant} variant="outlined">
                                     <OutlinedInput
@@ -657,14 +754,14 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                         rows={2}
                                     />
                                 </FormControl> 
-                            </Grid>
+                            </Grid> */}
                             
-                        </Grid>
+                        {/* </Grid>
                        
                     </Box>
-                </Grid>
+                </Grid> */}
                 {/* DESNE PUSE */}
-                <Grid item xl={6} lg={6} md={12} sm={12} xs={12} className={classes.previewBox}>
+                {/* <Grid item xl={6} lg={6} md={12} sm={12} xs={12} className={classes.previewBox}>
                     <Box display='flex' justifyContent='center' alignItems='center' classes={{root: classes.previewBoxInnerTop}}>
                         { carouselItemInfo.imageURL &&
                             <img 
@@ -709,8 +806,8 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                         onChange={handleFile}
                                     />
                                 </Box>
-                            </Grid>
-                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                            </Grid> */}
+                            {/* <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                 <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Dydis:</h3>
                                 <Box style={{width: '80%'}}>
                                     <Slider 
@@ -723,8 +820,8 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                         step={0.1}
                                     />
                                 </Box>
-                            </Grid>
-                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                            </Grid> */}
+                            {/* <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                 <FormControl component="fieldset">
                                     <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Animacija:</h3>
                                     <RadioGroup aria-label="animation" name="animation" value={x} onChange={handleRadioButtons} row>
@@ -737,8 +834,8 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                         <FormControlLabel classes={{root: classes.radioParent, label: classes.radioLabel}} value='5' control={<Radio classes={{root: classes.radio}}/>} label="6" />
                                     </RadioGroup>
                                 </FormControl>
-                            </Grid>
-                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                            </Grid> */}
+                            {/* <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                             <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Apvalumas:</h3>
                                 <Box style={{width: '80%'}}>
                                     <Slider 
@@ -751,8 +848,8 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                                         step={0.1}
                                     />
                                 </Box>
-                            </Grid>
-                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                            </Grid> */}
+                            {/* <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                 <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.buttonBox}}>
                                     <Button variant="contained" color="primary" component="span" onClick={addUpdateCarouselItem} style={{margin: '1rem 1rem 0 0'}} disabled={submitting} classes={{root: classes.forButtonScale}}>
                                         {submitting ? <CircularProgress size={20} className={classes.icon}/> : 'Išsaugoti' }
@@ -765,7 +862,7 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                         </Grid>
                     </Box>
                 </Grid>
-            </Grid>
+            </Grid> */}
         </Box>
     )
 }

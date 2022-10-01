@@ -7,7 +7,10 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         backgroundColor: theme.myTheme.sZalia.main,
         fontSize: theme.myTheme.sizeM,
-        padding: '9em 1em 7em 1em',
+        padding: '3em 1em 1em 1em',
+        [theme.breakpoints.up('lg')]: {
+            padding: '9em 1em 7em 1em',
+        },
     },
     innerBox: {
         width: "100%",

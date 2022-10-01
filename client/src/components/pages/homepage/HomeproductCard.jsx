@@ -82,13 +82,13 @@ const useStyles = makeStyles((theme) => ({
         height: 'clamp(7rem, 5.6vw, 14rem)',
         width: 'clamp(7rem, 5.6vw, 14rem)',
         objectFit: 'contain',
-        transition:'all .4s ease', 
+        transition:'all .2s ease-in-out', 
     },
     imgHover: {
         width: 'clamp(8rem, 6.5vw, 16rem)',
         height: 'clamp(8rem, 6.5vw, 16rem)',
         objectFit: 'contain',
-        transition:'all .4s ease', 
+        transition:'all .2s ease-in-out', 
     },
     skeletonPicture: {
         borderRadius: theme.myTheme.sizeBorderRadiusSmall,

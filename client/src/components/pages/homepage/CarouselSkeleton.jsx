@@ -7,19 +7,14 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         margin: '0',
         padding: '0',
-        height: '90%',
+        height: '80%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        
-        // [theme.breakpoints.up('md')]: {
-        //     height: '90%',
-        // },
-        // [theme.breakpoints.up('lg')]: {
-        //     height: '40rem',
-        // },
+        fontSize: theme.myTheme.sizeM,
     },
     carouselContent: {
+        padding: '2em 0',
         width: '100%',
         [theme.breakpoints.up('md')]: {
             width: '80%',
@@ -27,28 +22,21 @@ const useStyles = makeStyles((theme) => ({
     },
     carouselItem: {
         width: '100%',
-        height: '20rem',
+        height: '20em',
         display: "flex", 
         justifyContent: 'flex-start', 
         alignItems: 'center',
-        paddingLeft: '1rem',
+        paddingLeft: '1em',
         [theme.breakpoints.up('md')]: {
-            height: '30rem',
+            height: '30em',
         },
         [theme.breakpoints.up('lg')]: {
-            height: '40rem',
-            paddingLeft: '4.5rem'
-        },
-        [theme.breakpoints.up('xxl')]: {
-            height: '55rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            height: '65rem',
+            height: '30em',
+            paddingLeft: '4.5em'
         },
     },
     carouselIndicators: {
         width: '100%',
-        
     },
     leftInner: {
        

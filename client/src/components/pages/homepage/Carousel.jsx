@@ -9,37 +9,11 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         margin: '0',
         padding: '0',
-        backgroundColor: theme.myTheme.trecia,
-        '-moz-box-shadow': 'inset 0 0 5px #000000',
-        '-webkit-box-shadow': 'inset 0 0 5px #000000',
-        boxShadow: 'inset 0 0 5px #000000',
-        // [theme.breakpoints.up('xxl')]: {
-        //     height: '55rem', 
-        // },
-        // [theme.breakpoints.up('xxxl')]: {
-        //     height: '65rem', 
-        // },
-    },
-    carousel: {
-        width: '100%',
-        margin: '0',
-        padding: '0',
-        height: '20rem',
-        [theme.breakpoints.up('md')]: {
-            height: '30rem',
-            // width: '80%',
-        },
-        [theme.breakpoints.up('lg')]: {
-            height: 'clamp(40.00rem, 33.33vw, 80.00rem);',
-            // width: '100%',
-        },
-        [theme.breakpoints.up('xl')]: {
-            width: '60%',
-        },
+        backgroundColor: theme.myTheme.balta,
     },
 }));
 
-const Carouselv2 = ({ carousel, setCarousel }) => {
+const Carousel = ({ carousel, setCarousel }) => {
 
     const classes = useStyles();
 
@@ -86,17 +60,14 @@ const Carouselv2 = ({ carousel, setCarousel }) => {
     }, [carouselItem])
 
     return (
-        <Box classes={{root: classes.root}} display="flex" justifyContent="center" alignItems="center">
-            <Box classes={{root: classes.carousel}}>
-                {carousel.length > 0 ?
-                    <CarouselContent carousel={carousel}/>
-                :
-                    <CarouselSkeleton />
-                }
-            </Box>
-            
+        <Box classes={{root: classes.root}} >
+            {carousel.length > 0 ?
+                <CarouselContent carousel={carousel}/>
+            :
+                <CarouselSkeleton />
+            }
         </Box>
     )
 }
 
-export default Carouselv2
+export default Carousel
