@@ -634,7 +634,7 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                         <OutlinedInput
                             id="link"
                             type='text'
-                            value={carouselItemInfo.title}
+                            value={carouselItemInfo.productLink}
                             placeholder='Nuoroda...'
                             onChange={(e) => setCarouselItemInfo(prev => ({ ...prev, productLink: e.target.value }))}
                             classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}

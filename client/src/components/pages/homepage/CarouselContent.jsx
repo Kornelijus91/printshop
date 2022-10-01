@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Fade, IconButton } from '@material-ui/core'; //Grid, useMediaQuery
 import { GoPrimitiveDot } from "react-icons/go";
@@ -344,6 +344,8 @@ const CarouselContent = ({carousel}) => {
     const theme = useTheme();
     const history = useHistory();
 
+    const itemRef = useRef()
+
     const [carouselItem, setCarouselItem] = useState(0);
 
     // const screenSizeXs = useMediaQuery(theme.breakpoints.up('xs'));
@@ -368,15 +370,26 @@ const CarouselContent = ({carousel}) => {
     }, [carouselItem])
 
     return (
-        <Box classes={{root: classes.carouselContent}}>
+        <Box 
+            classes={{root: classes.carouselContent}}
+            onClick={() => {if(carousel[carouselItem].productLink) history.push(`/${carousel[carouselItem].productLink}`)}}
+            style={carousel[carouselItem].productLink ? {
+                cursor: 'pointer'
+            }
+            :
+            {}
+            }
+        >
             {carousel.map((item, index) => 
                 <Box 
+                    key={index}
                     classes={{root: classes.carouselGridContainer}}
                     style={carouselItem === index ?
                         {zIndex: '10'}
                         :
                         {zIndex: '1'}
                     }
+                    ref={itemRef}
                 >
                     <Fade in={carouselItem === index} key={index}>
                         <img 
@@ -384,10 +397,11 @@ const CarouselContent = ({carousel}) => {
                             alt={'Karuselės paveikslėlis'}
                             className={classes.carouselImage}
                             onClick={() => {
+                                console.log(item)
                                 if(item.productLink) history.push(`/${item.productLink}`)
                             }}
                             style={
-                                item.productLink !== '' && {
+                                item.productLink && {
                                     cursor: 'pointer'
                                 }
                             }
@@ -397,7 +411,7 @@ const CarouselContent = ({carousel}) => {
             )}
             <Box classes={{root: classes.carouselIndicators}} >
                 {carousel.map((item, index) => 
-                    <IconButton  onClick={() => setCarouselItem(index)} variant="contained" key={index}>
+                    <IconButton  onClick={(e) => {e.stopPropagation(); setCarouselItem(index)}} variant="contained" key={index}>
                         <GoPrimitiveDot style={{
                             color: carouselItem === index ? `${theme.myTheme.tZalia.light}` : `${theme.myTheme.sZalia.main}`}} className={classes.indicator}/>
                     </IconButton >

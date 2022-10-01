@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
             cursor: 'pointer'
         },
         [theme.breakpoints.up('xl')]: {
-            padding: '10em 2em 6em 2em',
+            padding: '12em 2em 6em 2em',
         },
     },
     image: {
