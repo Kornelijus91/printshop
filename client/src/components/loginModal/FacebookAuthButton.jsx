@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.myTheme.sizeXXS,
         '&:hover': {
             backgroundColor: 'white',
-            transition:'background-color .4s ease', 
+            transition:'background-color .2s ease', 
         },
         [theme.breakpoints.up('xxl')]:{
             padding: '1.7rem',

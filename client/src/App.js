@@ -18,6 +18,7 @@ import Profile from './components/pages/profile/Profile.jsx';
 import Addresses from './components/pages/addresses/Addresses.jsx';
 import Trklubas from './components/pages/trklubas/Trklubas.jsx';
 import Chat from './components/pages/customerchat/Chat';
+import Wrapper from './components/pages/utils/Wrapper.jsx';
 // import ComingSoon from './components/ComingSoon'
 // import { io } from "socket.io-client";
 import {SocketContext, socket} from './socket.js';
@@ -422,7 +423,7 @@ const App = () => {
       width: '100%',
       maxWidth: '3840px',
       margin: '0 auto',
-      backgroundColor: 'pink',
+      backgroundColor: '#dddfd4',
     }}>
       <Router>
         <LoginRegisterModal 
@@ -494,7 +495,9 @@ const App = () => {
             <Homepage products={products} carousel={carousel} setCarousel={setCarousel}/>
           </Route>
           <Route exact path="/products">
-            <Products products={products} loyaltydiscount={loyaltydiscount}/>
+            <Wrapper routes={[{name: 'Produktai', link: 'pcoducts'}]}>
+              <Products products={products} loyaltydiscount={loyaltydiscount}/>
+            </Wrapper>
           </Route>
           <Route path="/products/:link/:cartItemID?">
             <ProductPage 

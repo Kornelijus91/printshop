@@ -9,14 +9,16 @@ const useStyles = makeStyles((theme) => ({
         fontSize: theme.myTheme.sizeM,
         padding: '3em 1em 1em 1em',
         [theme.breakpoints.up('lg')]: {
-            padding: '9em 1em 7em 1em',
+            padding: '0',
+            height: '31.25em'
         },
     },
     innerBox: {
         width: "100%",
-        backgroundColor: theme.myTheme.sZalia.main,
+        height: '100%',
+        // backgroundColor: theme.myTheme.sZalia.main,
         display: "flex",
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
         flexFlow: 'row wrap',
         [theme.breakpoints.up('lg')]: {

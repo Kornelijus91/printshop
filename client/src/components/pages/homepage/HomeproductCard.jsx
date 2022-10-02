@@ -8,24 +8,28 @@ const useStyles = makeStyles((theme) => ({
     card: {
         fontSize: theme.myTheme.sizeM,
         width: '10em', 
+        height: '10em', 
         marginBottom: '2em',
         backgroundColor: theme.myTheme.ruda.main,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
         borderRadius: theme.myTheme.sizeBorderRadiusMedium,
         '&:hover': {
             cursor: 'pointer'
         },
         [theme.breakpoints.up('sm')]: {
-            width: '12em'
+            width: '12em',
+            height: '12em'
         },
         [theme.breakpoints.up('md')]: {
-            width: '10em'
+            width: '10em',
+            height: '10em',
         },
         [theme.breakpoints.up('xl')]: {
             width: 'clamp(14rem, 11.31vw, 28rem)',
+            height: 'clamp(14rem, 11.31vw, 28rem)',
         },
         [theme.breakpoints.up('xxl')]: {
             boxShadow: '0 5.6px 11.2px 0 rgba(0, 0, 0, 0.2), 0 8.4px 28px 0 rgba(0, 0, 0, 0.19)',
@@ -36,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardTextBox: {
         textAlign: 'center',
-        marginTop: theme.myTheme.sizeMM,
+        marginTop: theme.myTheme.sizeS,
         paddingTop: theme.myTheme.sizeXXXS,
         paddingRight: theme.myTheme.sizeMM,
         paddingBottom: theme.myTheme.sizeXXXS,
@@ -74,21 +78,33 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 'clamp(8rem, 6.5vw, 16rem)',
-        height: 'clamp(8rem, 6.5vw, 16rem)',
-        marginBottom: theme.myTheme.sizeXS,
+        width: 'clamp(5rem, 4vw, 10rem)',
+        height: 'clamp(5rem, 4vw, 10rem)',
+        [theme.breakpoints.up('xl')]: {
+            width: 'clamp(8rem, 6.5vw, 16rem)',
+            height: 'clamp(8rem, 6.5vw, 16rem)',
+        },
+        // marginBottom: theme.myTheme.sizeXS,
     },
     img: {
-        height: 'clamp(7rem, 5.6vw, 14rem)',
-        width: 'clamp(7rem, 5.6vw, 14rem)',
+        width: 'clamp(5rem, 4vw, 10rem)',
+        height: 'clamp(5rem, 4vw, 10rem)',
         objectFit: 'contain',
         transition:'all .2s ease-in-out', 
+        [theme.breakpoints.up('xl')]: {
+            height: 'clamp(7rem, 5.6vw, 14rem)',
+            width: 'clamp(7rem, 5.6vw, 14rem)',
+        },
     },
     imgHover: {
-        width: 'clamp(8rem, 6.5vw, 16rem)',
-        height: 'clamp(8rem, 6.5vw, 16rem)',
+        width: 'clamp(5rem, 4vw, 10rem)',
+        height: 'clamp(5rem, 4vw, 10rem)',
         objectFit: 'contain',
         transition:'all .2s ease-in-out', 
+        [theme.breakpoints.up('xl')]: {
+            width: 'clamp(8rem, 6.5vw, 16rem)',
+            height: 'clamp(8rem, 6.5vw, 16rem)',
+        },
     },
     skeletonPicture: {
         borderRadius: theme.myTheme.sizeBorderRadiusSmall,
@@ -109,7 +125,6 @@ const HomeproductCard = ({ produktas }) => {
     const history = useHistory();
 
     const picRef = useRef()
-    const buttonRef = useRef()
 
     const [imgLoaded, setImgLoaded] = useState(false);
 
@@ -131,7 +146,7 @@ const HomeproductCard = ({ produktas }) => {
                             {!imgLoaded && <Skeleton variant="rect" animation='wave' classes={{root: classes.skeletonPicture}}/>}
                             <img ref={picRef} src={produktas.image} alt={produktas.name} className={classes.img} onLoad={() => setImgLoaded(true)} />
                         </Box>
-                        <Box classes={{root: classes.cardTextBox}} ref={buttonRef}>
+                        <Box classes={{root: classes.cardTextBox}}>
                             <p className={classes.cardText}>{produktas.name}</p>
                         </Box>
                     </Box>

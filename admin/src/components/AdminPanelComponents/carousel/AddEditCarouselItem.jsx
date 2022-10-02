@@ -324,7 +324,7 @@ const useStyles = makeStyles((theme) => ({
         transform: 'rotateX(51deg) rotateZ(43deg)',
         transformStyle: 'preserve-3d',
         boxShadow: '-1px 0 28px 0 rgba(34, 33, 81, 0.01), 28px 28px 28px 0 rgba(34, 33, 81, 0.25)',
-        transition: '.4s ease-in-out transform, .4s ease-in-out box-shadow',
+        transition: '.2s ease-in-out transform, .2s ease-in-out box-shadow',
         '&:hover': {
             transform: 'translate3d(0px, -16px, 0px) rotateX(51deg) rotateZ(43deg)',
             boxShadow: '-1px 0 28px 0 rgba(34, 33, 81, 0.01), 54px 54px 28px -10px rgba(34, 33, 81, 0.15)',
@@ -347,10 +347,10 @@ const useStyles = makeStyles((theme) => ({
     animation3: {
         transform: 'rotate3d(.5,-.866,0,15deg) rotate(1deg)',
         boxShadow: '2em 4em 6em -2em rgba(0,0,0,.5), 1em 2em 3.5em -2.5em rgba(0,0,0,.5) ',
-        transition:'transform .4s ease, box-shadow .4s ease',
+        transition:'transform .2s ease, box-shadow .2s ease',
         '&:hover': {
             transform: 'rotate3d(0,0,0,0deg) rotate(0deg)',
-            transition:' transform .4s ease',
+            transition:' transform .2s ease',
         },
         [theme.breakpoints.up('xxl')]: {
             boxShadow: '3em 6em 9em -3em rgba(0,0,0,.5), 1.5em 3em 5.2em -3.75em rgba(0,0,0,.5) ',
@@ -364,7 +364,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: '0 70px 40px -20px rgba(0, 0, 0, 0.2)',
         // '-webkit-filter': 'drop-shadow(70px 40px 20px rgba(0, 0, 0, 0.2))',
         // filter: 'drop-shadow(70px 40px 20px rgba(0, 0, 0, 0.2))',
-        transition: '0.4s ease-in-out transform',
+        transition: '0.2s ease-in-out transform',
         '&:hover': {
             transform: 'translate3d(0px, 0px, -250px)'
         },

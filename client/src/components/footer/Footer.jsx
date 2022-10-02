@@ -49,10 +49,10 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         fontSize: theme.myTheme.sizeM,
         textAlign: 'center',
-        transition:'color .4s ease', 
+        transition:'color .2s ease', 
         '&:hover': {
             color: theme.myTheme.sZalia.main,
-            transition:'color .4s ease', 
+            transition:'color .2s ease', 
         },
     },
     textt: {
@@ -75,10 +75,10 @@ const useStyles = makeStyles((theme) => ({
         padding: '0',
         textDecoration: 'none',
         textAlign: 'center',
-        transition:'color .4s ease', 
+        transition:'color .2s ease', 
         '&:hover': {
             color: theme.myTheme.sZalia.main,
-            transition:'color .4s ease', 
+            transition:'color .2s ease', 
         },
     },
     etsy: {
@@ -86,10 +86,10 @@ const useStyles = makeStyles((theme) => ({
         height: '1.8em',
         margin: '-.3em 0 .2em -.1em',
         fill: theme.myTheme.balta,
-        transition:'fill .4s ease', 
+        transition:'fill .2s ease', 
         '&:hover': {
             fill: theme.myTheme.sZalia.main,
-            transition:'fill .4s ease', 
+            transition:'fill .2s ease', 
         },
     },
     linkedIn: {
@@ -97,10 +97,10 @@ const useStyles = makeStyles((theme) => ({
         height: '1.6em',
         margin: '-1.5em 0 0 .1em',
         fill: theme.myTheme.balta,
-        transition:'fill .4s ease', 
+        transition:'fill .2s ease', 
         '&:hover': {
             fill: theme.myTheme.sZalia.main,
-            transition:'fill .4s ease', 
+            transition:'fill .2s ease', 
         },
     },
     imageBox: {

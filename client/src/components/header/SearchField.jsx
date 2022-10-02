@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     searchglass: {
         fontSize: theme.myTheme.sizeXL,
         color: theme.myTheme.balta,
-        transition:'color .4s ease', 
+        transition:'color .2s ease', 
         '&:hover': {
             color: theme.myTheme.sZalia.main,
             cursor: 'pointer'
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     searchglassFocused: {
         fontSize: theme.myTheme.sizeXL,
         color: theme.myTheme.juoda,
-        transition:'color .4s ease', 
+        transition:'color .2s ease', 
     },
     text: {
         color: theme.myTheme.juoda,

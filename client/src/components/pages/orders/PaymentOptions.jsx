@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         borderRadius: '5px',
         boxShadow: `0 0 0 ${theme.myTheme.sriftoSpalva}`,
-        // transition:'box-shadow .4s ease', 
+        // transition:'box-shadow .2s ease', 
         padding: '1em',
         width: '100%',
         '&:hover': {

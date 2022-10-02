@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.myTheme.sizeXXS,
         '&:hover': {
             backgroundColor: 'white',
-            transition:'background-color .4s ease', 
+            transition:'background-color .2s ease', 
         },
         [theme.breakpoints.up('xxl')]:{
             padding: '1.7rem',
@@ -41,8 +41,10 @@ const GoogleAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSoci
             facebook: false,
             linkedIn: false
         });
-        const left = window.screen.width/2-300;
-        const top = window.screen.height/2-400;
+        // const left = window.screen.width/2-300;
+        // const top = window.screen.height/2-400;
+        const left = (window.innerWidth - 600) / 2
+        const top = (window.innerHeight - 800) / 2
         const win = window.open("/users/auth/google", "Login with Google.", `top=${top}, left=${left}, width=600, height=800, fullscreen=no, menubar=no, status=no, titlebar=no, toolbar=no`); 
         var pollTimer = window.setInterval(async function() {
             try {

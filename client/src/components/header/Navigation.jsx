@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: theme.myTheme.sriftas,
     textDecoration: 'none',
     fontSize: theme.myTheme.sizeMM, 
-    transition:'color .4s ease', 
+    transition:'color .2s ease', 
     '&:hover': {
         color: theme.myTheme.sZalia.main,
     },
@@ -81,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: "center",
     alignItems: "center",
+    
   },
   mainLogo: {
     width: '70%', 
@@ -90,14 +91,21 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   logoLink: {
+    fontSize: theme.myTheme.sizeM, 
+    padding: '0 0 0 .6em',
     display: 'flex',
-    justifyContent: "center",
+    justifyContent: "start",
     alignItems: "center",
+    [theme.breakpoints.up('xl')]:{
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 0,
+    },
   },
   drawerLogo: {
     width: '90%',
     marginTop: theme.myTheme.sizeXXS,
-    objectFit: 'contain'
+    objectFit: 'contain',
   },
   drawerLogoLink: {
     display: 'flex',

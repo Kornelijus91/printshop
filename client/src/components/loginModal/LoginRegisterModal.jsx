@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tab: {
     color: `${theme.myTheme.balta} !important`,
-    transition:'color .4s ease', 
+    transition:'color .2s ease', 
     fontFamily: theme.myTheme.sriftas,
     fontWeight: "bold",
     zIndex: '10',
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tabFocused: {
     color: `${theme.myTheme.juoda} !important`,
-    transition:'color .4s ease', 
+    transition:'color .2s ease', 
     fontFamily: theme.myTheme.sriftas,
     fontWeight: "bold",
     zIndex: '10',
