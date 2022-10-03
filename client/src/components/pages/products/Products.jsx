@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ProductCard from './ProductCard';
 import { Helmet } from "react-helmet";
 import { ProjectName } from '../../../Variables.jsx'
+import Breadcurmbs from '../utils/Breadcurmbs';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,6 +41,7 @@ const Products = ({ products, loyaltydiscount }) => {
             <Helmet>
                 <title>Produktai | {ProjectName}</title>  
             </Helmet>
+            <Breadcurmbs routes={[{path: 'products', name: 'Produktai'}]}/>
             <Box classes={{root: classes.productGrid}}>
                 {products.map((item) => <ProductCard produktas={item} loyaltydiscount={loyaltydiscount}/>)}
             </Box>

@@ -5,30 +5,20 @@ import { FaPaintBrush } from "react-icons/fa";
 
 const useStyles = makeStyles((theme) => ({
     uploadButton: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
-        backgroundColor: theme.myTheme.pirma,
+        backgroundColor: theme.myTheme.tZalia.main,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         fontFamily: theme.myTheme.sriftas,
-        
-        color: theme.myTheme.trecia,
-        [theme.breakpoints.up('xxl')]: {
-           
-            height: '3.375rem',
-            borderRadius: '7px',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            
-            height: '5rem',
-            borderRadius: '9px',
-            fontSize: '1.8rem',
-        },
+        color: theme.myTheme.baltas,
+        height: '3em',
     },
     uploadButtonLabel: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
     },
     spinner: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)'
         },
@@ -37,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     icon: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)',
             marginRight: '1rem'

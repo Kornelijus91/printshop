@@ -332,33 +332,38 @@ app.get('/products/:productName', (req, res, next) => {
             console.error('Error during file reading', err);
             return res.status(404).end()
         }
-        const pos = prodinfo.map(function(e) { return e.name; }).indexOf(req.params.productName);
-        
-        data = data.replace(
-            "<title>__TITLE__</title>",
-            `<title>${prodinfo[pos].name} | ${process.env.PROJECTTITLE}</title>`
-        )
-        .replace(/__META_OG_TITLE__/, `${prodinfo[pos].name} | ${process.env.PROJECTTITLE}`)
-        .replace(/__META_OG_DESCRIPTION__/, prodinfo[pos].description)
-        .replace(/__META_DESCRIPTION__/, prodinfo[pos].description)
-        .replace(/__META_OG_IMAGE__/, prodinfo[pos].image)
-        .replace(/__META_KEYWORDS__/, `${process.env.PROJECTTITLE}, ${prodinfo[pos].name}`)
-        .replace(/__META_URL__/, process.env.MAIN_URL)
-        .replace(
-            '<script type="application/ld+json">__JSON_META_TAGS__</script>',
-            `<script type="application/ld+json">
-            {
-                "@context": "https://schema.org/",
-                "@type": "Product",
-                "name": "${prodinfo[pos].name}",
-                "image": [
-                "${prodinfo[pos].image}" 
-                ],
-                "description": "${prodinfo[pos].description}",
-            }
-            </script>`
-        )
-        res.send(data);
+        const pos = prodinfo.findIndex(element => {
+            return element.name.toLowerCase() === req.params.productName.toLowerCase();
+        });
+        if (pos >= 0) {
+            data = data.replace(
+                "<title>__TITLE__</title>",
+                `<title>${prodinfo[pos].name} | ${process.env.PROJECTTITLE}</title>`
+            )
+            .replace(/__META_OG_TITLE__/, `${prodinfo[pos].name} | ${process.env.PROJECTTITLE}`)
+            .replace(/__META_OG_DESCRIPTION__/, prodinfo[pos].description)
+            .replace(/__META_DESCRIPTION__/, prodinfo[pos].description)
+            .replace(/__META_OG_IMAGE__/, prodinfo[pos].image)
+            .replace(/__META_KEYWORDS__/, `${process.env.PROJECTTITLE}, ${prodinfo[pos].name}`)
+            .replace(/__META_URL__/, process.env.MAIN_URL)
+            .replace(
+                '<script type="application/ld+json">__JSON_META_TAGS__</script>',
+                `<script type="application/ld+json">
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": "${prodinfo[pos].name}",
+                    "image": [
+                    "${prodinfo[pos].image}" 
+                    ],
+                    "description": "${prodinfo[pos].description}",
+                }
+                </script>`
+            )
+            res.send(data);
+        } else {
+            res.status(404).end()
+        }
     });
 });
 
@@ -369,33 +374,38 @@ app.get('/products/:productName/*', (req, res, next) => {
             console.error('Error during file reading', err);
             return res.status(404).end()
         }
-        const pos = prodinfo.map(function(e) { return e.name; }).indexOf(req.params.productName);
-        
-        data = data.replace(
-            "<title>__TITLE__</title>",
-            `<title>${prodinfo[pos].name} | ${process.env.PROJECTTITLE}</title>`
-        )
-        .replace(/__META_OG_TITLE__/, `${prodinfo[pos].name} | ${process.env.PROJECTTITLE}`)
-        .replace(/__META_OG_DESCRIPTION__/, prodinfo[pos].description)
-        .replace(/__META_DESCRIPTION__/, prodinfo[pos].description)
-        .replace(/__META_OG_IMAGE__/, prodinfo[pos].image)
-        .replace(/__META_KEYWORDS__/, `${process.env.PROJECTTITLE}, ${prodinfo[pos].name}`)
-        .replace(/__META_URL__/, process.env.MAIN_URL)
-        .replace(
-            '<script type="application/ld+json">__JSON_META_TAGS__</script>',
-            `<script type="application/ld+json">
-            {
-                "@context": "https://schema.org/",
-                "@type": "Product",
-                "name": "${prodinfo[pos].name}",
-                "image": [
-                "${prodinfo[pos].image}" 
-                ],
-                "description": "${prodinfo[pos].description}",
-            }
-            </script>`
-        )
-        res.send(data);
+        const pos = prodinfo.findIndex(element => {
+            return element.name.toLowerCase() === req.params.productName.toLowerCase();
+        });
+        if (pos >= 0) {
+            data = data.replace(
+                "<title>__TITLE__</title>",
+                `<title>${prodinfo[pos].name} | ${process.env.PROJECTTITLE}</title>`
+            )
+            .replace(/__META_OG_TITLE__/, `${prodinfo[pos].name} | ${process.env.PROJECTTITLE}`)
+            .replace(/__META_OG_DESCRIPTION__/, prodinfo[pos].description)
+            .replace(/__META_DESCRIPTION__/, prodinfo[pos].description)
+            .replace(/__META_OG_IMAGE__/, prodinfo[pos].image)
+            .replace(/__META_KEYWORDS__/, `${process.env.PROJECTTITLE}, ${prodinfo[pos].name}`)
+            .replace(/__META_URL__/, process.env.MAIN_URL)
+            .replace(
+                '<script type="application/ld+json">__JSON_META_TAGS__</script>',
+                `<script type="application/ld+json">
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": "${prodinfo[pos].name}",
+                    "image": [
+                    "${prodinfo[pos].image}" 
+                    ],
+                    "description": "${prodinfo[pos].description}",
+                }
+                </script>`
+            )
+            res.send(data);
+        } else {
+            return res.status(404).end()
+        }
     });
 });
 

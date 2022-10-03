@@ -495,27 +495,29 @@ const App = () => {
             <Homepage products={products} carousel={carousel} setCarousel={setCarousel}/>
           </Route>
           <Route exact path="/products">
-            <Wrapper routes={[{name: 'Produktai', link: 'pcoducts'}]}>
+            <Wrapper>
               <Products products={products} loyaltydiscount={loyaltydiscount}/>
             </Wrapper>
           </Route>
           <Route path="/products/:link/:cartItemID?">
-            <ProductPage 
-              products={products} 
-              getCart={getCart}
-              loyaltydiscount={loyaltydiscount}
-              cart={cart}
-              roundTwoDec={roundTwoDec}
-              maketavimoKaina={maketavimoKaina}
-              firstName={firstName}
-              personalas={personalas}
-              token={token}
-              kodoNuolaida={kodoNuolaida}
-              findMaxDiscount={findMaxDiscount}
-              userid={userid}
-            />
+            <Wrapper>
+              <ProductPage 
+                products={products} 
+                getCart={getCart}
+                loyaltydiscount={loyaltydiscount}
+                cart={cart}
+                roundTwoDec={roundTwoDec}
+                maketavimoKaina={maketavimoKaina}
+                firstName={firstName}
+                personalas={personalas}
+                token={token}
+                kodoNuolaida={kodoNuolaida}
+                findMaxDiscount={findMaxDiscount}
+                userid={userid}
+              />
+            </Wrapper>
           </Route>
-          <Route exact path="/contact">
+          <Route exact path="/kontaktai">
             <Suspense fallback={lazyFallback}>
               <Contact />
             </Suspense>

@@ -177,7 +177,7 @@ const Navigation = ({ priceSum, personalas, setPersonalas, firstName, setSearchR
                             <div className={classes.menuDivider}/>
                             <Link to="/klubas" className={classes.link}>Tavo reklama klubas</Link>
                             <div className={classes.menuDivider}/>
-                            <Link to="/contact" className={classes.link}>Susisiekite</Link>
+                            <Link to="/kontaktai" className={classes.link}>Susisiekite</Link>
                         </Box>
                     </Hidden>
                 </Grid>
@@ -268,7 +268,7 @@ const Navigation = ({ priceSum, personalas, setPersonalas, firstName, setSearchR
                             </ListItem>
                             <ListItem button>
                                 <ListItemIcon><BsFillChatDotsFill size={24} className={classes.icon} /></ListItemIcon>
-                                <Link to="/contact" className={classes.drawerlnk}>Susisiekite</Link>
+                                <Link to="/kontaktai" className={classes.drawerlnk}>Susisiekite</Link>
                             </ListItem>
                             <ListItem button>
                                 <ListItemIcon><FaSearch size={24} className={classes.icon} /></ListItemIcon>

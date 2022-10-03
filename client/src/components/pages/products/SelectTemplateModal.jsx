@@ -13,14 +13,14 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     dialog: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        backgroundColor: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.balta,
     },
     dialogContent: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        backgroundColor: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.balta,
         padding: '1em',
         minHeight: '70vh',
         maxHeight: '95vh',
@@ -30,26 +30,21 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     dialogActions: {
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeM,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        backgroundColor: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.balta,
         padding: '1em'
     },
     titleText: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         margin: 0,
         padding: 0,
-        fontSize: '1.2rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.6rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem'
-        },
+        fontSize: theme.myTheme.sizeMM,
     },
     closeButton: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)'
         },
@@ -73,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center'
     },
     spinner: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)'
         },
@@ -84,60 +79,42 @@ const useStyles = makeStyles((theme) => ({
     templateCard: {
         width: '100%',
         height: '100%',
-        borderRadius: '5px',
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         '&:hover': {
             cursor: 'pointer'
-        },
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
         },
     },
     templateCardSelected: {
         width: '100%',
         height: '100%',
-        borderRadius: '5px',
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         '&:hover': {
             cursor: 'pointer'
         },
-        boxShadow: `0 0 0 2px ${theme.myTheme.pirma}`,
+        boxShadow: `0 0 0 2px ${theme.myTheme.tZalia.main}`,
         [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-            // padding: '1.35em',
-            boxShadow: `0 0 0 3px ${theme.myTheme.pirma}`,
+            boxShadow: `0 0 0 3px ${theme.myTheme.tZalia.main}`,
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
-            // padding: '2em',
-            boxShadow: `0 0 0 4px ${theme.myTheme.pirma}`,
+            boxShadow: `0 0 0 4px ${theme.myTheme.tZalia.main}`,
         },
     },
-    // templateCardMedia: {
-    //     width: '100%',
-    //     height: '100%',
-    // },
     cardText: {
+        fontSize: theme.myTheme.sizeM,
         margin: '1em 0 0 0',
         padding: '0',
-        fontSize: '1rem',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-        },
     },
     img: {
-        marginBottom: '.5rem',
+        fontSize: theme.myTheme.sizeM,
+        marginBottom: '.5em',
         height: '100%', 
         width: '100%', 
         objectFit: 'contain'
     },
     cardContent: {
+        fontSize: theme.myTheme.sizeM,
         padding: '1em',
         '&:last-child': {
             paddingBottom: '1em'
@@ -152,11 +129,9 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('xxxl')]: {
             height: 280,
         },
-        // width: '100%'
     },
     CardContentParent: {
         width: '100%',
-        // height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -164,11 +139,9 @@ const useStyles = makeStyles((theme) => ({
     },
     CardContentPicBox: {
         width: '100%',
-        // height: '100%',
     },
     CardContentTitleBox: {
         width: '100%',
-        // height: '100%',
     },
 }));
 

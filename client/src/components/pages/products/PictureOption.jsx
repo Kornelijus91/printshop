@@ -5,20 +5,15 @@ import { FaInfo, FaCheck } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
     header: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
+        fontSize: theme.myTheme.sizeM,
         margin: '0',
         padding: '0',
         overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-        },
     },
     infoIcon: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         margin: '0',
         padding: '0',
         [theme.breakpoints.up('xxl')]: {
@@ -29,134 +24,92 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     image: {
-        maxWidth: '10rem',
-        maxheight: '15rem',
+        fontSize: theme.myTheme.sizeM,
         objectFit: 'contain',
-        margin: '0 0 1rem 0',
-        padding: '1rem',
-        backgroundColor: theme.myTheme.trecia,
-        borderRadius: '7px',
-        [theme.breakpoints.up('xxl')]: {
-            maxWidth: '15rem',
-            maxheight: '22.5rem',
-            margin: '0 0 1.5rem 0',
-            padding: '1.5rem',
-            borderRadius: '10px',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            maxWidth: '20rem',
-            maxheight: '30rem',
-            margin: '0 0 2rem 0',
-            padding: '2rem',
-            borderRadius: '14px',
-        },
+        margin: '0 0 1em 0',
+        padding: '1em',
+        backgroundColor: theme.myTheme.balta,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall
     },
     LeftItem: {
         margin: '0',
-        // [theme.breakpoints.up('sm')]: {
-        //     margin: '0 0 0 1.8rem',
-        // },
-        // [theme.breakpoints.up('md')]: {
-        //     margin: '0 0 0 1.8rem',
-        // },
-        // [theme.breakpoints.up('lg')]: {
-        //     margin: '0 0 0 1.8rem',
-        // },
     },
     card: {
-        margin: '0 .5rem 0 0',
+        fontSize: theme.myTheme.sizeM,
+        margin: '0 .5em 0 0',
         height: '100%',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 .75rem 0 0',
-            borderRadius: '7px'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1rem 0 0',
-            borderRadius: '7px'
-        },
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         '&:hover': {
             cursor: 'pointer',
-            // outline: `2px solid ${theme.myTheme.ketvirta}`
         }, 
     },
     cardText: {
-        margin: '0 0 .5rem 0',
+        fontSize: theme.myTheme.sizeM,
         padding: '0',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juodas,
         fontFamily: theme.myTheme.sriftas,
-        // maxWidth: '4.2rem',
         overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 0 .75rem 0',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 0 1rem 0',
-            fontSize: '1.9rem',
-        },
     },
     cardContent: {
-        margin: '0',
-        padding: '.5rem .5rem 0 .5rem',
-        // objectFit: 'contain',
-        [theme.breakpoints.up('xxl')]: {
-            padding: '.75rem .75rem 0 .75rem',
-            width: '100%',
+        fontSize: theme.myTheme.sizeM,
+        margin: '1em',
+        width: '5em',
+        height: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: '8em',
         },
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '1rem 1rem 0 1rem',
-            width: '100%',
+        [theme.breakpoints.up('md')]: {
+            width: '5em',
         },
+        [theme.breakpoints.up('lg')]: {
+            width: '7em',
+        },
+        [theme.breakpoints.up('xl')]: {
+            width: '8em',
+        },
+    },
+    cardContentBottom: {
+        padding: 0,
+        margin: 0,
+        textAlign: 'center',
+        "&:last-child": {
+            paddingBottom: 0
+        }
     },
     badgecontainer: {
         width: '100%',
     },
     optionDisplayImage: {
         width: '100%',
+        height: '100%',
         objectFit: 'contain',
-        [theme.breakpoints.up('xxl')]: {
-            objectFit: 'contain',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            objectFit: 'fill',
-        },
+    },
+    imageBox: {
+        width: '5em',
+        height: '100%',
+        objectFit: 'contain',
     },
     previewSelectedBadge: {
-        marginRight: '.5rem',
-        marginTop: '.5rem',
-        height: '1.6rem',
+        fontSize: theme.myTheme.sizeM,
+        marginRight: '.5em',
+        marginTop: '.5em',
+        height: '1.6em',
+        width: '1.6em',
         borderRadius: '50%',
-        backgroundColor: theme.myTheme.pirma,
-        [theme.breakpoints.up('xxl')]: {
-            marginRight: '.75rem',
-            marginTop: '.75rem',
-            height: '2.4rem',
-            width: '2.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginRight: '1rem',
-            marginTop: '1rem',
-            height: '3.2rem',
-            width: '3.2rem',
-        },
+        backgroundColor: theme.myTheme.sZalia.main,
     },
     checkMark: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5)',
+            transform: 'scale(1.4)',
         },
         [theme.breakpoints.up('xxxl')]: {
             transform: 'scale(2)',
         },
     },
     gridItem: {
-        margin: '0 0 .5rem 0',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 0 .75rem 0',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 0 1rem 0',
-        },
+        fontSize: theme.myTheme.sizeM,
+        margin: '0 0 .5em 0',
     },
 }));
 
@@ -222,19 +175,19 @@ const PictureOption = ({ optionsValues, setOptionsValues, index, product }) => {
                                     onClick={() => handleSelect(indexinner)} 
                                     style={
                                         indexinner !== selected ? 
-                                            screenSizexxxl ? {border: `4px solid ${theme.myTheme.trecia}`} 
+                                            screenSizexxxl ? {border: `4px solid transparent`} 
                                             :
-                                            screenSizexxl ? {border: `3px solid ${theme.myTheme.trecia}`} 
+                                            screenSizexxl ? {border: `3px solid transparent`} 
                                             : 
                                             {border: `2px solid ${theme.myTheme.trecia}`} 
                                         :
-                                            screenSizexxxl ? {border: `4px solid ${theme.myTheme.pirma}`} 
+                                            screenSizexxxl ? {border: `4px solid ${theme.myTheme.tZalia.main}`} 
                                             :
-                                            screenSizexxl ? {border: `3px solid ${theme.myTheme.pirma}`} 
+                                            screenSizexxl ? {border: `3px solid ${theme.myTheme.tZalia.main}`} 
                                             : 
-                                            {border: `2px solid ${theme.myTheme.pirma}`}
+                                            {border: `2px solid ${theme.myTheme.tZalia.main}`}
                                     }
-                                    >
+                                >
                                     <CardActionArea style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'flex-start'}} >
                                         <Box>
                                             <CardMedia classes={{root: classes.cardContent}}>
@@ -252,7 +205,7 @@ const PictureOption = ({ optionsValues, setOptionsValues, index, product }) => {
                                                     <img src={item.fileURL} alt={item.variantName} className={classes.optionDisplayImage} />
                                                 </Badge>
                                             </CardMedia>
-                                            <CardContent classes={{root: classes.cardContent}} style={{paddingBottom: '0'}}>
+                                            <CardContent classes={{root: classes.cardContentBottom}}>
                                                 <p className={classes.cardText}>{item.variantName}</p>
                                             </CardContent>
                                         </Box>

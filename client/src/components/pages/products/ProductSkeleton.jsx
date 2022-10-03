@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     body: {
-        backgroundColor: theme.myTheme.trecia,
         minHeight: '90vh',
         width: '100%',
         display: 'flex',
@@ -249,13 +248,6 @@ const ProductSkeleton = () => {
     return (
         <Box classes={{root: classes.body}}>
             <Box classes={{root: classes.root}}>
-                <Box display='flex' justifyContent='flex-start'>
-                    <Skeleton variant="text" classes={{root: classes.link}}/>
-                    <p>/</p>
-                    <Skeleton variant="text" classes={{root: classes.link}}/>
-                    <p>/</p>
-                    <Skeleton variant="text" classes={{root: classes.link}}/>
-                </Box>
                 <Box classes={{root: classes.headerBox}}>
                     <Box classes={{root: classes.headerBoxLeft}}>
                         <Skeleton variant="text" classes={{root: classes.header}}/>

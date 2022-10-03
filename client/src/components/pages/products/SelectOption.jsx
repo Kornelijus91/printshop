@@ -4,213 +4,42 @@ import { FaInfo } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
-    OptionTitleBox: {
-        width: '100%',
-    },
-    OptionTitleHeader: {
-        color: theme.myTheme.sriftoSpalva,
-        fontSize: '1rem',
-        fontFamily: theme.myTheme.sriftas,
-        margin: '0',
-        padding: '0',
-        overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-        },
-    },
-    infoIcon: {
-        color: theme.myTheme.sriftoSpalva,
-        margin: '0',
-        padding: '0',
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5)',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)',
-        },
-    },
-    formVariantSelect: {
-        width: '100%',
-        marginBottom: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: '1.5rem',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: '2rem',
-            fontSize: '1.9rem',
-        },
-    },
-    variantSelect: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        margin: '0',
-        padding: '0',
-        minHeight: '3.5rem',
-        textOverflow: 'ellipsis',
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        '&:focus': {
-            borderRadius: '4px',
-            border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        }, 
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-            minHeight: '5.25rem',
-            '&:focus': {
-                borderRadius: '7px',
-           }, 
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            border: `2px solid ${theme.myTheme.sriftoSpalva}`,
-            borderRadius: '9px',
-            minHeight: '7rem',
-            '&:focus': {
-                borderRadius: '9px',
-                border: `2px solid ${theme.myTheme.sriftoSpalva}`,
-           }, 
-        },
-    },
-    variantSelectIcon: {
-        color: theme.myTheme.sriftoSpalva,
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5)',
-            marginRight: '1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)',
-            marginRight: '1.5rem'
-        },
-    },
-    menuPaper: {
-        maxHeight: '22rem',
-        overflowY: 'auto',
-        [theme.breakpoints.up('xxl')]: {
-            maxHeight: '33rem',
-            borderRadius: '7px',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            maxHeight: '44rem',
-            borderRadius: '9px',
-        },
-    },
-    menuitself: {
-        [theme.breakpoints.up('lg')]: {
-            width: '13rem'
-        },
-        [theme.breakpoints.up('xxl')]: {
-            width: '19.5rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            width: '26rem'
-        },
-    },
     optionDisplayImage: {
-        width: '2.5rem',
+        fontSize: theme.myTheme.sizeM,
+        width: '2.5em',
         objectFit: 'contain',
-        [theme.breakpoints.up('xxl')]: {
-            width: '3.75rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            width: '5rem',
-        },
     },
     selectRender1: {
         width: '100%', 
+        lineHeight: 'normal',
         display: 'inline-block',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         verticalAlign: 'middle',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            margin: 0,
-            padding: '1.2rem 0 1rem 0',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-            margin: 0,
-            padding: '2rem 0 1.5rem 0',
-        },
-    },
-    selectRender2: {
-        width: '100%', 
-        display: 'inline-block',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        verticalAlign: 'middle',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            margin: 0,
-            padding: '1rem 0',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-            margin: 0,
-            padding: '1.5rem 0',
-        },
-    },
-    menuItem: {
-        width: '100%',
-        overflowWrap: 'break-word',
+        fontSize: theme.myTheme.sizeM,
+        margin: 0,
     },
     listItem: {
-        margin: '0 1rem 0 1rem',
+        fontSize: theme.myTheme.sizeM,
+        margin: '0 1em 0 1em',
         padding: '0',
         overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.5rem 0 1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 2rem 0 2rem',
-        },
     },
     primaryListText: {
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeM,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         width: '100%',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            margin: '1rem 0'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-            margin: '1.5rem 0'
-        },
+        margin: '.75em 0'
     },
     secondaryListText: {
+        fontSize: theme.myTheme.sizeM,
         color: '#bfbfbf',
         fontFamily: theme.myTheme.sriftas,
         width: '100%',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            margin: '0 0 1rem 0'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-            margin: '0 0 1.5rem 0'
-        },
-    },
-    selectRenderOuterBox: {
-        height: '100%',
-        paddingLeft: '1rem',
-        width: '90%', 
-        whitespace: 'nowrap', 
-        textOverflow: 'ellipsis',
-        [theme.breakpoints.up('xxl')]: {
-            paddingLeft: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            paddingLeft: '2rem',
-        },
+        margin: '0 0 .75em 0'
     },
     truncateBox: {
         width: '100%', 
@@ -221,14 +50,20 @@ const useStyles = makeStyles((theme) => ({
         textOverflow: 'ellipsis',
     },
     selectRenderInnerBox: {
-        marginRight: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            marginRight: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginRight: '2rem',
-        },
+        fontSize: theme.myTheme.sizeM,
+        marginRight: '1em',
     },
+    OptionTitleBox: theme.myTheme.OptionTitleBox,
+    OptionTitleHeader: theme.myTheme.OptionTitleHeader,
+    infoIcon: theme.myTheme.infoIcon,
+    formVariantSelect: theme.myTheme.formVariantSelect,
+    variantSelect: theme.myTheme.variantSelect,
+    variantSelectIcon: theme.myTheme.variantSelectIcon,
+    menuPaper: theme.myTheme.menuPaper,
+    menuitself: theme.myTheme.menuitself,
+    menuItem: theme.myTheme.menuItem,
+    selectRenderOuterBox:  theme.myTheme.selectRenderOuterBox,
+    selectRender2:  theme.myTheme.selectRender2,
 }));
 
 const SelectOption = ({ index, product, handleOptionChange, select, optionsValues }) => {
@@ -299,9 +134,9 @@ const SelectOption = ({ index, product, handleOptionChange, select, optionsValue
                                 </Box>
                             :
                                 <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.selectRenderOuterBox}}>
-                                    <Box classes={{root: classes.truncateBox}}> 
+                                    {/* <Box classes={{root: classes.truncateBox}}>  */}
                                         <p className={classes.selectRender2}>{product.options[index].menuOptions[value].variantName}</p>
-                                    </Box>
+                                    {/* </Box> */}
                                 </Box>
                             )}
                         }

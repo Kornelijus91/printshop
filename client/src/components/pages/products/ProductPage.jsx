@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Select, MenuItem, FormControl, Hidden, StepConnector, Box, Grid, Breadcrumbs, Stepper, Step, StepLabel, Collapse, TextField, Button, Divider, Snackbar, ClickAwayListener, CircularProgress } from '@material-ui/core'; // ListItemText, ListItem, MenuItem, Select, FormControl,
+import { Select, MenuItem, FormControl, Hidden, Box, Grid, Stepper, Step, StepLabel, Collapse, TextField, Button, Divider, Snackbar, ClickAwayListener, CircularProgress } from '@material-ui/core'; // ListItemText, ListItem, MenuItem, Select, FormControl,
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Helmet } from "react-helmet";
 import { ProjectName } from '../../../Variables.jsx' 
-import { Link, useHistory } from 'react-router-dom'; 
+import { useHistory } from 'react-router-dom'; 
 import MuiAlert from '@material-ui/lab/Alert';
 import NumberDoubleOption from './NumberDoubleOption.jsx';
 import NumberOption from './NumberOption.jsx';
@@ -20,6 +20,7 @@ import Comments from './Comments'
 import Galery from './Galery'
 import SelectTemplateModal from './SelectTemplateModal'
 import EditDesignButtom from './EditDesignButtom.jsx';
+import Breadcurmbs from '../utils/Breadcurmbs.jsx';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -28,188 +29,79 @@ function Alert(props) {
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        backgroundColor: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
-        minHeight: '90vh',
-        '-moz-box-shadow': 'inset 0 0 5px #000000',
-        '-webkit-box-shadow': 'inset 0 0 5px #000000',
-        boxShadow: 'inset 0 0 5px #000000',
-        padding: '0 1rem',
-        [theme.breakpoints.up('xxl')]: {
-            padding: 0,
-        },
-        [theme.breakpoints.up('xxl')]: {
-            paddingBottom: '5rem'
-        },
+        fontSize: theme.myTheme.sizeM,
     },
     header: {
         textAlign: 'center',
-        color: theme.myTheme.sriftoSpalva,
-        fontSize: '1.8rem',
+        color: theme.myTheme.juoda,
+        fontSize: theme.myTheme.sizeXXL,
         margin: '0',
-        padding: '1rem 0 1rem 0',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2.7rem',
-            padding: '1.5rem 0 1.5rem 0',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '3.6rem',
-            padding: '2rem 0 2rem 0',
-        },
-    },
-    content: {
-        width: '100%',
-        [theme.breakpoints.up('lg')]: {
-            width: '94%',
-        },
+        padding: '0 0 1em 0',
         [theme.breakpoints.up('xl')]: {
-            width: '60%',
+            padding: '1em 0',
         },
-    },
-    breadcrumbLink: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        textDecoration: 'none',
-        '&:hover': {
-            color: '#2d5286',
-        },
-        
-    },
-    breadcrumbLinkDisabled: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        textDecoration: 'none',
-        pointerEvents: 'none',
     },
     img: {
-        height: '100%', 
+        fontSize: theme.myTheme.sizeXXL,
+        height: '7em', 
         width: '100%', 
         objectFit: 'contain'
     },
     imageBoxx: {
-        padding: '0 2rem 0 2rem',
-        [theme.breakpoints.up('xxl')]: {
-            padding: '0 3rem 0 3rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '0 4rem 0 4rem',
-        },
+        fontSize: theme.myTheme.sizeM,
+        padding: '0 2em ',
+        objectFit: 'contain'
+    },
+    descTextBox: {
+        fontSize: theme.myTheme.sizeM,
+        padding: '0 2em 0 0',
     },
     descText: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '.9rem',
+        fontSize: theme.myTheme.sizeM,
         padding: '0',
         margin: '0',
         textAlign: 'justify',
         textJustify: 'inter-word',
-        [theme.breakpoints.up('md')]: {
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.6rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
-        },
     },
     stepText: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '1rem',
+        fontSize: theme.myTheme.sizeM,
         padding: '0',
         margin: '0',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.7rem',
-        },
     },
     pictureText: {
         textAlign: 'justify',
         textJustify: 'inter-word',
         padding: '0',
-        margin: '0',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.7rem',
-        },
+        margin: '0 0 1em 0',
+        fontSize: theme.myTheme.sizeM,
     },
     Stepper: {
+        fontSize: theme.myTheme.sizeS,
         backgroundColor: 'transparent',
-        padding: '4rem 0 1rem 0',
-        [theme.breakpoints.up('xxl')]: {
-            padding: '6rem 0 1.5rem 0',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '8rem 0 2rem 0',
-            fontSize: '1.8rem',
-        },
+        padding: '4em 0 1em 0',
+        marginBottom: '2em',
     },
     Step: {
         fontFamily: theme.myTheme.sriftas,
-        [theme.breakpoints.up('xxl')]: {
-            // fontSize: '1rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            // fontSize: '1.4rem',
-        },
     },
     stepIcon: {
-        fontSize: '1.5rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2.25rem',
-            marginTop: '-.3rem',
-            outline: `1.5rem solid ${theme.myTheme.trecia}`
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '3rem',
-            marginTop: '-.6rem',
-            outline: `1.5rem solid ${theme.myTheme.trecia}`
-        },
+        fontSize: theme.myTheme.sizeXL,
     },
     stepConnector: {
-        [theme.breakpoints.up('xxl')]: {
-            padding: '0 1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '0 2rem'
-        },
+        fontSize: theme.myTheme.sizeM,
+        backgroundColor: theme.myTheme.sZalia.main,
+        width: '90%',
+        height: '.2em',
+        borderRadius: theme.myTheme.sizeBorderRadiusLarge,
+        transform: 'translate(-52%, .8em)',
     },
-    cssOutlinedInput: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        border: 'none',
-        boxShadow: 'none',
-        outline: 'none',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            margin: '.5rem 1rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.9rem',
-            margin: '.75rem 1.5rem',
-        },
-    },
-    cssOutlinedInput2: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        border: 'none',
-        boxShadow: 'none',
-        outline: 'none',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            padding: '.5rem 1rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.9rem',
-            padding: '1rem 1.5rem'
-        },
-    },
+    cssOutlinedInput:theme.myTheme.cssOutlinedInput,
+    cssOutlinedInput2: theme.myTheme.cssOutlinedInput2,
     cssFocused: {
         border: 'none',
         outline: 'none',
@@ -219,55 +111,31 @@ const useStyles = makeStyles((theme) => ({
         outline: 'none',
     },
     pastaba: {
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        borderRadius: '4px',
+        fontSize: theme.myTheme.sizeM,
+        border: `1px solid ${theme.myTheme.juoda}`,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         width: '100%',
         [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
+            border: `1.4px solid ${theme.myTheme.juoda}`,
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
-            border: `2px solid ${theme.myTheme.sriftoSpalva}`,
+            border: `2px solid ${theme.myTheme.juoda}`,
         },
     },
     OptionTitleHeader: {
-        color: theme.myTheme.sriftoSpalva,
-        fontSize: '1rem',
+        color: theme.myTheme.juoda,
+        fontSize: theme.myTheme.sizeM,
         fontFamily: theme.myTheme.sriftas,
         margin: '0',
         padding: '0',
         overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-        },
     },
     input: {
         display: 'none',
     },
-    uploadButton: {
-        width: '100%',
-        backgroundColor: theme.myTheme.pirma,
-        fontFamily: theme.myTheme.sriftas,
-        margin: '.5rem 0',
-        color: theme.myTheme.trecia,
-        [theme.breakpoints.up('xxl')]: {
-            margin: '.75rem 0',
-            height: '3.375rem',
-            borderRadius: '7px',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '1rem 0',
-            height: '5rem',
-            borderRadius: '9px',
-            fontSize: '1.8rem',
-        },
-    },
+    uploadButton: theme.myTheme.button,
     uploadButtonLabel: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
     },
     middleBox: {
@@ -275,210 +143,72 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
     },
     col1: {
+        fontSize: theme.myTheme.sizeM,
         paddingRight: 0,
         [theme.breakpoints.up('md')]: {
-            paddingRight: '1rem',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            paddingRight: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            paddingRight: '2rem',
+            paddingRight: '1em',
         },
     },
     col2: {
 
     },
     col3: {
+        fontSize: theme.myTheme.sizeM,
         paddingLeft: 0,
         [theme.breakpoints.up('md')]: {
-            paddingLeft: '1rem',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            paddingLeft: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            paddingLeft: '2rem',
+            paddingLeft: '1em',
         },
     },
     divider1: {
-        marginRight: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            marginRight: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginRight: '2rem',
-        },
+        fontSize: theme.myTheme.sizeM,
+        marginRight: '1em',
     },
     divider2: {
-        marginLeft: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            marginLeft: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginLeft: '2rem',
-        },
+        fontSize: theme.myTheme.sizeM,
+        marginLeft: '1em',
     },
     image: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
-        maxHeight: '14rem',
+        maxHeight: '14em',
         objectFit: 'cover',
-        [theme.breakpoints.up('xxl')]: {
-            maxHeight: '18.9rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            maxHeight: '28rem',
-        },
     },
     pdf: {
         width: '100%',
         objectFit: 'contain',
     },
     summaryText: {
+        fontSize: theme.myTheme.sizeM,
         padding: '0',
-        margin: '0 0 .3rem 0',
+        margin: '0 0 .3em 0',
         overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 0 .45rem 0',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 0 .6rem 0',
-            fontSize: '1.7rem',
-        },
     },
     discountText: {
+        fontSize: theme.myTheme.sizeM,
         padding: '0',
-        margin: '0 0 .3rem 0',
+        margin: '0 0 .3em 0',
         overflowWrap: 'break-word',
-        color: theme.myTheme.pirma,
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 0 .45rem 0',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 0 .6rem 0',
-            fontSize: '1.7rem',
-        },
+        color: theme.myTheme.sZalia.dark,
     },
     PriceText: {
+        fontSize: theme.myTheme.sizeMM,
         padding: '0',
-        margin: '0 .7rem .3rem 0',
+        margin: '0 .7em .3em 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
         fontWeight: 'bold',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem .45rem 0',
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem .6rem 0',
-            fontSize: '2.4rem',
-        },
     },
-    Isbraukta: {
-        padding: '0',
-        margin: '0 .7rem .3rem 0',
-        overflowWrap: 'break-word',
-        fontSize: '1.2rem',
-        fontWeight: 'bold',
-        position: 'relative',
-        '&:before': {
-            position: 'absolute',
-            content: '""',
-            width: '100%',
-            height: '4px',
-            borderRadius: '2px',
-            backgroundColor: 'rgba(230, 57, 70, 0.8)',
-            right: '0',
-            top: '40%',
-            '-webkit-transform': 'skewY(-7deg)',
-            transform: 'skewY(-7deg)',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem .45rem 0',
-            fontSize: '1.8rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '6px',
-                borderRadius: '3px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem .6rem 0',
-            fontSize: '2.4rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '8px',
-                borderRadius: '4px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
-        },
-    },
+    Isbraukta:theme.myTheme.isbraukta,
     DiscountedPriceText: {
+        fontSize: theme.myTheme.sizeMM,
         padding: '0',
-        margin: '0 .7rem .3rem 0',
+        margin: '0 .7em .3em 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
         fontWeight: 'bold',
-        color: theme.myTheme.pirma,
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem .45rem 0',
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem .6rem 0',
-            fontSize: '2.4rem',
-        },
+        color: theme.myTheme.sZalia.dark,
     },
-    variantSelect: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        margin: '0',
-        padding: '0',
-        minHeight: '3.5rem',
-        textOverflow: 'ellipsis',
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        '&:focus': {
-            borderRadius: '4px',
-            border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-
-        },
-        [theme.breakpoints.up('xxl')]: {
-            minHeight: '5.25rem',
-            borderRadius: '7px',
-            '&:focus': {
-                 borderRadius: '7px',
-            }, 
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            border: `2px solid ${theme.myTheme.sriftoSpalva}`,
-            minHeight: '7rem',
-            borderRadius: '9px',
-            '&:focus': {
-                borderRadius: '9px',
-                border: `2px solid ${theme.myTheme.sriftoSpalva}`,
-            }, 
-        },
-    },
+    variantSelect: theme.myTheme.variantSelect,
     icon: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)',
             marginRight: '1rem'
@@ -488,31 +218,20 @@ const useStyles = makeStyles((theme) => ({
             marginRight: '1.5rem'
         },
     },
-    breakcrumbs: {
-        margin: '1rem 0 0 0',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '1rem 0 0 0',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '1rem 0 0 0',
-            fontSize: '1.8rem',
-        },
-    },
     mobileStepNumberBox: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: theme.myTheme.pirma,
-        borderRadius: '1.5rem',
-        padding: '1rem',
-        height: '1.5rem',
-        width: '1.5rem',
-        margin: '0 .5rem 0 0',
-        color: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.tZalia.main,
+        borderRadius: '1.5em',
+        padding: '1em',
+        height: '1.5em',
+        width: '1.5em',
+        margin: '0 .5em 0 0',
+        color: theme.myTheme.balta,
     },
     mobileStepParentBox: {
-        margin: '1rem 0',
+        margin: '1em 0',
         [theme.breakpoints.up('md')]: {
             display: 'none'
         },
@@ -526,98 +245,17 @@ const useStyles = makeStyles((theme) => ({
             height: 500,
         },
     },
-    formVariantSelect: {
-        width: '100%',
-        marginBottom: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: '1.5rem',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: '2rem',
-            fontSize: '1.9rem',
-        },
+    alternativeLabel: {
+        fontSize: theme.myTheme.sizeM,
+        marginTop: '.1em',
     },
-    variantSelectIcon: {
-        color: theme.myTheme.sriftoSpalva,
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5)',
-            marginRight: '1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)',
-            marginRight: '1.5rem'
-        },
-    },
-    menuitself: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        [theme.breakpoints.up('lg')]: {
-            width: '13rem'
-        },
-        [theme.breakpoints.up('xxl')]: {
-            width: '19.5rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            width: '26rem'
-        },
-    },
-    menuPaper: {
-        maxHeight: '22rem',
-        overflowY: 'auto',
-        [theme.breakpoints.up('xxl')]: {
-            maxHeight: '33rem',
-            borderRadius: '7px',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            maxHeight: '44rem',
-            borderRadius: '9px',
-        },
-    },
-    menuItem: {
-        width: '100%',
-        overflowWrap: 'break-word',
-    },
-    selectRenderOuterBox: {
-        height: '100%',
-        paddingLeft: '1rem',
-        width: '90%', 
-        whitespace: 'nowrap', 
-        textOverflow: 'ellipsis',
-        [theme.breakpoints.up('xxl')]: {
-            paddingLeft: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            paddingLeft: '2rem',
-        },
-    },
-    truncateBox: {
-        width: '100%', 
-        height: '100%', 
-        display: 'inline-block',
-        overflow: 'hidden',
-        whitespace: 'nowrap', 
-        textOverflow: 'ellipsis',
-    },
-    selectRender2: {
-        width: '100%', 
-        display: 'inline-block',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        verticalAlign: 'middle',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            margin: 0,
-            padding: '1rem 0',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-            margin: 0,
-            padding: '1.5rem 0',
-        },
-    },
+    formVariantSelect: theme.myTheme.formVariantSelect,
+    variantSelectIcon: theme.myTheme.variantSelectIcon,
+    menuitself: theme.myTheme.menuitself,
+    menuPaper: theme.myTheme.menuPaper,
+    menuItem: theme.myTheme.menuItem,
+    selectRenderOuterBox: theme.myTheme.selectRenderOuterBox,
+    selectRender2: theme.myTheme.selectRender2,
 }));
 
 const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTwoDec, maketavimoKaina, firstName, personalas, token, kodoNuolaida, findMaxDiscount }) => {
@@ -899,7 +537,7 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
         resetEverything();
         if (products.length !== 0) {
             const result = products.find(obj => {
-                return obj.link === encodeURIComponent(link)
+                return obj.link.toLowerCase() === encodeURIComponent(link).toLowerCase()
             });
             if (result) {
                 setProduct(result);
@@ -1103,18 +741,12 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
         // eslint-disable-next-line
     }, [kiekis, unitPrice, loyaltydiscount, kodoNuolaida]);
 
-    // useEffect(() => {
-    //     console.log(product);
-        
-    //     // eslint-disable-next-line
-    // }, [product]);
-
     return (
         <>
             { products.length <= 0 ? 
             <ProductSkeleton />
             :
-            <Box maxWidth='xl' classes={{root: classes.root}} >
+            <Box classes={{root: classes.root}} >
                 <Helmet>
                     <title>{product.name} | {ProjectName}</title>  
                 </Helmet>
@@ -1147,19 +779,15 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                     papildomaMaketavimoKaina={papildomaMaketavimoKaina}
                     appliedDiscount={appliedDiscount}
                 />
-                <Box display='flex' justifyContent='center' style={{paddingBottom: '2rem'}}>
-                    <Box classes={{root: classes.content}}>
-                        <Breadcrumbs aria-label="breadcrumb" className={classes.breakcrumbs}>
-                            <Link to='/' className={classes.breadcrumbLink}>Pagrindinis puslapis</Link>
-                            <Link to='/products' className={classes.breadcrumbLink}>Produktai</Link>
-                            <Link to={`/products/${encodeURIComponent(link)}`} className={classes.breadcrumbLinkDisabled}>{product.name}</Link>
-                        </Breadcrumbs>
+                {/* <Box display='flex' justifyContent='center' style={{paddingBottom: '2rem'}}> */}
+                    <Box>
+                        <Breadcurmbs routes={[{path: 'products', name: 'Produktai'}, {path: product.link, name: product.name}]}/>
                         <Grid container style={{margin: '0'}}>
                             <Grid item xl={9} lg={9} md={9} sm={12} xs={12}>
                                 <Box display='flex' justifyContent='flex start'>
                                     <h1 className={classes.header}>{product.name}</h1> 
                                 </Box>
-                                <Box display='flex' justifyContent='flex start'>
+                                <Box display='flex' justifyContent='flex start' classes={{root: classes.descTextBox}}>
                                     <p className={classes.descText}>{product.description}</p>
                                 </Box>
                             </Grid>
@@ -1176,10 +804,14 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                                 alternativeLabel 
                                 activeStep={0} 
                                 classes={{root: classes.Stepper}}
-                                connector={<StepConnector classes={{root: classes.stepConnector}}/>}
+                                connector={
+                                    // <StepConnector classes={{root: classes.stepConnector}}/>
+                                    <div className={classes.stepConnector}/>
+                                }
                             >
-                                <Step active={true}>
+                                <Step active={true} >
                                     <StepLabel 
+                                        classes={{root: classes.alternativeLabel}}
                                         StepIconProps={{ 
                                             classes: { text: classes.Step, root: classes.stepIcon } 
                                         }}
@@ -1468,10 +1100,8 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                                             defaultValue={kiekis}
                                             MenuProps={{ classes: { paper: classes.menuitself, list: classes.menuPaper } }}
                                             renderValue={(value) => 
-                                                <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.selectRenderOuterBox}}>
-                                                    <Box classes={{root: classes.truncateBox}}> 
-                                                        <p className={classes.selectRender2}>{value}</p>
-                                                    </Box>
+                                                <Box classes={{root: classes.selectRenderOuterBox}}>
+                                                    <p className={classes.selectRender2}>{value}</p>
                                                 </Box> 
                                             }
                                         >
@@ -1567,12 +1197,12 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                                     startIcon={!uploading && <FaShoppingCart size={20} className={classes.icon}/>}
                                     disabled={uploading}
                                     onClick={addToCart}
-                                    style={uploading ? {background: `linear-gradient(90deg, ${theme.myTheme.pirma} ${uploadProgress}%, #f7bbc0 0%)`}
+                                    style={uploading ? {background: `linear-gradient(90deg, ${theme.myTheme.tZalia.dark} ${uploadProgress}%, ${theme.myTheme.tZalia.light} 0%)`}
                                     : 
                                     file.URL === '' ?
-                                        {background: `linear-gradient(90deg, 0%, #f7bbc0 0%)`}
+                                        {background: `linear-gradient(90deg, 0%, ${theme.myTheme.tZalia.light} 0%)`}
                                     :
-                                        {background: `linear-gradient(90deg, ${theme.myTheme.pirma} ${100}%, #f7bbc0 0%)`}
+                                        {background: `linear-gradient(90deg, ${theme.myTheme.tZalia.dark} ${100}%, ${theme.myTheme.tZalia.light} 0%)`}
                                     }
                                 >
                                     {uploading ? file.src !== null && (uploadProgress >= 0 || uploadProgress < 100) ? `Įkeliamas failas - ${uploadProgress}%` : <CircularProgress size={20} className={classes.icon}/> : 'Į krepšelį'}
@@ -1588,7 +1218,7 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                             </>
                         }
                     </Box>
-                </Box>  
+                {/* </Box>   */}
             </Box>
             }
         </>

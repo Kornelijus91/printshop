@@ -6,58 +6,42 @@ import { IoClose } from "react-icons/io5";
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        fontSize: theme.myTheme.sizeM,
         marginTop: '3em',
     },
     header: {
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeXL,
+        color: theme.myTheme.juoda,
         margin: '0 1em 0 0',
         padding: 0,
-        fontSize: '1.6rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2.16rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '3.2rem',
-        },
     },
     header2: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         margin: '0 1em 0 0',
         padding: 0,
-        fontSize: '1.2rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.62rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
-        },
+        fontSize: theme.myTheme.sizeMM,
     },
     atsiliepimuNera: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         opacity: 0.5,
-        fontSize: '1.4rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.89rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.8rem',
-        },
+        fontSize: theme.myTheme.sizeMM,
+        // [theme.breakpoints.up('xxl')]: {
+        //     fontSize: '1.89rem',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     fontSize: '2.8rem',
+        // },
     },
     atsiliepimoTekstas: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         opacity: 0.5,
-        fontSize: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-        },
+        fontSize: theme.myTheme.sizeM,
     },
     commentHR: {
         opacity: 0.5,
     },
     leaveCoomentTopBox: {
+        fontSize: theme.myTheme.sizeM,
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'flex-start',
@@ -65,8 +49,9 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '.7em',
     },
     vardas: {
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        borderRadius: '4px',
+        fontSize: theme.myTheme.sizeM,
+        border: `1px solid ${theme.myTheme.juoda}`,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         width: '100%',
         margin: '0 0 1em 0',
         [theme.breakpoints.up('md')]: {
@@ -74,41 +59,26 @@ const useStyles = makeStyles((theme) => ({
             margin: '0 1em 0 0',
         },
         [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
+            border: `1.4px solid ${theme.myTheme.juoda}`,
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
-            border: `2px solid ${theme.myTheme.sriftoSpalva}`,
+            border: `2px solid ${theme.myTheme.juoda}`,
         },
     },
     pastaba: {
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        borderRadius: '4px',
+        fontSize: theme.myTheme.sizeM,
+        border: `1px solid ${theme.myTheme.juoda}`,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         width: '100%',
         marginBottom: '.7em',
         [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
+            border: `2px solid ${theme.myTheme.juoda}`,
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
-            border: `2px solid ${theme.myTheme.sriftoSpalva}`,
+            border: `2px solid ${theme.myTheme.juoda}`,
         },
     },
-    cssOutlinedInput: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        border: 'none',
-        boxShadow: 'none',
-        outline: 'none',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            margin: '.5rem 1rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.9rem',
-            margin: '.75rem 1.5rem',
-        },
-    },
+    cssOutlinedInput: theme.myTheme.cssOutlinedInput,
     cssFocused: {
         border: 'none',
         outline: 'none',
@@ -120,39 +90,12 @@ const useStyles = makeStyles((theme) => ({
     ratingBox: {
         display: 'inline-block'
     },
-    button: {
-        width: '100%',
-        marginBottom: "2em",
-        borderRadius: '6px',
-        height: '2.5rem',
-        color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.pirma,
-        fontFamily: theme.myTheme.sriftas,
-        fontWeight: "bold",
-        '&:hover': {
-            backgroundColor: '#cc0000',
-        },
-        [theme.breakpoints.up('md')]: {
-            width: '30%',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: "2.7em",
-            borderRadius: '9px',
-            height: '3.375rem',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: "4em",
-            borderRadius: '12px',
-            height: '4.5rem',
-            fontSize: '1.6rem',
-        },
-    },
+    button: theme.myTheme.button,
     buttonDisabled: {
-        backgroundColor: '#cc0000',
+        backgroundColor: theme.myTheme.tZalia.dark,
     },
     loadingIcon: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)',
         },
@@ -161,45 +104,34 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     accountsBoxPagination: {
-        marginTop: '.2rem',
-        padding: '0 0 .5rem .2rem',
-        [theme.breakpoints.up('xxl')]: {
-            marginTop: '.3rem',
-            padding: '0 0 .75rem .3rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginTop: '.4rem',
-            padding: '0 0 1rem .4rem',
+        fontSize: theme.myTheme.sizeM,
+        marginTop: '.2em',
+        padding: '0 0 .5em .2em',
+        // [theme.breakpoints.up('xxl')]: {
+        //     marginTop: '.3rem',
+        //     padding: '0 0 .75rem .3rem',
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     marginTop: '.4rem',
+        //     padding: '0 0 1rem .4rem',
             
-        },
+        // },
     },
     pagination:{
         
     },
     paginationel: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
     },
     ratingScale: {
-        fontSize: '1.6rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2.16rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '3.2rem',
-        },
+        fontSize: theme.myTheme.sizeXL,
     },
     ratingScaleSmall: {
-        fontSize: '1.2rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.62rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
-        },
+        fontSize: theme.myTheme.sizeMM,
     },
     icon: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         margin: '0',
         transform: 'scale(0.7)',
         '&:hover': {

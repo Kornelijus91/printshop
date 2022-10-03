@@ -4,122 +4,64 @@ import { makeStyles } from '@material-ui/core/styles';
 import { FaInfo } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
-    OptionTitleHeader: {
-        color: theme.myTheme.sriftoSpalva,
-        fontSize: '1rem',
-        fontFamily: theme.myTheme.sriftas,
-        margin: '0',
-        padding: '0',
-        overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-        },
-    },
+    OptionTitleHeader: theme.myTheme.OptionTitleHeader,
     doubleNumberBox: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
-        margin: '0 0 1rem 0',
-        [theme.breakpoints.up('sm')]: {
-            margin: '0 0 1rem 0',
-        },
-        [theme.breakpoints.up('md')]: {
-            margin: '0 0 1rem 0',
-        },
-        [theme.breakpoints.up('lg')]: {
-            margin: '0 0 1rem 0',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 0 1.5rem 0',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 0 2rem 0',
-        },
+        margin: '0 0 1em 0',
     },
     buttonGroup: {
-        height: '3rem',
+        fontSize: theme.myTheme.sizeM,
+        height: '3em',
         border: 'none',
-        margin: '0 0 1rem 0',
+        margin: '0 0 1em 0',
         boxShadow: 'none',
+        width: '100%',
         [theme.breakpoints.down('sm')]: {
-            width: '100%',
+            width: '40vw',
+        },
+        [theme.breakpoints.up('md')]: {
+            width: '9em',
         },
         [theme.breakpoints.up('lg')]: {
-            margin: '0',
-            width: '10rem',
+            width: '12em',
         },
-        [theme.breakpoints.up('xxl')]: {
-            height: '4.5rem',
-            margin: '0 0 1.5rem 0',
-            width: '15rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            height: '6rem',
-            margin: '0 0 2rem 0',
-            width: '20rem',
+        [theme.breakpoints.up('xl')]: {
+            width: '14em',
         },
     },
     previewButton: {
-        color: theme.myTheme.trecia,
+        fontSize: theme.myTheme.sizeXXL,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '2rem',
-        backgroundColor: theme.myTheme.pirma,
+        backgroundColor: theme.myTheme.tZalia.main,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
+        padding: '0 .5em',
         '&:hover': {
-            backgroundColor: '#e31c2d',
+            backgroundColor: theme.myTheme.tZalia.dark,
         }, 
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '3rem',
-            borderRadius: '7px',
-            padding: '0 1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '4rem',
-            borderRadius: '9px',
-            padding: '0 2rem',
-        },
     },
-    headerBox: {
-        [theme.breakpoints.up('lg')]: {
-            width: '10rem',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            width: '15rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            width: '20rem',
-        },
-    },
+    // headerBox: {
+    //     [theme.breakpoints.up('lg')]: {
+    //         width: '10rem',
+    //     },
+    //     [theme.breakpoints.up('xxl')]: {
+    //         width: '15rem',
+    //     },
+    //     [theme.breakpoints.up('xxxl')]: {
+    //         width: '20rem',
+    //     },
+    // },
     previewNumberInput: {
-        backgroundColor: theme.myTheme.ketvirta,
+        fontSize: theme.myTheme.sizeM,
+        backgroundColor: theme.myTheme.sZalia.main,
         display: 'flex',
-        height: '3rem',
+        height: '3em',
         justifyContent: 'center',
         alignItems: 'center',
-        [theme.breakpoints.up('xxl')]: {
-            height: '4.5rem',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            height: '6rem',
-            fontSize: '1.9rem',
-        },
+        padding: 0,
     },
-    cssOutlinedInput: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        border: 'none',
-        boxShadow: 'none',
-        outline: 'none',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            padding: '0 .5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.9rem',
-            padding: '0 1rem',
-        },
-    },
+    cssOutlinedInput: theme.myTheme.cssOutlinedInput,
     cssFocused: {
         border: 'none',
         outline: 'none',
@@ -136,16 +78,27 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'flex-end'
     },
-    infoIcon: {
-        margin: 0,
-        padding: 0,
-        color: theme.myTheme.sriftoSpalva,
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5)',
+    infoIcon: theme.myTheme.infoIcon,
+    buttonBox: {
+        display:'flex', 
+        justifyContent: 'space-between', 
+        alignItems: "center",
+        width: '100%',
+        [theme.breakpoints.down('sm')]: {
+            width: '40vw',
         },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)',
+        [theme.breakpoints.up('md')]: {
+            width: '9em',
         },
+        [theme.breakpoints.up('lg')]: {
+            width: '12em',
+        },
+        [theme.breakpoints.up('xl')]: {
+            width: '14em',
+        },
+    },
+    cssOutlinedInputInput: {
+        padding: 0
     },
 }));
 
@@ -259,57 +212,52 @@ const NumberOption = ({ optionsValues, setOptionsValues, index, product }) => {
         <Box classes={{root: classes.doubleNumberBox}}>
             <Grid container>
                 <Grid item xl={6} lg={6} md={6} sm={5} xs={6} >
-                    <Box display='flex' justifyContent='space-between' alignItems='flex-start' classes={{root: classes.headerBox}}>
-                        <Box>
-                            <h3 className={classes.OptionTitleHeader}>{product.options[index].name}</h3>
-                        </Box>
-                        <Box>
-                            {product.options[index].info && 
-                                <Tooltip title={product.options[index].info} placement="top" arrow>
-                                    <Box display='flex' justifyContent='flex-end' alignItems='center'>
-                                        <FaInfo 
-                                            size={17} 
-                                            className={classes.infoIcon} 
-                                        />
-                                    </Box>
-                                </Tooltip>
-                            }
-                        </Box>
+                    <Box classes={{root: classes.buttonBox}}>
+                        <h3 className={classes.OptionTitleHeader}>{product.options[index].name}</h3>
+                        {product.options[index].info && 
+                            <Tooltip title={product.options[index].info} placement="top" arrow>
+                                <Box display='flex' justifyContent='flex-end' alignItems='center'>
+                                    <FaInfo 
+                                        size={17} 
+                                        className={classes.infoIcon} 
+                                    />
+                                </Box>
+                            </Tooltip>
+                        }
                     </Box>
-                    <Box className={classes.firstBox}>
-                        <ButtonGroup variant="contained" aria-label="outlined primary button group" classes={{root: classes.buttonGroup}}>
-                            <Button 
-                                classes={{root: classes.previewButton}}
-                                onClick={handleDummyValueChange('+', index)}
-                            >
-                            +
-                            </Button>
-                            <ClickAwayListener onClickAway={() => handlePreviewCorrection1(index)}>
-                                <TextField 
-                                    id="num_input_1" 
-                                    variant="outlined" 
-                                    autoComplete='off'
-                                    type='number'
-                                    classes={{root: classes.previewNumberInput}}
-                                    value={first}
-                                    onChange={(e) => handlePreviewChange(e, index)}
-                                    InputProps={{
-                                        classes: {
-                                            root: classes.cssOutlinedInput,
-                                            focused: classes.cssFocused,
-                                            notchedOutline: classes.notchedOutline,
-                                        },
-                                    }}
-                                />
-                            </ClickAwayListener>
-                            <Button 
-                                classes={{root: classes.previewButton}}
-                                onClick={handleDummyValueChange('-', index)}
-                            >
-                            -
-                            </Button>
-                        </ButtonGroup>
-                    </Box>
+                    <ButtonGroup variant="contained" aria-label="outlined primary button group" classes={{root: classes.buttonGroup}}>
+                        <Button 
+                            classes={{root: classes.previewButton}}
+                            onClick={handleDummyValueChange('+', index)}
+                        >
+                        +
+                        </Button>
+                        <ClickAwayListener onClickAway={() => handlePreviewCorrection1(index)}>
+                            <TextField 
+                                id="num_input_1" 
+                                variant="outlined" 
+                                autoComplete='off'
+                                type='number'
+                                classes={{root: classes.previewNumberInput}}
+                                value={first}
+                                onChange={(e) => handlePreviewChange(e, index)}
+                                InputProps={{
+                                    classes: {
+                                        root: classes.cssOutlinedInput,
+                                        input: classes.cssOutlinedInputInput,
+                                        focused: classes.cssFocused,
+                                        notchedOutline: classes.notchedOutline,
+                                    },
+                                }}
+                            />
+                        </ClickAwayListener>
+                        <Button 
+                            classes={{root: classes.previewButton}}
+                            onClick={handleDummyValueChange('-', index)}
+                        >
+                        -
+                        </Button>
+                    </ButtonGroup>
                 </Grid> 
             </Grid>
         </Box>

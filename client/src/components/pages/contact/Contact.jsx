@@ -271,7 +271,7 @@ const Contact = ({username}) => {
             <Box classes={{root: classes.body}}> 
                 <Breadcrumbs aria-label="breadcrumb" className={classes.breakcrumbs}>
                     <Link to='/' className={classes.breadcrumbLink}>Pagrindinis puslapis</Link>
-                    <Link to='/contact' className={classes.breadcrumbLinkDisabled}>Kontaktai</Link>
+                    <Link to='/kontaktai' className={classes.breadcrumbLinkDisabled}>Kontaktai</Link>
                 </Breadcrumbs>
                 <Grid container>
                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>

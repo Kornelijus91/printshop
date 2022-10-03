@@ -5,33 +5,23 @@ import { useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        fontSize: theme.myTheme.sizeM,
         marginTop: '2em',
-        [theme.breakpoints.up('xxl')]: {
-            marginTop: '2.7em',
-        }, 
-        [theme.breakpoints.up('xxxl')]: {
-            marginTop: '4em',
-        }, 
     },
     header: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         margin: '0 1em 0 0',
         padding: 0,
-        fontSize: '1.6rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2.16rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '3.2rem',
-        },
+        fontSize: theme.myTheme.sizeXL,
     },
     galerijaBox: {
         width: '100%',
     },
     imageBox: {
+        fontSize: theme.myTheme.sizeM,
         width: '50%',
         padding: '1em',
-        borderRadius: '5px',
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         '&:hover': {
             cursor: 'pointer'
         },
@@ -43,14 +33,6 @@ const useStyles = makeStyles((theme) => ({
         }, 
         [theme.breakpoints.up('lg')]: {
             width: '20%',
-        }, 
-        [theme.breakpoints.up('xxl')]: {
-            padding: '1.35em',
-            borderRadius: '7px',
-        }, 
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '2em',
-            borderRadius: '10px',
         }, 
     },
     image: {

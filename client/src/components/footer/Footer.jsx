@@ -162,7 +162,7 @@ const Footer = ({setModalOpen, setmodalView, loggedIn}) => {
                         <Box classes={{root: classes.section}}>
                             <h3 className={classes.text}>Informacija</h3>
                             <Box className={classes.linkBox}>
-                                <Link to="/contact" className={classes.link} onClick={() => window.scrollTo({top: 0, left: 0})}>Kontaktai</Link>
+                                <Link to="/kontaktai" className={classes.link} onClick={() => window.scrollTo({top: 0, left: 0})}>Kontaktai</Link>
                             </Box>
                             <Box className={classes.linkBox}>
                                 <Link to="/pirkimotaisykles" className={classes.link} onClick={() => window.scrollTo({top: 0, left: 0})}>Pirkimo taisyklės</Link>

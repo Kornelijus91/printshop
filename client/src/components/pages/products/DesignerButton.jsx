@@ -4,32 +4,23 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     uploadButton: {
-        width: '14rem',
-        backgroundColor: theme.myTheme.pirma,
+        fontSize: theme.myTheme.sizeM,
+        width: '14em',
+        height: '3em',
+        backgroundColor: theme.myTheme.tZalia.main,
         fontFamily: theme.myTheme.sriftas,
-       
-        color: theme.myTheme.trecia,
-        [theme.breakpoints.up('xxl')]: {
-            
-            width: '18.5rem',
-            height: '3.375rem',
-            borderRadius: '7px',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            
-            width: '28rem',
-            height: '5rem',
-            borderRadius: '9px',
-            fontSize: '1.8rem',
+        color: theme.myTheme.balta,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
+        '&.Mui-disabled': {
+            backgroundColor: theme.myTheme.sZalia.light,
         },
     },
     uploadButtonLabel: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
     },
     spinner: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)'
         },
@@ -101,7 +92,10 @@ const DesignerButton = ({ userid, productID, productName, setSelectTemplateModal
             variant="contained" 
             color="primary" 
             component="span"
-            classes={{root: classes.uploadButton, label: classes.uploadButtonLabel}} 
+            classes={{
+                root: classes.uploadButton, 
+                label: classes.uploadButtonLabel, 
+            }} 
             onClick={() => validateApp()}
             disabled={selectedTemplate === ''}
         >
