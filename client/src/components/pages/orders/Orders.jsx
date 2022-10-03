@@ -1,88 +1,34 @@
 import { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Breadcrumbs, Button, CircularProgress } from '@material-ui/core';
+import { Box, Button, CircularProgress } from '@material-ui/core';
 import { Helmet } from "react-helmet";
 import { ProjectName } from '../../../Variables.jsx'
-import { Link, useHistory } from 'react-router-dom'; 
+import { useHistory } from 'react-router-dom'; 
 import Pagination from '@material-ui/lab/Pagination';
 import PaymentOptions from './PaymentOptions';
+import Breadcurmbs from '../utils/Breadcurmbs.jsx';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        backgroundColor: theme.myTheme.trecia,
         display: 'flex',
         justifyContent: 'center',
-        padding: '0 1em', 
-        minHeight: '88vh',
-        '-moz-box-shadow': 'inset 0 0 5px #000000',
-        '-webkit-box-shadow': 'inset 0 0 5px #000000',
-        boxShadow: 'inset 0 0 5px #000000',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         textAlign: 'left',
     },
     body: {
-        width: '100%',
-        [theme.breakpoints.up('lg')]: {
-            width: '60%',
-        },
-    },
-    breadcrumbLink: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        textDecoration: 'none',
-        '&:hover': {
-            color: '#2d5286',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-        },
-    },
-    breadcrumbLinkDisabled: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        textDecoration: 'none',
-        pointerEvents: 'none',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-        },
-    },
-    breakcrumbs: {
-        margin: '.5rem 0 0 0',
-        [theme.breakpoints.up('md')]: {
-            margin: '1rem 0 0 0',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            margin: '1.5rem 0 0 0',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '2rem 0 0 0',
-            fontSize: '1.8rem',
-        },
+        width: '100%'
     },
     adresaiHeaser: {
-        margin: '1rem 0 ',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '1.35rem 0',
-            fontSize: '2.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '2rem 0',
-            fontSize: '3.6rem',
-        },
+        fontSize: theme.myTheme.sizeXL,
+        margin: '1em 0 ',
     },
     cartItemParent: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        borderRadius: '5px',
+        border: `1px solid ${theme.myTheme.juoda}`,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         padding: '1em',
         marginBottom: '1em',
         '& h2': {
@@ -90,127 +36,70 @@ const useStyles = makeStyles((theme) => ({
             margin: 0,
         },
         [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-            padding: '1.35em',
-            marginBottom: '1.35em',
+            border: `1.4px solid ${theme.myTheme.juoda}`,
         },
         [theme.breakpoints.up('xxxl')]: {
-            border: `2px solid ${theme.myTheme.sriftoSpalva}`,
-            borderRadius: '10px',
-            padding: '2em',
-            marginBottom: '2em',
+            border: `2px solid ${theme.myTheme.juoda}`,
         },
     },
     PriceText: {
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
+        fontSize: theme.myTheme.sizeMM,
         fontWeight: 'bold',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2.4rem',
-        },
     },
     Isbraukta: {
+        fontSize: 'clamp(1.2rem, 0.97vw, 2.4rem)',
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
         fontWeight: 'bold',
         position: 'relative',
         '&:before': {
             position: 'absolute',
             content: '""',
             width: '100%',
-            height: '4px',
-            borderRadius: '2px',
-            backgroundColor: 'rgba(230, 57, 70, 0.8)',
+            height: '.2em',
+            borderRadius: '.1em',
+            backgroundColor: '#369693',
             right: '0',
             top: '40%',
             '-webkit-transform': 'skewY(-7deg)',
             transform: 'skewY(-7deg)',
         },
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.8rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '6px',
-                borderRadius: '3px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2.4rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '8px',
-                borderRadius: '4px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
-        },
     },
     DiscountedPriceText: {
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
+        fontSize: theme.myTheme.sizeMM,
         fontWeight: 'bold',
-        color: theme.myTheme.pirma,
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2.4rem',
-        },
+        color: theme.myTheme.sZalia.dark,
     },
     accountsBoxPagination: {
-        marginTop: '.2rem',
-        padding: '0 0 .5rem .2rem',
-        [theme.breakpoints.up('xxl')]: {
-            marginTop: '.3rem',
-            padding: '0 0 .75rem .3rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginTop: '.4rem',
-            padding: '0 0 1rem .4rem',
-            
-        },
+        fontSize: theme.myTheme.sizeM,
+        marginTop: '.2em',
+        padding: '0 0 .5em .2em',
     },
     pagination:{
+        fontSize: theme.myTheme.sizeM,
         
     },
     paginationel: {
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeM,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
     },
     cartitms: {
+        fontSize: theme.myTheme.sizeM,
         display: 'flex',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
         marginBottom: '1em'
     },
     orderItemTop: {
+        fontSize: theme.myTheme.sizeM,
         display: 'flex',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
@@ -222,6 +111,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     orderPaymentBox: {
+        fontSize: theme.myTheme.sizeM,
         borderTop: '1px solid #1D3557',
         padding: '1em 0',
         marginTop: '1em',
@@ -230,172 +120,69 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     mokejimoPasirinkimaiBox: {
+        fontSize: theme.myTheme.sizeM,
         padding: '1em 0'
     },
     Button: {
-        backgroundColor: theme.myTheme.pirma,
-        color: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.tZalia.main,
+        color: theme.myTheme.balta,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         '&:hover': {
-            backgroundColor: '#e31c2d',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },
     },
     Button2: {
-        backgroundColor: theme.myTheme.pirma,
-        color: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.tZalia.main,
+        color: theme.myTheme.balta,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         width: '100%',
         '&:hover': {
-            backgroundColor: '#e31c2d',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },
         [theme.breakpoints.up('xl')]: {
             width: '22%',
         },
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
-        },
     },
     ButtonLabel: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-        },
+        fontSize: theme.myTheme.sizeM,
     },
     ButtonDisabled: {
-        backgroundColor: '#ee7781',
+        backgroundColor: theme.myTheme.tZalia.dark,
     },
     header: {
-        fontSize: '1.2rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
-        },
+        fontSize: theme.myTheme.sizeMM,
     },
     sumHeaderRed: {
-        color: theme.myTheme.pirma,
+        fontSize: theme.myTheme.sizeM,
+        color: theme.myTheme.sZalia.dark,
         textAlign: 'right',
-        margin: '0 .7rem 0 0',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2rem',
-        },
+        margin: '0 .7em 0 0',
     },
     sumHeaderBlue: {
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeM,
+        color: theme.myTheme.juoda,
         textAlign: 'right',
-        margin: '0 .7rem 0 0',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2rem',
-        },
+        margin: '0 .7em 0 0',
     },
     PriceText2: {
+        fontSize: theme.myTheme.sizeMM,
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
         fontWeight: 'bold',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2.4rem',
-        },
-    },
-    Isbraukta2: {
-        padding: '0',
-        margin: '0 .7rem 0 0',
-        overflowWrap: 'break-word',
-        fontSize: '1.2rem',
-        fontWeight: 'bold',
-        position: 'relative',
-        '&:before': {
-            position: 'absolute',
-            content: '""',
-            width: '100%',
-            height: '4px',
-            borderRadius: '2px',
-            backgroundColor: 'rgba(230, 57, 70, 0.8)',
-            right: '0',
-            top: '40%',
-            '-webkit-transform': 'skewY(-7deg)',
-            transform: 'skewY(-7deg)',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.8rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '6px',
-                borderRadius: '3px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2.4rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '8px',
-                borderRadius: '4px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
-        },
     },
     DiscountedPriceText2: {
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
+        fontSize: theme.myTheme.sizeMM,
         fontWeight: 'bold',
-        color: theme.myTheme.pirma,
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem .0 0',
-            fontSize: '2.4rem',
-        },
+        color: theme.myTheme.sZalia.dark,
     },
     loadingIcon: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)',
         },
@@ -404,16 +191,10 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     paymentParent: {
+        fontSize: theme.myTheme.sizeM,
         padding: '1em 1em 1em 0',
-        // [theme.breakpoints.up('xxl')]: {
-        //     padding: '1.34em 1.34em 1.34em 0',
-        // },
-        // [theme.breakpoints.up('xxxl')]: {
-        //     padding: '2em 2em 2em 0',
-        // },
     },
 }));
-
 
 const Orders = ({ token, loggedIn }) => {
 
@@ -528,10 +309,7 @@ const Orders = ({ token, loggedIn }) => {
                 <title>Mano užsakymai | {ProjectName}</title>  
             </Helmet>
             <Box classes={{root: classes.body}}>
-                <Breadcrumbs aria-label="breadcrumb" className={classes.breakcrumbs}>
-                    <Link to='/' className={classes.breadcrumbLink}>Pagrindinis puslapis</Link>
-                    <Link to='/orders' className={classes.breadcrumbLinkDisabled}>Mano užsakymai</Link>
-                </Breadcrumbs>
+                <Breadcurmbs routes={[{path: 'orders', name: 'Mano užsakymai'}]}/>
                 <h1 className={classes.adresaiHeaser}>Mano užsakymai</h1>
                 {myOrders.items.length > 0 ?
                     <>
@@ -539,7 +317,7 @@ const Orders = ({ token, loggedIn }) => {
                             <Box 
                                 classes={{root: classes.cartItemParent}}
                                 style={order.status === 'Pateiktas' ?
-                                    {boxShadow: '-10px 0 0 0 #E63946'}
+                                    {boxShadow: '-.8em 0 0 0 #3fb0ac'}
                                 :
                                     {boxShadow: 'none'}
                                 }
@@ -589,11 +367,11 @@ const Orders = ({ token, loggedIn }) => {
                                                 <h4 className={classes.sumHeaderRed}>Pritaikytos nuolaidos: -{(order.price - order.discountPrice).toFixed(2)}€</h4>
                                             }
                                             <h4 className={classes.sumHeaderBlue}>Pristatymas: Nemokamas</h4>
-                                            <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
+                                            <Box display='flex' justifyContent='flex-end' alignItems='center'>
                                                 <p className={classes.PriceText2}>Viso kaina su PVM:</p>
                                                 {order.price !== order.discountPrice ?
                                                     <Box display='flex' justifyContent='flex-end' alignItems='flex-start'>
-                                                        <span className={classes.Isbraukta2}>{order.price.toFixed(2)}€</span>
+                                                        <span className={classes.Isbraukta}>{order.price.toFixed(2)}€</span>
                                                         <p className={classes.DiscountedPriceText2}>{order.discountPrice.toFixed(2)}€</p>
                                                     </Box>
                                                 :

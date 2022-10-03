@@ -1,4 +1,4 @@
-import { Box, Stepper, Step, StepLabel, StepConnector } from '@material-ui/core'; // , Grid, Tooltip, Button
+import { Box, Stepper, Step, StepLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from 'react';
 import { Helmet } from "react-helmet";
@@ -10,86 +10,45 @@ import Thanks from './Thanks.jsx';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        minHeight: '80vh',
-        backgroundColor: theme.myTheme.trecia,
         display: 'flex',
         justifyContent: 'center',
-        '-moz-box-shadow': 'inset 0 0 5px #000000',
-        '-webkit-box-shadow': 'inset 0 0 5px #000000',
-        boxShadow: 'inset 0 0 5px #000000',
-        padding: '1em',
-        [theme.breakpoints.up('xxl')]: {
-            '-moz-box-shadow': 'inset 0 0 7px #000000',
-            '-webkit-box-shadow': 'inset 0 0 7px #000000',
-            boxShadow: 'inset 0 0 7px #000000',
-            padding: '1.35em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            '-moz-box-shadow': 'inset 0 0 10px #000000',
-            '-webkit-box-shadow': 'inset 0 0 10px #000000',
-            boxShadow: 'inset 0 0 10px #000000',
-            padding: '2em',
-        },
     },
     body: {
         width: '100%',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        [theme.breakpoints.up('xl')]: {
-            width: '60%',
-        },
     },
     stepper: {
-        backgroundColor: theme.myTheme.trecia,
-        [theme.breakpoints.up('xxl')]: {
-            // padding: '6rem 0 1.5rem 0',
-            fontSize: '1.4rem',
-            marginBottom: '.5em'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            // padding: '8rem 0 2rem 0',
-            fontSize: '1.8rem',
-            marginBottom: '1em'
-        },
+        fontSize: theme.myTheme.sizeS,
+        backgroundColor: 'transparent',
     },
     steplabel: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-        },
+        fontSize: theme.myTheme.sizeM,
     },
     step: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
     },
     stepConnector: {
-        [theme.breakpoints.up('xxl')]: {
-            padding: '0 1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '0 2rem'
+        fontSize: theme.myTheme.sizeM,
+        backgroundColor: theme.myTheme.sZalia.main,
+        width: '70%',
+        height: '.2em',
+        borderRadius: theme.myTheme.sizeBorderRadiusLarge,
+        transform: 'translate(-60%, .8em)',
+        [theme.breakpoints.up('lg')]: {
+            width: '90%',
+            transform: 'translate(-52%, .8em)',
         },
     },
     stepIcon: {
-        fontSize: '1.5rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2.25rem',
-            marginTop: '-.3rem',
-            outline: `1.5rem solid ${theme.myTheme.trecia}`
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '3rem',
-            marginTop: '-.6rem',
-            outline: `1.5rem solid ${theme.myTheme.trecia}`
-        },
+        fontSize: theme.myTheme.sizeXL,
     },
 }));
 
-const Order = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, setCart, setKodoNuolaida, delivery, setDelivery, loggedIn, token, getAddresses, addresses, cart, kodoNuolaida, priceSum, pasirinktasGamybosLaikas, findMaxDiscount, getItemProductionCost, roundTwoDec }) => {
+const Order = ({ pasirinktasPristatymoBudas, setCart, setKodoNuolaida, delivery, setDelivery, loggedIn, token, getAddresses, addresses, cart, kodoNuolaida, priceSum, pasirinktasGamybosLaikas, findMaxDiscount, getItemProductionCost, roundTwoDec }) => {
 
     const classes = useStyles();
 
@@ -109,7 +68,14 @@ const Order = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, setC
                 <title>Užsakymas | {ProjectName}</title>  
             </Helmet>
             <Box classes={{root: classes.body}}>
-                <Stepper activeStep={orderStep} alternativeLabel classes={{root: classes.stepper}} connector={<StepConnector classes={{root: classes.stepConnector}}/>}>
+                <Stepper 
+                    activeStep={orderStep} 
+                    alternativeLabel 
+                    classes={{root: classes.stepper}} 
+                    connector={
+                        <div className={classes.stepConnector}/>
+                    }
+                >
                     <Step>
                         <StepLabel 
                             classes={{label: classes.steplabel}}
@@ -168,7 +134,6 @@ const Order = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, setC
                             getItemProductionCost={getItemProductionCost}
                             roundTwoDec={roundTwoDec}
                             pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}
-                            // setPasirinktasPristatymoBudas={setPasirinktasPristatymoBudas}
                         />,     
                         2: <Thanks pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}/>
                     }[orderStep]

@@ -6,17 +6,16 @@ const useStyles = makeStyles((theme) => ({
     root: {
         padding: '.5rem',
         minHeight: '95vh',
-        backgroundColor: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
-        color: theme.myTheme.sriftoSpalva
+        color: theme.myTheme.juoda
     },
     pastaba: {
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
+        border: `1px solid ${theme.myTheme.juoda}`,
         borderRadius: '4px',
         width: '100%',
     },
     cssOutlinedInput: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         border: 'none',
         boxShadow: 'none',
@@ -37,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: theme.myTheme.ketvirta,
+        backgroundColor: theme.myTheme.sZalia.light,
         borderRadius: '4px'
     },
     image: {

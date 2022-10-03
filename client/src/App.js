@@ -19,7 +19,7 @@ import Addresses from './components/pages/addresses/Addresses.jsx';
 import Trklubas from './components/pages/trklubas/Trklubas.jsx';
 import Chat from './components/pages/customerchat/Chat';
 import Wrapper from './components/pages/utils/Wrapper.jsx';
-// import ComingSoon from './components/ComingSoon'
+import ComingSoon from './components/ComingSoon'
 // import { io } from "socket.io-client";
 import {SocketContext, socket} from './socket.js';
 
@@ -438,7 +438,7 @@ const App = () => {
           setUsername={setUsername}
           setMoneySpent={setMoneySpent}
         />
-        {/* <ComingSoon/> */}
+        <ComingSoon/>
         <Navigation 
           setModalOpen={setModalOpen} 
           loggedIn={loggedIn} 
@@ -580,71 +580,85 @@ const App = () => {
             </Wrapper>
           </Route>
           <Route exact path="/orders">
-            <Orders token={token} loggedIn={loggedIn}/>
+            <Wrapper>
+              <Orders token={token} loggedIn={loggedIn}/>
+            </Wrapper>
           </Route>
           <Route exact path="/mokejimobudai">
             <Suspense fallback={lazyFallback}>
-              <Apmokejimas />
+              <Wrapper>
+                <Apmokejimas />
+              </Wrapper>
             </Suspense>
           </Route>
           <Route exact path="/apmokejimoklaida">
             <Suspense fallback={lazyFallback}>
-              <PaymentFailed />
+              <Wrapper>
+                <PaymentFailed />
+              </Wrapper>
             </Suspense>
           </Route>
           <Route exact path="/order">
-            <Order 
-              delivery={delivery} 
-              setDelivery={setDelivery} 
-              loggedIn={loggedIn} 
-              token={token} 
-              getAddresses={getAddresses} 
-              addresses={addresses}
-              cart={cart}
-              kodoNuolaida={kodoNuolaida}
-              priceSum={priceSum}
-              setCart={setCart}
-              setKodoNuolaida={setKodoNuolaida}
-              pasirinktasGamybosLaikas={pasirinktasGamybosLaikas}
-              findMaxDiscount={findMaxDiscount}
-              getItemProductionCost={getItemProductionCost}
-              roundTwoDec={roundTwoDec}
-              pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}
-              setPasirinktasPristatymoBudas={setPasirinktasPristatymoBudas}
-            />
+            <Wrapper>
+              <Order 
+                delivery={delivery} 
+                setDelivery={setDelivery} 
+                loggedIn={loggedIn} 
+                token={token} 
+                getAddresses={getAddresses} 
+                addresses={addresses}
+                cart={cart}
+                kodoNuolaida={kodoNuolaida}
+                priceSum={priceSum}
+                setCart={setCart}
+                setKodoNuolaida={setKodoNuolaida}
+                pasirinktasGamybosLaikas={pasirinktasGamybosLaikas}
+                findMaxDiscount={findMaxDiscount}
+                getItemProductionCost={getItemProductionCost}
+                roundTwoDec={roundTwoDec}
+                pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}
+                // setPasirinktasPristatymoBudas={setPasirinktasPristatymoBudas}
+              />
+            </Wrapper>
           </Route>
           <Route exact path="/searchpage">
-            <SearchPage 
-              searchValue={searchValue} 
-              handlesearchValueChange={handlesearchValueChange} 
-              searchResult={searchResult} 
-              setSearchValue={setSearchValue}
-              setSearchResult={setSearchResult}
-            />
+            <Wrapper>
+              <SearchPage 
+                searchValue={searchValue} 
+                handlesearchValueChange={handlesearchValueChange} 
+                searchResult={searchResult} 
+                setSearchValue={setSearchValue}
+                setSearchResult={setSearchResult}
+              />
+            </Wrapper>
           </Route>
           <Route exact path="/cart">
-            <CartPage
-              cart={cart} 
-              getCart={getCart} 
-              // loyaltydiscount={loyaltydiscount} 
-              setCart={setCart} 
-              priceSum={priceSum}
-              kodoNuolaida={kodoNuolaida}
-              setKodoNuolaida={setKodoNuolaida}
-              findMaxDiscount={findMaxDiscount}
-              gamybosLaikas={gamybosLaikas}
-              setGamybosLaikas={setGamybosLaikas}
-              pasirinktasGamybosLaikas={pasirinktasGamybosLaikas}
-              setPasirinktasGamybosLaikas={setPasirinktasGamybosLaikas}
-              roundTwoDec={roundTwoDec}
-              getItemProductionCost={getItemProductionCost}
-              pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}
-              setPasirinktasPristatymoBudas={setPasirinktasPristatymoBudas}
-            />
+            <Wrapper>
+              <CartPage
+                cart={cart} 
+                getCart={getCart} 
+                // loyaltydiscount={loyaltydiscount} 
+                setCart={setCart} 
+                priceSum={priceSum}
+                kodoNuolaida={kodoNuolaida}
+                setKodoNuolaida={setKodoNuolaida}
+                findMaxDiscount={findMaxDiscount}
+                gamybosLaikas={gamybosLaikas}
+                setGamybosLaikas={setGamybosLaikas}
+                pasirinktasGamybosLaikas={pasirinktasGamybosLaikas}
+                setPasirinktasGamybosLaikas={setPasirinktasGamybosLaikas}
+                roundTwoDec={roundTwoDec}
+                getItemProductionCost={getItemProductionCost}
+                pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}
+                setPasirinktasPristatymoBudas={setPasirinktasPristatymoBudas}
+              />
+            </Wrapper>
           </Route>
           <Route path='*'>
             <Suspense fallback={lazyFallback}>
-              <PageNotFound />
+              <Wrapper>
+                <PageNotFound />
+              </Wrapper>
             </Suspense>
           </Route>
         </Switch>

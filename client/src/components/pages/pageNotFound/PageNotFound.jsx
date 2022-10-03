@@ -5,29 +5,25 @@ import pageNotFoundPic from '../../../media/page-not-found.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
-        minHeight: '85vh',
+        // minHeight: '85vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: theme.myTheme.trecia,
-        '-moz-box-shadow': 'inset 0 0 5px #000000',
-        '-webkit-box-shadow': 'inset 0 0 5px #000000',
-        boxShadow: 'inset 0 0 5px #000000',
         fontFamily: theme.myTheme.sriftas,
-        fontSize: 'clamp(1rem, 1vw + .7rem, 4rem)',
         textAlign: 'center',
-        padding: '2rem',
-        color: theme.myTheme.sriftoSpalva,
+        padding: '2em',
+        color: theme.myTheme.juoda,
     },
     link: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         padding: '0',
         // textDecoration: 'none',
         textAlign: 'center',
         '&:hover': {
-            color: theme.myTheme.antra,
+            color: '#457B9D',
         },
     },
     image: {

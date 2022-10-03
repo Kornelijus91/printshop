@@ -1,4 +1,4 @@
-import { Box, Grid, FormControl, InputLabel, OutlinedInput, Collapse, RadioGroup, FormControlLabel, Radio, Button } from '@material-ui/core'; // , Grid, Tooltip, Button
+import { Box, Grid, FormControl, InputLabel, OutlinedInput, Collapse, RadioGroup, FormControlLabel, Radio, Button } from '@material-ui/core'; 
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEffect, useState } from 'react';
@@ -10,235 +10,136 @@ const useStyles = makeStyles((theme) => ({
     },
     labelRoot: {
         marginTop: '-.6rem',
-        color: `${theme.myTheme.sriftoSpalva} !important`,
-        padding: '.2rem .5rem .2rem .5rem',
-        borderRadius: '6px 6px 0 0',
-        backgroundColor: theme.myTheme.ketvirta,
+        color: `${theme.myTheme.juoda} !important`,
+        paddingTop: theme.myTheme.sizeXXXS,
+        paddingBottom: theme.myTheme.sizeXXXS,
+        paddingRight: theme.myTheme.sizeXXS,
+        paddingLeft: theme.myTheme.sizeXXS,
+        borderRadius: '5px 5px 0 0',
+        backgroundColor: theme.myTheme.sZalia.light,
         fontFamily: theme.myTheme.sriftas,
         transform: 'translateX(.5rem) translateY(1.6rem)',
+        fontSize: theme.myTheme.sizeM,
         [theme.breakpoints.up('xxl')]: {
-            // marginTop: '-.9rem',
-            padding: '.3rem .75rem .3rem .75rem',
-            borderRadius: '9px 9px 0 0',
-            fontSize: '1.4rem',
-            transform: 'translateX(.5rem) translateY(1.6rem)',
+            borderRadius: '7px 7px 0 0',
         },
         [theme.breakpoints.up('xxxl')]: {
-            marginTop: 0,
-            padding: '.4rem 1rem .4rem 1rem',
-            borderRadius: '12px 12px 0 0',
-            fontSize: '2rem',
-            transform: 'translateX(1.6rem) translateY(1.6rem)',
+            borderRadius: '10px 10px 0 0',
         },
     },
     labelFocused: {
-        color: `${theme.myTheme.sriftoSpalva} !important`,
+        color: `${theme.myTheme.juoda} !important`,
         fontFamily: theme.myTheme.sriftas,
-        padding: '.2rem .5rem .2rem .5rem',
-        borderRadius: '6px 6px 0 0',
-        backgroundColor: theme.myTheme.ketvirta,
+        paddingTop: theme.myTheme.sizeXXXS,
+        paddingBottom: theme.myTheme.sizeXXXS,
+        paddingRight: theme.myTheme.sizeXXS,
+        paddingLeft: theme.myTheme.sizeXXS,
+        borderRadius: '5px 5px 0 0',
+        backgroundColor: theme.myTheme.sZalia.light,
         [theme.breakpoints.up('xxl')]: {
-            padding: '.3rem .75rem .3rem .75rem',
-            borderRadius: '9px 9px 0 0',
+            borderRadius: '7px 7px 0 0',
         },
         [theme.breakpoints.up('xxxl')]: {
-            padding: '.4rem 1rem .4rem 1rem',
-            borderRadius: '12px 12px 0 0',
+            borderRadius: '10px 10px 0 0',
         },
     },
     labelShrink: {
-        [theme.breakpoints.up('xxxl')]: {
-            marginTop: '-1rem'
-        },
+        marginTop: '-clamp(.4rem, 0.32vw, .8rem)',
     },
     textInput: {
-        marginBottom: "1.2rem",
-        backgroundColor: theme.myTheme.ketvirta,
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeM,
+        marginBottom: "1.2em",
+        backgroundColor: theme.myTheme.sZalia.light,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        borderRadius: '6px',
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: "1.5rem",
-            borderRadius: '9px',
-            display: 'flex',
-            alignItems: 'center',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: "2rem",
-            borderRadius: '12px',
-            paddingLeft: '1rem'
-        },
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
     },
     input: {
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-            padding: '2rem'
-        },
+        fontSize: theme.myTheme.sizeM,
     },
     diasbleOutline: {
         border: 'none',
     },
     summaryText: {
+        fontSize: theme.myTheme.sizeMM,
         padding: '0',
         margin: '0 1em 0 0',
         overflowWrap: 'break-word',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        fontSize: '1.2rem',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.35em 0 0',
-            fontSize: '1.62rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 3em 0 0',
-            fontSize: '2rem',
-        },
     },
     radioButtons: {
         margin: '0',
         padding: '0',
         [theme.breakpoints.up('xxl')]: {
-            // margin: '.5rem 0 1.35rem 0',
+            margin: '0 0 0 1em',
             transform: 'scale(1.35)'
         },
         [theme.breakpoints.up('xxxl')]: {
-            // margin: '.8rem 0 2rem 0',
+            margin: '0 0 0 2em',
             transform: 'scale(2)'
         },
     },
     radiolabel: {
         fontFamily: theme.myTheme.sriftas,
-        color:  theme.myTheme.sriftoSpalva,
+        color:  theme.myTheme.juoda,
         
     },
     addressItem: {
-        borderRadius: '5px',
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        // backgroundColor: theme.myTheme.antra,
-        color: theme.myTheme.sriftoSpalva,
-        fontSize: '.7rem',
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
+        border: `1px solid ${theme.myTheme.juoda}`,
+        color: theme.myTheme.juoda,
+        fontSize: theme.myTheme.sizeS,
         overflowWrap: 'break-word',
-        marginBottom: '1rem',
-        padding: '.5rem 1rem',
+        marginBottom: '1em',
+        padding: '.5em 1em',
         transition: '0.2s ease background-color',
         '& p': {
             margin: 0,
             padding: 0,
         },
         '&:hover': {
-            backgroundColor: theme.myTheme.ketvirta,
+            backgroundColor: theme.myTheme.sZalia.light,
             cursor: 'pointer'
         },
         [theme.breakpoints.up('xs')]: {
-            fontSize: '1rem',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-            fontSize: '1.35rem',
-            marginBottom: '1.35rem',
-            padding: '.675rem 1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
-            fontSize: '2rem',
-            marginBottom: '2rem',
-            padding: '1rem 2rem',
+            fontSize: theme.myTheme.sizeM,
         },
     },
     addButton: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
         marginBottom: "2em",
-        borderRadius: '6px',
-        height: '2.5rem',
-        color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.pirma,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
+        height: '2.5em',
+        color: theme.myTheme.balta,
+        backgroundColor: theme.myTheme.tZalia.main,
         fontFamily: theme.myTheme.sriftas,
         fontWeight: "bold",
         '&:hover': {
-            backgroundColor: '#cc0000',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },
         [theme.breakpoints.up('md')]: {
             width: '20%',
         },
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: "2.7em",
-            borderRadius: '9px',
-            height: '3.375rem',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: "4em",
-            borderRadius: '12px',
-            height: '4.5rem',
-            fontSize: '1.6rem',
-        },
     },
-    alert: {
-        width: '100%',
-        borderRadius: '6px',
-        padding: '.2rem .2rem .2rem 1rem',
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '9px',
-            padding: '.3rem .3rem .3rem 1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '12px',
-            padding: '1rem .4rem 1rem 2rem',
-        },
-    },
+    alert: theme.myTheme.alert,
     alertBox: {
-        marginBottom: '2em',
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: '2.7em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: '4em',
-        },
+        marginBottom:  theme.myTheme.sizeXL,
     },
-    alertText: {
-        textAlign: "left",
-        margin: 0,
-        padding: 0,
-        fontFamily: theme.myTheme.sriftas,
-        overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.6rem',
-        },
-    },
-    alertIcon: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.35)',
-            marginRight: '1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)',
-            marginRight: '1.5rem'
-        },
-    },
+    alertText: theme.myTheme.alertText,
+    alertIcon: theme.myTheme.alertIcon,
     juridinisBox: {
+        fontSize: theme.myTheme.sizeM,
         marginBottom: '1em',
         [theme.breakpoints.up('md')]: {
             marginBottom: '0',
             paddingTop: '.5em',
         },
-        [theme.breakpoints.up('xxl')]: {
-            paddingTop: '.7em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            paddingTop: '2em',
-        },
     },
     buttonIcon: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
+        fontSize: theme.myTheme.sizeM,
         [theme.breakpoints.up('xxl')]: {
            transform: 'scale(1.35)',
            marginLeft: '.5em'

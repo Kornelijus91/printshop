@@ -5,6 +5,7 @@ import paymentCash from '../../../media/paymentCash.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
         display: 'flex',
         flexWrap: 'wrap',
@@ -16,9 +17,11 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     option: {
+        fontSize: theme.myTheme.sizeM,
         objectFit: 'contain',
         padding: '2%',
-        width: '100%'
+        width: '100%',
+        height: '2.8em'
         // margin: '.5% 2.5%',
     },
     gridItemParent: {
@@ -27,39 +30,41 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     gridItem: {
+        fontSize: theme.myTheme.sizeM,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: '5px',
-        boxShadow: `0 0 0 ${theme.myTheme.sriftoSpalva}`,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
+        boxShadow: `0 0 0 ${theme.myTheme.juoda}`,
         // transition:'box-shadow .2s ease', 
         padding: '1em',
         width: '100%',
         '&:hover': {
             cursor: 'pointer',
-            boxShadow: `2px 2px 4px ${theme.myTheme.sriftoSpalva}`,
+            boxShadow: `2px 2px 4px ${theme.myTheme.juoda}`,
         },
         [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
+            // borderRadius: '7px',
             // padding: '1.35em',
             '&:hover': {
-                boxShadow: `3px 3px 6px ${theme.myTheme.sriftoSpalva}`,
+                boxShadow: `3px 3px 6px ${theme.myTheme.juoda}`,
             },
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
+            // borderRadius: '9px',
             // padding: '2em',
             '&:hover': {
-                boxShadow: `4px 4px 8px ${theme.myTheme.sriftoSpalva}`,
+                boxShadow: `4px 4px 8px ${theme.myTheme.juoda}`,
             },
         },
     },
     gridSelectedItem: {
+        fontSize: theme.myTheme.sizeM,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: '5px',
-        boxShadow: `0 0 0 2px ${theme.myTheme.pirma}`,
+        borderRadius:  theme.myTheme.sizeBorderRadiusSmall,
+        boxShadow: `0 0 0 2px ${theme.myTheme.tZalia.main}`,
         // transition:'box-shadow .3s ease', \
         padding: '1em',
         width: '100%',
@@ -67,14 +72,14 @@ const useStyles = makeStyles((theme) => ({
             cursor: 'pointer',
         },
         [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
+            // borderRadius: '7px',
             // padding: '1.35em',
-            boxShadow: `0 0 0 3px ${theme.myTheme.pirma}`,
+            boxShadow: `0 0 0 3px ${theme.myTheme.tZalia.main}`,
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
+            // borderRadius: '9px',
             // padding: '2em',
-            boxShadow: `0 0 0 4px ${theme.myTheme.pirma}`,
+            boxShadow: `0 0 0 4px ${theme.myTheme.tZalia.main}`,
         },
     },
     badgecontainer: {
@@ -84,25 +89,27 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
     previewSelectedBadge: {
-        height: '1.6rem',
+        fontSize: theme.myTheme.sizeM,
+        height: '1.6em',
+        width: '1.6em',
         borderRadius: '50%',
-        backgroundColor: theme.myTheme.pirma,
-        boxShadow: `0 0 0 2px ${theme.myTheme.trecia}`,
-        [theme.breakpoints.up('xxl')]: {
-            height: '2.4rem',
-            width: '2.4rem',
-            boxShadow: `0 0 0 3px ${theme.myTheme.trecia}`,
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            height: '3.2rem',
-            width: '3.2rem',
-            boxShadow: `0 0 0 4px ${theme.myTheme.trecia}`,
-        },
+        backgroundColor: theme.myTheme.sZalia.main,
+        // boxShadow: `0 0 0 2px ${theme.myTheme.trecia}`,
+        // [theme.breakpoints.up('xxl')]: {
+        //     height: '2.4rem',
+        //     width: '2.4rem',
+        //     boxShadow: `0 0 0 3px ${theme.myTheme.trecia}`,
+        // },
+        // [theme.breakpoints.up('xxxl')]: {
+        //     height: '3.2rem',
+        //     width: '3.2rem',
+        //     boxShadow: `0 0 0 4px ${theme.myTheme.trecia}`,
+        // },
     },
     checkMark: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5)',
+            transform: 'scale(1.4)',
         },
         [theme.breakpoints.up('xxxl')]: {
             transform: 'scale(2)',

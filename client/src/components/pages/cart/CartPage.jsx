@@ -13,68 +13,37 @@ import picturePlaceHolder from '../../../media/picturePlaceHolder.png'
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
         minHeight: '80vh',
-        backgroundColor: theme.myTheme.trecia,
         display: 'flex',
         justifyContent: 'center',
-        '-moz-box-shadow': 'inset 0 0 5px #000000',
-        '-webkit-box-shadow': 'inset 0 0 5px #000000',
-        boxShadow: 'inset 0 0 5px #000000',
-        padding: '0 1em',
-        [theme.breakpoints.up('xl')]: {
-            padding: '0',
-        },
     },
     body: {
         width: '100%',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        [theme.breakpoints.up('xl')]: {
-            width: '60%',
-        },
     },
     header: {
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '3.2rem'
-        },
+        fontSize: theme.myTheme.sizeXL,
     },
     headerSmall: {
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.6rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem'
-        },
+        fontSize: theme.myTheme.sizeMM,
     },
     cartItemParent: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        borderRadius: '5px',
+        border: `.1em solid ${theme.myTheme.juoda}`,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         padding: '1em',
         marginBottom: '1em',
         '& h2': {
             padding: 0,
             margin: 0,
         },
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-            padding: '1.35em',
-            marginBottom: '1.35em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            border: `2px solid ${theme.myTheme.sriftoSpalva}`,
-            borderRadius: '10px',
-            padding: '2em',
-            marginBottom: '2em',
-        },
     },
     pdf: {
         width: '100%',
-        // height: '20rem',
         objectFit: 'fill',
     },
     image: {
@@ -82,143 +51,49 @@ const useStyles = makeStyles((theme) => ({
         objectFit: 'fill',
     },
     imagePlaceHolder: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
         padding: '0 2em',
         objectFit: 'fill',
-        [theme.breakpoints.up('xxl')]: {
-            padding: '0 2.7em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '0 4em',
-        },
     },
     imageBox: {
         width: '100%',
     },
     summaryText: {
+        fontSize: theme.myTheme.sizeM,
         padding: '0',
-        margin: '0 0 .3rem 0',
+        margin: '0 0 .3em 0',
         overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 0 .45rem 0',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 0 .6rem 0',
-            fontSize: '1.7rem',
-        },
     },
     discountText: {
+        fontSize: theme.myTheme.sizeS,
         padding: '0',
-        margin: '0 0 .3rem 0',
+        margin: '0 0 .3em 0',
         overflowWrap: 'break-word',
-        color: theme.myTheme.pirma,
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 0 .45rem 0',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 0 .6rem 0',
-            fontSize: '1.7rem',
-        },
+        color: theme.myTheme.sZalia.main,
     },
     PriceText: {
         padding: '0',
-        margin: '0 .7rem .3rem 0',
+        margin: '0 .7em .3em 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
+        fontSize: theme.myTheme.sizeMM,
         fontWeight: 'bold',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem .45rem 0',
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem .6rem 0',
-            fontSize: '2.4rem',
-        },
     },
     savingsText: {
         padding: '0',
-        margin: '0 .7rem 1rem 0',
+        margin: '0 .7em 1em 0',
         overflowWrap: 'break-word',
-        fontSize: '1rem',
+        fontSize: theme.myTheme.sizeM,
         fontWeight: 'bold',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 1.35rem 0',
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 2rem 0',
-            fontSize: '2rem',
-        },
     },
-    Isbraukta: {
-        padding: '0',
-        margin: '0 .7rem .3rem 0',
-        overflowWrap: 'break-word',
-        fontSize: '1.2rem',
-        fontWeight: 'bold',
-        position: 'relative',
-        '&:before': {
-            position: 'absolute',
-            content: '""',
-            width: '100%',
-            height: '4px',
-            borderRadius: '2px',
-            backgroundColor: 'rgba(230, 57, 70, 0.8)',
-            right: '0',
-            top: '40%',
-            '-webkit-transform': 'skewY(-7deg)',
-            transform: 'skewY(-7deg)',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem .45rem 0',
-            fontSize: '1.8rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '6px',
-                borderRadius: '3px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem .6rem 0',
-            fontSize: '2.4rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '8px',
-                borderRadius: '4px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
-        },
-    },
+    Isbraukta: theme.myTheme.isbraukta,
     DiscountedPriceText: {
         padding: '0',
-        margin: '0 .7rem .3rem 0',
+        margin: '0 .7em .3em 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
+        fontSize: theme.myTheme.sizeMM,
         fontWeight: 'bold',
-        color: theme.myTheme.pirma,
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem .45rem 0',
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem .6rem 0',
-            fontSize: '2.4rem',
-        },
+        color: theme.myTheme.sZalia.main,
     },
     skeleton: {
         height: 250,
@@ -230,16 +105,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     icon: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         margin: '0',
-        // transform: 'scale(0.7)',
         '&:hover': {
             cursor: "pointer",
             color: '#264673',
         },
-        // [theme.breakpoints.up('xs')]: {
-        //     transform: 'scale(1)'
-        // },
         [theme.breakpoints.up('xxl')]: {
            transform: 'scale(1.35)'
         },
@@ -248,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     buttonIcon: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
            transform: 'scale(1.35)'
         },
@@ -257,68 +128,32 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     editIconBox: {
+        fontSize: theme.myTheme.sizeM,
         padding: '.11em .5em',
         [theme.breakpoints.up('xs')]: {
             padding: '.11em 1em',
         },
-        [theme.breakpoints.up('xxl')]: {
-            padding: '.149em 1.35em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '.22em 2em',
-        },
     },
     sumupBox: {
+        fontSize: theme.myTheme.sizeM,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         flexWrap: "wrap",
         marginBottom: '2em',
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: '2.7em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: '4em',
-        },
     },
-    button: {
-        width: '100%',
-        marginBottom: "1rem",
-        borderRadius: '6px',
-        height: '2.5rem',
-        color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.pirma,
-        fontFamily: theme.myTheme.sriftas,
-        fontWeight: "bold",
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: "1.35rem",
-            borderRadius: '9px',
-            height: '3.375rem',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: "2rem",
-            borderRadius: '12px',
-            height: '4.5rem',
-            fontSize: '1.6rem',
-        },
-    },
+    button: theme.myTheme.button,
     buttonDisabled: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
     },
     nuolaidosKodasBox: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
-        marginBottom: '1rem',
+        marginBottom: '1em',
         [theme.breakpoints.up('md')]: {
             width: '21.5%',
             marginBottom: '0',
         },
-        // [theme.breakpoints.up('xxl')]: {
-        //     width: '27em',
-        // },
-        // [theme.breakpoints.up('xxxl')]: {
-        //     width: '40em',
-        // },
     },
     pradetipirkimaBox: {
         width: '100%',
@@ -327,35 +162,13 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     pastaba: {
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        borderRadius: '4px',
+        fontSize: theme.myTheme.sizeM,
+        border: `.1em solid ${theme.myTheme.juoda}`,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
         width: '100%',
-        marginBottom: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-            marginBottom: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
-            border: `2px solid ${theme.myTheme.sriftoSpalva}`,
-            marginBottom: '2rem',
-        },
+        marginBottom: '1em',
     },
-    cssOutlinedInput2: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        border: 'none',
-        boxShadow: 'none',
-        outline: 'none',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            padding: '.5rem 1rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.9rem',
-            padding: '1rem 1.5rem'
-        },
-    },
+    cssOutlinedInput2: theme.myTheme.cssOutlinedInput2,
     cssFocused: {
         border: 'none',
         outline: 'none',
@@ -364,56 +177,12 @@ const useStyles = makeStyles((theme) => ({
         border: 'none',
         outline: 'none',
     },
-    alert: {
-        width: '100%',
-        borderRadius: '6px',
-        padding: '.2rem .2rem .2rem 1rem',
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '9px',
-            padding: '.3rem .3rem .3rem 1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '12px',
-            padding: '1rem .4rem 1rem 2rem',
-        },
-    },
-    alertBox: {
-        marginBottom: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: '2rem',
-        },
-    },
-    alertText: {
-        textAlign: "left",
-        margin: 0,
-        padding: 0,
-        fontFamily: theme.myTheme.sriftas,
-        overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.6rem',
-        },
-    },
-    alertIcon: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.35)',
-            marginRight: '1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)',
-            marginRight: '1.5rem'
-        },
-    },
+    alert: theme.myTheme.alert,
+    alertBox: theme.myTheme.alertBox,
+    alertText: theme.myTheme.alertText,
+    alertIcon: theme.myTheme.alertIcon,
     loadingIcon: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)',
         },
@@ -421,125 +190,61 @@ const useStyles = makeStyles((theme) => ({
             transform: 'scale(2)',
         },
     },
-    formVariantSelect: {
-        width: '100%',
-        marginBottom: '1rem',
-        
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: '1.5rem',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: '2rem',
-            fontSize: '1.9rem',
-        },
-    },
+    formVariantSelect: theme.myTheme.formVariantSelect,
     variantSelect: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
+        fontSize: 'clamp(1rem, 0.8vw, 2rem)',
+        color: '#000000',
+        fontFamily: "'GilroyLight', Helvetica, sans-serif", 
         margin: '0',
         padding: '0',
-        minHeight: '3.5rem',
+        height: '3em',
         textOverflow: 'ellipsis',
         display: 'flex',
-        justifyContent: 'flex-start',
+        justifyContent: 'start',
         alignItems: 'center',
+        border: '1px solid #000000',
+        borderRadius: 'clamp(0.3125rem, 0.25vw, 0.625rem)',
         '&:focus': {
-            borderRadius: '4px',
-            border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-
+            borderRadius: 'clamp(0.3125rem, 0.25vw, 0.625rem)',
+            border: '1px solid #000000',
         },
-        [theme.breakpoints.up('xxl')]: {
-            minHeight: '5.25rem',
-            borderRadius: '7px',
+        [theme.breakpoints.up('xxl')]:{
+            border: '1.4px solid #000000',
             '&:focus': {
-                 borderRadius: '7px',
-            }, 
+                border: '1.4px solid #000000',
+            },
         },
-        [theme.breakpoints.up('xxxl')]: {
-            border: `2px solid ${theme.myTheme.sriftoSpalva}`,
-            minHeight: '7rem',
-            borderRadius: '9px',
+        [theme.breakpoints.up('xxxl')]:{
+            border: '2px solid #000000',
             '&:focus': {
-                borderRadius: '9px',
-                border: `2px solid ${theme.myTheme.sriftoSpalva}`,
-            }, 
+                border: '2px solid #000000',
+            },
         },
     },
-    variantSelectIcon: {
-        color: theme.myTheme.sriftoSpalva,
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5)',
-            marginRight: '1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)',
-            marginRight: '1.5rem'
-        },
-    },
-    menuPaper: {
-        maxHeight: '22rem',
-        overflowY: 'auto',
-        [theme.breakpoints.up('xxl')]: {
-            maxHeight: '33rem',
-            borderRadius: '7px',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            maxHeight: '44rem',
-            borderRadius: '9px',
-        },
-    },
+    variantSelectIcon: theme.myTheme.variantSelectIcon,
+    menuPaper: theme.myTheme.menuPaper,
     selectRenderBox: {
-        paddingLeft: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            paddingLeft: '1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            paddingLeft: '2rem',
-        },
+        fontSize: theme.myTheme.sizeM,
+        paddingLeft: '1em',
     },
     selectRenderValue: {
-        fontSize: '.8rem',
-        [theme.breakpoints.up('lg')]: {
-            fontSize: '1rem',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.25rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-        },
+        fontSize: theme.myTheme.sizeM,
     },
     menuItem: {
         width: '100%',
         overflowWrap: 'break-word',
     },
     listItem: {
-        margin: '0 1rem 0 1rem',
+        fontSize: theme.myTheme.sizeM,
+        margin: '0 1em 0 1em',
         padding: '0',
         overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.5rem 0 1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 2rem 0 2rem',
-        },
     },
     primaryListText: {
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeM,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        maxWidth: '13rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-            maxWidth: '20rem',
-            margin: '1rem 0'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-            maxWidth: '26rem',
-            margin: '1.5rem 0'
-        },
+        maxWidth: '13em',
     },
 }));
 
@@ -821,7 +526,7 @@ const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, k
                                 defaultValue={pasirinktasGamybosLaikas}
                                 MenuProps={{ classes: { list: classes.menuPaper } }}
                                 renderValue={(value) => 
-                                    <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.selectRenderBox}}>
+                                    <Box display='flex' justifyContent='flex-start' alignItems='flex-start' classes={{root: classes.selectRenderBox}}>
                                         <p className={classes.selectRenderValue}>{value}</p>
                                     </Box>
                                 }
@@ -881,7 +586,7 @@ const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, k
                                 defaultValue={pasirinktasPristatymoBudas}
                                 MenuProps={{ classes: { list: classes.menuPaper } }}
                                 renderValue={(value) => 
-                                    <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.selectRenderBox}}>
+                                    <Box display='flex' justifyContent='flex-start' alignItems='flex-start' classes={{root: classes.selectRenderBox}}>
                                         <p className={classes.selectRenderValue}>{value}</p>
                                     </Box>
                                 }

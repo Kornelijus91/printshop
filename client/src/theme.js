@@ -77,14 +77,35 @@ export const themeObject = {
                 }
             }
         },
-        // MuiButton: {
-        //     contained: {
-        //         backgroundColor: '#56c2bf',
-        //     },
-        //     disabled: {
-        //         backgroundColor: '#56c2bf',
-        //     },
-        // },
+        MuiPaginationItem: {
+            root: {
+                fontSize: 'clamp(1rem, 0.8vw, 2rem)',
+                fontFamily: "'GilroyLight', Helvetica, sans-serif", 
+                margin: '0 .8em'
+            },
+            page: {
+                fontSize: 'clamp(1rem, 0.8vw, 2rem)',
+                padding: ".9em",
+                borderRadius: '50em'
+                // '&.Mui-selected:hover': {
+                // },
+            },
+        },
+        
+        MuiButton: {
+            root: {
+                '&.Mui-disabled': {
+                    color: '#ffffff',
+                },
+            },
+            // contained: {
+            //     backgroundColor: '#56c2bf',
+            // },
+            disabled: {
+                // backgroundColor: '#56c2bf',\
+                color: '#ffffff',
+            },
+        },
         // MuiOutlinedInput: {
         //     input: {
         //         paddingTop: 'clamp(1rem, 0.8vw, 2rem)',
@@ -145,11 +166,11 @@ export const themeObject = {
 
     //===== SENI ======//
     
-        pirma: '#E63946', //RAUDONA
-        antra: '#457B9D', //MELYNA
-        trecia: '#F1FAEE', //KREMINE
-        ketvirta: '#A8DADC', //SVIESIAI MELYNA
-        sriftoSpalva: '#1D3557', //TAMSIAI MELYNA
+        // pirma: '#E63946', //RAUDONA
+        // antra: '#457B9D', //MELYNA
+        // trecia: '#F1FAEE', //KREMINE
+        // ketvirta: '#A8DADC', //SVIESIAI MELYNA
+        // sriftoSpalva: '#1D3557', //TAMSIAI MELYNA
         // sriftas: "'Quicksand', Helvetica, sans-serif", //SRIFTAS
     
     //================//

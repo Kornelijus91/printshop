@@ -9,28 +9,22 @@ import PaymentOptions from './PaymentOptions';
 
 const useStyles = makeStyles((theme) => ({
     leftGridItem: {
-        borderBottom: '1px solid rgba(204, 204, 204, 0.7)',
+        fontSize: theme.myTheme.sizeM,
+        borderBottom: `.1em solid ${theme.myTheme.sZalia.light}`,
         [theme.breakpoints.up('md')]: {
-            borderRight: '1px solid rgba(204, 204, 204, 0.7)',
+            borderRight: `.1em solid ${theme.myTheme.sZalia.light}`,
             borderBottom: 'none',
             padding: '0 1em 0 0',
         },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRight: '2px solid rgba(204, 204, 204, 0.7)',
-            padding: '0 2em 0 0',
-        },
     },
     rightGridItem: {
-        
+        fontSize: theme.myTheme.sizeM,
         [theme.breakpoints.up('md')]: {
             padding: '0 0 0 1em',
         },
-        [theme.breakpoints.up('xxxl')]: {
-            padding: '0 0 0 2em',
-        },
     },
     icon: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         margin: '0',
         '&:hover': {
             cursor: "pointer",
@@ -44,340 +38,148 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     gridItemTitleBox: {
+        fontSize: theme.myTheme.sizeM,
         paddingRight: '1em',
-        [theme.breakpoints.up('xxl')]: {
-            paddingRight: '1.35em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            paddingRight: '2em',
-        },
     },
     Isbraukta: {
+        fontSize: theme.myTheme.sizeM,
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1rem',
         fontWeight: 'bold',
         position: 'relative',
         '&:before': {
             position: 'absolute',
             content: '""',
             width: '100%',
-            height: '2px',
-            borderRadius: '1px',
-            backgroundColor: 'rgba(230, 57, 70, 0.8)',
+            height: '.2em',
+            borderRadius: '.1em',
+            backgroundColor: '#369693',
             right: '0',
             top: '40%',
             '-webkit-transform': 'skewY(-7deg)',
             transform: 'skewY(-7deg)',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.35rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '3px',
-                borderRadius: '2px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '4px',
-                borderRadius: '2px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
         },
     },
     DiscountedPriceText: {
+        fontSize: theme.myTheme.sizeM,
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1rem',
         fontWeight: 'bold',
-        color: theme.myTheme.pirma,
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2rem',
-        },
+        color: theme.myTheme.sZalia.main,
     },
     PriceText: {
+        fontSize: theme.myTheme.sizeM,
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1rem',
         fontWeight: 'bold',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2rem',
-        },
     },
     sumHeaderRed: {
-        color: theme.myTheme.pirma,
+        fontSize: theme.myTheme.sizeM,
+        color: theme.myTheme.sZalia.main,
         textAlign: 'right',
-        margin: '0 .7rem 0 0',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2rem',
-        },
+        margin: '0 .7em 0 0',
     },
     sumHeaderBlue: {
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeM,
+        color: theme.myTheme.juoda,
         textAlign: 'right',
-        margin: '0 .7rem 0 0',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2rem',
-        },
+        margin: '0 .7em 0 0',
     },
     PriceText2: {
+        fontSize: theme.myTheme.sizeMM,
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
         fontWeight: 'bold',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2.4rem',
-        },
     },
     Isbraukta2: {
+        fontSize: theme.myTheme.sizeMM,
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
         fontWeight: 'bold',
         position: 'relative',
         '&:before': {
             position: 'absolute',
             content: '""',
             width: '100%',
-            height: '4px',
-            borderRadius: '2px',
-            backgroundColor: 'rgba(230, 57, 70, 0.8)',
+            height: '.2em',
+            borderRadius: '.1em',
+            backgroundColor: '#369693',
             right: '0',
             top: '40%',
             '-webkit-transform': 'skewY(-7deg)',
             transform: 'skewY(-7deg)',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.8rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '6px',
-                borderRadius: '3px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem 0 0',
-            fontSize: '2.4rem',
-            '&:before': {
-                position: 'absolute',
-                content: '""',
-                width: '100%',
-                height: '8px',
-                borderRadius: '4px',
-                backgroundColor: 'rgba(230, 57, 70, 0.8)',
-                right: '0',
-                top: '40%',
-                '-webkit-transform': 'skewY(-7deg)',
-                transform: 'skewY(-7deg)',
-            },
         },
     },
     DiscountedPriceText2: {
         padding: '0',
-        margin: '0 .7rem 0 0',
+        margin: '0 .7em 0 0',
         overflowWrap: 'break-word',
-        fontSize: '1.2rem',
+        fontSize: theme.myTheme.sizeMM,
         fontWeight: 'bold',
-        color: theme.myTheme.pirma,
-        [theme.breakpoints.up('xxl')]: {
-            margin: '0 1.05rem 0 0',
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '0 1.4rem .0 0',
-            fontSize: '2.4rem',
-        },
+        color: theme.myTheme.sZalia.main,
     },
     uzsakymasUpper: {
+        fontSize: theme.myTheme.sizeM,
         marginBottom: '1em',
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: '1.35em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: '2em',
-        },
     },
     addButton: {
+        fontSize: theme.myTheme.sizeS,
         width: '100%',
         marginBottom: "2em",
-        borderRadius: '6px',
-        height: '2.5rem',
-        color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.pirma,
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
+        height: '3em',
+        color: theme.myTheme.balta,
+        backgroundColor: theme.myTheme.tZalia.main,
         fontFamily: theme.myTheme.sriftas,
         fontWeight: "bold",
         '&:hover': {
-            backgroundColor: '#cc0000',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },
         [theme.breakpoints.up('md')]: {
             width: '20%',
         },
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: "2.7em",
-            borderRadius: '9px',
-            height: '3.375rem',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: "4em",
-            borderRadius: '12px',
-            height: '4.5rem',
-            fontSize: '1.6rem',
-        },
     },
     buttonDisabled: {
-        backgroundColor: '#ee7781',
+        color: theme.myTheme.balta,
+        backgroundColor: theme.myTheme.sZalia.light,
     },
     buttonIcon: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
            transform: 'scale(1.35)',
-           marginLeft: '.5em'
+           marginLeft: '.5em',
+           marginRight: '.5em'
         },
         [theme.breakpoints.up('xxxl')]: {
             transform: 'scale(2)',
-            marginLeft: '1em'
+            marginLeft: '1em',
+            marginRight: '1em'
         },
     },
     mokejimoBudaiBox: {
-        borderTop: '1px solid rgba(204, 204, 204, 0.7)',
-        borderBottom: '1px solid rgba(204, 204, 204, 0.7)',
+        fontSize: theme.myTheme.sizeM,
+        borderTop: `.1em solid ${theme.myTheme.sZalia.light}`,
+        borderBottom: `.1em solid ${theme.myTheme.sZalia.light}`,
         margin: '1em 0',
         paddingBottom: '1em',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '1.35em 0',
-            paddingBottom: '1.35em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '2em 0',
-            paddingBottom: '2em',
-            borderTop: '2px solid rgba(204, 204, 204, 0.7)',
-            borderBottom: '2px solid rgba(204, 204, 204, 0.7)',
-        },
     },
     header: {
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.8rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
-        },
+        fontSize: theme.myTheme.sizeMM,
     },
     paragraph: {
-        fontSize: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-        },
+        fontSize: theme.myTheme.sizeM,
     },
-    alert: {
-        width: '100%',
-        borderRadius: '6px',
-        padding: '.2rem .2rem .2rem 1rem',
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '9px',
-            padding: '.3rem .3rem .3rem 1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '12px',
-            padding: '1rem .4rem 1rem 2rem',
-        },
-    },
-    alertBox: {
-        marginBottom: '2em',
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: '2.7em',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: '4em',
-        },
-    },
-    alertText: {
-        textAlign: "left",
-        margin: 0,
-        padding: 0,
-        fontFamily: theme.myTheme.sriftas,
-        overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.6rem',
-        },
-    },
-    alertIcon: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.35)',
-            marginRight: '1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)',
-            marginRight: '1.5rem'
-        },
-    },
+    alert: theme.myTheme.alert,
+    alertBox: theme.myTheme.alertBox,
+    alertText: theme.myTheme.alertText,
+    alertIcon: theme.myTheme.alertIcon,
     loadingIcon: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)',
         },
@@ -424,7 +226,7 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                 const response = await res.json();
                 if (response.success) {
                     
-                    localStorage.removeItem("cartArray");
+                    localStorage.emoveItem("cartArray");
                     
                     if (response.paymentURL !== '') {
                         window.location.replace(response.paymentURL)
@@ -475,7 +277,7 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                 });
                 const response = await res.json();
                 if (response.success) {
-                    localStorage.removeItem("cartArray");
+                    localStorage.emoveItem("cartArray");
                     if (response.paymentURL !== '') {
                         window.location.replace(response.paymentURL)
                     } else {
@@ -563,7 +365,7 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                                     <p className={classes.paragraph} key={index}>{item.name}: <b>x{item.quantity}</b></p>
                                     <Box display='flex' justifyContent='flex-start' alignItems='center'>
                                          {findMaxDiscount(item.discount)[1] > 0 ? 
-                                            <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
+                                            <Box display='flex' justifyContent='center' alignItems='center' style={{textAlign: 'center'}}>
                                                 <span className={classes.Isbraukta}>{roundTwoDec(item.price * getItemProductionCost(item.oneDayPriceIncreace, item.twoDayPriceIncreace) + item.maketavimoKaina).toFixed(2)}€</span>
                                                 <p className={classes.DiscountedPriceText}>{roundTwoDec(item.price * getItemProductionCost(item.oneDayPriceIncreace, item.twoDayPriceIncreace) * (1 - (findMaxDiscount(item.discount)[1] / 100)) + item.maketavimoKaina).toFixed(2)}€</p>
                                             </Box>
@@ -584,7 +386,7 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                             <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
                                 <p className={classes.PriceText2}>Viso kaina su PVM:</p>
                                 {priceSum.sum !== priceSum.dscSum ?
-                                    <Box display='flex' justifyContent='flex-end' alignItems='flex-start'>
+                                    <Box display='flex' justifyContent='flex-end' alignItems='center'>
                                         <span className={classes.Isbraukta2}>{priceSum.sum.toFixed(2)}€</span>
                                         <p className={classes.DiscountedPriceText2}>{priceSum.dscSum.toFixed(2)}€</p>
                                     </Box>

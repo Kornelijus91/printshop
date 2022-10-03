@@ -11,19 +11,19 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: theme.myTheme.sriftas,
-        fontSize: 'clamp(1rem, 1vw + .7rem, 4rem)',
+        fontSize: theme.myTheme.sizeM,
         textAlign: 'center',
         padding: '2rem',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
     },
     link: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         padding: '0',
         // textDecoration: 'none',
         textAlign: 'center',
         '&:hover': {
-            color: theme.myTheme.antra,
+            color: '#457B9D',
         },
     },
     image: {
