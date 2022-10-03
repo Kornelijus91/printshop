@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: theme.myTheme.sizeM,
+        backgroundColor: theme.myTheme.ruda.main,
     },
     carouselContent: {
         padding: '2em 0',

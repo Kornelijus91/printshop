@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Box, Button, Grid, Tooltip, Breadcrumbs } from '@material-ui/core';
+import { Box, Button, Grid, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddModalv2 from './AddModalv2';
 import DeleteModal from './DeleteModal';
@@ -8,19 +8,15 @@ import { AiFillEdit } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
 import { Helmet } from "react-helmet";
 import { ProjectName } from '../../../Variables.jsx'
-import { Link } from 'react-router-dom';
+import Breadcurmbs from '../utils/Breadcurmbs';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         textAlign: 'left',
-        minHeight: '88vh',
-        backgroundColor: theme.myTheme.trecia,
-        '-moz-box-shadow': 'inset 0 0 5px #000000',
-        '-webkit-box-shadow': 'inset 0 0 5px #000000',
-        boxShadow: 'inset 0 0 5px #000000',
         display: 'flex',
         justifyContent: 'center',
     },
@@ -28,11 +24,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         width: '100%',
-        [theme.breakpoints.up('lg')]: {
-            width: '60%',
-        },
     },
     bodyInner: {
+        fontSize: theme.myTheme.sizeM,
         minWidth: '100%',
         padding: '.5rem',
         [theme.breakpoints.up('lg')]: {
@@ -40,72 +34,41 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     addButton: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
-        marginBottom: ".5rem",
-        borderRadius: '6px',
-        height: '2.5rem',
-        color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.pirma,
+        marginBottom: ".5em",
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
+        height: '3em',
+        color: theme.myTheme.balta,
+        backgroundColor: theme.myTheme.tZalia.main,
         fontFamily: theme.myTheme.sriftas,
         fontWeight: "bold",
         '&:hover': {
-            backgroundColor: '#cc0000',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: ".75rem",
-            borderRadius: '9px',
-            height: '3.375rem',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: "1rem",
-            borderRadius: '12px',
-            height: '4.5rem',
-            fontSize: '1.6rem',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },
     },
     adresaiHeaser: {
-        margin: '1rem 0 ',
-        [theme.breakpoints.up('xxl')]: {
-            margin: '1.35rem 0',
-            fontSize: '2.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '2rem 0',
-            fontSize: '3.6rem',
-        },
+        fontSize: theme.myTheme.sizeXXXL,
+        margin: '1em 0 ',
     },
     addressItem: {
-        borderRadius: '5px',
-        border: `1px solid ${theme.myTheme.sriftoSpalva}`,
-        // backgroundColor: theme.myTheme.antra,
-        color: theme.myTheme.sriftoSpalva,
-        fontSize: '.7rem',
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
+        border: `1px solid ${theme.myTheme.juoda}`,
+        color: theme.myTheme.juoda,
+        fontSize: theme.myTheme.sizeS,
         overflowWrap: 'break-word',
-        marginBottom: '1rem',
-        padding: '.5rem 1rem',
+        marginBottom: '1em',
+        padding: '.5em 1em',
         '& p': {
             margin: 0,
             padding: 0,
         },
         [theme.breakpoints.up('xs')]: {
-            fontSize: '1rem',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '7px',
-            fontSize: '1.35rem',
-            marginBottom: '1.35rem',
-            padding: '.675rem 1.35rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '9px',
-            fontSize: '2rem',
-            marginBottom: '2rem',
-            padding: '1rem 2rem',
+            fontSize: theme.myTheme.sizeM,
         },
     },
     icon: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         margin: '0',
         transform: 'scale(0.7)',
         '&:hover': {
@@ -120,46 +83,6 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.up('xxxl')]: {
             transform: 'scale(2)'
-        },
-    },
-    breadcrumbLink: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        textDecoration: 'none',
-        '&:hover': {
-            color: '#2d5286',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-        },
-    },
-    breadcrumbLinkDisabled: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        textDecoration: 'none',
-        pointerEvents: 'none',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-        },
-    },
-    breakcrumbs: {
-        margin: '.5rem 0 0 0',
-        [theme.breakpoints.up('md')]: {
-            margin: '1rem 0 0 0',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            margin: '1rem 0 0 0',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '1rem 0 0 0',
-            fontSize: '1.8rem',
         },
     },
 }));
@@ -341,10 +264,7 @@ const Addresses = ({token, loggedIn, getAddresses, addresses}) => {
                         setDeleteAddressId = {setDeleteAddressId}
                     />
                     <Box classes={{root: classes.bodyInner}}>
-                        <Breadcrumbs aria-label="breadcrumb" className={classes.breakcrumbs}>
-                            <Link to='/' className={classes.breadcrumbLink}>Pagrindinis puslapis</Link>
-                            <Link to='/products' className={classes.breadcrumbLinkDisabled}>Adresai</Link>
-                        </Breadcrumbs>
+                        <Breadcurmbs routes={[{path: 'addresses', name: 'Adresai'}]}/>
                         <h1 className={classes.adresaiHeaser}>Mano adresai</h1>
                         <AddressesComponent />
                         <Button 

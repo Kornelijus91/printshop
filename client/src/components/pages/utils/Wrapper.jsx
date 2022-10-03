@@ -1,5 +1,6 @@
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import fonas from '../../../media/background.webp'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -8,9 +9,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'start',
-        backgroundColor: theme.myTheme.ruda.main,
         fontFamily: theme.myTheme.sriftas,
         fontSize: theme.myTheme.sizeM,
+        backgroundImage: `url(${fonas})`,
+        backgroundSize: 'cover',
     },
     content: {
         width: '100%',

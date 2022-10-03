@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     width: '100%',
-    
     marginBottom: theme.myTheme.sizeMM,
     backgroundColor: theme.myTheme.juoda,
     borderRadius: "6px 6px 0px 0px",

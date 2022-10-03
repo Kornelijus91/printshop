@@ -353,6 +353,37 @@ export const themeObject = {
                 margin: '0 0 .3em 0',
             },
         },
+        alert: {
+            width: '100%',
+            borderRadius: 'clamp(0.3125rem, 0.25vw, 0.625rem)',
+            paddingTop: 'clamp(.2rem, 0.16vw, .4rem)',
+            paddingBottom: 'clamp(.2rem, 0.16vw, .4rem)',
+            paddingRight: 'clamp(.2rem, 0.16vw, .4rem)',
+            paddingLeft: 'clamp(1rem, 0.8vw, 2rem)',
+        },
+        alertBox: {
+            marginBottom: 'clamp(1rem, 0.8vw, 2rem)',
+        },
+        alertText: {
+            textAlign: "left",
+            margin: 0,
+            padding: 0,
+            fontFamily: "'GilroyLight', Helvetica, sans-serif",
+            overflowWrap: 'break-word',
+            fontSize: 'clamp(.8rem, 0.648vw, 1.6rem)',
+        },
+        alertIcon: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            [breakpoints.up('xxl')]: {
+                transform: 'scale(1.4)',
+                marginRight: 'clamp(1rem, 0.8vw, 2rem)',
+            },
+            [breakpoints.up('xxxl')]: {
+                transform: 'scale(2)',
+            },
+        },
 
     // ===================== //
     },

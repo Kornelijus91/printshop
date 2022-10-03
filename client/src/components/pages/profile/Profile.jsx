@@ -1,29 +1,25 @@
 import { useState, useEffect } from 'react'
-import { Breadcrumbs, Box, FormControl, OutlinedInput, InputLabel, IconButton, InputAdornment, Button, CircularProgress, Collapse, Grid } from '@material-ui/core';
+import { Box, FormControl, OutlinedInput, InputLabel, IconButton, InputAdornment, Button, CircularProgress, Collapse, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 import { Helmet } from "react-helmet";
 import { ProjectName } from '../../../Variables.jsx'
+import Breadcurmbs from '../utils/Breadcurmbs.jsx';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        fontSize: theme.myTheme.sizeM,
         width: '100%',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         textAlign: 'left',
-        minHeight: '88vh',
-        backgroundColor: theme.myTheme.trecia,
-        '-moz-box-shadow': 'inset 0 0 5px #000000',
-        '-webkit-box-shadow': 'inset 0 0 5px #000000',
-        boxShadow: 'inset 0 0 5px #000000',
-        padding: '0 1rem 1rem 1rem',
+        padding: '0 1em 1em 1em',
         [theme.breakpoints.up('lg')]: {
             margin: 0,
             padding: 0,
         },
-        
     },
     text: {
         fontFamily: theme.myTheme.sriftas,
@@ -33,74 +29,52 @@ const useStyles = makeStyles((theme) => ({
     },
     labelRoot: {
         marginTop: '-.6rem',
-        color: `${theme.myTheme.sriftoSpalva} !important`,
-        padding: '.2rem .5rem .2rem .5rem',
-        borderRadius: '6px 6px 0 0',
-        backgroundColor: theme.myTheme.ketvirta,
+        color: `${theme.myTheme.juoda} !important`,
+        paddingTop: theme.myTheme.sizeXXXS,
+        paddingBottom: theme.myTheme.sizeXXXS,
+        paddingRight: theme.myTheme.sizeXXS,
+        paddingLeft: theme.myTheme.sizeXXS,
+        borderRadius: '5px 5px 0 0',
+        backgroundColor: theme.myTheme.sZalia.light,
         fontFamily: theme.myTheme.sriftas,
         transform: 'translateX(.5rem) translateY(1.6rem)',
+        fontSize: theme.myTheme.sizeM,
         [theme.breakpoints.up('xxl')]: {
-            // marginTop: '-.9rem',
-            padding: '.3rem .75rem .3rem .75rem',
-            borderRadius: '9px 9px 0 0',
-            fontSize: '1.4rem',
+            borderRadius: '7px 7px 0 0',
         },
         [theme.breakpoints.up('xxxl')]: {
-            marginTop: 0,
-            padding: '.4rem 1rem .4rem 1rem',
-            borderRadius: '12px 12px 0 0',
-            fontSize: '2rem',
+            borderRadius: '10px 10px 0 0',
         },
     },
     labelFocused: {
-        color: `${theme.myTheme.sriftoSpalva} !important`,
+        color: `${theme.myTheme.juoda} !important`,
         fontFamily: theme.myTheme.sriftas,
-        padding: '.2rem .5rem .2rem .5rem',
-        borderRadius: '6px 6px 0 0',
-        backgroundColor: theme.myTheme.ketvirta,
+        paddingTop: theme.myTheme.sizeXXXS,
+        paddingBottom: theme.myTheme.sizeXXXS,
+        paddingRight: theme.myTheme.sizeXXS,
+        paddingLeft: theme.myTheme.sizeXXS,
+        borderRadius: '5px 5px 0 0',
+        backgroundColor: theme.myTheme.sZalia.light,
         [theme.breakpoints.up('xxl')]: {
-            padding: '.3rem .75rem .3rem .75rem',
-            borderRadius: '9px 9px 0 0',
+            borderRadius: '7px 7px 0 0',
         },
         [theme.breakpoints.up('xxxl')]: {
-            padding: '.4rem 1rem .4rem 1rem',
-            borderRadius: '12px 12px 0 0',
+            borderRadius: '10px 10px 0 0',
         },
     },
     labelShrink: {
-        [theme.breakpoints.up('xxxl')]: {
-            marginTop: '-1rem'
-        },
+        fontSize: theme.myTheme.sizeM,
     },
     textInput: {
-        marginBottom: "1.2rem",
-        backgroundColor: theme.myTheme.ketvirta,
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeM,
+        marginBottom: "1.2em",
+        backgroundColor: theme.myTheme.sZalia.light,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        borderRadius: '6px',
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: "1.5rem",
-            borderRadius: '9px',
-            display: 'flex',
-            alignItems: 'center',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: "2rem",
-            borderRadius: '12px',
-            paddingLeft: '1rem'
-        },
+        borderRadius: theme.myTheme.sizeBorderRadiusSmall,
     },
     innerBox: {
-        [theme.breakpoints.up('xs')]: {
-            width: '100%'
-        },
-        [theme.breakpoints.up('md')]: {
-            margin: "0",
-            width: '100%'
-        },
-        [theme.breakpoints.up('lg')]: {
-            width: '50%'
-        },
+        width: '100%'
     },
     grid: {
         width: '100%',
@@ -114,163 +88,45 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
     griditem: {
+        fontSize: theme.myTheme.sizeM,
         [theme.breakpoints.up('md')]: {
-            paddingRight: '1rem'
+            paddingRight: '1em'
         },
     },
     input: {
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2rem',
-            padding: '2rem'
-        },
+        fontSize: theme.myTheme.sizeM,
     },
     diasbleOutline: {
         border: 'none',
     },
-    alert: {
-        width: '100%',
-        borderRadius: '6px',
-        padding: '.2rem .2rem .2rem 1rem',
-        [theme.breakpoints.up('xxl')]: {
-            borderRadius: '9px',
-            padding: '.3rem .3rem .3rem 1.5rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            borderRadius: '12px',
-            padding: '1rem .4rem 1rem 2rem',
-        },
-    },
+    alert: theme.myTheme.alert,
     alertBox: {
-        paddingBottom: '2rem',
-        [theme.breakpoints.up('xxl')]: {
-            paddingBottom: '3rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            paddingBottom: '4rem',
-        },
+        marginBottom: theme.myTheme.sizeXL,
     },
-    alertText: {
-        textAlign: "left",
-        margin: 0,
-        padding: 0,
-        fontFamily: theme.myTheme.sriftas,
-        overflowWrap: 'break-word',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.6rem',
-        },
-    },
-    alertIcon: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.5)',
-            marginRight: '1rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)',
-            marginRight: '1.5rem'
-        },
-    },
-    button: {
-        width: '100%',
-        marginBottom: ".5rem",
-        borderRadius: '6px',
-        height: '2.5rem',
-        color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.pirma,
-        fontFamily: theme.myTheme.sriftas,
-        fontWeight: "bold",
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: ".75rem",
-            borderRadius: '9px',
-            height: '3.375rem',
-            fontSize: '1.2rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: "1rem",
-            borderRadius: '12px',
-            height: '4.5rem',
-            fontSize: '1.6rem',
-        },
-    },
+    alertText: theme.myTheme.alertText,
+    alertIcon: theme.myTheme.alertIcon,
+    button: theme.myTheme.button,
     header: {
         width: '100%',
-        marginRight: '1rem',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '2rem'
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '3rem'
-        },
+        fontSize: theme.myTheme.sizeXL,
+        marginRight: '1em',
     },
     passwordhideIcon: {
-        color: theme.myTheme.sriftoSpalva,
+        fontSize: theme.myTheme.sizeM,
+        color: theme.myTheme.juoda,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.35)',
-            marginRight: '.2rem'
+            marginRight: '.2em'
         },
         [theme.breakpoints.up('xxxl')]: {
             transform: 'scale(2)',
-            marginRight: '1rem'
-        },
-    },
-    breadcrumbLink: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        textDecoration: 'none',
-        '&:hover': {
-            color: '#2d5286',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-        },
-    },
-    breadcrumbLinkDisabled: {
-        color: theme.myTheme.sriftoSpalva,
-        fontFamily: theme.myTheme.sriftas,
-        textDecoration: 'none',
-        pointerEvents: 'none',
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '1.8rem',
-        },
-    },
-    breakcrumbs: {
-        margin: '.5rem 0 0 0',
-        [theme.breakpoints.up('md')]: {
-            margin: '1rem 0 0 0',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            margin: '1rem 0 0 0',
-            fontSize: '1.4rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: '1rem 0 0 0',
-            fontSize: '1.8rem',
+            marginRight: '1em'
         },
     },
     paragraph: {
-        fontSize: '1.2rem',
+        fontSize: theme.myTheme.sizeMM,
         margin: 0,
         padding: 0,
-        [theme.breakpoints.up('xxl')]: {
-            fontSize: '1.62rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            fontSize: '2.4rem',
-        },
     },
 }));
 
@@ -570,10 +426,7 @@ const Profile = ({ token, username, loggedIn, loyaltydiscountLevel, loyaltydisco
             {loggedIn && token ? 
                 <Box display='flex' justifyContent='center'>
                     <Box classes={{root: classes.innerBox}}>
-                        <Breadcrumbs aria-label="breadcrumb" className={classes.breakcrumbs}>
-                            <Link to='/' className={classes.breadcrumbLink}>Pagrindinis puslapis</Link>
-                            <Link to='/profile' className={classes.breadcrumbLinkDisabled}>Profilis</Link>
-                        </Breadcrumbs>
+                        <Breadcurmbs routes={[{path: 'profile', name: 'Profilis'}]}/>
                         <h1 className={classes.header}>Mano Profilis</h1>
                         <Collapse in={error.message !== ''} onEnter={() => window.scrollTo({top: 0, left: 0})}>
                             <Box className={classes.alertBox} display='flex' justifyContent='flex-start' alignItems='center'>

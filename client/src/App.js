@@ -26,7 +26,7 @@ import {SocketContext, socket} from './socket.js';
 const BuyRules = React.lazy(() => import('./components/pages/terms/BuyRules.jsx'));
 const PrivacyPolicy = React.lazy(() => import('./components/pages/privacy/PrivacyPolicy'));
 const PageNotFound = React.lazy(() => import('./components/pages/pageNotFound/PageNotFound'));
-const TermsOfService = React.lazy(() => import('./components/pages/terms/TermsOfService'));
+// const TermsOfService = React.lazy(() => import('./components/pages/terms/TermsOfService'));
 const Contact = React.lazy(() => import('./components/pages/contact/Contact'));
 const Pristatymas = React.lazy(() => import('./components/pages/terms/Pristatymas.jsx'));
 const Grazinimas = React.lazy(() => import('./components/pages/terms/Grazinimas.jsx'));
@@ -519,45 +519,65 @@ const App = () => {
           </Route>
           <Route exact path="/kontaktai">
             <Suspense fallback={lazyFallback}>
-              <Contact />
+              <Wrapper>
+                <Contact />
+              </Wrapper>
             </Suspense>
           </Route>
           <Route path='/resetpassword/:token'>
-            <ResetPassword />
+            <Wrapper>
+              <ResetPassword />
+            </Wrapper>
           </Route>
-          <Route exact path="/termsofservice">
+          {/* <Route exact path="/termsofservice">
             <Suspense fallback={lazyFallback}>
-              <TermsOfService />
+              <Wrapper>
+                <TermsOfService />
+              </Wrapper>
             </Suspense>
-          </Route>
+          </Route> */}
           <Route exact path="/pristatymas">
             <Suspense fallback={lazyFallback}>
-              <Pristatymas />
+              <Wrapper>
+                <Pristatymas /> 
+              </Wrapper>
             </Suspense>
           </Route>
           <Route exact path="/grazinimas">
             <Suspense fallback={lazyFallback}>
-              <Grazinimas />
+              <Wrapper>
+                <Grazinimas />
+              </Wrapper>
             </Suspense>
           </Route>
           <Route exact path="/pirkimotaisykles">
             <Suspense fallback={lazyFallback}>
-              <BuyRules />
+              <Wrapper>
+                <BuyRules />
+              </Wrapper>
             </Suspense>
           </Route>
           <Route exact path="/privatumopolitika">
             <Suspense fallback={lazyFallback}>
-              <PrivacyPolicy />
+              <Wrapper>
+                <PrivacyPolicy />
+              </Wrapper>
             </Suspense>
           </Route>
           <Route exact path="/klubas">
-            <Trklubas loyalty={loyalty} loyaltydiscount={loyaltydiscount}/>
+            <Wrapper>
+              <Trklubas loyalty={loyalty} loyaltydiscount={loyaltydiscount}/>
+            </Wrapper>
           </Route>
           <Route exact path="/profile">
-            <Profile token={token} username={username} loggedIn={loggedIn} loyaltydiscount={loyaltydiscount} loyaltydiscountLevel={loyaltydiscountLevel}/>
+            <Wrapper>
+              <Profile token={token} username={username} loggedIn={loggedIn} loyaltydiscount={loyaltydiscount} loyaltydiscountLevel={loyaltydiscountLevel}/>
+            </Wrapper>
           </Route>
           <Route exact path="/addresses">
-            <Addresses token={token} loggedIn={loggedIn} getAddresses={getAddresses} addresses={addresses}/>
+            <Wrapper>
+              <Addresses token={token} loggedIn={loggedIn} getAddresses={getAddresses} addresses={addresses}/>
+            </Wrapper>
           </Route>
           <Route exact path="/orders">
             <Orders token={token} loggedIn={loggedIn}/>

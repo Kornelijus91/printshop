@@ -34,8 +34,10 @@ const useStyles = makeStyles((theme) => ({
     },
     atsiliepimoTekstas: {
         color: theme.myTheme.juoda,
-        opacity: 0.5,
+        opacity: 0.75,
         fontSize: theme.myTheme.sizeM,
+        width: '100%',
+        overflowWrap: 'break-word',
     },
     commentHR: {
         opacity: 0.5,

@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         margin: 'auto',
         width: '100%',
-        backgroundColor: theme.myTheme.ruda.main,
         height:'88vh'
     },
     form: {
