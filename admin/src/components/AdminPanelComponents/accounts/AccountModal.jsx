@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
     radioButtons: {
         margin: '0',
         padding: '0',
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('sm')]: {
             margin: '.2rem 0 0 1rem',
         },
@@ -93,8 +94,12 @@ const useStyles = makeStyles((theme) => ({
         width: '10rem',
         height: '2.5rem',
         fontWeight: 'bold',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
+        backgroundColor: theme.myTheme.tZalia.main,
+        '&:hover': {
+            backgroundColor: theme.myTheme.tZalia.dark,
+        },
         [theme.breakpoints.up('sm')]: {
             width: '15rem',
         },
@@ -112,7 +117,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     buttonDisabled: {
-        backGroundColor: theme.myTheme.ketvirta,
+        backGroundColor: theme.myTheme.sZalia.light,
     },
     buttonIcon: {
         [theme.breakpoints.up('xxl')]: {
@@ -158,6 +163,9 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             margin: '.8rem 0 0 0',
         },
+    },
+    itemRadiobutton: {
+        color: theme.myTheme.balta,
     },
 }));
 
@@ -350,8 +358,12 @@ const AccountModal = ({ setPaymentModal, orderFilter, accountModalOpen, setAccou
                                                 <Grid item xl={7} lg={7} md={9} sm={8} xs={11}>
                                                     <FormControl component="fieldset" className={classes.radioButtons}>
                                                         <RadioGroup row aria-label="position" name="position" value={isEmployee ? true : false}>
-                                                            <FormControlLabel value={true} control={<Radio color="primary" onClick={() => {setIsEmployee(true)}} disabled={!administracija}/>} label="Taip" />
-                                                            <FormControlLabel value={false} control={<Radio color="primary" onClick={() => {setIsEmployee(false)}} disabled={!administracija}/>} label="Ne" />
+                                                            <FormControlLabel value={true} control={
+                                                                <Radio color="secondary" onClick={() => {setIsEmployee(true)}} disabled={!administracija} classes={{root: classes.itemRadiobutton}}/>
+                                                            } label="Taip" />
+                                                            <FormControlLabel value={false} control={
+                                                                <Radio color="secondary" onClick={() => {setIsEmployee(false)}} disabled={!administracija} classes={{root: classes.itemRadiobutton}}/>
+                                                            } label="Ne" />
                                                         </RadioGroup>
                                                     </FormControl>
                                                 </Grid>
@@ -363,8 +375,12 @@ const AccountModal = ({ setPaymentModal, orderFilter, accountModalOpen, setAccou
                                                 <Grid item xl={7} lg={7} md={9} sm={7} xs={11}>    
                                                     <FormControl component="fieldset" className={classes.radioButtons}>
                                                         <RadioGroup row aria-label="position" name="position" value={isAdmin ? true : false}>
-                                                            <FormControlLabel value={true} control={<Radio color="primary" onClick={() => {setIsAdmin(true)}} disabled={!administracija}/>} label="Taip" />
-                                                            <FormControlLabel value={false} control={<Radio color="primary" onClick={() => {setIsAdmin(false)}} disabled={!administracija}/>} label="Ne" />
+                                                            <FormControlLabel value={true} control={
+                                                                <Radio color="secondary" onClick={() => {setIsAdmin(true)}} disabled={!administracija} classes={{root: classes.itemRadiobutton}}/>
+                                                            } label="Taip" />
+                                                            <FormControlLabel value={false} control={
+                                                                <Radio color="secondary" onClick={() => {setIsAdmin(false)}} disabled={!administracija} classes={{root: classes.itemRadiobutton}}/>
+                                                            } label="Ne" />
                                                         </RadioGroup>
                                                     </FormControl>
                                                 </Grid>
@@ -374,7 +390,7 @@ const AccountModal = ({ setPaymentModal, orderFilter, accountModalOpen, setAccou
                                             <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
                                                 <Button 
                                                     onClick={() => updateStatus()}
-                                                    style={button === 'success' ? {backgroundColor: '#26a69a'} : {backgroundColor: theme.myTheme.pirma }}
+                                                    style={button === 'success' ? {backgroundColor: '#26a69a'} : {backgroundColor: theme.myTheme.tZalia.main }}
                                                     classes={{root: classes.button, disabled: classes.buttonDisabled}}
                                                     disabled={button === 'submitting' || !administracija || (accountModalInfo.personalas === isEmployee && accountModalInfo.administracija === isAdmin)} 
                                                 >

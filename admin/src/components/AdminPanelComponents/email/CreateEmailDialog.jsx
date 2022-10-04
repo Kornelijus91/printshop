@@ -7,6 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
+        backGroundColor: 'hotpink'
     },
     title: {
         marginLeft: theme.spacing(2),
@@ -14,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         marginRight: '2rem',
-        backgroundColor: theme.myTheme.sriftoSpalva,
-        color: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.tZalia.main,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         '&:hover': {
-            backgroundColor: '#132339',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },
         [theme.breakpoints.up('xxl')]: {
             height: '3.75rem',

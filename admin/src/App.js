@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 const useStyles = makeStyles((theme) => ({
   body: {
     width: '100%',
-    backgroundColor: theme.myTheme.sriftospalva,
+    backgroundColor: theme.myTheme.balta,
     height: '100vh',
   },
 }));
@@ -85,7 +85,6 @@ function App() {
   return (
     <div className={classes.body}>
       {(user.personalas || user.administracija) && user.loggedIn ? 
-        
         <AdminPanelV2 
           user={user}
           setUser={setUser}

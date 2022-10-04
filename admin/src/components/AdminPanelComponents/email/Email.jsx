@@ -177,11 +177,11 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     button: {
-        backgroundColor: theme.myTheme.pirma,
-        color: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.tZalia.main,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         '&:hover': {
-            backgroundColor: '#e31c2d',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },
         [theme.breakpoints.up('xxl')]: {
             height: '3.75rem',
@@ -197,13 +197,13 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     buttonBottom: {
-        backgroundColor: theme.myTheme.pirma,
-        color: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.tZalia.main,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         width: '100%',
         marginBottom: '1rem',
         '&:hover': {
-            backgroundColor: '#e31c2d',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },  
         [theme.breakpoints.up('xxl')]: {
             margin: '.5rem 0',

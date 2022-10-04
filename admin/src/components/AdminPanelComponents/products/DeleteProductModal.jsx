@@ -79,56 +79,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    buttonDelete: {
-        width: '45%',
-        margin: "0 1rem 1rem 0",
-        borderRadius: '4px',
-        height: '2.5rem',
-        color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.pirma,
-        fontFamily: theme.myTheme.sriftas,
-        fontWeight: "bold",
-        '&:hover': {
-            backgroundColor: '#e31c2d',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            margin: "0 1.5rem 1.5rem 0",
-            borderRadius: '6px',
-            height: '3.75rem',
-            fontSize: '1.6rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            margin: "0 2rem 2rem 0",
-            borderRadius: '8px',
-            height: '5rem',
-            fontSize: '2rem',
-        },
-    },
-    buttonCancel: {
-        width: '45%',
-        marginBottom: "1rem",
-        borderRadius: '4px',
-        height: '2.5rem',
-        color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.antra,
-        fontFamily: theme.myTheme.sriftas,
-        fontWeight: "bold",
-        '&:hover': {
-            backgroundColor: '#36617c',
-        },
-        [theme.breakpoints.up('xxl')]: {
-            marginBottom: "1.5rem",
-            borderRadius: '6px',
-            height: '3.75rem',
-            fontSize: '1.6rem',
-        },
-        [theme.breakpoints.up('xxxl')]: {
-            marginBottom: "2rem",
-            borderRadius: '8px',
-            height: '5rem',
-            fontSize: '2rem',
-        },
-    },
+    buttonDelete: theme.myTheme.buttonDelete,
+    buttonCancel: theme.myTheme.buttonCancel,
 }));
 
 const DeleteProductModal = ({ deleteModal, setDeleteModal, user, setSnackbar, getAllProducts, page }) => {

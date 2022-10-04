@@ -11,22 +11,26 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         position: 'relative',
         zIndex: '1',
+        paddingRight: '1em', 
         [theme.breakpoints.up('xxl')]: {
             margin: '1.5rem 0 0 0',
+            paddingRight: '1.4em', 
         },
         [theme.breakpoints.up('xxxl')]: {
             margin: '2rem 0 0 0',
+            paddingRight: '2em', 
         },
     },
     searchResultBox: {
         position: 'absolute',
-        backgroundColor: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.ruda.main,
         borderRadius: '7px',
         zIndex: '10',
         width: '100%',
         top: '100%',
+
         '& p': {
-            color: `${theme.myTheme.trecia} !important`,
+            color: `${theme.myTheme.balta} !important`,
             fontFamily: theme.myTheme.sriftas,
         },
         [theme.breakpoints.up('xxl')]: {
@@ -37,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     labelRoot: {
-        color: `${theme.myTheme.trecia} !important`,
+        color: `${theme.myTheme.juoda} !important`,
         fontFamily: theme.myTheme.sriftas,
         backgroundColor: theme.myTheme.sriftoSpalva,
         padding: '0 .5rem .2rem .5rem',
@@ -51,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     labelFocused: {
         padding: '0 .5rem .2rem .5rem',
         backgroundColor: theme.myTheme.sriftoSpalva,
-        color: `${theme.myTheme.trecia} !important`,
+        color: `${theme.myTheme.juoda} !important`,
         fontFamily: theme.myTheme.sriftas,
         [theme.breakpoints.up('xxl')]: {
             padding: '0 .75rem .4rem .75rem',
@@ -62,9 +66,9 @@ const useStyles = makeStyles((theme) => ({
     },
     textInput: {
         marginBottom: "1rem",
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        border: `1px solid ${theme.myTheme.trecia}`,
+        border: `1px solid ${theme.myTheme.juoda}`,
         [theme.breakpoints.up('xxl')]: {
             marginBottom: "1.5rem",
         },
@@ -79,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
         border: 'none',
     },
     searchglass: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.juoda,
         marginRight: '1rem',
         [theme.breakpoints.up('xxl')]: {
             margin: '0 1.5rem',
@@ -97,8 +101,9 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         fontSize: '1rem',
         fontFamily: theme.myTheme.sriftas,
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         '& p': {
+            color: theme.myTheme.balta,
             margin: '.8em',
             padding: 0,
         }, 
@@ -210,6 +215,26 @@ const OrderSearch = ({ token, makeNotNew, setOrdersView, setOrder }) => {
                                 makeNotNew(item._id);
                             }
                             setOrder({
+                                // id: item._id,
+                                // clientID: item.clientID,
+                                // clientUsername: item.clientUsername,
+                                // delivery: item.delivery,
+                                // cartItems: item.cartItems,
+                                // createdAt: item.createdAt,
+                                // price: item.price,
+                                // discountPrice: item.discountPrice,
+                                // nuolaidosKodas: item.nuolaidosKodas,
+                                // nuolaidosKodoNuolaida: item.nuolaidosKodoNuolaida,
+                                // status: item.status,
+                                // gamybosLaikas: item.gamybosLaikas,
+                                // TRDiscount: item.TRDiscount,
+                                // uzsakymoNr: item.uzsakymoNr,
+                                // sanaudos: item.sanaudos,
+                                // payment: item.payment,
+                                // shippingMethod: item.shippingMethod,
+                                // isankstineSaskaita: item.isankstineSaskaita,
+                                // PVMSaskaitaFaktura: item.PVMSaskaitaFaktura,
+
                                 id: item._id,
                                 clientID: item.clientID,
                                 clientUsername: item.clientUsername,
@@ -218,12 +243,10 @@ const OrderSearch = ({ token, makeNotNew, setOrdersView, setOrder }) => {
                                 createdAt: item.createdAt,
                                 price: item.price,
                                 discountPrice: item.discountPrice,
-                                nuolaidosKodas: item.nuolaidosKodas,
-                                nuolaidosKodoNuolaida: item.nuolaidosKodoNuolaida,
                                 status: item.status,
-                                TRDiscount: item.TRDiscount,
-                                uzsakymoNr: item.uzsakymoNr,
+                                gamybosLaikas: item.gamybosLaikas,
                                 sanaudos: item.sanaudos,
+                                uzsakymoNr: item.uzsakymoNr,
                                 payment: item.payment,
                                 shippingMethod: item.shippingMethod,
                                 isankstineSaskaita: item.isankstineSaskaita,
@@ -238,7 +261,7 @@ const OrderSearch = ({ token, makeNotNew, setOrdersView, setOrder }) => {
                             </Grid>
                             <Grid item xl={3} lg={3} md={4} sm={6} xs={6}>
                                 <Box classes={{root: classes.infosection}}>
-                                    <p>{new Date(item.createdAt).getFullYear()+"-"+(new Date(item.createdAt).getMonth() + 1)+"-"+new Date(item.createdAt).getDate()}</p>
+                                    <p>{new Date(item.createdAt).getFullYear()+"-"+('0' + (new Date(item.createdAt).getMonth() + 1)).slice(-2)+"-"+('0' + new Date(item.createdAt).getDate()).slice(-2)}</p>
                                 </Box>
                             </Grid>
                             <Grid item xl={3} lg={3} md={4} sm={6} xs={6}>

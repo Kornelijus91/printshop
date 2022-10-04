@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '100%',
         padding: '1em',
-        backgroundColor: theme.myTheme.antra,
+        // backgroundColor: theme.myTheme.antra,
         borderRadius: '5px',
         overflowY: 'auto',
         [theme.breakpoints.up('xxl')]: {
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     chatWindowTop: {
         width: '100%',
         height: '10%',
-        backgroundColor: theme.myTheme.pirma,
+        backgroundColor: theme.myTheme.sZalia.light,
         borderRadius: '5px 5px 0 0',
         display: 'flex',
         justifyContent: 'flex-start',
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '68%',
         overflowY: 'auto',
-        backgroundColor: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.ruda.main,
         padding: '1em',
         [theme.breakpoints.up('md')]: {
             height: '78%',
@@ -171,7 +171,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     customerName: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         fontSize: '1.6em',
         margin: 0,
@@ -184,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     roomitem: {
-        backgroundColor: theme.myTheme.sriftoSpalva,
+        backgroundColor: theme.myTheme.tZalia.light,
         borderRadius: '5px',
         padding: '1em',
         marginBottom: '1em',
@@ -199,7 +199,7 @@ const useStyles = makeStyles((theme) => ({
         },
         '&:hover': {
             cursor: 'pointer',
-            backgroundColor: '#0d1726',
+            backgroundColor: theme.myTheme.sZalia.main,
         }
     },
     timeBox: {
@@ -218,7 +218,7 @@ const useStyles = makeStyles((theme) => ({
         width: '1rem',
         height: '1rem',
         borderRadius: '50%',
-        backgroundColor:  theme.myTheme.pirma,
+        backgroundColor: 'rgba(230, 57, 70, 1)',
         marginRight: '1rem',
         animation: '$manoAnimacija 1s infinite',
         [theme.breakpoints.up('xxl')]: {
@@ -311,11 +311,11 @@ const Chat = ({ newChatrooms, newOrders, activeChatroom, setActiveChatroom, chat
                                             style={
                                                 item.from === 'me' ?
                                                     {
-                                                        backgroundColor: '#7fcacc',
+                                                        backgroundColor: '#369693',
                                                     }
                                                 :
                                                     {
-                                                        backgroundColor: '#A8DADC',
+                                                        backgroundColor: '#56c2bf',
                                                     }
                                             }
                                         >
@@ -379,7 +379,7 @@ const Chat = ({ newChatrooms, newOrders, activeChatroom, setActiveChatroom, chat
                                     classes={{root: classes.roomitem}} 
                                     onClick={() => handleClickOnChatRoom(item[0])}
                                     style={activeChatroom === item[0] ?
-                                            {boxShadow: '0 0 0 5px rgba(230, 57, 70, 1)'}
+                                            {boxShadow: '0 0 0 5px #0d2326'}
                                         :
                                             {boxShadow: 'none'}
                                     }

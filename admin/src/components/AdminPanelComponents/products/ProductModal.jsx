@@ -66,11 +66,31 @@ const useStyles = makeStyles((theme) => ({
     cancelButton: {
         margin: '0',
         padding: '.5rem 1rem .5rem 1rem',
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
-        backgroundColor: theme.myTheme.pirma,
+        backgroundColor: theme.myTheme.sZalia.main,
         '&:hover': {
-            backgroundColor: '#e31c2d',
+            backgroundColor: theme.myTheme.sZalia.dark,
+        }, 
+        [theme.breakpoints.up('xxl')]:{
+            padding: '.75rem 1.5rem .75rem 1.5rem',
+            fontSize: '1.5rem',
+            borderRadius: '7px',
+        },
+        [theme.breakpoints.up('xxxl')]:{
+            padding: '1rem 1.5rem 1rem 1.5rem',
+            fontSize: '2rem',
+            borderRadius: '9px',
+        },
+    },
+    normalButton: {
+        margin: '0',
+        padding: '.5rem 1rem .5rem 1rem',
+        color: theme.myTheme.balta,
+        fontFamily: theme.myTheme.sriftas,
+        backgroundColor: theme.myTheme.tZalia.main,
+        '&:hover': {
+            backgroundColor: theme.myTheme.tZalia.dark,
         }, 
         [theme.breakpoints.up('xxl')]:{
             padding: '.75rem 1.5rem .75rem 1.5rem',
@@ -86,12 +106,12 @@ const useStyles = makeStyles((theme) => ({
     saveButton: {
         margin: '0',
         padding: '.5rem 1rem .5rem 1rem',
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
-        backgroundColor: '#26a69a',
+        backgroundColor: theme.myTheme.tZalia.main,
         width: '7rem',
         '&:hover': {
-            backgroundColor: '#1c7d73',
+            backgroundColor: theme.myTheme.tZalia.dark,
         }, 
         [theme.breakpoints.up('xxl')]:{
             padding: '.75rem 1.5rem .75rem 1.5rem',
@@ -595,15 +615,15 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                                         <h3 className={classes.header} style={{marginBottom: '1rem'}}>Produkto piktograma</h3>
                                     </Box>
                                     <Box style={{width: '100%'}}>
-                                        { file.URL ? 
-                                            <img className={classes.image} src={file.URL} alt=""/>
-                                        :
-                                            <p className={classes.infotext}>Geriausia png failas, nedidelis 512px dydžio, lengvas, max 100 KB. Dabartinės ikonos įkeltos iš <a style={{color: theme.myTheme.trecia}} href='https://www.flaticon.com/' target='_blank' rel="noreferrer">https://www.flaticon.com/.</a></p>
-                                        }
+                                        { file.URL && <img className={classes.image} src={file.URL} alt=""/>}
+                                            
+                                        {/* :
+                                            <p className={classes.infotext}>Geriausia png failas, nedidelis 512px dydžio, lengvas, max 100 KB.</p>
+                                        } */}
                                     </Box>
                                     <Box>
                                         <label htmlFor="upload_product_icon">
-                                            <Button variant="contained" color="primary" component="span" classes={{root: classes.cancelButton}} style={{marginBottom: '1rem'}}>
+                                            <Button variant="contained" color="primary" component="span" classes={{root: classes.normalButton}} style={{marginBottom: '1rem'}}>
                                                 { file.src !== null && file.URL ? 'Pakeisti' : 'Įkelti' }
                                             </Button>
                                         </label>
@@ -870,7 +890,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                             </FormControl>
                             
                             <Box display='flex' justifyContent='center' alignItems='center' style={{height: '100%', marginLeft: '1rem'}}>
-                                <Button onClick={handleOptionAdd} classes={{root: classes.cancelButton}} style={{height: '100%'}}>
+                                <Button onClick={handleOptionAdd} classes={{root: classes.normalButton}} style={{height: '100%'}}>
                                     Pridėti variantą
                                 </Button>
                             </Box>

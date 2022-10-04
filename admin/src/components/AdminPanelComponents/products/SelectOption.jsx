@@ -469,6 +469,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     cancelButton: {
+        color: theme.myTheme.trecia,
+        fontFamily: theme.myTheme.sriftas,
+        backgroundColor: theme.myTheme.tZalia.main,
+        '&:hover': {
+            backgroundColor: theme.myTheme.tZalia.dark,
+        },
         marginBottom: '1rem',
         [theme.breakpoints.up('sm')]: {
             marginBottom: '0',
@@ -485,6 +491,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     addoptionButton: {
+        color: theme.myTheme.trecia,
+        fontFamily: theme.myTheme.sriftas,
+        backgroundColor: theme.myTheme.tZalia.main,
+        '&:hover': {
+            backgroundColor: theme.myTheme.tZalia.dark,
+        },
         width: '16rem',
         marginBottom: '1rem',
         [theme.breakpoints.up('sm')]: {

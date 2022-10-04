@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         width: '99.5%',
         marginTop: '1em',
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         [theme.breakpoints.up('xxl')]: {
             marginTop: '2em',
@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     textInput: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        border: `1px solid ${theme.myTheme.trecia}`,
+        border: `1px solid ${theme.myTheme.juoda}`,
     },
     diasbleOutline: {
         border: 'none',

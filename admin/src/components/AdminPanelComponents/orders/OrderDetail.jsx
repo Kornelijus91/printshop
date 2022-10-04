@@ -7,7 +7,7 @@ import OrderConfirmModal from './OrderConfirmModal';
 
 const useStyles = makeStyles((theme) => ({
     accountsBox: {
-        backgroundColor: theme.myTheme.antra,
+        // backgroundColor: theme.myTheme.antra,
         borderRadius: '7px',
         padding: '1em',
         width: '100%',
@@ -56,8 +56,8 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     columnNotLast: {
-        borderRight: '1px solid #1D3557',
-        borderBottom: '1px solid #1D3557',
+        borderRight: '1px solid #000000',
+        borderBottom: '1px solid #000000',
         '& h2': {
             margin: '0 0 1em 0',
             padding: 0,
@@ -93,8 +93,8 @@ const useStyles = makeStyles((theme) => ({
             },
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderRight: '2px solid #1D3557',
-            borderBottom: '2px solid #1D3557',
+            borderRight: '2px solid #000000',
+            borderBottom: '2px solid #000000',
             '& h2': {
                 margin: '0 0 1em 0',
                 padding: 0,
@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     columnLast: {
-        borderBottom: '1px solid #1D3557',
+        borderBottom: '1px solid #000000',
         '& h2': {
             margin: '0 0 1em 0',
             padding: 0,
@@ -157,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
             },
         },
         [theme.breakpoints.up('xxxl')]: {
-            borderBottom: '2px solid #1D3557',
+            borderBottom: '2px solid #000000',
             '& h2': {
                 margin: '0 0 1em 0',
                 padding: 0,
@@ -177,11 +177,11 @@ const useStyles = makeStyles((theme) => ({
     Button: {
         width: '100%',
         height: '2.5em',
-        backgroundColor: theme.myTheme.pirma,
+        backgroundColor: theme.myTheme.tZalia.main,
         color: theme.myTheme.trecia,
         marginBottom: '1em',
         '&:hover': {
-            backgroundColor: '#e31c2d',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '6px',
@@ -206,15 +206,17 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     ButtonDisabled: {
-        backgroundColor: 'rgba(230, 57, 70, 0.7)',
+        backgroundColor: theme.myTheme.sZalia.light,
     },
     icon: {
         color: theme.myTheme.trecia,
         [theme.breakpoints.up('xxl')]: {
-            transform: 'scale(1.35)'
+            transform: 'scale(1.35)',
+            marginRight: '.4em'
         },
         [theme.breakpoints.up('xxxl')]: {
-            transform: 'scale(2)'
+            transform: 'scale(2)',
+            marginRight: '1em'
         },
     },
     accordion: {
@@ -232,6 +234,9 @@ const useStyles = makeStyles((theme) => ({
     },
     accDetGridItem: {
         marginBottom: '1em',
+        padding: '0 1em 0 0',
+        width: '100%',
+        overflowWrap: 'break-word',
         [theme.breakpoints.up('md')]: {
             marginBottom: 0
         },
@@ -365,7 +370,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                 setModal={setModal} 
             />
             <Grid container spacing={4}>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{borderBottom: '1px solid #1D3557'}}>
+                <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{borderBottom: '1px solid #000000'}}>
                     <Box display='flex' justifyContent='space-between' flexWrap='wrap'>
                         <Box>
                             <h2>Užsakymo NR - {order.uzsakymoNr}</h2>
@@ -448,7 +453,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                             : order.status === 'Atšauktas' ? 
                                 {color: '#E63946'}
                             : 
-                                {color: '#1D3557'}
+                                {color: '#000000'}
                         }>
                             {order.status}
                         </h3>

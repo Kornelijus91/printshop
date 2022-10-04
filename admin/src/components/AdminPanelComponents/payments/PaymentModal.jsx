@@ -94,12 +94,12 @@ const useStyles = makeStyles((theme) => ({
         margin: "0 1rem 1rem 0",
         borderRadius: '4px',
         height: '2.5rem',
-        color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.pirma,
+        color: theme.myTheme.balta,
+        backgroundColor: theme.myTheme.tZalia.main,
         fontFamily: theme.myTheme.sriftas,
         fontWeight: "bold",
         '&:hover': {
-            backgroundColor: '#e31c2d',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },
         [theme.breakpoints.up('xxl')]: {
             margin: ".7rem 1.5rem 1.5rem 0",
@@ -121,12 +121,12 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "1rem",
         borderRadius: '4px',
         height: '2.5rem',
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         backgroundColor: theme.myTheme.antra,
-        fontFamily: theme.myTheme.sriftas,
+        fontFamily: theme.myTheme.sZalia.main,
         fontWeight: "bold",
         '&:hover': {
-            backgroundColor: '#36617c',
+            backgroundColor: theme.myTheme.sZalia.dark,
         },
         [theme.breakpoints.up('xxl')]: {
             margin: ".7rem 0 1.5rem 0",

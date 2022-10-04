@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     tooltip: {
-        backgroundColor: theme.myTheme.trecia,
+        // backgroundColor: theme.myTheme.trecia,
         padding: '.2em 1em',
         color: theme.myTheme.sriftoSpalva,
         fontFamily: theme.myTheme.sriftas,
@@ -70,8 +70,8 @@ export default class SalesChart extends PureComponent {
                     bottom: 0,
                 }}
             >
-                <XAxis dataKey="date" stroke="#F1FAEE" padding={{ left: 30, right: 30 }} interval='preserveStartEnd'/>
-                <YAxis stroke="#F1FAEE" />
+                <XAxis dataKey="date" stroke='#000000' padding={{ left: 30, right: 30 }} interval='preserveStartEnd'/>
+                <YAxis stroke="#000000" />
                 <Tooltip content={<CustomTooltip />}/>
                 <br/>
                 <Legend margin={{ top: 0, left: 0, right: 0, bottom: 100 }} iconType='circle' formatter={renderColorfulLegendText} verticalAlign='top'/>

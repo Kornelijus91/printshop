@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, FormControl, InputLabel, OutlinedInput, InputAdornment, Button, Box, CircularProgress, Collapse } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import Treklama01 from '../media/Treklama01.png'
+import Treklama01 from '../media/logo.webp'
 import {Helmet} from "react-helmet";
 import { ProjectName } from '../Variables.jsx'
 
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '100%',
         padding: '0 1rem',
-        backgroundColor: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.juoda,
         [theme.breakpoints.up('sm')]: {
             padding: '0',
         },
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
     formParentBox: {
         // width: '100%',
-        backgroundColor: theme.myTheme.pirma,
+        // backgroundColor: theme.myTheme.pirma,
         borderRadius: '5px',
         padding: '0 1rem 1rem 1rem',
         margin: '1rem 0',
@@ -84,11 +84,11 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: ".5rem",
         borderRadius: '5px',
         color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.sriftoSpalva,
+        backgroundColor: theme.myTheme.tZalia.main,
         fontFamily: theme.myTheme.sriftas,
         fontWeight: "bold",
         '&:hover': {
-            backgroundColor: theme.myTheme.antra,
+            backgroundColor: theme.myTheme.tZalia.dark
         },
         [theme.breakpoints.up('xxl')]: {
             marginBottom: ".75rem",
@@ -380,7 +380,7 @@ const LoginForm = ({ setUser }) => {
                                         onMouseDown={handleMouseDownPassword}
                                         edge="end"
                                         tabIndex="-1"
-                                        style={{color: "#1D3557"}}
+                                        style={{color: '#000000'}}
                                         className={classes.showPassIcon}
                                     >
                                         {showPassword ? <Visibility /> : <VisibilityOff />}

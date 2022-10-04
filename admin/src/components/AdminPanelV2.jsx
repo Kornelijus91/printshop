@@ -15,7 +15,7 @@ import Email from './AdminPanelComponents/email/Email';
 import Loyalty from './AdminPanelComponents/loyalty/Loyalty';
 import DiscountCodes from './AdminPanelComponents/discountcodes/DiscountCodes';
 import SalesStats from './AdminPanelComponents/stats/SalesStats';
-import Treklama01 from '../media/Treklama01.png'
+import Treklama01 from '../media/logo.webp'
 import Orders from './AdminPanelComponents/orders/Orders';
 import Settings from './AdminPanelComponents/settings/Settings';
 import Chat from './AdminPanelComponents/chat/Chat';
@@ -28,7 +28,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        backgroundColor: theme.myTheme.sriftoSpalva,
+        backgroundColor: theme.myTheme.balta,
         height: '100%'
     },
     drawer: {
@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     appBar: {
+        backgroundColor: theme.myTheme.sriftoSpalva,
         [theme.breakpoints.up('lg')]: {
             width: `calc(100% - ${drawerWidth}px)`,
             marginLeft: drawerWidth,
@@ -70,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerPaper: {
         width: drawerWidth,
-        backgroundColor: theme.myTheme.pirma,
+        backgroundColor: theme.myTheme.juoda,
         [theme.breakpoints.up('xxl')]: {
             width: 360,
         },
@@ -99,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
     },
     logo: {
         textAlign: 'center',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         fontSize: '1.2rem',
         [theme.breakpoints.up('xxl')]: {
@@ -110,6 +111,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     icon: {
+        color: theme.myTheme.balta,
         margin: ' .5rem 1rem .5rem 1rem',
         [theme.breakpoints.up('xxl')]: {
             margin: ' 1rem 1.5rem .75rem 2rem',
@@ -121,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     menuicon: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
             transform: 'scale(1.5)'
         },
@@ -130,6 +132,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     menuItem: {
+        color: theme.myTheme.balta,
         [theme.breakpoints.up('xxl')]: {
             padding: '1rem 0 1rem 2.5rem',
             // marginLeft: '1.5rem'
@@ -140,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     menutext: {
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         fontSize: '1.2rem',
         [theme.breakpoints.up('xxl')]: {
@@ -151,6 +154,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     text: {
+        color: theme.myTheme.balta,
         textAlign: 'left',
         margin: '0 0 0 .8rem',
         padding: '0',
@@ -168,7 +172,7 @@ const useStyles = makeStyles((theme) => ({
     link: {
         margin: '0 0 1rem .8rem',
         padding: '0',
-        color: theme.myTheme.sriftoSpalva,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         '&:hover': {
             color: '#0d1726',
@@ -211,10 +215,10 @@ const useStyles = makeStyles((theme) => ({
         padding: '.3rem .6rem .3rem .6rem',
         fontSize: '.9rem',
         fontFamily: theme.myTheme.sriftas,
-        color: theme.myTheme.trecia,
-        backgroundColor: theme.myTheme.antra,
+        color: theme.myTheme.balta,
+        backgroundColor: theme.myTheme.tZalia.main,
         '&:hover': {
-            backgroundColor: theme.myTheme.sriftoSpalva,
+            backgroundColor: theme.myTheme.tZalia.dark
         },
         [theme.breakpoints.up('md')]: {
             margin: '0 1em 0 0',
@@ -283,11 +287,11 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     badge: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         fontSize: '.67rem',
-        backgroundColor: '#26a69a',
-        boxShadow: `0 0 0 2px ${theme.myTheme.pirma}`,
+        backgroundColor: theme.myTheme.sZalia.main,
+        boxShadow: `0 0 0 2px ${theme.myTheme.juoda}`,
     },
 }));
 
@@ -941,7 +945,7 @@ function ResponsiveDrawer(props) {
                         onClick={handleDrawerToggle}
                         className={classes.menuButton}
                     >
-                        <MenuIcon style={{color: theme.myTheme.sriftoSpalva}}/>
+                        <MenuIcon style={{color: theme.myTheme.balta}}/>
                     </IconButton>
                     <Grid container dispay='flex' justifyContent='flex-start' alignItems='center'>
                         <Grid 
@@ -973,7 +977,7 @@ function ResponsiveDrawer(props) {
                                                 :
                                                     {
                                                         backgroundColor: '#e9c46a',
-                                                        boxShadow: '0 5px 0 0 #1D3557'
+                                                        boxShadow: '0 5px 0 0 #ffffff'
                                                     }
                                             }
                                             onClick={() => {
@@ -992,7 +996,7 @@ function ResponsiveDrawer(props) {
                                                 :
                                                     {
                                                         backgroundColor: '#f4a261',
-                                                        boxShadow: '0 5px 0 0 #1D3557'
+                                                        boxShadow: '0 5px 0 0 #ffffff'
                                                     }
                                             }
                                             onClick={() => {
@@ -1011,7 +1015,7 @@ function ResponsiveDrawer(props) {
                                                 :
                                                     {
                                                         backgroundColor: '#26a69a',
-                                                        boxShadow: '0 5px 0 0 #1D3557'
+                                                        boxShadow: '0 5px 0 0 #ffffff'
                                                     }
                                             }
                                             onClick={() =>{ 
@@ -1030,7 +1034,7 @@ function ResponsiveDrawer(props) {
                                                 :
                                                     {
                                                         backgroundColor: '#457B9D',
-                                                        boxShadow: '0 5px 0 0 #1D3557'
+                                                        boxShadow: '0 5px 0 0 #ffffff'
                                                     }
                                             }
                                             onClick={() => {
@@ -1049,7 +1053,7 @@ function ResponsiveDrawer(props) {
                                                 :
                                                     {
                                                         backgroundColor: '#b61624',
-                                                        boxShadow: '0 5px 0 0 #1D3557'
+                                                        boxShadow: '0 5px 0 0 #ffffff'
                                                     }
                                             }
                                             onClick={() => {

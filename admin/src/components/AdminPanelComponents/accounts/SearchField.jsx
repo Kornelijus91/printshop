@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     searchResultBox: {
         position: 'absolute',
-        backgroundColor: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.ruda.main,
         borderRadius: '7px',
         zIndex: '10',
         width: '100%',
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     labelRoot: {
-        color: `${theme.myTheme.trecia} !important`,
+        color: `${theme.myTheme.juoda} !important`,
         fontFamily: theme.myTheme.sriftas,
         backgroundColor: theme.myTheme.sriftoSpalva,
         padding: '0 .5rem .2rem .5rem',
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     labelFocused: {
         padding: '0 .5rem .2rem .5rem',
         backgroundColor: theme.myTheme.sriftoSpalva,
-        color: `${theme.myTheme.trecia} !important`,
+        color: `${theme.myTheme.juoda} !important`,
         fontFamily: theme.myTheme.sriftas,
         [theme.breakpoints.up('xxl')]: {
             padding: '0 .75rem .4rem .75rem',
@@ -59,9 +59,9 @@ const useStyles = makeStyles((theme) => ({
     },
     textInput: {
         marginBottom: "1rem",
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        border: `1px solid ${theme.myTheme.trecia}`,
+        border: `1px solid ${theme.myTheme.juoda}`,
         [theme.breakpoints.up('xxl')]: {
             marginBottom: "1.5rem",
         },
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
         border: 'none',
     },
     searchglass: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.juoda,
         marginRight: '1rem',
         [theme.breakpoints.up('xxl')]: {
             margin: '0 1.5rem',

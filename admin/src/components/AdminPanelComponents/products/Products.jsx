@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     accountsBox: {
-        backgroundColor: theme.myTheme.antra,
+        // backgroundColor: theme.myTheme.antra,
         borderRadius: '7px',
         padding: '0',
         width: '99%',
@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.myTheme.sriftoSpalva,
         borderRadius: '7px',
         padding: '.5rem .5rem 0 .5rem',
-        margin: '.5rem',
+        margin: '.5rem 0',
         maxWidth: '97%',
         '&:hover': {
             cursor: "pointer",
@@ -92,12 +92,12 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '10px',
             padding: '.7rem',
-            margin: '.7rem',
+            margin: '.7rem 0',
         },
         [theme.breakpoints.up('xxxl')]: {
             borderRadius: '14px',
             padding: '1.2rem',
-            margin: '1.2rem',
+            margin: '1.2rem 0',
         },
     },
     deleteIcon: {

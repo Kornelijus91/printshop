@@ -112,6 +112,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     button: {
+        color: theme.myTheme.trecia,
+        fontFamily: theme.myTheme.sriftas,
+        backgroundColor: theme.myTheme.tZalia.main,
+        '&:hover': {
+            backgroundColor: theme.myTheme.tZalia.dark,
+        },
         [theme.breakpoints.up('xxl')]: {
             fontSize: '1.4rem',
             padding: '.5rem',
@@ -160,6 +166,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     addButton: {
+        color: theme.myTheme.trecia,
+        fontFamily: theme.myTheme.sriftas,
+        backgroundColor: theme.myTheme.tZalia.main,
+        '&:hover': {
+            backgroundColor: theme.myTheme.tZalia.dark,
+        },
         width: '16rem',
         [theme.breakpoints.up('sm')]: {
             width: '100%',
@@ -184,6 +196,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     saveEditButton: {
+        color: theme.myTheme.trecia,
+        fontFamily: theme.myTheme.sriftas,
+        backgroundColor: theme.myTheme.tZalia.main,
+        '&:hover': {
+            backgroundColor: theme.myTheme.tZalia.dark,
+        },
         width: '7.5rem',
         [theme.breakpoints.up('sm')]: {
             width: '7.5rem',

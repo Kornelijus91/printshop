@@ -16,7 +16,7 @@ const renderActiveShape = (props) => {
 
   return (
     <g>
-      <Text x={cx} y={cy} dy={8} textAnchor="middle" fill='#1D3557' width={120}>
+      <Text x={cx} y={cy} dy={8} textAnchor="middle" fill='#000000' width={120}>
         {payload.name}
       </Text>
       <Sector
@@ -39,8 +39,8 @@ const renderActiveShape = (props) => {
       />
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#1D3557">{`Apyvarta - ${value.toFixed(2)}€`}</text>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#1D3557">
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#000000">{`Apyvarta - ${value.toFixed(2)}€`}</text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#000000">
         {`${(percent * 100).toFixed(2)}%`}
       </text>
     </g>
@@ -74,7 +74,7 @@ export default class PieChartComponent extends PureComponent {
             cy="50%"
             innerRadius={60}
             outerRadius={80}
-            fill="#1D3557"
+            fill="#000000"
             dataKey="value"
             onMouseEnter={this.onPieEnter}
           />

@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     dates: {
         marginBottom: '1em',
         '& h2': {
-            color: theme.myTheme.trecia,
+            color: theme.myTheme.juoda,
             fontFamily: theme.myTheme.sriftas,
             fontSize: '1.3rem',
             margin: '0 .5em 0 0',
@@ -38,14 +38,14 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.up('xxl')]: {
             '& h2': {
-                color: theme.myTheme.trecia,
+                color: theme.myTheme.juoda,
                 fontFamily: theme.myTheme.sriftas,
                 fontSize: '1.755rem'
             },
         },
         [theme.breakpoints.up('xxxl')]: {
             '& h2': {
-                color: theme.myTheme.trecia,
+                color: theme.myTheme.juoda,
                 fontFamily: theme.myTheme.sriftas,
                 fontSize: '2.6rem'
             },
@@ -100,10 +100,10 @@ const useStyles = makeStyles((theme) => ({
     },
     Button: {
         padding: '.8em 2em',
-        backgroundColor: theme.myTheme.pirma,
-        color: theme.myTheme.trecia,
+        backgroundColor: theme.myTheme.tZalia.main,
+        color: theme.myTheme.balta,
         '&:hover': {
-            backgroundColor: '#e31c2d',
+            backgroundColor: theme.myTheme.tZalia.dark,
         },
         // [theme.breakpoints.up('xxl')]: {
         //     borderRadius: '6px',
@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
         // },
     },
     ButtonLabel: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
         fontSize: '1rem',
         [theme.breakpoints.up('xxl')]: {
@@ -126,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     ButtonDisabled: {
-        backgroundColor: 'rgba(230, 57, 70, 0.7)',
+        backgroundColor: theme.myTheme.sZalia.light,
     },
     loadingIconBox: {
         display: 'flex',
@@ -146,7 +146,7 @@ const useStyles = makeStyles((theme) => ({
     },
     sumUpBox: {
         width: '100%',
-        backgroundColor: theme.myTheme.antra,
+        // backgroundColor: theme.myTheme.antra,
         color: theme.myTheme.sriftoSpalva,
         borderRadius: '5px',
         fontFamily: theme.myTheme.sriftas,

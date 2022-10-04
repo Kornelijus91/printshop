@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         // margin: '0 0 1rem 1rem',
         color: theme.myTheme.trecia,
         fontFamily: theme.myTheme.sriftas,
-        backgroundColor: theme.myTheme.sriftoSpalva,
+        // backgroundColor: theme.myTheme.sriftoSpalva,
         [theme.breakpoints.up('xxl')]: {
             margin: '.5rem 0 0 0',
             fontSize: '1.4rem'
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     accountsBox: {
-        backgroundColor: theme.myTheme.antra,
+        // backgroundColor: theme.myTheme.antra,
         borderRadius: '7px',
         padding: '.5rem .9rem .7rem .7rem',
         margin: '0 0 1rem 0',
@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.myTheme.sriftoSpalva,
         borderRadius: '7px',
         padding: '.3rem',
-        margin: '.5rem',
+        margin: '.5rem 0',
         maxWidth: '97.5%',
         overflowWrap: 'break-word',
         '&:hover': {
@@ -98,12 +98,12 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '10px',
             padding: '.45rem',
-            margin: '.75rem',
+            margin: '.75rem 0',
         },
         [theme.breakpoints.up('xxxl')]: {
             borderRadius: '14px',
             padding: '.8rem',
-            margin: '1.2rem',
+            margin: '1.2rem 0',
         },
     },
 }));

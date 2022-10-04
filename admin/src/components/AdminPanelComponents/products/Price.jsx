@@ -43,11 +43,11 @@ const useStyles = makeStyles((theme) => ({
     button: {
         margin: '0',
         padding: '.5rem 1rem .5rem 1rem',
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.balta,
         fontFamily: theme.myTheme.sriftas,
-        backgroundColor: theme.myTheme.pirma,
+        backgroundColor: theme.myTheme.tZalia.main,
         '&:hover': {
-            backgroundColor: '#e31c2d',
+            backgroundColor: theme.myTheme.tZalia.dark,
         }, 
         [theme.breakpoints.up('xxl')]: {
             fontSize: '1.5rem',

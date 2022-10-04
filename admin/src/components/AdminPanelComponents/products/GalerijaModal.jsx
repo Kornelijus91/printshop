@@ -50,49 +50,8 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '2rem',
         },
     },
-    cancelButton: {
-        margin: '0',
-        padding: '.5rem 1rem .5rem 1rem',
-        color: theme.myTheme.trecia,
-        fontFamily: theme.myTheme.sriftas,
-        backgroundColor: theme.myTheme.pirma,
-        '&:hover': {
-            backgroundColor: '#e31c2d',
-        }, 
-        [theme.breakpoints.up('xxl')]:{
-            padding: '.75rem 1.5rem .75rem 1.5rem',
-            fontSize: '1.5rem',
-            borderRadius: '7px',
-        },
-        [theme.breakpoints.up('xxxl')]:{
-            padding: '1rem 1.5rem 1rem 1.5rem',
-            fontSize: '2rem',
-            borderRadius: '9px',
-        },
-    },
-    saveButton: {
-        margin: '0',
-        padding: '.5rem 1rem .5rem 1rem',
-        color: theme.myTheme.trecia,
-        fontFamily: theme.myTheme.sriftas,
-        backgroundColor: '#26a69a',
-        width: '7rem',
-        '&:hover': {
-            backgroundColor: '#1c7d73',
-        }, 
-        [theme.breakpoints.up('xxl')]:{
-            padding: '.75rem 1.5rem .75rem 1.5rem',
-            fontSize: '1.5rem',
-            width: '10.5rem',
-            borderRadius: '7px',
-        },
-        [theme.breakpoints.up('xxxl')]:{
-            padding: '1rem 1.5rem 1rem 1.5rem',
-            fontSize: '2rem',
-            width: '14rem',
-            borderRadius: '9px',
-        },
-    },
+    cancelButton: theme.myTheme.cancelButton,
+    saveButton:theme.myTheme.saveButton,
     input: {
         display: 'none',
     },
