@@ -270,7 +270,7 @@ app.get('/', (req, res, next) => {
         // .replace(/__META_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
         .replace(/__META_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
         // .replace(/__META_OG_IMAGE__/, `https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png`)
-        .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
+        // .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
         .replace(/__META_KEYWORDS__/, `${keywords}`)
         .replace(/__META_URL__/, process.env.MAIN_URL)
         .replace(
@@ -305,7 +305,7 @@ app.get('/products', (req, res, next) => {
         // .replace(/__META_DESCRIPTION__/, `${process.env.PROJECTDESC}`)
         .replace(/__META_OG_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
         .replace(/__META_DESCRIPTION__/, 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!')
-        .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
+        // .replace(/__META_OG_IMAGE__/, `${process.env.PROJECTIMAGE}`)
         // .replace(/__META_OG_IMAGE__/, `https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png`) //https://s3.amazonaws.com/unroll-images-production/projects%2F0%2F1639660549207-TreklamaOGIMAGE.png
         .replace(/__META_KEYWORDS__/, `${keywords}`)
         .replace(/__META_URL__/, process.env.MAIN_URL)
@@ -343,7 +343,7 @@ app.get('/products/:productName', (req, res, next) => {
             .replace(/__META_OG_TITLE__/, `${prodinfo[pos].name} | ${process.env.PROJECTTITLE}`)
             .replace(/__META_OG_DESCRIPTION__/, prodinfo[pos].description)
             .replace(/__META_DESCRIPTION__/, prodinfo[pos].description)
-            .replace(/__META_OG_IMAGE__/, prodinfo[pos].image)
+            // .replace(/__META_OG_IMAGE__/, prodinfo[pos].image)
             .replace(/__META_KEYWORDS__/, `${process.env.PROJECTTITLE}, ${prodinfo[pos].name}`)
             .replace(/__META_URL__/, process.env.MAIN_URL)
             .replace(
@@ -385,7 +385,7 @@ app.get('/products/:productName/*', (req, res, next) => {
             .replace(/__META_OG_TITLE__/, `${prodinfo[pos].name} | ${process.env.PROJECTTITLE}`)
             .replace(/__META_OG_DESCRIPTION__/, prodinfo[pos].description)
             .replace(/__META_DESCRIPTION__/, prodinfo[pos].description)
-            .replace(/__META_OG_IMAGE__/, prodinfo[pos].image)
+            // .replace(/__META_OG_IMAGE__/, prodinfo[pos].image)
             .replace(/__META_KEYWORDS__/, `${process.env.PROJECTTITLE}, ${prodinfo[pos].name}`)
             .replace(/__META_URL__/, process.env.MAIN_URL)
             .replace(

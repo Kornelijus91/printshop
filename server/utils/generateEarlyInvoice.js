@@ -37,7 +37,7 @@ const roundTwoDec = (num) => {
 
 function generateHr(doc, y) {
     doc
-        .strokeColor("#1D3557")
+        .strokeColor("#000000")
         .lineWidth(1)
         .moveTo(50, y)
         .lineTo(550, y)
@@ -46,8 +46,8 @@ function generateHr(doc, y) {
 
 function generateCustomerInformation(doc, order) {
     doc
-        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
-        .fillColor('#1D3557')
+        .font(path.resolve('utils/fonts/gilroybold.OTF'))
+        .fillColor('#000000')
         .fontSize(12)
         .text('Išankstinė sąskaita', 50, 130,);
   
@@ -56,31 +56,31 @@ function generateCustomerInformation(doc, order) {
     const customerInformationTop = 160;
   
     doc
-        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+        .font(path.resolve('utils/fonts/gilroylight.OTF'))
         .fontSize(8)
         .text("Dokumento nr.:", 50, customerInformationTop)
-        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
+        .font(path.resolve('utils/fonts/gilroybold.OTF'))
         .text(`TR-IS-${order.uzsakymoNr}`, 150, customerInformationTop)
-        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+        .font(path.resolve('utils/fonts/gilroylight.OTF'))
         .text("Dokumento data:", 50, customerInformationTop + 10)
-        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
+        .font(path.resolve('utils/fonts/gilroybold.OTF'))
         .text(formatDate(new Date()), 150, customerInformationTop + 10)
-        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+        .font(path.resolve('utils/fonts/gilroylight.OTF'))
         .text("Užsakymo data:", 50, customerInformationTop + 20)
-        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
+        .font(path.resolve('utils/fonts/gilroybold.OTF'))
         .text(formatDate(order.createdAt), 150, customerInformationTop + 20)
-        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+        .font(path.resolve('utils/fonts/gilroylight.OTF'))
         .text("Mokėjimo paskirtis:", 50, customerInformationTop + 30)
-        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
+        .font(path.resolve('utils/fonts/gilroybold.OTF'))
         .text(order.uzsakymoNr, 150, customerInformationTop + 30)
         .text('Pirkėjas', 300, customerInformationTop)
-        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+        .font(path.resolve('utils/fonts/gilroylight.OTF'))
         .text(order.delivery.firstName + ' ' + order.delivery.lastName, 300, customerInformationTop + 10)
         .text(order.delivery.address + ', ' + order.delivery.zipcode + ', ' + order.delivery.city, 300, customerInformationTop + 20)
         
     if (order.delivery.juridinis) {
         doc
-            .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+            .font(path.resolve('utils/fonts/gilroylight.OTF'))
             .fontSize(8)
             .text("Įmonės pavadinimas:", 300, customerInformationTop + 30)
             .text(order.delivery.companyName, 380, customerInformationTop + 30)
@@ -106,14 +106,14 @@ function generateCart(doc, order) {
     }
 
     doc
-        .strokeColor("#1D3557")
+        .strokeColor("#000000")
         .lineWidth(20)
         .moveTo(50, tableTop)
         .lineTo(550, tableTop)
         .stroke();
 
     doc
-        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+        .font(path.resolve('utils/fonts/gilroylight.OTF'))
         .fillColor('#F1FAEE')
         .fontSize(8)
         .text("Prekė", 55, tableTop - 5)
@@ -124,8 +124,8 @@ function generateCart(doc, order) {
 
     for (const cartItem of order.cartItems) {
         doc
-            .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
-            .fillColor('#1D3557')
+            .font(path.resolve('utils/fonts/gilroylight.OTF'))
+            .fillColor('#000000')
             .fontSize(8)
             .text(cartItem.name, 55, cartItemsPos)
             .text(cartItem.quantity, 355, cartItemsPos, { lineBreak: false })
@@ -145,11 +145,11 @@ function generateCart(doc, order) {
             if (shouldShow(cartItem.options, option.summon)) {
                 if (option.type === 0 || option.type === 2) {
                     doc
-                        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
-                        .fillColor('#1D3557')
+                        .font(path.resolve('utils/fonts/gilroybold.OTF'))
+                        .fillColor('#000000')
                         .fontSize(6)
                         .text(`${option.name}:`, 70, cartItemsPos)
-                        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+                        .font(path.resolve('utils/fonts/gilroylight.OTF'))
                         .text(option.value, 170, cartItemsPos)
 
                     // cartItemsPos = cartItemsPos + 8;
@@ -161,11 +161,11 @@ function generateCart(doc, order) {
                     }  
                 } else if (option.type === 1) {
                     doc
-                        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
-                        .fillColor('#1D3557')
+                        .font(path.resolve('utils/fonts/gilroybold.OTF'))
+                        .fillColor('#000000')
                         .fontSize(6)
                         .text(`${option.name}:`, 70, cartItemsPos)
-                        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+                        .font(path.resolve('utils/fonts/gilroylight.OTF'))
                         .text(`${option.firstName}: ${option.firstValue}, ${option.secondName}: ${option.secondValue}`, 170, cartItemsPos)
 
                     // cartItemsPos = cartItemsPos + 8;
@@ -177,11 +177,11 @@ function generateCart(doc, order) {
                     }  
                 }  else if (option.type === 3) {
                     doc
-                        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
-                        .fillColor('#1D3557')
+                        .font(path.resolve('utils/fonts/gilroybold.OTF'))
+                        .fillColor('#000000')
                         .fontSize(6)
                         .text(`${option.name}:`, 70, cartItemsPos)
-                        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+                        .font(path.resolve('utils/fonts/gilroylight.OTF'))
                         .text(`${option.firstValue}`, 170, cartItemsPos)
 
                     // cartItemsPos = cartItemsPos + 8;
@@ -196,11 +196,11 @@ function generateCart(doc, order) {
         }
         if (cartItem.maketavimoKaina > 0) {
             doc
-                .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
-                .fillColor('#1D3557')
+                .font(path.resolve('utils/fonts/gilroybold.OTF'))
+                .fillColor('#000000')
                 .fontSize(6)
                 .text('Maketavimas:', 70, cartItemsPos)
-                .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+                .font(path.resolve('utils/fonts/gilroylight.OTF'))
                 .text('Taip', 170, cartItemsPos)
 
             // cartItemsPos = cartItemsPos + 8;
@@ -213,11 +213,11 @@ function generateCart(doc, order) {
         }
         // if (cartItem.pastaba !== '') {
         //     doc
-        //         .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
-        //         .fillColor('#1D3557')
+        //         .font(path.resolve('utils/fonts/gilroybold.OTF'))
+        //         .fillColor('#000000')
         //         .fontSize(6)
         //         .text('Pastaba:', 70, cartItemsPos)
-        //         .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+        //         .font(path.resolve('utils/fonts/gilroylight.OTF'))
         //         .text(cartItem.pastaba, 170, cartItemsPos)
 
         //     cartItemsPos = cartItemsPos + 8;
@@ -243,8 +243,8 @@ function generateCart(doc, order) {
     }  
 
     doc
-        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
-        .fillColor('#1D3557')
+        .font(path.resolve('utils/fonts/gilroylight.OTF'))
+        .fillColor('#000000')
         .fontSize(8)
         .text('Suma:', 380, cartItemsPos, { lineBreak: false })
         .text(`${roundTwoDec(order.discountPrice / 1.21).toFixed(2)} €`, { align: 'right' })
@@ -252,7 +252,7 @@ function generateCart(doc, order) {
         .text(`${roundTwoDec((order.discountPrice  / 1.21) * 0.21).toFixed(2)} €`, { align: 'right' })
         .text('Pristatymas:', 380, cartItemsPos + 24, { lineBreak: false })
         .text('Nemokamas', { align: 'right' })
-        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
+        .font(path.resolve('utils/fonts/gilroybold.OTF'))
         .text('Viso:', 380, cartItemsPos + 36, { lineBreak: false })
         .text(`${roundTwoDec(order.discountPrice).toFixed(2)} €`, { align: 'right' })
     // console.log('ORDER DISKAUNTED PRAIS -> ', order.discountPrice);
@@ -271,12 +271,12 @@ const generateEarlyInvoice = (order) => {
     const doc = new PDFDocument({size: 'A4', margin: 50});
     doc.pipe(fs.createWriteStream(`./saskaitos/Isankstine_saskaita_TR-IS-${order.uzsakymoNr}.pdf`));
 
-    doc.image(path.resolve('utils/image/TreklamaLogoBlack.png'), 50, 45, { width: 145 })
-        .font(path.resolve('utils/fonts/Quicksand-Bold.ttf'))
-		.fillColor('#1D3557')
+    doc.image(path.resolve('utils/image/logoblack.png'), 50, 45, { width: 145 })
+        .font(path.resolve('utils/fonts/gilroybold.OTF'))
+		.fillColor('#000000')
 		.fontSize(8)
 		.text('UAB “TAURO PASLAUGOS”', 130, 45, { align: 'right' })
-        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+        .font(path.resolve('utils/fonts/gilroylight.OTF'))
 		.text('Daugėlių g. 79B, Kuršėnai, LT-81116 Šiaulių r.', { align: 'right' }) 
 		.text('Įmonės kodas: 305328121', { align: 'right' }) 
         .text('PVM kodas: LT100012761116', { align: 'right' }) 
@@ -289,7 +289,7 @@ const generateEarlyInvoice = (order) => {
     generateHr(doc, doc.page.height - 80);
 
     doc
-        .font(path.resolve('utils/fonts/Quicksand-Regular.ttf'))
+        .font(path.resolve('utils/fonts/gilroylight.OTF'))
         .text('Tai yra originali sąskaita faktūra, kurią galite atsispausdinti ir naudoti kaip buhalterinį dokumentą, atitinkantį visas apskaitos dokumentų išrašymo ir pripažinimo taisykles.', 
     50, doc.page.height - 70);
 
