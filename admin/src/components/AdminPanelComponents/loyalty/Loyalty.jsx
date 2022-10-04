@@ -9,11 +9,11 @@ import { ProjectName } from '../../../Variables.jsx'
 
 const useStyles = makeStyles((theme) => ({
     searchResultBox: {
-        backgroundColor: theme.myTheme.antra,
+        // backgroundColor: theme.myTheme.ruda.main,
         fontFamily: theme.myTheme.sriftas,
         borderRadius: '7px',
         margin: '.5rem 0 0 0',
-        padding: '.5rem .5rem .001rem .5rem',
+        // padding: '.5rem .5rem .001rem .5rem',
         width: '99%',
         [theme.breakpoints.up('xxl')]: {
             margin: '2rem 0 0 0',

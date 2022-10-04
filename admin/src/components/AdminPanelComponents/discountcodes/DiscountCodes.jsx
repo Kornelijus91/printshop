@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '.5rem'
     },
     searchResultBox: {
-        backgroundColor: theme.myTheme.antra,
+        // backgroundColor: theme.myTheme.antra,
         fontFamily: theme.myTheme.sriftas,
         borderRadius: '7px',
         margin: '.5rem 0 0 0',
-        padding: '.5rem .5rem .001rem .5rem',
+        // padding: '.5rem .5rem .001rem .5rem',
         width: '99%',
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '10px',
@@ -54,13 +54,13 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     itemActive: {
-        backgroundColor: '#26a69a',
+        backgroundColor: theme.myTheme.sZalia.main,
         color: theme.myTheme.trecia,
         borderRadius: '7px',
         margin: '0 0 .5rem 0',
         '&:hover': {
             cursor: 'pointer',
-            backgroundColor: '#1c7d73',
+            backgroundColor: theme.myTheme.sZalia.dark,
         },
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '10px',
@@ -72,13 +72,13 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     itemNotActive: {
-        backgroundColor: theme.myTheme.pirma,
+        backgroundColor: theme.myTheme.tZalia.dark,
         color: theme.myTheme.trecia,
         borderRadius: '7px',
         margin: '0 0 .5rem 0',
         '&:hover': {
             cursor: 'pointer',
-            backgroundColor: '#cc1928',
+            backgroundColor: theme.myTheme.juoda,
         },
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '10px',

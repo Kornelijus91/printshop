@@ -14,10 +14,11 @@ import {
     // Slider, 
     CircularProgress 
 } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        fontSize: theme.myTheme.sizeM,
         [theme.breakpoints.up('xxl')]: {
             marginTop: '1rem'
         },
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     header: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         margin: '0',
         padding: '0',
@@ -112,15 +113,17 @@ const useStyles = makeStyles((theme) => ({
         margin: 0
     },
     previewBoxInnerTop: {
+        fontSize: theme.myTheme.sizeM,
         margin: '1rem 0 1rem 0',
-        minHeight: '35rem',
-        backgroundColor: theme.myTheme.trecia,
-        width: '118em',
-        objectFit: 'contain'
-        // [theme.breakpoints.up('xxl')]: {
-        //     margin: '1.5rem 0 1.5rem 0',
-        //     minHeight: '42.5rem',
-        // },
+        height: '10em', //38
+        width: '18em',
+        // backgroundColor: theme.myTheme.trecia,
+        // width: '118em',
+        objectFit: 'contain',
+        [theme.breakpoints.up('xl')]: {
+            height: '38em',
+            width: '100em',
+        },
         // [theme.breakpoints.up('xxxl')]: {
         //     margin: '2rem 0 2rem 0',
         //     minHeight: '70rem',
@@ -128,16 +131,16 @@ const useStyles = makeStyles((theme) => ({
     },
     textInput: {
         marginBottom: "1rem",
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
-        border: `1px solid ${theme.myTheme.trecia}`,
+        border: `1px solid ${theme.myTheme.juoda}`,
         [theme.breakpoints.up('xxl')]: {
             marginBottom: "1.5rem",
-            border: `2px solid ${theme.myTheme.trecia}`,
+            border: `2px solid ${theme.myTheme.juoda}`,
         },
         [theme.breakpoints.up('xxxl')]: {
             marginBottom: "2rem",
-            border: `3px solid ${theme.myTheme.trecia}`,
+            border: `3px solid ${theme.myTheme.juoda}`,
         },
     },
     diasbleOutline: {
@@ -165,9 +168,16 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '3rem',
         [theme.breakpoints.up('lg')]: {
             marginBottom: '0',
+            // marginTop: '.5em'
         },
     },
     forButtonScale: {
+        color: theme.myTheme.balta,
+        backgroundColor: theme.myTheme.tZalia.main,
+        fontFamily: theme.myTheme.sriftas,
+        '&:hover': {
+            backgroundColor: theme.myTheme.tZalia.dark,
+        },
         [theme.breakpoints.up('xxl')]: {
             fontSize: '1.6rem',
             height: '3.75rem',
@@ -406,9 +416,14 @@ const useStyles = makeStyles((theme) => ({
         
     },
     bottomBox: {
-        display: 'flex',
+        display: 'grid',
+        gridTemplateColumns: 'auto',
         justifyContent: 'start',
-        alignItems: 'start'
+        alignItems: 'start',
+        flexFlow: 'row wrap',
+        [theme.breakpoints.up('xl')]: {
+            gridTemplateColumns: 'auto auto auto',
+        },
     },
 }));
 
@@ -422,7 +437,7 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
     // const screenSizexxxl = useMediaQuery(theme.breakpoints.up('xxxl'));
 
     // const [products, setProducts] = useState([]);
-    const [x, setX] = useState('0');
+    // const [x, setX] = useState('0');
     const [submitting, setSubmitting] = useState(false);
 
     // const getAllProductsIDs = async () => {
@@ -593,7 +608,8 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                 imageOriginalName: '',
             });
         };
-        setX(String(carouselItemInfo.animation));
+        // setX(String(carouselItemInfo.animation));
+
         // eslint-disable-next-line
     }, [])
 
@@ -628,7 +644,7 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                 </Box>
             </Box>
             <Box classes={{root: classes.bottomBox}}>
-                <Box>
+                <Box style={{marginRight: '1em'}}>
                     <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>https://www.treklama.lt/</h3>
                     <FormControl className={classes.formVariant} variant="outlined">
                         <OutlinedInput
@@ -642,7 +658,7 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                         />
                     </FormControl> 
                 </Box>
-                <Box>
+                <Box style={{marginRight: '1em'}}>
                     <h3 className={classes.header} style={{margin: '0 1rem 0 0'}}>Paveikslėlis:</h3>
                     <label htmlFor='image_upload'>
                         <Button variant="contained" color="primary" component="span" classes={{root: classes.forButtonScale}}>
@@ -659,13 +675,16 @@ const AddEditCarouselItem = ({ carouselItemInfo, setCarouselItemInfo, setSnackba
                         onChange={handleFile}
                     />
                 </Box>
-                <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.buttonBox}}>
-                    <Button variant="contained" color="primary" component="span" onClick={addUpdateCarouselItem} style={{margin: '1rem 1rem 0 0'}} disabled={submitting} classes={{root: classes.forButtonScale}}>
-                        {submitting ? <CircularProgress size={20} className={classes.icon}/> : 'Išsaugoti' }
-                    </Button>
-                    <Button variant="contained" color="primary" component="span" onClick={goback} style={{marginTop: '1rem'}} classes={{root: classes.forButtonScale}}>
-                        Atgal
-                    </Button>
+                <Box>
+                    <h3 className={classes.header} style={{margin: '0 1rem 0 0', color: '#ffffff'}}>I</h3>
+                    <Box display='flex' justifyContent='flex-start' alignItems='center' classes={{root: classes.buttonBox}}>
+                        <Button variant="contained" color="primary" component="span" onClick={addUpdateCarouselItem} style={{margin: '0 1rem 0 0'}} disabled={submitting} classes={{root: classes.forButtonScale}}>
+                            {submitting ? <CircularProgress size={20} className={classes.icon}/> : 'Išsaugoti' }
+                        </Button>
+                        <Button variant="contained" color="primary" component="span" onClick={goback} classes={{root: classes.forButtonScale}}>
+                            Atgal
+                        </Button>
+                    </Box>
                 </Box>
             </Box>
 

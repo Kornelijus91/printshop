@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     accountsBox: {
-        backgroundColor: theme.myTheme.antra,
+        // backgroundColor: theme.myTheme.antra,
         borderRadius: '7px',
         padding: '.001rem 0 0 0',
         width: '99%',
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.myTheme.sriftoSpalva,
         borderRadius: '7px',
         padding: '0',
-        margin: '.5rem',
+        margin: '.5rem 0',
         maxWidth: '97%',
         height: '4rem',
         '&:hover': {
@@ -75,13 +75,13 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '10px',
             padding: '.45rem .45rem .45rem 2.25rem',
-            margin: '.75rem',
+            margin: '.75rem 0',
             height: '6rem',
         },
         [theme.breakpoints.up('xxxl')]: {
             borderRadius: '14px',
             padding: '.6rem .6rem .6rem 3rem',
-            margin: '1rem',
+            margin: '1rem 0',
             height: '8rem',
         },
     },

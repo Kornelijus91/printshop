@@ -91,7 +91,7 @@ const CreateEmailDialog = ({ modal, setModal, setLetter, letter }) => {
         if (letter.HTML !== '') {
             emailEditorRef.current.editor.loadDesign(letter.JSON);
         } else {
-            emailEditorRef.current.editor.loadBlank({backgroundColor: '#F1FAEE'});
+            emailEditorRef.current.editor.loadBlank({backgroundColor: '#ffffff'});
         }
         
     };

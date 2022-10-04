@@ -105,6 +105,9 @@ const useStyles = makeStyles((theme) => ({
             padding: '.8rem',
             margin: '1.2rem 0',
         },
+        itemP: {
+            fontSize: theme.myTheme.sizeS,
+        },
     },
 }));
 
@@ -234,32 +237,32 @@ const Accounts = ({ newChatrooms, newOrders, user, setView, setSnackbar, view, l
                             }}>
                                 <Grid item xl={3} lg={2} md={4} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
-                                        <p>{item.username}</p>
+                                        <p className={classes.itemP}>{item.username}</p>
                                     </Box>
                                 </Grid>
                                 <Grid item xl={2} lg={2} md={4} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
-                                        <p>{item.firstName}</p>
+                                        <p className={classes.itemP}>{item.firstName}</p>
                                     </Box>
                                 </Grid>
                                 <Grid item xl={2} lg={2} md={4} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
-                                        <p>{item.lastName}</p>
+                                        <p className={classes.itemP}>{item.lastName}</p>
                                     </Box>
                                 </Grid>
                                 <Grid item xl={1} lg={2} md={4} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
-                                        <p>{item.phoneNumber}</p>
+                                        <p className={classes.itemP}>{item.phoneNumber}</p>
                                     </Box>
                                 </Grid>
                                 <Grid item xl={2} lg={2} md={4} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
-                                        <p>Personalas: {item.personalas ? 'Taip' : 'Ne'}</p>
+                                        <p className={classes.itemP}>Personalas: {item.personalas ? 'Taip' : 'Ne'}</p>
                                     </Box>
                                 </Grid>
                                 <Grid item xl={2} lg={2} md={4} sm={6} xs={6}>
                                     <Box classes={{root: classes.infosection}}>
-                                        <p>Admin: {item.administracija ? 'Taip' : 'Ne'}</p>
+                                        <p className={classes.itemP}>Admin: {item.administracija ? 'Taip' : 'Ne'}</p>
                                     </Box>
                                 </Grid>
                             </Grid>

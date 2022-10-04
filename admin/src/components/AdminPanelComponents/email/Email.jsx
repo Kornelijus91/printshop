@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.trecia,
         borderRadius: '7px',
         padding: '.3rem',
-        margin: '.5rem',
+        margin: '.5rem 0',
         maxWidth: '96.5%',
         overflowWrap: 'break-word',
         '&:hover': {
@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('xxl')]: {
             borderRadius: '9px',
             padding: '.45rem',
-            margin: '.75rem 0 .75rem .75rem',
+            margin: '.75rem 0 .75rem 0',
             maxWidth: '98.5%',
             '& p': {
                fontSize: '1.6rem'
@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('xxxl')]: {
             borderRadius: '14px',
             padding: '.6rem',
-            margin: '1rem',
+            margin: '1rem 0',
             maxWidth: '99%',
             '& p': {
                 fontSize: '2rem'
@@ -279,7 +279,8 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     accountsBox: {
-        backgroundColor: theme.myTheme.antra,
+        // backgroundColor: theme.myTheme.antra,
+        overflow: 'hidden',
         borderRadius: '7px',
         padding: '0 .5rem 0 0',
         width: '98%',
@@ -295,7 +296,8 @@ const useStyles = makeStyles((theme) => ({
     },
     accountsBoxInner: {
         // height: '95%',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        overflowX: 'hidden',
     },
     accountsBoxPagination: {
         marginTop: '.2rem',
@@ -346,7 +348,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%'
     },
     header: {
-        color: theme.myTheme.trecia,
+        color: theme.myTheme.juoda,
         fontFamily: theme.myTheme.sriftas,
         fontSize: '1rem',
         margin: '0',

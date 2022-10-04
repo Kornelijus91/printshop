@@ -8,10 +8,12 @@ const useStyles = makeStyles((theme) => ({
         
     },
     form: {
+        fontSize: theme.myTheme.sizeM,
         width: '98.5%',
         margin: '1rem 0 0 0',
         position: 'relative',
         zIndex: '1',
+        paddingRight: '1.8em',
         [theme.breakpoints.up('xxl')]: {
             margin: '1.5rem 0 0 0',
         },
