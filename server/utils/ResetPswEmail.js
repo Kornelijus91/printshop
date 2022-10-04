@@ -117,7 +117,7 @@ const ResetPswEmail = (link) => {
       <tr>
         <td style="padding-right: 0px;padding-left: 0px;" align="left">
           
-          <img align="left" border="0" src="https://www.treklama.lt/logo.png" alt="" title="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 50%;max-width: 240px;" width="240"/>
+          <img align="left" border="0" src="https://ibb.co/NNXYshy" alt="" title="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 50%;max-width: 240px;" width="240"/>
           
         </td>
       </tr>

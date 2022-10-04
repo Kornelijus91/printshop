@@ -122,8 +122,8 @@ app.get('/personalas', (req, res) => {
 
 // COMMENT OUT ON PRODUCTION //
 
-app.use('/euploads', express.static('private/uploads'));
-app.use('/uploads', express.static('public/uploads'));
+// app.use('/euploads', express.static('private/uploads'));
+// app.use('/uploads', express.static('public/uploads'));
 
 // ========================== //
 
