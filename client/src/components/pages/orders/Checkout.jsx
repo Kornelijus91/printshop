@@ -226,7 +226,7 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                 const response = await res.json();
                 if (response.success) {
                     
-                    localStorage.emoveItem("cartArray");
+                    localStorage.removeItem("cartArray");
                     
                     if (response.paymentURL !== '') {
                         window.location.replace(response.paymentURL)
@@ -277,7 +277,7 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                 });
                 const response = await res.json();
                 if (response.success) {
-                    localStorage.emoveItem("cartArray");
+                    localStorage.removeItem("cartArray");
                     if (response.paymentURL !== '') {
                         window.location.replace(response.paymentURL)
                     } else {

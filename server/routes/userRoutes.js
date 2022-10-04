@@ -677,12 +677,6 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
     };
 
     if (req.body.priceSum.sum === roundTwoDec(prc) && req.body.priceSum.dscSum === roundTwoDec(dscPrc)) {
-
-      console.log('REQ PRICE SUM => ', req.body.priceSum.sum);
-      console.log('SERV PRICE SUM => ', roundTwoDec(prc));
-      console.log('REQ DISCOUNT SUM => ', req.body.priceSum.dscSum);
-      console.log('SERV PRICE SUM => ', roundTwoDec(dscPrc));
-      
       const orderObject = new Order({ 
         clientID: req.user._id,
         clientUsername: req.user.username,
