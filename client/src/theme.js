@@ -106,6 +106,11 @@ export const themeObject = {
                 color: '#ffffff',
             },
         },
+        MuiListItem: {
+            root: {
+                fontFamily: "'GilroyLight', Helvetica, sans-serif", 
+            },
+        },
         // MuiOutlinedInput: {
         //     input: {
         //         paddingTop: 'clamp(1rem, 0.8vw, 2rem)',
@@ -321,7 +326,9 @@ export const themeObject = {
         menuItem: {
             fontSize: 'clamp(1rem, 0.8vw, 2rem)',
             // width: '100%',
+            fontFamily: "'GilroyLight', Helvetica, sans-serif", 
             overflowWrap: 'break-word',
+            padding: '.4em 1em'
         },
         selectRenderOuterBox: {
             fontSize: 'clamp(1rem, 0.8vw, 2rem)',

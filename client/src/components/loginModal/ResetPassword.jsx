@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     labelFocused: {
+        marginTop: '-.3em',
         color: `${theme.myTheme.juoda} !important`,
         fontFamily: theme.myTheme.sriftas,
         paddingTop: theme.myTheme.sizeXXXS,
@@ -68,7 +69,9 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     labelShrink: {
-        marginTop: '-clamp(.4rem, 0.32vw, .8rem)',
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '-.3em',
+        },
     },
     passwordhideIcon: {
         color: theme.myTheme.juoda,

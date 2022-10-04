@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     labelFocused: {
+        marginTop: '-.3em',
         color: `${theme.myTheme.juoda} !important`,
         fontFamily: theme.myTheme.sriftas,
         paddingTop: theme.myTheme.sizeXXXS,
@@ -63,7 +64,9 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     labelShrink: {
-        fontSize: theme.myTheme.sizeM,
+        [theme.breakpoints.up('xxxl')]: {
+            marginTop: '-.3em',
+        },
     },
     textInput: {
         fontSize: theme.myTheme.sizeM,
