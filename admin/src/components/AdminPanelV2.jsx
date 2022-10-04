@@ -631,7 +631,7 @@ function ResponsiveDrawer(props) {
         setGetordersTrigger(Date.now);
         if (Notification.permission === "granted" && showNotification) {
             new Notification("Tavo Reklama", {
-                icon: 'https://www.treklama.lt/TR-01.png',
+                icon: 'https://www.treklama.lt/logo.png',
                 body: 'Naujas užsakymas!',
             });
         }
@@ -676,7 +676,7 @@ function ResponsiveDrawer(props) {
 
             if (Notification.permission === "granted" && newrooms > newChatrooms) {
                 new Notification("Tavo Reklama", {
-                    icon: 'https://www.treklama.lt/TR-01.png',
+                    icon: 'https://www.treklama.lt/logo.png',
                     body: 'Naujas pokalbis!',
                 });
             }
