@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     labelFocused: {
-        marginTop: '-.3em',
+        
         color: `${theme.myTheme.juoda} !important`,
         fontFamily: theme.myTheme.sriftas,
         paddingTop: theme.myTheme.sizeXXXS,
@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.up('xxxl')]: {
             borderRadius: '10px 10px 0 0',
+            marginTop: '-.3em',
         },
     },
     labelShrink: {
