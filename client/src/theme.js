@@ -96,13 +96,20 @@ export const themeObject = {
             root: {
                 '&.Mui-disabled': {
                     color: '#ffffff',
+                    // backgroundColor: '#56c2bf',
+                },
+            },
+            contained: {
+                '&.Mui-disabled': {
+                    color: '#ffffff',
+                    backgroundColor: '#56c2bf',
                 },
             },
             // contained: {
             //     backgroundColor: '#56c2bf',
             // },
             disabled: {
-                // backgroundColor: '#56c2bf',\
+                // backgroundColor: '#56c2bf',
                 color: '#ffffff',
             },
         },

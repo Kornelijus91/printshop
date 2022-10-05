@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: theme.myTheme.tZalia.dark,
         },
     },
+    buttonDeleteDisabled: {
+        backgroundColor: theme.myTheme.sZalia.light,
+    },
     buttonCancel: {
         fontSize: theme.myTheme.sizeM,
         width: '45%',
@@ -62,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: theme.myTheme.sZalia.dark,
         },
+    },
+    buttonCancelDisabled: {
+        backgroundColor: theme.myTheme.sZalia.light,
     },
     header: {
         fontSize: theme.myTheme.sizeMM,
@@ -79,7 +85,7 @@ const DeleteCartItemModal = ({ deleteModal, setDeleteModal, getCart, setCart }) 
             localStorage.setItem("cartArray", JSON.stringify(items));
             getCart();
         } else {
-            localStorage.emoveItem("cartArray");
+            localStorage.removeItem("cartArray");
             setCart([]);
         }  
     }
@@ -144,7 +150,7 @@ const DeleteCartItemModal = ({ deleteModal, setDeleteModal, getCart, setCart }) 
                             <Button 
                                 variant="contained" 
                                 color="primary" 
-                                className={classes.buttonDelete} 
+                                classes={{root: classes.buttonDelete, disabled: classes.buttonDeleteDisabled}} 
                                 disabled={deleteModal.deleting} 
                                 onClick={() => {
                                     deleteItem();
@@ -155,7 +161,7 @@ const DeleteCartItemModal = ({ deleteModal, setDeleteModal, getCart, setCart }) 
                             <Button 
                                 variant="contained" 
                                 color="primary" 
-                                className={classes.buttonCancel} 
+                                classes={{root: classes.buttonCancel, disabled: classes.buttonCancelDisabled}} 
                                 disabled={deleteModal.deleting} 
                                 onClick={() => {
                                     handleClose();

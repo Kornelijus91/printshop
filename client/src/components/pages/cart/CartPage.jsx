@@ -143,6 +143,9 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '2em',
     },
     button: theme.myTheme.button,
+    buttonActualyDisabled: {
+        backgroundColor: theme.myTheme.sZalia.light,
+    },
     buttonDisabled: {
         color: theme.myTheme.balta,
     },
@@ -507,7 +510,7 @@ const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, k
                                 },
                             }}
                         />
-                        <Button variant="contained" color="primary" classes={{root: classes.button, label: classes.buttonDisabled}} disabled={cart.length <= 0 || chekingCode} onClick={applyDiscountCode}>
+                        <Button variant="contained" color="primary" classes={{root: classes.button, label: classes.buttonDisabled, disabled: classes.buttonActualyDisabled}} disabled={cart.length <= 0 || chekingCode} onClick={applyDiscountCode}>
                             {chekingCode ? <CircularProgress size={20} className={classes.loadingIcon}/> : 'Pritaikyti'}
                         </Button>
                     </Box>
@@ -649,7 +652,7 @@ const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, k
                         <Button 
                             variant="contained" 
                             color="primary" 
-                            classes={{root: classes.button, label: classes.buttonDisabled}} 
+                            classes={{root: classes.button, label: classes.buttonDisabled, disabled: classes.buttonActualyDisabled}} 
                             disabled={cart.length <= 0} 
                             onClick={() => {history.push('/order'); window.scrollTo({top: 0, left: 0});}}
                             endIcon={<FaArrowRight size={17} className={classes.buttonIcon}/>}
