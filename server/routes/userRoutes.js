@@ -150,33 +150,37 @@ const getCartItemPrice = async (cartItem) => {
 };
 
 const sendThanksEmail = (email, invoice) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    // secure: true, 
-    // secureConnection: true,
-    auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-    tls:{
-      rejectUnauthorized: false,
-      // ciphers:'SSLv3',
-      // secureProtocol: "TLSv1_method"
-    },
-  });
-  // console.log('SENDING FILE NAME -> ', invoice.substring(invoice.lastIndexOf('/') + 1));
-  const message = {
-    from: process.env.EMAIL_FROM,
-    to: `${email}`,
-    subject: "Užsakymas gautas.",
-    html: ThanksEmail(),
-    attachments:[{
-      filename: 'Išankstinė sąskaita.pdf', //invoice.substring(invoice.lastIndexOf('/') + 1),
-      path: encodeURI(invoice)
-    }]
-  };
-  transporter.sendMail(message);
+  try{
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      // secure: true, 
+      // secureConnection: true,
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+      tls:{
+        rejectUnauthorized: false,
+        // ciphers:'SSLv3',
+        // secureProtocol: "TLSv1_method"
+      },
+    });
+    // console.log('SENDING FILE NAME -> ', invoice.substring(invoice.lastIndexOf('/') + 1));
+    const message = {
+      from: process.env.EMAIL_FROM,
+      to: `${email}`,
+      subject: "Užsakymas gautas.",
+      html: ThanksEmail(),
+      attachments:[{
+        filename: 'Išankstinė sąskaita.pdf', //invoice.substring(invoice.lastIndexOf('/') + 1),
+        path: encodeURI(invoice)
+      }]
+    };
+    transporter.sendMail(message);
+  } catch(error) {
+    console.log(error)
+  }
 };
 
 const sendPaymentConfirmedEmail = (email, invoice) => {
