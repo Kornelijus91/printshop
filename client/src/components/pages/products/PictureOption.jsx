@@ -179,7 +179,7 @@ const PictureOption = ({ optionsValues, setOptionsValues, index, product }) => {
                                             :
                                             screenSizexxl ? {border: `3px solid transparent`} 
                                             : 
-                                            {border: `2px solid ${theme.myTheme.trecia}`} 
+                                            {border: `2px solid transparent`} 
                                         :
                                             screenSizexxxl ? {border: `4px solid ${theme.myTheme.tZalia.main}`} 
                                             :
