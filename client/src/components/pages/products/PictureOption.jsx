@@ -126,8 +126,8 @@ const PictureOption = ({ optionsValues, setOptionsValues, index, product }) => {
     const handleSelect = (selected) => {
         setSelected(selected);
         var copy = [...optionsValues];
-        copy[index].value = product.options[0].menuOptions[selected].variantName;
-        copy[index].price = product.options[0].menuOptions[selected].priceAdd;
+        copy[index].value = product.options[index].menuOptions[selected].variantName;
+        copy[index].price = product.options[index].menuOptions[selected].priceAdd;
         setOptionsValues(copy);
     };
 

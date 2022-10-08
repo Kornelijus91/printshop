@@ -297,8 +297,10 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
 
     const shouldShow = (option, summon, name) => {
         for (const item of option) {
-            if (item.summon === summon && item.name !== name) {
+            if (item.summonID === summon && item.name !== name) {
                 return true;
+            } else {
+                
             }
         }
         return false;
@@ -352,7 +354,7 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
     };
 
     // useEffect(() => {
-    //     setSanaudos(order.sanaudos);
+    //    console.log(order)
     //     // eslint-disable-next-line
     // }, [order])
 
@@ -541,15 +543,15 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                                             <>
                                                 {(opt.type === 0 || opt.type === 2) && (!opt.summon || opt.summon === 0) ? 
                                                     <p key={i}>{opt.name}: <b>{opt.value}</b></p>
-                                                : (opt.type === 0 || opt.type === 2) && opt.summon && opt.summon !== 0 && shouldShow(item.options, opt.summonID, opt.name) ?
+                                                : (opt.type === 0 || opt.type === 2) && opt.summon && opt.summon !== 0 && shouldShow(item.options, opt.summon, opt.name) ?
                                                     <p key={i}>{opt.name}: <b>{opt.value}</b></p>
                                                 : opt.type === 1 && (!opt.summon || opt.summon === 0) ?
                                                     <p key={i}>{opt.name}: <b>{opt.firstName}- {opt.firstValue}, {opt.secondName}- {opt.secondValue}</b></p>
-                                                : opt.type === 1 && opt.summon && opt.summon !== 0 && shouldShow(item.options, opt.summonID, opt.name) ?
+                                                : opt.type === 1 && opt.summon && opt.summon !== 0 && shouldShow(item.options, opt.summon, opt.name) ?
                                                     <p key={i}>{opt.name}: <b>{opt.firstName}- {opt.firstValue}, {opt.secondName}- {opt.secondValue}</b></p>
                                                 : opt.type === 3 && (!opt.summon || opt.summon === 0) ?
                                                     <p key={i}>{opt.name}: <b>{opt.firstValue}</b></p>
-                                                : opt.type === 3 && opt.summon && opt.summon !== 0 && shouldShow(item.options, opt.summonID, opt.name) &&
+                                                : opt.type === 3 && opt.summon && opt.summon !== 0 && shouldShow(item.options, opt.summon, opt.name) &&
                                                     <p key={i}>{opt.name}: <b>{opt.firstValue}</b></p>
                                                 }
                                             </>

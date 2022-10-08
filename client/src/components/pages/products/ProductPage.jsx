@@ -679,6 +679,8 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
     }, [products, link]);
 
     useEffect(() => {
+        // console.log(optionsValues)
+
         if (product.kainosModelis !== 1)
         {
             var unitPrice = 0;
