@@ -19,7 +19,7 @@ import Addresses from './components/pages/addresses/Addresses.jsx';
 import Trklubas from './components/pages/trklubas/Trklubas.jsx';
 import Chat from './components/pages/customerchat/Chat';
 import Wrapper from './components/pages/utils/Wrapper.jsx';
-import ComingSoon from './components/ComingSoon'
+// import ComingSoon from './components/ComingSoon'
 // import { io } from "socket.io-client";
 import {SocketContext, socket} from './socket.js';
 
@@ -438,7 +438,7 @@ const App = () => {
           setUsername={setUsername}
           setMoneySpent={setMoneySpent}
         />
-        <ComingSoon/>
+        {/* <ComingSoon/> */}
         <Navigation 
           setModalOpen={setModalOpen} 
           loggedIn={loggedIn} 

@@ -214,12 +214,12 @@ const sendPaymentConfirmedEmail = (email, invoice) => {
 };
 
 var payseraOptions = {
-  projectid: '227564',
-  sign_password: '5bcd64be156de0ead98f17c3e8738885',
+  projectid: process.env.PAYSERA_PROJECT_ID,
+  sign_password: process.env.PAYSERA_PROJECT_PSW,
   accepturl: 'https://www.treklama.lt/order',
   cancelurl: 'https://www.treklama.lt/apmokejimoklaida',
   callbackurl: 'https://www.treklama.lt/users/handlePayment',
-  test: 1,
+  test: 0,
 };
 const paysera = new Paysera(payseraOptions);
 
