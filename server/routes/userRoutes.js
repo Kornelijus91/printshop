@@ -219,16 +219,9 @@ var payseraOptions = {
   accepturl: 'https://www.treklama.lt/order',
   cancelurl: 'https://www.treklama.lt/apmokejimoklaida',
   callbackurl: 'https://www.treklama.lt/users/handlePayment',
-  test: 1,
+  test: 0,
 };
 const paysera = new Paysera(payseraOptions);
-
-// console.log("/// ====================  ///")
-// console.log('PAYSERA PROJECT ID - ', process.env.PAYSERA_PROJECT_ID, 'TYPE - ', typeof process.env.PAYSERA_PROJECT_ID) 
-// console.log('PAYSERA PROJECT PSW - ', process.env.PAYSERA_PROJECT_PSW, 'TYPE - ', typeof process.env.PAYSERA_PROJECT_PSW) 
-// console.log("/// ====================  ///")
-
-console.log(payseraOptions)
 
 router.get("/handlePayment", async (req, res, next) => {
   const request = {
