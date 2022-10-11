@@ -221,6 +221,10 @@ var payseraOptions = {
   callbackurl: 'https://www.treklama.lt/users/handlePayment',
   test: 0,
 };
+
+console.log('PAYSERA PROJECT ID - ', process.env.PAYSERA_PROJECT_ID)
+console.log('PAYSERA PROJECT PSW - ', process.env.PAYSERA_PROJECT_PSW)
+
 const paysera = new Paysera(payseraOptions);
 
 router.get("/handlePayment", async (req, res, next) => {
