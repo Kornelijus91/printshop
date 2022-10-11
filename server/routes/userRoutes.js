@@ -219,12 +219,12 @@ var payseraOptions = {
   accepturl: 'https://www.treklama.lt/order',
   cancelurl: 'https://www.treklama.lt/apmokejimoklaida',
   callbackurl: 'https://www.treklama.lt/users/handlePayment',
-  test: 0,
+  test: 1,
 };
 
-console.log('// ========================== //')
-console.log(payseraOptions)
-console.log('// ========================== //')
+// console.log('// ========================== //')
+// console.log(payseraOptions)
+// console.log('// ========================== //')
 
 const paysera = new Paysera(payseraOptions);
 
