@@ -836,7 +836,7 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                                 </Box>
                                 <Box display='flex' justifyContent='flex start' classes={{root: classes.descTextBox}}>
                                     {/* <p className={classes.descText}>{product.description}</p> */}
-                                    <p className={classes.descText}><b>{`${productDesc.fistSentence}. `}</b>{productDesc.restOfText}</p>
+                                    <p className={classes.descText}><b>{`${productDesc.fistSentence}. `}</b>{`${productDesc.restOfText}. `}</p>
                                 </Box>
                             </Grid>
                             <Hidden smDown>
