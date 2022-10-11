@@ -214,8 +214,8 @@ const sendPaymentConfirmedEmail = (email, invoice) => {
 };
 
 var payseraOptions = {
-  projectid: process.env.PAYSERA_PROJECT_ID,
-  sign_password: process.env.PAYSERA_PROJECT_PSW,
+  projectid: process.env.PAYSERA_PROJECT_ID.trim(),
+  sign_password: process.env.PAYSERA_PROJECT_PSW.trim(),
   accepturl: 'https://www.treklama.lt/order',
   cancelurl: 'https://www.treklama.lt/apmokejimoklaida',
   callbackurl: 'https://www.treklama.lt/users/handlePayment',
