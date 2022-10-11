@@ -278,6 +278,10 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
     const theme = useTheme();
 
     const [product, setProduct] = useState({});
+    const [productDesc, setProductDesc] = useState({
+        fistSentence: '',
+        restOfText: ''
+    });
     const [optionsValues, setOptionsValues] = useState([]);
     const [select, setSelect] = useState([]);
     const [pastaba, setPastaba] = useState('');
@@ -547,12 +551,20 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
 
     useEffect(() => {
         resetEverything();
+
         if (products.length !== 0) {
             const result = products.find(obj => {
                 return obj.link.toLowerCase() === encodeURIComponent(link).toLowerCase()
             });
             if (result) {
                 setProduct(result);
+                let firstSentence = result.description.split('. ', 2)
+
+                setProductDesc({
+                    fistSentence: firstSentence[0],
+                    restOfText: firstSentence[1]
+                })
+
                 var copy18 = []; 
                 if (!cartItemID) {
                     for (const item of result.options) {
@@ -679,7 +691,6 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
     }, [products, link]);
 
     useEffect(() => {
-        // console.log(optionsValues)
 
         if (product.kainosModelis !== 1)
         {
@@ -699,11 +710,17 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                 }
             }
             for (const y of optionsValues) {
-                if (y.type === 1) {
+                if (y.type === 1 && y.summon === 0) {
                     addonPrice = roundTwoDec(addonPrice + y.firstPrice + y.secondPrice);
-                } else if (y.type === 3) {
+                } else if (y.type === 1 && y.summon !== 0 && collapseOpen(y.summon)) {
+                    addonPrice = roundTwoDec(addonPrice + y.firstPrice + y.secondPrice);
+                } else if (y.type === 3 && y.summon === 0) {
                     addonPrice = roundTwoDec(addonPrice + y.firstPrice);
-                } else {
+                } else if (y.type === 3 && y.summon !== 0 && collapseOpen(y.summon)) {
+                    addonPrice = roundTwoDec(addonPrice + y.firstPrice);
+                } else if ((y.type === 0 || y.type === 2) && y.summon === 0) {
+                    addonPrice = roundTwoDec(addonPrice + y.price);
+                } else if ((y.type === 0 || y.type === 2) && y.summon !== 0  && collapseOpen(y.summon)) {
                     addonPrice = roundTwoDec(addonPrice + y.price);
                 }
             }
@@ -721,12 +738,28 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                 }
             }
 
+            // for (const y of optionsValues) {
+            //     if (y.type === 1) {
+            //         addonPrice2 = roundTwoDec(addonPrice2 + y.firstPrice + y.secondPrice);
+            //     } else if (y.type === 3) {
+            //         addonPrice2 = roundTwoDec(addonPrice2 + y.firstPrice);
+            //     } else {
+            //         addonPrice2 = roundTwoDec(addonPrice2 + y.price);
+            //     }
+            // }
+
             for (const y of optionsValues) {
-                if (y.type === 1) {
+                if (y.type === 1 && y.summon === 0) {
                     addonPrice2 = roundTwoDec(addonPrice2 + y.firstPrice + y.secondPrice);
-                } else if (y.type === 3) {
+                } else if (y.type === 1 && y.summon !== 0 && collapseOpen(y.summon)) {
+                    addonPrice2 = roundTwoDec(addonPrice2 + y.firstPrice + y.secondPrice);
+                } else if (y.type === 3 && y.summon === 0) {
                     addonPrice2 = roundTwoDec(addonPrice2 + y.firstPrice);
-                } else {
+                } else if (y.type === 3 && y.summon !== 0 && collapseOpen(y.summon)) {
+                    addonPrice2 = roundTwoDec(addonPrice2 + y.firstPrice);
+                } else if ((y.type === 0 || y.type === 2) && y.summon === 0) {
+                    addonPrice2 = roundTwoDec(addonPrice2 + y.price);
+                } else if ((y.type === 0 || y.type === 2) && y.summon !== 0  && collapseOpen(y.summon)) {
                     addonPrice2 = roundTwoDec(addonPrice2 + y.price);
                 }
             }
@@ -802,7 +835,8 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                                     <h1 className={classes.header}>{product.name}</h1> 
                                 </Box>
                                 <Box display='flex' justifyContent='flex start' classes={{root: classes.descTextBox}}>
-                                    <p className={classes.descText}>{product.description}</p>
+                                    {/* <p className={classes.descText}>{product.description}</p> */}
+                                    <p className={classes.descText}><b>{`${productDesc.fistSentence}. `}</b>{productDesc.restOfText}</p>
                                 </Box>
                             </Grid>
                             <Hidden smDown>

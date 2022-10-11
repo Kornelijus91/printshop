@@ -166,7 +166,6 @@ const sendThanksEmail = (email, invoice) => {
         // secureProtocol: "TLSv1_method"
       },
     });
-    // console.log('SENDING FILE NAME -> ', invoice.substring(invoice.lastIndexOf('/') + 1));
     const message = {
       from: process.env.EMAIL_FROM,
       to: `${email}`,
