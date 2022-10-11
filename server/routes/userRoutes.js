@@ -224,8 +224,8 @@ var payseraOptions = {
 const paysera = new Paysera(payseraOptions);
 
 console.log("/// ====================  ///")
-console.log('PAYSERA PROJECT ID - ', process.envPAYSERA_PROJECT_ID, 'TYPE - ', typeof process.envPAYSERA_PROJECT_ID) 
-console.log('PAYSERA PROJECT PSW - ', process.PAYSERA_PROJECT_PSW, 'TYPE - ', typeof process.PAYSERA_PROJECT_PSW) 
+console.log('PAYSERA PROJECT ID - ', process.env.PAYSERA_PROJECT_ID, 'TYPE - ', typeof process.env.PAYSERA_PROJECT_ID) 
+console.log('PAYSERA PROJECT PSW - ', process.env.PAYSERA_PROJECT_PSW, 'TYPE - ', typeof process.env.PAYSERA_PROJECT_PSW) 
 console.log("/// ====================  ///")
 
 router.get("/handlePayment", async (req, res, next) => {
