@@ -1513,6 +1513,7 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
         user.refreshToken.push({ refreshToken })
         user.save((err, user) => {
           if (err) {
+            console.log(err)
             res.statusCode = 500
             res.send(err)
           } else {
@@ -1521,7 +1522,10 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
           }
         })
       },
-      err => next(err)
+      err => {
+        console.log(err)
+        next(err)
+      }
     )
   // res.redirect('/');
 });
@@ -1536,6 +1540,7 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook', { failur
         user.refreshToken.push({ refreshToken })
         user.save((err, user) => {
           if (err) {
+            console.log(err)
             res.statusCode = 500
             res.send(err)
           } else {
@@ -1544,14 +1549,17 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook', { failur
           }
         })
       },
-      err => next(err)
+      err => {
+        console.log(err)
+        next(err)
+      }
     )
   // res.redirect('/');
   }
 );
 
 router.get('/auth/linkedin', passport.authenticate('linkedin', { state: true }));
-router.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureFlash: 'PRAVALLL!!!!' }), 
+router.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureFlash: 'Prisijungti nepavyko, pabandykite vėliau' }), 
   function(req, res) {
     const token = getToken({ _id: req.user._id })
     const refreshToken = getRefreshToken({ _id: req.user._id })
@@ -1560,6 +1568,7 @@ router.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failur
         user.refreshToken.push({ refreshToken })
         user.save((err, user) => {
           if (err) {
+            console.log(err)
             res.statusCode = 500
             res.send(err)
           } else {

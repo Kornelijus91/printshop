@@ -55,7 +55,7 @@ const FacebookAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSo
                     setLoggedIn(true);
                 }
             } catch(e) {
-                //console.log(e);
+                console.log(e);
             }
             if (win.closed) {
                 clearInterval(pollTimer);
