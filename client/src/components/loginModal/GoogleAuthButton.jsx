@@ -56,24 +56,19 @@ const GoogleAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSoci
         // });
         // console.log(win)
         var pollTimer = window.setInterval(async function() {
-            // try {
-            //     if (win.document.URL.indexOf('/') !== -1) {
-            //         clearInterval(pollTimer);
-            //         win.close();
-            //         setOAuthWindow(!oAuthWindow);
-            //         setModalOpen(false);
-            //         setLoggedIn(true);
-            //     }
-            // } catch(e) {
-            //     console.log(e);
-            // }
+            try {
+                if (win.document.URL.indexOf('/') !== -1) {
+                    clearInterval(pollTimer);
+                    win.close();
+                    setOAuthWindow(!oAuthWindow);
+                    setModalOpen(false);
+                    setLoggedIn(true);
+                }
+            } catch(e) {
+                console.log(e);
+            }
             if (win.closed) {
                 clearInterval(pollTimer);
-
-                setOAuthWindow(!oAuthWindow);
-                setModalOpen(false);
-                setLoggedIn(true);
-
                 setSocialSubmitting({
                     someone: false,
                     google: false,
