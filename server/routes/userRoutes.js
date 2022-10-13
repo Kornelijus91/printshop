@@ -25,6 +25,7 @@ const generatePVMInvoice = require("../utils/generatePVMInvoice");
 const ResetPswEmail = require("../utils/ResetPswEmail");
 const ThanksEmail = require("../utils/ThanksEmail");
 const PaymentConfirmedEmail = require("../utils/PaymentConfirmedEmail");
+const popup = require('../utils/popupwindow');
 
 const { getToken, COOKIE_OPTIONS, getRefreshToken, verifyUser } = require("../authenticate")
 
@@ -1518,7 +1519,9 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
             res.send(err)
           } else {
             res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
-            res.send("Logged In!")
+            // res.send("Logged In!")
+            res.set('Content-Type', 'text/html');
+            res.send(Buffer.from(popup));
           }
         })
       },
@@ -1545,7 +1548,9 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook', { failur
             res.send(err)
           } else {
             res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
-            res.send("Logged In!")
+            // res.send("Logged In!")
+            res.set('Content-Type', 'text/html');
+            res.send(Buffer.from(popup));
           }
         })
       },
@@ -1573,7 +1578,9 @@ router.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failur
             res.send(err)
           } else {
             res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
-            res.send("Logged In!")
+            // res.send("Logged In!")
+            res.set('Content-Type', 'text/html');
+            res.send(Buffer.from(popup));
           }
         })
       },

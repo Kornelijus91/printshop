@@ -46,23 +46,34 @@ const GoogleAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSoci
         const left = (window.innerWidth - 600) / 2
         const top = (window.innerHeight - 800) / 2
         const win = window.open("/users/auth/google", "Login with Google.", `top=${top}, left=${left}, width=600, height=800, fullscreen=no, menubar=no, status=no, titlebar=no, toolbar=no`); 
-        win.addEventListener('locationchange', function () {
-            console.log('location changed!', this);
-        });
+        // window.addEventListener('message', event => {
+        //     console.log(event);
+        //     if (event.origin === 'http://localhost:3000') {
+        //         console.log(event.data);
+        //     } else {
+        //         return;
+        //     }
+        // });
+        // console.log(win)
         var pollTimer = window.setInterval(async function() {
-            try {
-                if (win.document.URL.indexOf('/') !== -1) {
-                    clearInterval(pollTimer);
-                    win.close();
-                    setOAuthWindow(!oAuthWindow);
-                    setModalOpen(false);
-                    setLoggedIn(true);
-                }
-            } catch(e) {
-                console.log(e);
-            }
+            // try {
+            //     if (win.document.URL.indexOf('/') !== -1) {
+            //         clearInterval(pollTimer);
+            //         win.close();
+            //         setOAuthWindow(!oAuthWindow);
+            //         setModalOpen(false);
+            //         setLoggedIn(true);
+            //     }
+            // } catch(e) {
+            //     console.log(e);
+            // }
             if (win.closed) {
                 clearInterval(pollTimer);
+
+                setOAuthWindow(!oAuthWindow);
+                setModalOpen(false);
+                setLoggedIn(true);
+
                 setSocialSubmitting({
                     someone: false,
                     google: false,

@@ -46,19 +46,33 @@ const FacebookAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSo
         const top = window.screen.height/2-400;
         const win = window.open("/users/auth/facebook", "Login with Facebook.", `top=${top}, left=${left}, width=600, height=800, fullscreen=no, menubar=no, status=no, titlebar=no, toolbar=no`); 
         var pollTimer = window.setInterval(async function() {
-            try {
-                if (win.document.URL.indexOf('/') !== -1) {
-                    window.clearInterval(pollTimer);
-                    win.close();
-                    setOAuthWindow(!oAuthWindow);
-                    setModalOpen(false);
-                    setLoggedIn(true);
-                }
-            } catch(e) {
-                console.log(e);
-            }
+            // try {
+            //     if (win.document.URL.indexOf('/') !== -1) {
+            //         window.clearInterval(pollTimer);
+            //         win.close();
+            //         setOAuthWindow(!oAuthWindow);
+            //         setModalOpen(false);
+            //         setLoggedIn(true);
+            //     }
+            // } catch(e) {
+            //     console.log(e);
+            // }
+            // if (win.closed) {
+            //     clearInterval(pollTimer);
+            //     setSocialSubmitting({
+            //         someone: false,
+            //         google: false,
+            //         facebook: false,
+            //         linkedIn: false
+            //     });
+            // }
             if (win.closed) {
                 clearInterval(pollTimer);
+
+                setOAuthWindow(!oAuthWindow);
+                setModalOpen(false);
+                setLoggedIn(true);
+
                 setSocialSubmitting({
                     someone: false,
                     google: false,
