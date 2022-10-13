@@ -46,6 +46,9 @@ const GoogleAuthButton = ({ setModalOpen, setLoggedIn, socialSubmitting, setSoci
         const left = (window.innerWidth - 600) / 2
         const top = (window.innerHeight - 800) / 2
         const win = window.open("/users/auth/google", "Login with Google.", `top=${top}, left=${left}, width=600, height=800, fullscreen=no, menubar=no, status=no, titlebar=no, toolbar=no`); 
+        win.addEventListener('locationchange', function () {
+            console.log('location changed!', this);
+        });
         var pollTimer = window.setInterval(async function() {
             try {
                 if (win.document.URL.indexOf('/') !== -1) {
