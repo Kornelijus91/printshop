@@ -293,12 +293,87 @@ app.get('/', (req, res, next) => {
             '<script type="application/ld+json">__JSON_META_TAGS__</script>',
             `<script type="application/ld+json">
             {         
-                "@context": "https://schema.org/",         
-                "@type": "WebSite",         
-                "@id": "#WebSite",         
-                "url": "${process.env.MAIN_URL}",          
-                "name": "${process.env.PROJECTTITLE}"
+                "@context" : "http://schema.org",
+                "@type" : "WebSite",
+                "name" : "${process.env.PROJECTTITLE}",
+                "url" : "${process.env.MAIN_URL}",
             } 
+            </script>`
+        )
+        .replace(
+            '<script type="application/ld+json">__JSON_SITE_NAV__</script>',
+            `<script type="application/ld+json">
+            {
+                "@context":"http://schema.org",
+                "@type":"ItemList",
+                "itemListElement":[
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 1,
+                        "name": "Tavo Reklama",
+                        "description": "Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!",
+                        "url":"https://www.treklama.lt"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 2,
+                        "name": "Produktai - Tavo Reklama",
+                        "description": "Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!",
+                        "url":"https://www.treklama.lt/products"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 3,
+                        "name": "Tavo reklama klubas",
+                        "description": "Užsiregistravę tavo reklama klientai automatiškai tampa klubo nariais. Tavo reklama klubas yra unikali lojalumo programa kuri turi net 5 kis skirtingus lygius. Visus kalendorinius metus, klubo nario bendra užsakymų vertė sumuosis. Pasiekus tam tikrą lygį, klubo nariui bus taikoma individuali nurodyta nuolaida visiems tų metų užsakymams.",
+                        "url":"https://www.treklama.lt/klubas"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 4,
+                        "name": "Susisiekite - Tavo Reklama",
+                        "description": "Tavo reklama tai tavo asmeninė spaustuvė elektroninėje erdvėje. Mūsų komanda pakonsultuos ir atsakys Jums į visus rūpimus klausimus. Prašome susisiekite nurodytais kontaktais arba užpildykite užklausos formą.",
+                        "url":"https://www.treklama.lt/kontaktai"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 5,
+                        "name": "Pirkimo taisyklės - Tavo Reklama",
+                        "description": "Pirkimo taisyklės.",
+                        "url":"https://www.treklama.lt/pirkimotaisykles"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 6,
+                        "name": "Grąžinimas - Tavo Reklama",
+                        "description": "Grąžinimas.",
+                        "url":"https://www.treklama.lt/grazinimas"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 7,
+                        "name": "Pristatymas - Tavo Reklama",
+                        "description": "Pristatymas.",
+                        "url":"https://www.treklama.lt/pristatymas"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 8,
+                        "name": "Privatumo politika - Tavo Reklama",
+                        "description": "Privatumo politika.",
+                        "url":"https://www.treklama.lt/privatumopolitika"
+                    },
+                    ${prodinfo.map((item, index) => `
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": ${index + 9},
+                        "name": "${item.name} - Tavo Reklama",
+                        "description": "${item.description}",
+                        "url": "https://www.treklama.lt/products/${item.link}"
+                    }
+                    `)}
+                ]
+            }
             </script>`
         )
         res.send(data);
@@ -329,12 +404,87 @@ app.get('/products', (req, res, next) => {
             '<script type="application/ld+json">__JSON_META_TAGS__</script>',
             `<script type="application/ld+json">
             {         
-                "@context": "https://schema.org/",         
-                "@type": "WebSite",         
-                "@id": "#WebSite",         
-                "url": "${process.env.MAIN_URL}",          
-                "name": "${process.env.PROJECTTITLE}"
+                "@context" : "http://schema.org",
+                "@type" : "WebSite",
+                "name" : "${process.env.PROJECTTITLE}",
+                "url" : "${process.env.MAIN_URL}",
             } 
+            </script>`
+        )
+        .replace(
+            '<script type="application/ld+json">__JSON_SITE_NAV__</script>',
+            `<script type="application/ld+json">
+            {
+                "@context":"http://schema.org",
+                "@type":"ItemList",
+                "itemListElement":[
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 1,
+                        "name": "Tavo Reklama",
+                        "description": "Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!",
+                        "url":"https://www.treklama.lt"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 2,
+                        "name": "Produktai - Tavo Reklama",
+                        "description": "Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!",
+                        "url":"https://www.treklama.lt/products"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 3,
+                        "name": "Tavo reklama klubas",
+                        "description": "Užsiregistravę tavo reklama klientai automatiškai tampa klubo nariais. Tavo reklama klubas yra unikali lojalumo programa kuri turi net 5 kis skirtingus lygius. Visus kalendorinius metus, klubo nario bendra užsakymų vertė sumuosis. Pasiekus tam tikrą lygį, klubo nariui bus taikoma individuali nurodyta nuolaida visiems tų metų užsakymams.",
+                        "url":"https://www.treklama.lt/klubas"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 4,
+                        "name": "Susisiekite - Tavo Reklama",
+                        "description": "Tavo reklama tai tavo asmeninė spaustuvė elektroninėje erdvėje. Mūsų komanda pakonsultuos ir atsakys Jums į visus rūpimus klausimus. Prašome susisiekite nurodytais kontaktais arba užpildykite užklausos formą.",
+                        "url":"https://www.treklama.lt/kontaktai"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 5,
+                        "name": "Pirkimo taisyklės - Tavo Reklama",
+                        "description": "Pirkimo taisyklės.",
+                        "url":"https://www.treklama.lt/pirkimotaisykles"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 6,
+                        "name": "Grąžinimas - Tavo Reklama",
+                        "description": "Grąžinimas.",
+                        "url":"https://www.treklama.lt/grazinimas"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 7,
+                        "name": "Pristatymas - Tavo Reklama",
+                        "description": "Pristatymas.",
+                        "url":"https://www.treklama.lt/pristatymas"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 8,
+                        "name": "Privatumo politika - Tavo Reklama",
+                        "description": "Privatumo politika.",
+                        "url":"https://www.treklama.lt/privatumopolitika"
+                    },
+                    ${prodinfo.map((item, index) => `
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": ${index + 9},
+                        "name": "${item.name} - Tavo Reklama",
+                        "description": "${item.description}",
+                        "url": "https://www.treklama.lt/products/${item.link}"
+                    }
+                    `)}
+                ]
+            }
             </script>`
         )
         res.send(data);
@@ -392,6 +542,82 @@ app.get('/products/:productName', (req, res, next) => {
                           }
                         ]
                       }
+                }
+                </script>`
+            )
+            .replace(
+                '<script type="application/ld+json">__JSON_SITE_NAV__</script>',
+                `<script type="application/ld+json">
+                {
+                    "@context":"http://schema.org",
+                    "@type":"ItemList",
+                    "itemListElement":[
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 1,
+                            "name": "Tavo Reklama",
+                            "description": "Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!",
+                            "url":"https://www.treklama.lt"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 2,
+                            "name": "Produktai - Tavo Reklama",
+                            "description": "Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!",
+                            "url":"https://www.treklama.lt/products"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 3,
+                            "name": "Tavo reklama klubas",
+                            "description": "Užsiregistravę tavo reklama klientai automatiškai tampa klubo nariais. Tavo reklama klubas yra unikali lojalumo programa kuri turi net 5 kis skirtingus lygius. Visus kalendorinius metus, klubo nario bendra užsakymų vertė sumuosis. Pasiekus tam tikrą lygį, klubo nariui bus taikoma individuali nurodyta nuolaida visiems tų metų užsakymams.",
+                            "url":"https://www.treklama.lt/klubas"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 4,
+                            "name": "Susisiekite - Tavo Reklama",
+                            "description": "Tavo reklama tai tavo asmeninė spaustuvė elektroninėje erdvėje. Mūsų komanda pakonsultuos ir atsakys Jums į visus rūpimus klausimus. Prašome susisiekite nurodytais kontaktais arba užpildykite užklausos formą.",
+                            "url":"https://www.treklama.lt/kontaktai"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 5,
+                            "name": "Pirkimo taisyklės - Tavo Reklama",
+                            "description": "Pirkimo taisyklės.",
+                            "url":"https://www.treklama.lt/pirkimotaisykles"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 6,
+                            "name": "Grąžinimas - Tavo Reklama",
+                            "description": "Grąžinimas.",
+                            "url":"https://www.treklama.lt/grazinimas"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 7,
+                            "name": "Pristatymas - Tavo Reklama",
+                            "description": "Pristatymas.",
+                            "url":"https://www.treklama.lt/pristatymas"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 8,
+                            "name": "Privatumo politika - Tavo Reklama",
+                            "description": "Privatumo politika.",
+                            "url":"https://www.treklama.lt/privatumopolitika"
+                        },
+                        ${prodinfo.map((item, index) => `
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": ${index + 9},
+                            "name": "${item.name} - Tavo Reklama",
+                            "description": "${item.description}",
+                            "url": "https://www.treklama.lt/products/${item.link}"
+                        }
+                        `)}
+                    ]
                 }
                 </script>`
             )
@@ -453,6 +679,82 @@ app.get('/products/:productName/*', (req, res, next) => {
                           }
                         ]
                       }
+                }
+                </script>`
+            )
+            .replace(
+                '<script type="application/ld+json">__JSON_SITE_NAV__</script>',
+                `<script type="application/ld+json">
+                {
+                    "@context":"http://schema.org",
+                    "@type":"ItemList",
+                    "itemListElement":[
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 1,
+                            "name": "Tavo Reklama",
+                            "description": "Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!",
+                            "url":"https://www.treklama.lt"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 2,
+                            "name": "Produktai - Tavo Reklama",
+                            "description": "Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!",
+                            "url":"https://www.treklama.lt/products"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 3,
+                            "name": "Tavo reklama klubas",
+                            "description": "Užsiregistravę tavo reklama klientai automatiškai tampa klubo nariais. Tavo reklama klubas yra unikali lojalumo programa kuri turi net 5 kis skirtingus lygius. Visus kalendorinius metus, klubo nario bendra užsakymų vertė sumuosis. Pasiekus tam tikrą lygį, klubo nariui bus taikoma individuali nurodyta nuolaida visiems tų metų užsakymams.",
+                            "url":"https://www.treklama.lt/klubas"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 4,
+                            "name": "Susisiekite - Tavo Reklama",
+                            "description": "Tavo reklama tai tavo asmeninė spaustuvė elektroninėje erdvėje. Mūsų komanda pakonsultuos ir atsakys Jums į visus rūpimus klausimus. Prašome susisiekite nurodytais kontaktais arba užpildykite užklausos formą.",
+                            "url":"https://www.treklama.lt/kontaktai"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 5,
+                            "name": "Pirkimo taisyklės - Tavo Reklama",
+                            "description": "Pirkimo taisyklės.",
+                            "url":"https://www.treklama.lt/pirkimotaisykles"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 6,
+                            "name": "Grąžinimas - Tavo Reklama",
+                            "description": "Grąžinimas.",
+                            "url":"https://www.treklama.lt/grazinimas"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 7,
+                            "name": "Pristatymas - Tavo Reklama",
+                            "description": "Pristatymas.",
+                            "url":"https://www.treklama.lt/pristatymas"
+                        },
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": 8,
+                            "name": "Privatumo politika - Tavo Reklama",
+                            "description": "Privatumo politika.",
+                            "url":"https://www.treklama.lt/privatumopolitika"
+                        },
+                        ${prodinfo.map((item, index) => `
+                        {
+                            "@type": "SiteNavigationElement",
+                            "position": ${index + 9},
+                            "name": "${item.name} - Tavo Reklama",
+                            "description": "${item.description}",
+                            "url": "https://www.treklama.lt/products/${item.link}"
+                        }
+                        `)}
+                    ]
                 }
                 </script>`
             )
