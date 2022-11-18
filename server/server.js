@@ -388,7 +388,7 @@ app.get('/products/:productName', (req, res, next) => {
                         "shippingDestination": [
                           {
                             "@type": "DefinedRegion",
-                            "addressCountry": "LT",
+                            "addressCountry": "LT"
                           }
                         ]
                       }
@@ -430,7 +430,7 @@ app.get('/products/:productName/*', (req, res, next) => {
                     "@context": "https://schema.org/",
                     "@type": "Product",
                     "name": "${prodinfo[pos].name}",
-                    "image": [${prodinfo[pos].galerija}],
+                    "image": [${prodinfo[pos].galerija.map((item) => '"' + item + '"')}],
                     "description": "${prodinfo[pos].description}",
                     "offers": {
                         "@type": "Offer",
@@ -449,7 +449,7 @@ app.get('/products/:productName/*', (req, res, next) => {
                         "shippingDestination": [
                           {
                             "@type": "DefinedRegion",
-                            "addressCountry": "LT",
+                            "addressCountry": "LT"
                           }
                         ]
                       }
