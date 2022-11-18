@@ -296,7 +296,7 @@ app.get('/', (req, res, next) => {
                 "@context" : "http://schema.org",
                 "@type" : "WebSite",
                 "name" : "${process.env.PROJECTTITLE}",
-                "url" : "${process.env.MAIN_URL}",
+                "url" : "${process.env.MAIN_URL}"
             } 
             </script>`
         )
@@ -407,7 +407,7 @@ app.get('/products', (req, res, next) => {
                 "@context" : "http://schema.org",
                 "@type" : "WebSite",
                 "name" : "${process.env.PROJECTTITLE}",
-                "url" : "${process.env.MAIN_URL}",
+                "url" : "${process.env.MAIN_URL}"
             } 
             </script>`
         )
