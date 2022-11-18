@@ -228,6 +228,13 @@ const getLowestPrice = (produktas) => {
     }
 };
 
+// const handleGalerijaArray = (galleryArray) => {
+//     let finalArray = []
+//     for (const item of galleryArray) {
+//         finalArray.push("")
+//     }
+// }
+
 const setProductCache = () => {
     Product.find({}, function (err, product) {
         if (!err && product.length > 0) {
@@ -362,7 +369,7 @@ app.get('/products/:productName', (req, res, next) => {
                     "@context": "https://schema.org/",
                     "@type": "Product",
                     "name": "${prodinfo[pos].name}",
-                    "image": [${prodinfo[pos].galerija}],
+                    "image": [${prodinfo[pos].galerija.map((item) => '"' + item + '", ')}],
                     "description": "${prodinfo[pos].description}",
                     "offers": {
                         "@type": "Offer",
