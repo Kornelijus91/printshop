@@ -213,41 +213,50 @@ cron.schedule('0 0 4 * * *', async () => {
 var keywords = '';
 var prodinfo = [];
 
-Product.find({}, 'name description image', function (err, product) {
-    if (!err && product.length > 0) {
-
-        var tempkeywords = [process.env.PROJECTTITLE];
-        var tempprodArray = [];
-        for (const item of product) {
-            tempkeywords.push(item.name);
-            tempprodArray.push({
-                name: item.name,
-                description: item.description,
-                image: item.image,
-            });
-        }
-        keywords = tempkeywords.join(", ");
-        prodinfo = tempprodArray;
+const getLowestPrice = (produktas) => {
+    const sortedAmountDiscount = produktas.amountDiscount.sort((a, b) => a.amount - b.amount);
+    if (produktas.kainosModelis !== 1){ 
+        const discount = sortedAmountDiscount[0].discount
+        const price = Number((Math.abs(sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount * (1 - (discount / 100))) * 100).toPrecision(15));
+        const roundedPrice = Math.round(price) / 100 * Math.sign(sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount * (1 - (discount / 100)));
+        return [roundedPrice.toFixed(2), (sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount).toFixed(2), discount];
+    } else {
+        const discount2 = produktas.baseDiscount
+        const price2 = Number((Math.abs(produktas.basePrice * sortedAmountDiscount[0].amount * (1 - (discount2 / 100))) * 100).toPrecision(15));
+        const roundedPrice2 = Math.round(price2) / 100 * Math.sign(produktas.basePrice * sortedAmountDiscount[0].amount * (1 - (discount2 / 100)));
+        return [roundedPrice2.toFixed(2), (produktas.basePrice * sortedAmountDiscount[0].amount).toFixed(2), discount2];
     }
-});
-    
-cron.schedule('0 0 */2 * * *', async () => {
-    Product.find({}, 'name description image', function (err, product) {
+};
+
+const setProductCache = () => {
+    Product.find({}, function (err, product) {
         if (!err && product.length > 0) {
-            var tempkeywords2 = [process.env.PROJECTTITLE];
-            var tempprodArray2 = [];
+            
+            var tempkeywords = [process.env.PROJECTTITLE];
+            var tempprodArray = [];
             for (const item of product) {
-                tempkeywords2.push(item.name);
-                tempprodArray2.push({
+                const prices = getLowestPrice(item)
+                tempkeywords.push(item.name);
+                tempprodArray.push({
                     name: item.name,
                     description: item.description,
                     image: item.image,
+                    galerija: item.galerija,
+                    price: prices[1],
+                    discountedPrice: prices[0],
+                    link: item.link,
                 });
             }
-            keywords = tempkeywords2.join(", ");
-            prodinfo = tempprodArray2;
+            keywords = tempkeywords.join(", ");
+            prodinfo = tempprodArray;
         }
     });
+};
+
+setProductCache();
+    
+cron.schedule('0 0 */2 * * *', async () => {
+    setProductCache();
 }, {
     scheduled: true,
     timezone: "Europe/Vilnius"
@@ -353,10 +362,29 @@ app.get('/products/:productName', (req, res, next) => {
                     "@context": "https://schema.org/",
                     "@type": "Product",
                     "name": "${prodinfo[pos].name}",
-                    "image": [
-                    "${prodinfo[pos].image}" 
-                    ],
+                    "image": ${prodinfo[pos].galerija},
                     "description": "${prodinfo[pos].description}",
+                    "offers": {
+                        "@type": "Offer",
+                        "url": "https://www.treklama.lt/products/${prodinfo[pos].link}",
+                        "priceCurrency": "EUR",
+                        "price": "${prodinfo[pos].discountedPrice}",
+                        "availability": "https://schema.org/InStock"
+                    },
+                    "shippingDetails": {
+                        "@type": "OfferShippingDetails",
+                        "shippingRate": {
+                          "@type": "MonetaryAmount",
+                          "value": "0",
+                          "currency": "EUR"
+                        },
+                        "shippingDestination": [
+                          {
+                            "@type": "DefinedRegion",
+                            "addressCountry": "LT",
+                          }
+                        ]
+                      }
                 }
                 </script>`
             )
@@ -395,10 +423,29 @@ app.get('/products/:productName/*', (req, res, next) => {
                     "@context": "https://schema.org/",
                     "@type": "Product",
                     "name": "${prodinfo[pos].name}",
-                    "image": [
-                    "${prodinfo[pos].image}" 
-                    ],
+                    "image": ${prodinfo[pos].galerija},
                     "description": "${prodinfo[pos].description}",
+                    "offers": {
+                        "@type": "Offer",
+                        "url": "https://www.treklama.lt/products/${prodinfo[pos].link}",
+                        "priceCurrency": "EUR",
+                        "price": "${prodinfo[pos].discountedPrice}",
+                        "availability": "https://schema.org/InStock"
+                    },
+                    "shippingDetails": {
+                        "@type": "OfferShippingDetails",
+                        "shippingRate": {
+                          "@type": "MonetaryAmount",
+                          "value": "0",
+                          "currency": "EUR"
+                        },
+                        "shippingDestination": [
+                          {
+                            "@type": "DefinedRegion",
+                            "addressCountry": "LT",
+                          }
+                        ]
+                      }
                 }
                 </script>`
             )
@@ -428,7 +475,7 @@ app.get('/sitemap.xml', function(req, res) {
             changefreq: 'weekly', 
             priority: 1,
             img: {
-                url: process.env.PROJECTIMAGE,
+                url: 'https://i.imgur.com/ix5yGLO.png', //process.env.PROJECTIMAGE,
                 title: process.env.PROJECTTITLE,
                 caption: 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!',
             } 
@@ -439,7 +486,7 @@ app.get('/sitemap.xml', function(req, res) {
             changefreq: 'weekly', 
             priority: 0.8,
             img: {
-                url: process.env.PROJECTIMAGE,
+                url: 'https://i.imgur.com/ix5yGLO.png', //process.env.PROJECTIMAGE,
                 title: process.env.PROJECTTITLE,
                 caption: 'Elektroninė spaustuvė Jūsų namuose. Pristatymas visoje Lietuvoje per 24h. Greita, pigu, patogu. Mažų ir vidutinių tiražų spaustuvė. Nemokamai sukurk savo ar įkelkite failą ir spausdinkite!',
             } 
