@@ -362,7 +362,7 @@ app.get('/products/:productName', (req, res, next) => {
                     "@context": "https://schema.org/",
                     "@type": "Product",
                     "name": "${prodinfo[pos].name}",
-                    "image": ${prodinfo[pos].galerija},
+                    "image": [${prodinfo[pos].galerija}],
                     "description": "${prodinfo[pos].description}",
                     "offers": {
                         "@type": "Offer",
@@ -423,7 +423,7 @@ app.get('/products/:productName/*', (req, res, next) => {
                     "@context": "https://schema.org/",
                     "@type": "Product",
                     "name": "${prodinfo[pos].name}",
-                    "image": ${prodinfo[pos].galerija},
+                    "image": [${prodinfo[pos].galerija}],
                     "description": "${prodinfo[pos].description}",
                     "offers": {
                         "@type": "Offer",
