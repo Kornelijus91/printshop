@@ -781,7 +781,7 @@ app.get('/sitemap.xml', function(req, res) {
 
         smStream.write({ 
             url: process.env.MAIN_URL,  
-            changefreq: 'weekly', 
+            changefreq: 'daily', 
             priority: 1,
             img: {
                 url: 'https://i.imgur.com/ix5yGLO.png', //process.env.PROJECTIMAGE,
@@ -792,7 +792,7 @@ app.get('/sitemap.xml', function(req, res) {
 
         smStream.write({ 
             url: `${process.env.MAIN_URL}/products`,
-            changefreq: 'weekly', 
+            changefreq: 'daily', 
             priority: 0.8,
             img: {
                 url: 'https://i.imgur.com/ix5yGLO.png', //process.env.PROJECTIMAGE,
@@ -805,7 +805,7 @@ app.get('/sitemap.xml', function(req, res) {
             // console.log(product);
             smStream.write({ 
                 url: `${process.env.MAIN_URL}/products/${encodeURIComponent(product.name)}`,  
-                changefreq: 'weekly', 
+                changefreq: 'daily', 
                 priority: 0.9,
                 img: {
                     url: product.image,
