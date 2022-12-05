@@ -584,7 +584,7 @@ app.get('/products/:productName', (req, res, next) => {
                     "aggregateRating": {
                         "@type": "aggregateRating",
                         "ratingValue": "${prodinfo[pos].rating}",
-                        "reviewCount": "${prodinfo[pos].ratingsAmount}",
+                        "reviewCount": "${prodinfo[pos].ratingsAmount}"
                     }
                 }
                 </script>`
@@ -733,7 +733,7 @@ app.get('/products/:productName/*', (req, res, next) => {
                     "aggregateRating": {
                         "@type": "aggregateRating",
                         "ratingValue": "${prodinfo[pos].rating}",
-                        "reviewCount": "${prodinfo[pos].ratingsAmount}",
+                        "reviewCount": "${prodinfo[pos].ratingsAmount}"
                     }
                 }
                 </script>`
