@@ -4,6 +4,7 @@ const compression = require('compression');
 const morgan = require('morgan');
 const passport = require('passport');
 const Product = require("./models/products");
+const Comment  = require("./models/comment");
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const fs = require("fs");
@@ -228,23 +229,30 @@ const getLowestPrice = (produktas) => {
     }
 };
 
-// const handleGalerijaArray = (galleryArray) => {
-//     let finalArray = []
-//     for (const item of galleryArray) {
-//         finalArray.push("")
-//     }
-// }
+const calculateRatings = (ratingArray) => {
+
+    let total = 0
+
+    for (const item of ratingArray) {
+        total += item;
+    }
+
+    total = Math.round(total / ratingArray.length * 10) / 10;
+
+    return [total, ratingArray.length]
+
+}
 
 const setProductCache = () => {
     Product.find({}, function (err, product) {
         if (!err && product.length > 0) {
-            
             var tempkeywords = [process.env.PROJECTTITLE];
             var tempprodArray = [];
             for (const item of product) {
                 const prices = getLowestPrice(item)
                 tempkeywords.push(item.name);
                 tempprodArray.push({
+                    id: item._id,
                     name: item.name,
                     description: item.description,
                     image: item.image,
@@ -256,6 +264,30 @@ const setProductCache = () => {
             }
             keywords = tempkeywords.join(", ");
             prodinfo = tempprodArray;
+        }
+    });
+
+    Comment.find({}, function (err, comment) {
+        if (err) return
+        let ratings = {};
+        for (const item of comment) {
+
+                if (ratings[item.productName]) {
+                    ratings[item.productName].push(item.rating)
+                } else {
+                    ratings[item.productName] = [item.rating]
+                }
+
+        }
+        for (const item of prodinfo) {
+                if (ratings[item.name]) {
+                    const ratings_ = calculateRatings(ratings[item.name])
+                    item.rating = ratings_[0]
+                    item.ratingsAmount = ratings_[1]
+                } else {
+                    item.rating = 0
+                    item.ratingsAmount = 0
+                }
         }
     });
 };
@@ -519,6 +551,13 @@ app.get('/products/:productName', (req, res, next) => {
                     "@context": "https://schema.org/",
                     "@type": "Product",
                     "name": "${prodinfo[pos].name}",
+                    "logo": "${prodinfo[pos].image}",
+                    "brand": {
+                        "@type": "Thing",
+                        "name": "Tavo Reklama"
+                    },
+                    "sku": "${prodinfo[pos].id}",
+                    "category": "${prodinfo[pos].name}",
                     "image": [${prodinfo[pos].galerija.map((item) => '"' + item + '"')}],
                     "description": "${prodinfo[pos].description}",
                     "offers": {
@@ -541,7 +580,12 @@ app.get('/products/:productName', (req, res, next) => {
                             "addressCountry": "LT"
                           }
                         ]
-                      }
+                    },
+                    "aggregateRating": {
+                        "@type": "aggregateRating",
+                        "ratingValue": "${prodinfo[pos].rating}",
+                        "reviewCount": "${prodinfo[pos].ratingsAmount}",
+                    }
                 }
                 </script>`
             )
@@ -612,7 +656,7 @@ app.get('/products/:productName', (req, res, next) => {
                         {
                             "@type": "SiteNavigationElement",
                             "position": ${index + 9},
-                            "name": "${item.name} - Tavo Reklama",
+                            "name": "${item.name} | Tavo Reklama",
                             "description": "${item.description}",
                             "url": "https://www.treklama.lt/products/${item.link}"
                         }
@@ -656,6 +700,13 @@ app.get('/products/:productName/*', (req, res, next) => {
                     "@context": "https://schema.org/",
                     "@type": "Product",
                     "name": "${prodinfo[pos].name}",
+                    "logo": "${prodinfo[pos].image}",
+                    "brand": {
+                        "@type": "Thing",
+                        "name": "Tavo Reklama"
+                    },
+                    "sku": "${prodinfo[pos].id}",
+                    "category": "${prodinfo[pos].name}",
                     "image": [${prodinfo[pos].galerija.map((item) => '"' + item + '"')}],
                     "description": "${prodinfo[pos].description}",
                     "offers": {
@@ -678,7 +729,12 @@ app.get('/products/:productName/*', (req, res, next) => {
                             "addressCountry": "LT"
                           }
                         ]
-                      }
+                    },
+                    "aggregateRating": {
+                        "@type": "aggregateRating",
+                        "ratingValue": "${prodinfo[pos].rating}",
+                        "reviewCount": "${prodinfo[pos].ratingsAmount}",
+                    }
                 }
                 </script>`
             )
@@ -749,7 +805,7 @@ app.get('/products/:productName/*', (req, res, next) => {
                         {
                             "@type": "SiteNavigationElement",
                             "position": ${index + 9},
-                            "name": "${item.name} - Tavo Reklama",
+                            "name": "${item.name} | Tavo Reklama",
                             "description": "${item.description}",
                             "url": "https://www.treklama.lt/products/${item.link}"
                         }
@@ -802,7 +858,6 @@ app.get('/sitemap.xml', function(req, res) {
         })
 
         for (const product of prodinfo) {
-            // console.log(product);
             smStream.write({ 
                 url: `${process.env.MAIN_URL}/products/${encodeURIComponent(product.name)}`,  
                 changefreq: 'daily', 
