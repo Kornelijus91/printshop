@@ -243,8 +243,8 @@ const calculateRatings = (ratingArray) => {
 
 }
 
-const setProductCache = () => {
-    Product.find({}, function (err, product) {
+const setProductCache = async () => {
+    await Product.find({}, function (err, product) {
         if (!err && product.length > 0) {
             var tempkeywords = [process.env.PROJECTTITLE];
             var tempprodArray = [];
@@ -260,14 +260,16 @@ const setProductCache = () => {
                     price: prices[1],
                     discountedPrice: prices[0],
                     link: item.link,
+                    rating: 0,
+                    ratingsAmount: 0
                 });
             }
             keywords = tempkeywords.join(", ");
             prodinfo = tempprodArray;
+            
         }
     });
-
-    Comment.find({}, function (err, comment) {
+    await Comment.find({}, function (err, comment) {
         if (err) return
         let ratings = {};
         for (const item of comment) {
