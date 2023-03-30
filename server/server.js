@@ -89,7 +89,6 @@ const metaPixel = async (payload) => {
         method: 'post',
         body: JSON.stringify({
             "data": [payload],
-            test_event_code: 'TEST55899'
         }),
         headers: {'Content-Type': 'application/json'}
     });
