@@ -959,11 +959,11 @@ router.post("/createOrder", async (req, res, next) => {
           try {
             Order.findById(neworder._id, async function (err, itm) {
                 if (!err){
-                  // const isankstineSask = await generateEarlyInvoice(itm);
-                  // itm.isankstineSaskaita = isankstineSask;
+                  const isankstineSask = await generateEarlyInvoice(itm);
+                  itm.isankstineSaskaita = isankstineSask;
                   if (req.body.selectedPaymentMethod === 'cash') {
-                    // const PVMSask = await generatePVMInvoice(itm);
-                    // itm.PVMSaskaitaFaktura = PVMSask;
+                    const PVMSask = await generatePVMInvoice(itm);
+                    itm.PVMSaskaitaFaktura = PVMSask;
                     User.findById(itm.clientID, function (err, selectedUser) {
                       if (!err && selectedUser) {
                         selectedUser.moneySpent = selectedUser.moneySpent + itm.discountPrice;
