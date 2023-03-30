@@ -223,6 +223,18 @@ var payseraOptions = {
 };
 const paysera = new Paysera(payseraOptions);
 
+const metaPixel = async (payload) => {
+  const response = await fetch(`https://graph.facebook.com/v16.0/${process.env.META_PIXEL_ID}/events?access_token=${process.env.META_PIXEL_ACCESS_TOKEN}`, {
+      method: 'post',
+      body: JSON.stringify({
+          "data": [payload],
+          test_event_code: 'TEST55899'
+      }),
+      headers: {'Content-Type': 'application/json'}
+  });
+  const data = await response.json();
+};
+
 router.get("/handlePayment", async (req, res, next) => {
   const request = {
     data: req.query.data, 
@@ -746,6 +758,17 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
             };
             urlToGo = paysera.buildRequestUrl(params);
           }
+          metaPixel({
+            "event_name": "Purchase",
+            "event_time": Math.round(Date.now() / 1000 - 120),
+            "action_source": "website",
+            "currency": "eur",
+            "value": neworder.discountPrice,
+            "user_data": {
+              "client_ip_address": req.socket.remoteAddress,
+              "client_user_agent": req.headers['user-agent'],
+            },
+          })
           // console.log(urlToGo);
           res.send({ 
             success: true, 
@@ -937,11 +960,11 @@ router.post("/createOrder", async (req, res, next) => {
           try {
             Order.findById(neworder._id, async function (err, itm) {
                 if (!err){
-                  const isankstineSask = await generateEarlyInvoice(itm);
-                  itm.isankstineSaskaita = isankstineSask;
+                  // const isankstineSask = await generateEarlyInvoice(itm);
+                  // itm.isankstineSaskaita = isankstineSask;
                   if (req.body.selectedPaymentMethod === 'cash') {
-                    const PVMSask = await generatePVMInvoice(itm);
-                    itm.PVMSaskaitaFaktura = PVMSask;
+                    // const PVMSask = await generatePVMInvoice(itm);
+                    // itm.PVMSaskaitaFaktura = PVMSask;
                     User.findById(itm.clientID, function (err, selectedUser) {
                       if (!err && selectedUser) {
                         selectedUser.moneySpent = selectedUser.moneySpent + itm.discountPrice;
@@ -978,7 +1001,17 @@ router.post("/createOrder", async (req, res, next) => {
             };
             urlToGo = paysera.buildRequestUrl(params);
           }
-          // console.log(urlToGo);
+          metaPixel({
+            "event_name": "Purchase",
+            "event_time": Math.round(Date.now() / 1000 - 120),
+            "action_source": "website",
+            "currency": "eur",
+            "value": neworder.discountPrice,
+            "user_data": {
+              "client_ip_address": req.socket.remoteAddress,
+              "client_user_agent": req.headers['user-agent'],
+            },
+          })
           res.send({ 
             success: true, 
             paymentURL: urlToGo,
@@ -1272,6 +1305,16 @@ router.post("/addToCart", upload.single("image"), async (req, res, next) => {
                     error: 'Klaida! Pabandykite vėliau.'
                   });
                 } else {
+                    metaPixel({
+                      "event_name": "AddToCart",
+                      "event_time": Math.round(Date.now() / 1000 - 120),
+                      "action_source": "website",
+                      "event_source_url": req.url,
+                      "user_data": {
+                        "client_ip_address": req.socket.remoteAddress,
+                        "client_user_agent": req.headers['user-agent'],
+                      },
+                    })
                     res.send({ 
                         success: true, 
                         error: '',

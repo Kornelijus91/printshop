@@ -14,6 +14,7 @@ const Order = require("./models/order")
 const { SitemapStream, streamToPromise } = require('sitemap')
 const { createGzip } = require('zlib')
 const { Readable } = require('stream')
+const fetch = require('node-fetch');
 
 let sitemap 
 let sitemapAge = new Date();
@@ -81,6 +82,18 @@ const onConnection = (socket) => {
 
 const onAdminConnection = (socket) => {
     socketAdminEvents(io, socket);
+};
+
+const metaPixel = async (payload) => {
+    const response = await fetch(`https://graph.facebook.com/v16.0/${process.env.META_PIXEL_ID}/events?access_token=${process.env.META_PIXEL_ACCESS_TOKEN}`, {
+        method: 'post',
+        body: JSON.stringify({
+            "data": [payload],
+            test_event_code: 'TEST55899'
+        }),
+        headers: {'Content-Type': 'application/json'}
+    });
+    const data = await response.json();
 };
 
 const shouldCompress = (req, res) => {
@@ -305,6 +318,17 @@ cron.schedule('0 0 */2 * * *', async () => {
 
 app.get('/', (req, res, next) => {
     const indexPath  = path.resolve(__dirname, '../client/build', 'index.html')
+    metaPixel({
+        "event_name": "ViewContent",
+        "event_time": Math.round(Date.now() / 1000 - 120),
+        "action_source": "website",
+        "event_source_url": req.url,
+        "user_data": {
+            "client_ip_address": req.socket.remoteAddress,
+            "client_user_agent": req.headers['user-agent']
+        }
+    })
+
     fs.readFile(indexPath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error during file reading', err);
@@ -416,6 +440,16 @@ app.get('/', (req, res, next) => {
 
 app.get('/products', (req, res, next) => {
     const indexPath  = path.resolve(__dirname, '../client/build', 'index.html')
+    metaPixel({
+        "event_name": "ViewContent",
+        "event_time": Math.round(Date.now() / 1000 - 120),
+        "action_source": "website",
+        "event_source_url": req.url,
+        "user_data": {
+            "client_ip_address": req.socket.remoteAddress,
+            "client_user_agent": req.headers['user-agent']
+        }
+    })
     fs.readFile(indexPath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error during file reading', err);
@@ -527,6 +561,16 @@ app.get('/products', (req, res, next) => {
 
 app.get('/products/:productName', (req, res, next) => {
     const indexPath  = path.resolve(__dirname, '../client/build', 'index.html')
+    metaPixel({
+        "event_name": "ViewContent",
+        "event_time": Math.round(Date.now() / 1000 - 120),
+        "action_source": "website",
+        "event_source_url": req.url,
+        "user_data": {
+            "client_ip_address": req.socket.remoteAddress,
+            "client_user_agent": req.headers['user-agent']
+        }
+    })
     fs.readFile(indexPath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error during file reading', err);
@@ -676,6 +720,16 @@ app.get('/products/:productName', (req, res, next) => {
 
 app.get('/products/:productName/*', (req, res, next) => {
     const indexPath  = path.resolve(__dirname, '../client/build', 'index.html')
+    metaPixel({
+        "event_name": "ViewContent",
+        "event_time": Math.round(Date.now() / 1000 - 120),
+        "action_source": "website",
+        "event_source_url": req.url,
+        "user_data": {
+            "client_ip_address": req.socket.remoteAddress,
+            "client_user_agent": req.headers['user-agent']
+        }
+    })
     fs.readFile(indexPath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error during file reading', err);
