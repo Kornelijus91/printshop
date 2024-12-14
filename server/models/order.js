@@ -52,6 +52,10 @@ const Order = new Schema({
         type: String,
         default: "",
     },
+    shippingPrice: {
+        type: Number,
+        default: 0,
+    },
     isankstineSaskaita: {
         type: String,
         default: "",

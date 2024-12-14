@@ -272,6 +272,7 @@ const UserOrders = ({ username, setSnackbar, token, getOrders, ordersPage, setVi
                                         sanaudos: item.sanaudos,
                                         payment: item.payment,
                                         shippingMethod: item.shippingMethod,
+                                        shippingPrice: item.shippingPrice,
                                         isankstineSaskaita: item.isankstineSaskaita,
                                         PVMSaskaitaFaktura: item.PVMSaskaitaFaktura,
                                     });

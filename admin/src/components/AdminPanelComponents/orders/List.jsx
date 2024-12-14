@@ -202,6 +202,7 @@ const List = ({ orders, ordersPage, setOrdersPage, setOrdersView, setOrder, setS
                                         uzsakymoNr: item.uzsakymoNr,
                                         payment: item.payment,
                                         shippingMethod: item.shippingMethod,
+                                        shippingPrice: item.shippingPrice,
                                         isankstineSaskaita: item.isankstineSaskaita,
                                         PVMSaskaitaFaktura: item.PVMSaskaitaFaktura,
                                     });

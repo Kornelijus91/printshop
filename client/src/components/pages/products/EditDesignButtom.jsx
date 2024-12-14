@@ -75,9 +75,9 @@ const EditDesignButtom = ({ userid, productID, productName, file, setFile }) => 
 
     var projectSaved = (_val) => {
         let _data = _val.data;	
-        console.log('REDAGUOTI SAVED !!!');								
-        console.log(_val);
-        console.log('PREVIEW LINK', _data.previews[0])
+        // console.log('REDAGUOTI SAVED !!!');								
+        // console.log(_val);
+        // console.log('PREVIEW LINK', _data.previews[0])
         setFile({
             src: null,
             URL: _data.previews[0],

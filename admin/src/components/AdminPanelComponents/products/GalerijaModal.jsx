@@ -144,10 +144,10 @@ const GalerijaModal = ({ galerijaModal, setGalerijaModal, setSnackbar, user, get
     };
 
     const handleFile = (e) => {
-        console.log(e.target.files);
+        // console.log(e.target.files);
         const imagefiles = e.target.files;
         if (imagefiles.length > 0) {
-            console.log(imagefiles);
+            // console.log(imagefiles);
             setSubmitting(true);
             uploadToGalery(imagefiles);
         } 

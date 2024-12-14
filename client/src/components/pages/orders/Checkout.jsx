@@ -220,7 +220,8 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                         priceSum: priceSum,
                         production: pasirinktasGamybosLaikas,
                         selectedPaymentMethod: selectedPayment,
-                        shippingMethod: pasirinktasPristatymoBudas,
+                        shippingMethod: pasirinktasPristatymoBudas.name,
+                        shippingPrice: pasirinktasPristatymoBudas.price
                     }),
                 });
                 const response = await res.json();
@@ -272,7 +273,8 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                         priceSum: priceSum,
                         production: pasirinktasGamybosLaikas,
                         selectedPaymentMethod: selectedPayment,
-                        shippingMethod: pasirinktasPristatymoBudas,
+                        shippingMethod: pasirinktasPristatymoBudas.name,
+                        shippingPrice: pasirinktasPristatymoBudas.price
                     }),
                 });
                 const response = await res.json();
@@ -378,11 +380,11 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                         </Box>
                         <Box display='flex' flexDirection='column' justifyContent='flex-end'>
                             {priceSum.sum !== priceSum.dscSum &&
-                                <h4 className={classes.sumHeaderRed}>Pritaikytos nuolaidos: -{(priceSum.sum - priceSum.dscSum).toFixed(2)}€</h4>
+                                <h4 className={classes.sumHeaderRed}>Pritaikytos nuolaidos: -{(priceSum.sum - priceSum.dscSum).toFixed(2)} €</h4>
                             }
                             <h4 className={classes.sumHeaderBlue}>Gamybos laikas: {pasirinktasGamybosLaikas}</h4>
-                            <h4 className={classes.sumHeaderBlue}>Pristatymas: Nemokamas</h4>
-                            <h4 className={classes.sumHeaderBlue}>Pristatymo būdas: {pasirinktasPristatymoBudas}</h4>
+                            <h4 className={classes.sumHeaderBlue}>Pristatymas: {pasirinktasPristatymoBudas.price.toFixed(2)} €</h4>
+                            <h4 className={classes.sumHeaderBlue}>Pristatymo būdas: {pasirinktasPristatymoBudas.name}</h4>
                             <Box display='flex' justifyContent='flex-end' alignItems='flex-end'>
                                 <p className={classes.PriceText2}>Viso kaina su PVM:</p>
                                 {priceSum.sum !== priceSum.dscSum ?

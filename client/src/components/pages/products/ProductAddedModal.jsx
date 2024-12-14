@@ -198,7 +198,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductAddedModal = ({ appliedDiscount, papildomaMaketavimoKaina, getDiscountedPrice, getPrice, addModalOpen, setAddModalOpen, file, optionsValues, collapseOpen, productName, kiekis, unitPrice, pastaba, loyaltydiscount }) => { // pasirinktasGamybosLaikas
+const ProductAddedModal = ({ appliedDiscount, papildomaMaketavimoKaina, getDiscountedPrice, getPrice, addModalOpen, setAddModalOpen, file, optionsValues, collapseOpen, productName, kiekis, unitPrice, pastaba, loyaltydiscount, getUnitPrice }) => { // pasirinktasGamybosLaikas
 
     const classes = useStyles();
     const history = useHistory();
@@ -279,7 +279,7 @@ const ProductAddedModal = ({ appliedDiscount, papildomaMaketavimoKaina, getDisco
                                         )}
                                         {/* <p className={classes.summaryText}>Gamybos Laikas: {pasirinktasGamybosLaikas}</p> */}
                                         <p className={classes.summaryText}>Kiekis: {kiekis}</p>
-                                        <p className={classes.summaryText}>Vieneto kaina: {unitPrice.price.toFixed(2)}€</p>
+                                        <p className={classes.summaryText}>Vieneto kaina: {getUnitPrice(kiekis).toFixed(2)}€</p>
                                         {papildomaMaketavimoKaina > 0 &&
                                             <p className={classes.summaryText}>Maketavimas: {papildomaMaketavimoKaina}€</p>
                                         }

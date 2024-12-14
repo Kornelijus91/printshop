@@ -339,6 +339,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
             kainosModelis: 0,
             basePrice: 0,
             baseDiscount: 0,
+            minPrice: 0,
         });
         setFile({
             src: null,
@@ -460,6 +461,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                 formData.append('kainosModelis', productInfo.kainosModelis);
                 formData.append('basePrice', productInfo.basePrice);
                 formData.append('baseDiscount', productInfo.baseDiscount);
+                formData.append('minPrice', productInfo.minPrice);
                 formData.append('link', encodeURIComponent(productInfo.name));
                 formData.append('description', productInfo.description);
                 formData.append('mainImage', file.URL);
@@ -517,6 +519,7 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                         kainosModelis: 0,
                         basePrice: 0,
                         baseDiscount: 0,
+                        minPrice: 0
                     });
                     setFile({
                         src: null,
@@ -698,7 +701,15 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className={classes.contentSection} style={{margin: '1rem 0 0 0'}}>
+                    {/* <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className={classes.contentSection} style={{margin: '1rem 0 0 0'}}> */}
+                    <Box 
+                        className={classes.contentSection} 
+                        style={{
+                            margin: '1rem 0 0 0',
+                            display: 'flex',
+                            width: '100%'
+                        }}
+                    >
                         <Grid container>
                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                 <Box style={{margin: '1em 0'}}>
@@ -721,7 +732,41 @@ const ProductModal = ({ getAllProducts, page, productOptionsMemo, setProductOpti
                                 </FormControl>
                             </Grid>
                         </Grid>
-                    </Grid>
+                        {/* min kaina */}
+                        <Grid container style={{width: '100%'}}>
+                            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                <Box style={{margin: '1em 0'}}>
+                                    <h3 className={classes.header}>Minimali kaina:</h3>
+                                </Box>
+                            </Grid> 
+                            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                <FormControl variant="standard" disableUnderline className={classes.formVariantSelect}>
+                                    {/* <Select
+                                        id="produkto_kiekio_pasirinkimo_modelis"
+                                        disableUnderline
+                                        classes={{root: classes.variantSelect, icon: classes.variantSelectIcon}}
+                                        value={productInfo.minPrice}
+                                        onChange={handleProductInfoChange('minPrice')}
+                                        defaultValue={0}
+                                    >
+                                        <MenuItem value={0}>Pirmas</MenuItem>
+                                        <MenuItem value={1}>Antras</MenuItem>
+                                    </Select> */}
+                                    <OutlinedInput
+                                        id='min_kaina'
+                                        onWheel={(e) => e.target.blur()}
+                                        type='number'
+                                        value={productInfo.minPrice}
+                                        placeholder='Eur...'
+                                        onChange={handleProductInfoChange('minPrice')}
+                                        classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
+                                        autoComplete='off'
+                                    />
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                    {/* </Grid> */}
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className={classes.contentSection} style={{margin: '1rem 0 0 0'}}>
                         {productInfo.kainosModelis === 1 ?
                             <Grid container>

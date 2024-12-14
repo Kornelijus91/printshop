@@ -333,11 +333,12 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
 
     const getPrice = () => {
         if (amountArray.length > 0) {
+            const minPrice = product.minPrice ? product.minPrice : 0
             if (kiekis <= amountArray[0].amount) {
-                const roundedTotalPrice = roundTwoDec(unitPrice.price * amountArray[0].amount + papildomaMaketavimoKaina);
+                const roundedTotalPrice = roundTwoDec(Math.max(minPrice, unitPrice.price * amountArray[0].amount) + papildomaMaketavimoKaina);
                 return roundedTotalPrice.toFixed(2);
             } else {
-                const roundedTotalPrice = roundTwoDec(unitPrice.price * Math.round(kiekis) + papildomaMaketavimoKaina);
+                const roundedTotalPrice = roundTwoDec(Math.max(minPrice,unitPrice.price * Math.round(kiekis)) + papildomaMaketavimoKaina);
                 return roundedTotalPrice.toFixed(2);
             } 
         } 
@@ -345,15 +346,31 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
 
     const getDiscountedPrice = () => {
         if (amountArray.length > 0) {
+            const minPrice = product.minPrice ? product.minPrice : 0
             if (kiekis <= amountArray[0].amount) {
                 const dscnt = 1 - (appliedDiscount.discount / 100);
-                const roundedTotalDiscountedPrice = roundTwoDec(unitPrice.price * amountArray[0].amount * dscnt + papildomaMaketavimoKaina);
+                const roundedTotalDiscountedPrice = roundTwoDec(Math.max(minPrice,unitPrice.price * amountArray[0].amount * dscnt) + papildomaMaketavimoKaina);
                 return roundedTotalDiscountedPrice.toFixed(2);
             } else {
                 const dscnt = 1 - (appliedDiscount.discount / 100);
-                const roundedTotalDiscountedPrice = roundTwoDec(unitPrice.price * Math.round(kiekis) * dscnt + papildomaMaketavimoKaina);
+                const roundedTotalDiscountedPrice = roundTwoDec(Math.max(minPrice,unitPrice.price * Math.round(kiekis) * dscnt) + papildomaMaketavimoKaina);
                 return roundedTotalDiscountedPrice.toFixed(2);
             } 
+        }
+    };
+
+    const getUnitPrice = (amount) => {
+        if (amountArray.length > 0 && amount > 0) {
+            const minPrice = product.minPrice ? product.minPrice : 0
+            if (kiekis <= amountArray[0].amount) {
+                const roundedTotalPrice = roundTwoDec(Math.max(minPrice, unitPrice.price * amountArray[0].amount));
+                return roundedTotalPrice / amount;
+            } else {
+                const roundedTotalPrice = roundTwoDec(Math.max(minPrice, unitPrice.price * Math.round(kiekis)));
+                return roundedTotalPrice / amount;
+            } 
+        } else {
+            return 0
         }
     };
 
@@ -692,7 +709,6 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
     }, [products, link]);
 
     useEffect(() => {
-
         if (product.kainosModelis !== 1)
         {
             var unitPrice = 0;
@@ -826,6 +842,7 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                     getPrice={getPrice}
                     papildomaMaketavimoKaina={papildomaMaketavimoKaina}
                     appliedDiscount={appliedDiscount}
+                    getUnitPrice={getUnitPrice}
                 />
                 {/* <Box display='flex' justifyContent='center' style={{paddingBottom: '2rem'}}> */}
                     <Box>
@@ -1217,7 +1234,7 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                                     </>
                                 )}
                                 <p className={classes.summaryText}>Kiekis: <b>{kiekis}</b></p>
-                                <p className={classes.summaryText}>Vieneto kaina: <b>{unitPrice.price.toFixed(2)}€</b></p>
+                                <p className={classes.summaryText}>Vieneto kaina: <b>{getUnitPrice(kiekis).toFixed(2)}€</b></p>
                                 <Collapse in={papildomaMaketavimoKaina > 0}>
                                     <p className={classes.summaryText}>Maketavimo kaina: <b>{papildomaMaketavimoKaina}€</b></p>
                                 </Collapse>

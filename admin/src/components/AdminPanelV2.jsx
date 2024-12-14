@@ -315,7 +315,13 @@ function ResponsiveDrawer(props) {
     });
     const [productModalOpen, setProductModalOpen] = useState(false);
     const [carouselView, setCarouselView] = useState(0);
-    const [maketavimoKaina, setMaketavimoKaina] = useState(0);
+    // const [maketavimoKaina, setMaketavimoKaina] = useState(0);
+    const [nustatymai, setNustatymai] = useState({
+        maketavimoKaina: 0,
+        shippingHome: 0,
+        shippingTeleport: 0,
+        shippingBus: 0
+    })
     const [carouselItemInfo, setCarouselItemInfo] = useState({
         id: '',
         title: '',
@@ -411,6 +417,7 @@ function ResponsiveDrawer(props) {
         sanaudos: 0,
         payment: '',
         shippingMethod: '',
+        shippingPrice: 0,
         isankstineSaskaita: '',
         PVMSaskaitaFaktura: '',
     });
@@ -604,7 +611,10 @@ function ResponsiveDrawer(props) {
                     "authorization": `JWT ${user.token}`,
                 },
                 body: JSON.stringify({
-                    maketavimoKaina: maketavimoKaina,
+                    maketavimoKaina: nustatymai.maketavimoKaina,
+                    shippingHome: nustatymai.shippingHome,
+                    shippingTeleport: nustatymai.shippingTeleport,
+                    shippingBus: nustatymai.shippingBus
                 }),
             });
             const settingsResponse = await settingsReq.json();
@@ -723,6 +733,7 @@ function ResponsiveDrawer(props) {
                 uzsakymoNr: 0,
                 payment: '',
                 shippingMethod: '',
+                shippingPrice: 0,
                 isankstineSaskaita: '',
                 PVMSaskaitaFaktura: '',
             });
@@ -1148,7 +1159,7 @@ function ResponsiveDrawer(props) {
                             6: <Loyalty newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} addLoyaltyModal={addLoyaltyModal} setAddLoyaltyModal={setAddLoyaltyModal} handleLoyaltyAddModalChange={handleLoyaltyAddModalChange} loyalty={loyalty} getLoyalty={getLoyalty}/>,
                             7: <DiscountCodes newOrders={newOrders} newChatrooms={newChatrooms} user={user} setSnackbar={setSnackbar} codeModal={codeModal} setCodeModal={setCodeModal} handleCodeChange={handleCodeChange}/>,
                             8: <Orders user={user} orderFilter={orderFilter} getOrders={getOrders} newOrders={newOrders} newChatrooms={newChatrooms} setOrdersPage={setOrdersPage} orders={orders} ordersPage={ordersPage} ordersView={ordersView} setOrdersView={setOrdersView} order={order} setOrder={setOrder} setSnackbar={setSnackbar}/>,
-                            9: <Settings newOrders={newOrders} newChatrooms={newChatrooms} maketavimoKaina={maketavimoKaina} setMaketavimoKaina={setMaketavimoKaina} setSnackbar={setSnackbar}/>,
+                            9: <Settings newOrders={newOrders} newChatrooms={newChatrooms} nustatymai={nustatymai} setNustatymai={setNustatymai} setSnackbar={setSnackbar}/>,
                             10: <Chat message={message} setMessage={setMessage} newOrders={newOrders} newChatrooms={newChatrooms} activeChatroom={activeChatroom} setActiveChatroom={setActiveChatroom} chat={chat} setChat={setChat} sendMessage={sendMessage} />,
                             11: <Payments user={user} setSnackbar={setSnackbar} setPaymentModal={setPaymentModal}/>
                         }[view.value]

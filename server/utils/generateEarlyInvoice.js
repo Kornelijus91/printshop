@@ -35,6 +35,14 @@ const roundTwoDec = (num) => {
     return result;
 };
 
+const getShippingPrice = (cartItems, finalPrice) => { 
+    let totalPrice = 0
+    for (const cartItem of cartItems) {
+        totalPrice += roundTwoDec(cartItem.discountedPrice / 1.21)
+    }
+    return roundTwoDec(finalPrice - totalPrice).toFixed(2)
+};
+
 function generateHr(doc, y) {
     doc
         .strokeColor("#000000")
@@ -246,12 +254,12 @@ function generateCart(doc, order) {
         .font(path.resolve('utils/fonts/gilroylight.OTF'))
         .fillColor('#000000')
         .fontSize(8)
-        .text('Suma:', 380, cartItemsPos, { lineBreak: false })
+        .text('Pristatymas:', 380, cartItemsPos, { lineBreak: false })
+        .text(`${getShippingPrice(order.cartItems, (order.discountPrice / 1.21).toFixed(2))} €`, { align: 'right' })
+        .text('Suma:', 380, cartItemsPos + 12, { lineBreak: false })
         .text(`${roundTwoDec(order.discountPrice / 1.21).toFixed(2)} €`, { align: 'right' })
-        .text('PVM:', 380, cartItemsPos + 12, { lineBreak: false })
+        .text('PVM:', 380, cartItemsPos + 24, { lineBreak: false })
         .text(`${roundTwoDec((order.discountPrice  / 1.21) * 0.21).toFixed(2)} €`, { align: 'right' })
-        .text('Pristatymas:', 380, cartItemsPos + 24, { lineBreak: false })
-        .text('Nemokamas', { align: 'right' })
         .font(path.resolve('utils/fonts/gilroybold.OTF'))
         .text('Viso:', 380, cartItemsPos + 36, { lineBreak: false })
         .text(`${roundTwoDec(order.discountPrice).toFixed(2)} €`, { align: 'right' })

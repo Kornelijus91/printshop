@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Navigation = ({ priceSum, personalas, setPersonalas, firstName, setSearchResult, setSearchValue, searchResult, handlesearchValueChange, searchValue, setModalOpen, loggedIn, setLoggedIn, token, setToken, username, setMoneySpent }) => { //loyaltydiscountLevel, 
+const Navigation = ({ priceSum, personalas, setPersonalas, firstName, setSearchResult, setSearchValue, searchResult, handlesearchValueChange, searchValue, setModalOpen, loggedIn, setLoggedIn, token, setToken, username, setMoneySpent, _cart }) => { //loyaltydiscountLevel, 
 
     const classes = useStyles();
     const [drawer, setDrawer] = useState(false);
@@ -191,6 +191,7 @@ const Navigation = ({ priceSum, personalas, setPersonalas, firstName, setSearchR
                                 <Box justifyContent="flex-end" display='flex' alignItems="flex-end" style={{paddingRight: '.5rem'}}>   
                                     <Cart 
                                         priceSum={priceSum}
+                                        _cart={_cart}
                                     />
                                 </Box>
                             </Grid>

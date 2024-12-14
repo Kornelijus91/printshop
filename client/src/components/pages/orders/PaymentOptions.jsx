@@ -236,7 +236,7 @@ const PaymentOptions = ({selectedPayment, setSelectedPayment, pasirinktasPristat
                         className={classes.gridItemParent} 
                         key={index} 
                         onClick={() => setSelectedPayment(option.code)}
-                        style={option.code === 'cash' && pasirinktasPristatymoBudas !== 'Kurjeriu, nurodytu adresu.' ? {
+                        style={option.code === 'cash' && pasirinktasPristatymoBudas.name !== 'Kurjeriu, nurodytu adresu.' ? {
                             display: 'none'
                         }: {}}
                     >

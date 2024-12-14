@@ -216,6 +216,7 @@ const Products = ({ newOrders, newChatrooms, user, setSnackbar, productModalOpen
         kainosModelis: 0,
         basePrice: 0,
         baseDiscount: 0,
+        minPrice: 0
     });
 
     const [deleteModal, setDeleteModal] = useState({
@@ -475,6 +476,7 @@ const Products = ({ newOrders, newChatrooms, user, setSnackbar, productModalOpen
                                             kainosModelis: item.kainosModelis,
                                             basePrice: item.basePrice,
                                             baseDiscount: item.baseDiscount,
+                                            minPrice: item.minPrice
                                         });
                                         setFile({
                                             src: null,

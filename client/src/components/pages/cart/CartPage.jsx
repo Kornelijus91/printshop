@@ -72,6 +72,13 @@ const useStyles = makeStyles((theme) => ({
         overflowWrap: 'break-word',
         color: theme.myTheme.sZalia.main,
     },
+    PriceTextSmall: {
+        padding: '0',
+        margin: '0 .7em .3em 0',
+        overflowWrap: 'break-word',
+        fontSize: theme.myTheme.sizeM,
+        fontWeight: 'bold',
+    },
     PriceText: {
         padding: '0',
         margin: '0 .7em .3em 0',
@@ -251,7 +258,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, kodoNuolaida, roundTwoDec, pasirinktasGamybosLaikas, setPasirinktasGamybosLaikas, gamybosLaikas, setGamybosLaikas, cart, getCart, setCart, priceSum, setKodoNuolaida, findMaxDiscount, getItemProductionCost }) => { 
+const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, kodoNuolaida, roundTwoDec, pasirinktasGamybosLaikas, setPasirinktasGamybosLaikas, gamybosLaikas, setGamybosLaikas, cart, getCart, setCart, priceSum, setKodoNuolaida, findMaxDiscount, getItemProductionCost, params }) => { 
 
     const classes = useStyles();
     const history = useHistory();
@@ -275,7 +282,27 @@ const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, k
     };
 
     const handlePasirinktasPristatymoBudas = (e) => {
-        setPasirinktasPristatymoBudas(e.target.value);
+
+        switch(e.target.value) {
+            case 'Kurjeriu, nurodytu adresu.':
+                setPasirinktasPristatymoBudas({
+                    name: e.target.value,
+                    price: params.shippingHome
+                });
+                break;
+            case 'Į artimiausią paštomatą.':
+                setPasirinktasPristatymoBudas({
+                    name: e.target.value,
+                    price: params.shippingTeleport
+                });
+                break;
+            default:
+                setPasirinktasPristatymoBudas({
+                    name: e.target.value,
+                    price: params.shippingBus
+                });
+                break;
+        };
     };
 
     const applyDiscountCode = async () => {
@@ -584,9 +611,9 @@ const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, k
                                     outlined: classes.variantSelect, 
                                     iconOutlined: classes.variantSelectIcon,
                                 }}
-                                value={pasirinktasPristatymoBudas}
+                                value={pasirinktasPristatymoBudas.name}
                                 onChange={handlePasirinktasPristatymoBudas}
-                                defaultValue={pasirinktasPristatymoBudas}
+                                defaultValue={pasirinktasPristatymoBudas.name}
                                 MenuProps={{ classes: { list: classes.menuPaper } }}
                                 renderValue={(value) => 
                                     <Box display='flex' justifyContent='flex-start' alignItems='flex-start' classes={{root: classes.selectRenderBox}}>
@@ -635,19 +662,23 @@ const CartPage = ({ pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas, k
                         </FormControl>
                     </Box>
                     <Box classes={{root: classes.pradetipirkimaBox}}>
+                        <Box display='flex'>
+                            <p className={classes.PriceTextSmall}>Pristatymo kaina:</p>
+                            <p className={classes.PriceTextSmall}>{pasirinktasPristatymoBudas.price.toFixed(2)} €</p>
+                        </Box>
                         <Box display='flex' justifyContent='flex-start' alignItems='flex-end'>
                             <p className={classes.PriceText}>Viso kaina su PVM:</p>
                             {priceSum.sum !== priceSum.dscSum ?
                                 <Box display='flex' justifyContent='flex-start' alignItems='flex-start'>
                                     <span className={classes.Isbraukta}>{priceSum.sum.toFixed(2)}€</span>
-                                    <p className={classes.DiscountedPriceText}>{priceSum.dscSum.toFixed(2)}€</p>
+                                    <p className={classes.DiscountedPriceText}>{priceSum.dscSum.toFixed(2)} €</p>
                                 </Box>
                             :
-                                <p className={classes.PriceText}>{priceSum.sum.toFixed(2)}€</p>
+                                <p className={classes.PriceText}>{priceSum.sum.toFixed(2)} €</p>
                             }
                         </Box>
                         {priceSum.sum !== priceSum.dscSum &&
-                            <p className={classes.savingsText}>Sutaupote: {(priceSum.sum - priceSum.dscSum).toFixed(2)}€</p>
+                            <p className={classes.savingsText}>Sutaupote: {(priceSum.sum - priceSum.dscSum).toFixed(2)} €</p>
                         }
                         <Button 
                             variant="contained" 

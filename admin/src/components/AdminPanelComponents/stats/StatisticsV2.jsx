@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 import {Helmet} from "react-helmet";
-import { makeStyles } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core/styles';
+// import { Box } from '@material-ui/core';
 import Report from './Report';
 import { ProjectName } from '../../../Variables.jsx'
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        backgroundColor: 'green',
-        width: '200rem',
-        height: '200rem'
-    },
-}));
+// const useStyles = makeStyles((theme) => ({
+//     root: {
+//         backgroundColor: 'green',
+//         width: '200rem',
+//         height: '200rem'
+//     },
+// }));
 
 const StatisticsV2 = () => {
 
-    const classes = useStyles();
+    // const classes = useStyles();
 
     const [isSignedIn, setIsSignedIn] = useState(false);
 
@@ -52,7 +52,7 @@ const StatisticsV2 = () => {
     };
       
     const onSuccess = (googleUser) => {
-        console.log("Logged in as: " + googleUser.getBasicProfile().getName());
+        // console.log("Logged in as: " + googleUser.getBasicProfile().getName());
     };
       
     const onFailure = (error) => {

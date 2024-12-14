@@ -78,6 +78,9 @@ const sendConfirmEmail = (email) => {
             const settings = await Settings.findOne({}).exec();
             if (settings) {
                 settings.maketavimoKaina = req.body.maketavimoKaina;
+                settings.shippingHome = req.body.shippingHome;
+                settings.shippingTeleport = req.body.shippingTeleport;
+                settings.shippingBus = req.body.shippingBus;
                 settings.save(function (err) {
                     if (err) {
                         return;
@@ -89,7 +92,12 @@ const sendConfirmEmail = (email) => {
                     }
                 });
             } else {
-                const newSettings = new Settings({ maketavimoKaina: req.body.maketavimoKaina });
+                const newSettings = new Settings({ 
+                    maketavimoKaina: req.body.maketavimoKaina,
+                    shippingHome: req.body.shippingHome,  
+                    shippingTeleport: req.body.shippingTeleport, 
+                    shippingBus: req.body.shippingBus 
+                });
                 newSettings.save(function (err) {
                     if (err) {
                         return;
@@ -960,6 +968,7 @@ router.post("/deleteGaleryItem", verifyUser, (req, res, next) => {
 });
 
 router.post("/createProduct", verifyUser, upload.array("images"), (req, res, next) => {
+    console.log(req.body)
     if (req.user.administracija) {
         if (!req.body.id) {
             const url = process.env.MAIN_URL;
@@ -1034,6 +1043,7 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                     options: optionsConstructor,
                     kainosModelis: req.body.kainosModelis,
                     basePrice: req.body.basePrice,
+                    minPrice: req.body.minPrice,
                     baseDiscount: req.body.baseDiscount,
                 }
                 if (req.body.discountPrice === null || req.body.discountPrice === 0) {
@@ -1233,6 +1243,7 @@ router.post("/createProduct", verifyUser, upload.array("images"), (req, res, nex
                         product.kiekioPasirinkimoModelis = req.body.kiekioPasirinkimas;
                         product.kainosModelis = req.body.kainosModelis;
                         product.basePrice = req.body.basePrice;
+                        product.minPrice = req.body.minPrice;
                         product.baseDiscount = req.body.baseDiscount;
                         product.amountDiscount = amountDiscountConstructor;
                         product.options = optionsConstructor;

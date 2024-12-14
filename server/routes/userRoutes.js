@@ -71,6 +71,7 @@ const getCartItemPrice = async (cartItem) => {
   var unitPrice = 0;
   var unitDiscount = 0;
   var baseUnitPrice = product.basePrice
+  var minPrice = product.minPrice ? product.minPrice : 0
 
   for (const x of min) {
     if (cartItem.quantity >= x.amount) {
@@ -112,9 +113,10 @@ const getCartItemPrice = async (cartItem) => {
         }
       };
     };
-    roundedUnitPrice = roundTwoDec(unitPrice);  // * gamybosPabrangimas
-    roundedTotalPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity);
-    roundedTotalDiscountedPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity );
+    // roundedUnitPrice = roundTwoDec(unitPrice);  // * gamybosPabrangimas
+    roundedUnitPrice = minPrice > roundTwoDec(unitPrice) * cartItem.quantity ? minPrice / cartItem.quantity : roundTwoDec(unitPrice)
+    roundedTotalPrice = roundTwoDec(Math.max(minPrice, roundedUnitPrice * cartItem.quantity));
+    roundedTotalDiscountedPrice = roundTwoDec(Math.max(minPrice, roundedUnitPrice * cartItem.quantity));
     return [roundedTotalPrice, roundedTotalDiscountedPrice, roundedUnitPrice, unitDiscount];
   } else {
     for (const opt of cartItem.options) {
@@ -143,9 +145,10 @@ const getCartItemPrice = async (cartItem) => {
         }
       };
     };
-    roundedUnitPrice = roundTwoDec(baseUnitPrice * ((100 - unitDiscount) / 100));  // * gamybosPabrangimas
-    roundedTotalPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity);
-    roundedTotalDiscountedPrice = roundTwoDec(roundedUnitPrice * cartItem.quantity );
+
+    roundedUnitPrice = minPrice > roundTwoDec(baseUnitPrice * ((100 - unitDiscount) / 100)) * cartItem.quantity ? minPrice / cartItem.quantity : roundTwoDec(baseUnitPrice * ((100 - unitDiscount) / 100));  // * gamybosPabrangimas
+    roundedTotalPrice = roundTwoDec(Math.max(minPrice, roundedUnitPrice * cartItem.quantity));
+    roundedTotalDiscountedPrice = roundTwoDec(Math.max(minPrice, roundedUnitPrice * cartItem.quantity));
     return [roundedTotalPrice, roundedTotalDiscountedPrice, roundedUnitPrice, product.baseDiscount];
   }
 };
@@ -691,6 +694,9 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
       dscPrc = dscPrc + item.discountedPrice;
     };
 
+    prc = prc + req.body.shippingPrice
+    dscPrc = dscPrc + req.body.shippingPrice
+
     if (req.body.priceSum.sum === roundTwoDec(prc) && req.body.priceSum.dscSum === roundTwoDec(dscPrc)) {
       const orderObject = new Order({ 
         clientID: req.user._id,
@@ -703,6 +709,7 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         payment: req.body.selectedPaymentMethod,
         status: req.body.selectedPaymentMethod === 'cash' ? 'Apmokėtas' : 'Pateiktas',
         shippingMethod: req.body.shippingMethod,
+        shippingPrice: req.body.shippingPrice
       });
       orderObject.save(async function (err, neworder) {
         if (err) {
@@ -777,7 +784,7 @@ router.post("/createOrderLoggedIn", verifyUser, async (req, res, next) => {
         }
       });
     } else {
-      console.log(error);
+      // console.log(error);
       res.send({ 
         success: false, 
         error: "Klaida! Pabandykite vėliau."
@@ -934,6 +941,9 @@ router.post("/createOrder", async (req, res, next) => {
       dscPrc = dscPrc + item.discountedPrice;
     };
 
+    prc = prc + req.body.shippingPrice
+    dscPrc = dscPrc + req.body.shippingPrice
+
     if (req.body.priceSum.sum === roundTwoDec(prc) && req.body.priceSum.dscSum === roundTwoDec(dscPrc)) {
       const orderObject = new Order({ 
         clientID: clientID,
@@ -946,6 +956,7 @@ router.post("/createOrder", async (req, res, next) => {
         payment: req.body.selectedPaymentMethod,
         status: req.body.selectedPaymentMethod === 'cash' ? 'Apmokėtas' : 'Pateiktas',
         shippingMethod: req.body.shippingMethod,
+        shippingPrice: req.body.shippingPrice
       });
       orderObject.save(async function (err, neworder) {
         if (err) {
@@ -1919,7 +1930,10 @@ router.get("/getSettings", async (req, res, next) => {
       const settings = await Settings.findOne({}).exec();
       res.send({ 
         success: true, 
-        maketavimoKaina: settings.maketavimoKaina
+        maketavimoKaina: settings.maketavimoKaina,
+        shippingHome: settings.shippingHome,
+        shippingTeleport: settings.shippingTeleport,
+        shippingBus: settings.shippingBus
       })
   } catch (error) {
       res.send({ 

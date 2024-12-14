@@ -55,6 +55,10 @@ const Product = new Schema({
         type: Number,
         default: 0,
     },
+    minPrice: {
+        type: Number,
+        default: 0,
+    },
     baseDiscount: {
         type: Number,
         default: 0,

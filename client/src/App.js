@@ -107,7 +107,13 @@ const App = () => {
     administracija: false
   });
   const [loyalty, setLoyalty] = useState([]);
-  const [maketavimoKaina, setMaketavimoKaina] = useState(0);
+  // const [maketavimoKaina, setMaketavimoKaina] = useState(0);
+  const [params, setParams] = useState({
+    maketavimoKaina: 0,
+    shippingHome: 0,
+    shippingTeleport: 0,
+    shippingBus: 0
+  });
   const [loggedIn, setLoggedIn] = useState(false);
   const [moneySpent, setMoneySpent] = useState(0);
   const [oAuthWindow, setOAuthWindow] = useState(false);
@@ -151,7 +157,10 @@ const App = () => {
     oneday: false,
   });
   const [pasirinktasGamybosLaikas, setPasirinktasGamybosLaikas] = useState('3-5 darbo dienos.');
-  const [pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas] = useState('Kurjeriu, nurodytu adresu.');
+  const [pasirinktasPristatymoBudas, setPasirinktasPristatymoBudas] = useState({
+    name: 'Kurjeriu, nurodytu adresu.',
+    price: 0
+  });
 
   // const socket = io('/');
 
@@ -183,6 +192,7 @@ const App = () => {
         });
         const response = await res.json();
         if (response.data.length > 0) {
+          // console.log(response.data)
           setCart(response.data);
         } else {
           localStorage.removeItem("cartArray");;
@@ -260,7 +270,17 @@ const App = () => {
         });
         const getSettingsResponse= await getSettingsRequest.json();
         if (getSettingsResponse.success) {
-            setMaketavimoKaina(getSettingsResponse.maketavimoKaina);
+            // setMaketavimoKaina(getSettingsResponse.maketavimoKaina);
+            setParams({
+              maketavimoKaina: getSettingsResponse.maketavimoKaina ? getSettingsResponse.maketavimoKaina : 0,
+              shippingHome: getSettingsResponse.shippingHome ? getSettingsResponse.shippingHome : 0,
+              shippingTeleport: getSettingsResponse.shippingTeleport ? getSettingsResponse.shippingTeleport : 0,
+              shippingBus: getSettingsResponse.shippingBus ? getSettingsResponse.shippingBus : 0
+            })
+            setPasirinktasPristatymoBudas({
+              name: 'Kurjeriu, nurodytu adresu.',
+              price: getSettingsResponse.shippingHome
+            })
         } 
     } catch (error) {
         
@@ -401,12 +421,14 @@ const App = () => {
       prc = prc + roundTwoDec(item.price * productionCost + item.maketavimoKaina);
       dscPrc = dscPrc + roundTwoDec((item.price * productionCost * (1 - (findMaxDiscount(item.discount)[1] / 100))) + item.maketavimoKaina);
     };
+    prc = prc + pasirinktasPristatymoBudas.price
+    dscPrc = dscPrc + pasirinktasPristatymoBudas.price
     setPriceSum({
       sum: roundTwoDec(prc),
       dscSum: roundTwoDec(dscPrc)
     });
     // eslint-disable-next-line
-  }, [cart, loyaltydiscount, kodoNuolaida, pasirinktasGamybosLaikas]);
+  }, [cart, loyaltydiscount, kodoNuolaida, pasirinktasGamybosLaikas, pasirinktasPristatymoBudas]);
 
   useEffect(() => {
     if (cart.length <= 0) {
@@ -456,6 +478,7 @@ const App = () => {
           personalas={personalas}
           setPersonalas={setPersonalas}
           priceSum={priceSum}
+          _cart={cart}
           // loyaltydiscountLevel={loyaltydiscountLevel}
         />
         <SocketContext.Provider value={socket}>
@@ -507,7 +530,7 @@ const App = () => {
                 loyaltydiscount={loyaltydiscount}
                 cart={cart}
                 roundTwoDec={roundTwoDec}
-                maketavimoKaina={maketavimoKaina}
+                maketavimoKaina={params.maketavimoKaina}
                 firstName={firstName}
                 personalas={personalas}
                 token={token}
@@ -651,6 +674,7 @@ const App = () => {
                 getItemProductionCost={getItemProductionCost}
                 pasirinktasPristatymoBudas={pasirinktasPristatymoBudas}
                 setPasirinktasPristatymoBudas={setPasirinktasPristatymoBudas}
+                params={params}
               />
             </Wrapper>
           </Route>

@@ -397,7 +397,7 @@ const CarouselContent = ({carousel}) => {
                             alt={'Karuselės paveikslėlis'}
                             className={classes.carouselImage}
                             onClick={() => {
-                                console.log(item)
+                                // console.log(item)
                                 if(item.productLink) history.push(`/${item.productLink}`)
                             }}
                             style={

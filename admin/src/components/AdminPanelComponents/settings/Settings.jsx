@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center'
     },
     formVariantOptionNameInfo: {
-        width: '15em',
+        width: '16em',
         [theme.breakpoints.up('xxl')]: {
-            width: '20.25em',
+            width: '20em',
         },
         [theme.breakpoints.up('xxxl')]: {
             width: '30em',
@@ -52,12 +52,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Settings = ({ newChatrooms, newOrders, maketavimoKaina, setMaketavimoKaina, setSnackbar }) => {
+const Settings = ({ newChatrooms, newOrders, nustatymai, setNustatymai, setSnackbar }) => {
 
     const classes = useStyles();
 
-    const handleMaketavimoKainaChange = (e) => {
-        setMaketavimoKaina(e.target.value);
+    const handleSettingsChange = (e, field) => {
+        setNustatymai({
+            ...nustatymai,
+            [field]: e.target.value
+        });
     };
 
     const getSettings = async () => {
@@ -71,7 +74,12 @@ const Settings = ({ newChatrooms, newOrders, maketavimoKaina, setMaketavimoKaina
             });
             const getSettingsResponse= await getSettingsRequest.json();
             if (getSettingsResponse.success) {
-                setMaketavimoKaina(getSettingsResponse.maketavimoKaina);
+                setNustatymai({
+                    maketavimoKaina: getSettingsResponse.maketavimoKaina,
+                    shippingHome: getSettingsResponse.shippingHome,
+                    shippingTeleport: getSettingsResponse.shippingTeleport,
+                    shippingBus: getSettingsResponse.shippingBus
+                });
             } 
         } catch (error) {
             setSnackbar({
@@ -91,15 +99,55 @@ const Settings = ({ newChatrooms, newOrders, maketavimoKaina, setMaketavimoKaina
             <Helmet defer={false}>
                 <title>{newOrders + newChatrooms > 0 ? `(${newOrders + newChatrooms})` : ''} Nustatymai | {ProjectName}</title>  
             </Helmet>
-            <Box classes={{root: classes.body}}>
-                <h2 className={classes.header}>Maketavimo kaina, €:</h2>
+            <h2 className={classes.header}>Pristatymas</h2>
+            <Box sx={{borderTop: '1px solid black', padding: '0.5rem 0', display: 'flex', flexDirection: 'column', gap: '.5rem'}}>
+                <FormControl className={classes.formVariantOptionNameInfo} variant="outlined" sx={{display: 'flex', width: '100%'}}>
+                    <h2 className={classes.header}>Į namus, kaina €:</h2>
+                    <OutlinedInput
+                        id="shippingHome_input"
+                        type='number'
+                        value={nustatymai.shippingHome}
+                        placeholder='Eur...'
+                        onChange={(e) => handleSettingsChange(e, 'shippingHome')}
+                        classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
+                        autoComplete='off'
+                    />
+                </FormControl> 
+                <FormControl className={classes.formVariantOptionNameInfo} variant="outlined" sx={{display: 'flex', width: '100%'}}>
+                    <h2 className={classes.header}>Paštomatas, kaina €:</h2>
+                    <OutlinedInput
+                        id="shippingTeleport_input"
+                        type='number'
+                        value={nustatymai.shippingTeleport}
+                        placeholder='Eur...'
+                        onChange={(e) => handleSettingsChange(e, 'shippingTeleport')}
+                        classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
+                        autoComplete='off'
+                    />
+                </FormControl> 
+                <FormControl className={classes.formVariantOptionNameInfo} variant="outlined" sx={{display: 'flex', width: '100%'}}>
+                    <h2 className={classes.header}>Autobusas, kaina €:</h2>
+                    <OutlinedInput
+                        id="shippingBus_input"
+                        type='number'
+                        value={nustatymai.shippingBus}
+                        placeholder='Eur...'
+                        onChange={(e) => handleSettingsChange(e, 'shippingBus')}
+                        classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
+                        autoComplete='off'
+                    />
+                </FormControl> 
+            </Box>
+            <h2 className={classes.header}>Maketavimas</h2>
+            <Box classes={{root: classes.body}} sx={{borderTop: '1px solid black', padding: '0.5rem 0'}}>
                 <FormControl className={classes.formVariantOptionNameInfo} variant="outlined">
+                    <h2 className={classes.header}>Kaina €:</h2>
                     <OutlinedInput
                         id="maketavimo_kaina_input"
                         type='number'
-                        value={maketavimoKaina}
+                        value={nustatymai.maketavimoKaina}
                         placeholder='Eur...'
-                        onChange={handleMaketavimoKainaChange}
+                        onChange={(e) => handleSettingsChange(e, 'maketavimoKaina')}
                         classes={{root: classes.textInput, notchedOutline: classes.diasbleOutline }}
                         autoComplete='off'
                     />

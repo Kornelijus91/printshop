@@ -249,6 +249,7 @@ const OrderSearch = ({ token, makeNotNew, setOrdersView, setOrder }) => {
                                 uzsakymoNr: item.uzsakymoNr,
                                 payment: item.payment,
                                 shippingMethod: item.shippingMethod,
+                                shippingPrice: item.shippingPrice,
                                 isankstineSaskaita: item.isankstineSaskaita,
                                 PVMSaskaitaFaktura: item.PVMSaskaitaFaktura,
                             });
