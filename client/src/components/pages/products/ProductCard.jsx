@@ -206,21 +206,29 @@ const ProductCard = ({ produktas, loyaltydiscount }) => {
     const [finalPriceDiscount, setFinalPriceDiscount] = useState([0, 0, 0]);
 
     const getLowestPrice = () => {
+        // if (produktas.kainosModelis !== 1){ 
+        //     const discount = Math.max(loyaltydiscount, sortedAmountDiscount[0].discount)
+        //     const price = Number((Math.abs(sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount * (1 - (discount / 100))) * 100).toPrecision(15));
+        //     const roundedPrice = Math.round(price) / 100 * Math.sign(sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount * (1 - (discount / 100)));
+        //     return [roundedPrice.toFixed(2), (sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount).toFixed(2), discount];
+        // } else {
+        //     const discount2 = Math.max(loyaltydiscount, produktas.baseDiscount)
+        //     const price2 = Number((Math.abs(produktas.basePrice * sortedAmountDiscount[0].amount * (1 - (discount2 / 100))) * 100).toPrecision(15));
+        //     const roundedPrice2 = Math.round(price2) / 100 * Math.sign(produktas.basePrice * sortedAmountDiscount[0].amount * (1 - (discount2 / 100)));
+        //     return [roundedPrice2.toFixed(2), (produktas.basePrice * sortedAmountDiscount[0].amount).toFixed(2), discount2];
+        // }
+
+        let discount = 0
         if (produktas.kainosModelis !== 1){ 
-            const discount = Math.max(loyaltydiscount, sortedAmountDiscount[0].discount)
-            const price = Number((Math.abs(sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount * (1 - (discount / 100))) * 100).toPrecision(15));
-            const roundedPrice = Math.round(price) / 100 * Math.sign(sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount * (1 - (discount / 100)));
-            return [roundedPrice.toFixed(2), (sortedAmountDiscount[0].price * sortedAmountDiscount[0].amount).toFixed(2), discount];
+            discount = Math.max(loyaltydiscount, sortedAmountDiscount[0].discount)
         } else {
-            const discount2 = Math.max(loyaltydiscount, produktas.baseDiscount)
-            const price2 = Number((Math.abs(produktas.basePrice * sortedAmountDiscount[0].amount * (1 - (discount2 / 100))) * 100).toPrecision(15));
-            const roundedPrice2 = Math.round(price2) / 100 * Math.sign(produktas.basePrice * sortedAmountDiscount[0].amount * (1 - (discount2 / 100)));
-            return [roundedPrice2.toFixed(2), (produktas.basePrice * sortedAmountDiscount[0].amount).toFixed(2), discount2];
+            discount = Math.max(loyaltydiscount, produktas.baseDiscount)
         }
+        return [(produktas.minPrice * (1 - (discount / 100))).toFixed(2), produktas.minPrice.toFixed(2), discount];
     };
 
     useEffect(() => {
-        setFinalPriceDiscount(getLowestPrice(produktas.amountDiscount));
+        setFinalPriceDiscount(getLowestPrice());
         // eslint-disable-next-line
     },[produktas, loyaltydiscount])
 
