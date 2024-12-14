@@ -349,11 +349,11 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
             const minPrice = product.minPrice ? product.minPrice : 0
             if (kiekis <= amountArray[0].amount) {
                 const dscnt = 1 - (appliedDiscount.discount / 100);
-                const roundedTotalDiscountedPrice = roundTwoDec(Math.max(minPrice,unitPrice.price * amountArray[0].amount * dscnt) + papildomaMaketavimoKaina);
+                const roundedTotalDiscountedPrice = roundTwoDec(Math.max(minPrice * dscnt, unitPrice.price * amountArray[0].amount * dscnt) + papildomaMaketavimoKaina);
                 return roundedTotalDiscountedPrice.toFixed(2);
             } else {
                 const dscnt = 1 - (appliedDiscount.discount / 100);
-                const roundedTotalDiscountedPrice = roundTwoDec(Math.max(minPrice,unitPrice.price * Math.round(kiekis) * dscnt) + papildomaMaketavimoKaina);
+                const roundedTotalDiscountedPrice = roundTwoDec(Math.max(minPrice * dscnt, unitPrice.price * Math.round(kiekis) * dscnt) + papildomaMaketavimoKaina);
                 return roundedTotalDiscountedPrice.toFixed(2);
             } 
         }

@@ -414,9 +414,9 @@ const OrderDetail = ({ order, user, getOrders, ordersPage, setOrder, setSnackbar
                     <h2>Kainos</h2>
                     {order.price !== order.discountPrice ?
                             <>  
+                                <p>Pristatymas: <b>{order.shippingPrice ? roundTwoDec(order.shippingPrice).toFixed(2) : 0} €</b></p>
                                 <p>Pilna kaina: <b>{roundTwoDec(order.price).toFixed(2)} €</b></p>
                                 <p>Suteikta nuolaida: <b>{roundTwoDec(order.price - order.discountPrice).toFixed(2)} €</b></p>
-                                <p>Pristatymas: <b>{order.shippingPrice ? roundTwoDec(order.shippingPrice).toFixed(2) : 0} €</b></p>
                                 <p>Galutinė kaina su nuolaidomis: <b>{roundTwoDec(order.discountPrice).toFixed(2)} €</b></p>
                             </>
                         :
