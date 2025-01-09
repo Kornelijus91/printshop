@@ -69,21 +69,21 @@ const TrippleSection = () => {
                         <TrippleSectionPiece 
                             pic={masina} 
                             title={'Pristatymas'}
-                            text={'Visi užsakymai pasieks Jus nemokamai Jums patogiausiu būdu: Kurjeriu tarnyba, autobusų siuntomis arba į Jūsų nurodytą artimiausia paštomatą.'}
+                            text={'Visi užsakymai pasieks Jus laiku Jums patogiausiu būdu: kurjerių tarnyba, autobusų siuntomis arba į Jūsų nurodytą artimiausią paštomatą. Esant bet kokiems klausimams ar neaiškumams mūsų komanda susisieks asmeniškai ir ras Jums tinkamiausią sprendimą.'}
                         />
                     </Grid>
                     <Grid item xl={4} lg={4} md={4} sm={12} xs={12} className={classes.grid2}>
                         <TrippleSectionPiece 
                             pic={printeris} 
                             title={'Kaip tai veikia?'}
-                            text={'Pasirinkus produktą, nustatykite jo ypatybes, sukurkite, įkelkite arba užsakykite dizaino paslaugą (maketą). Įdėkite produktą į krepšelį. Pasirinkite gamybos terminą ir pristatymo būdą. Apmokėjus, gaminiai Jus pasieks Jus artimiausiu metu.'}
+                            text={'Ši platforma sukurta taupyti visų laiką ir išlaidas, o užsakymo procesas - paprastas ir greitas. Visų prekių savybės supildytos jau pagal prekių standartus, kurie užtikrins visų gaminių kokybę ir sumažins klaidų galimybes. Jums tiesiog reikia pasirinkti produktą, nustatyti jo savybes, sukurti, įkelti į sistemą arba užsakyti mūsų dizainerio maketavimo paslaugas. Užbaigus užsakymą gaminiai Jus pasieks pasirinktu artimiausiu metu. Iškilus bet kokiems klausimams mielai Jums padėsime, susisiekite nurodytais kontaktais arba paspaudę pranešimo piktogramą.'}
                         />
                     </Grid>
                     <Grid item xl={4} lg={4} md={4} sm={12} xs={12} className={classes.grid3}>
                         <TrippleSectionPiece 
                             pic={zmogs} 
                             title={'Apie mus'}
-                            text={'Tavo reklama tai šiuolaikinė erdvė internete kurios tikslas supaprastinti ir pagreitinti visus procesus susijusius su spauda ir jos gamyba. Mūsų komanda patars ir padės Jums bet kokiais Jums iškilusiais klausimais.'}
+                            text={'Mes esame maža. bet veržli ir stabili komanda. Mūsų pagrindinis tikslas - supaprastinti visus mažo ar vidutinio tiražo spaudos procesus, eliminuojant dažniausiai pasitaikančias klaidas. Visi komandos nariai yra savo srities profesionalai, kurie seks Jūsų užsakymą nuo pat pradžių iki galo. Galite likti ramūs dėl gamybos eigos, pastebėjus netikslumus ar klaidas susisieksime su Jumis ir kartu jas pašalinsime. „Tavo reklama“ - tai šiuolaikinė ir patikima spaustuvė internete.'}
                         />
                     </Grid>
                 </Grid>

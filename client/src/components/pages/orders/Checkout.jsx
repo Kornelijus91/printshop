@@ -6,6 +6,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { useHistory } from 'react-router-dom';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import PaymentOptions from './PaymentOptions';
+// import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     leftGridItem: {
@@ -200,6 +201,30 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
     const [submitting, setSubmitting] = useState(false);
     const [selectedPayment, setSelectedPayment] = useState('');
 
+    // const handlePurchaseEvent = () => {
+    //     try {
+    //         window.dataLayer = window.dataLayer || [];
+    //         window.dataLayer.push({
+    //             event: 'purchase',
+    //             ecommerce: {
+    //                 purchase: {
+    //                     actionField: {
+    //                         id: 'TRANSACTION_ID', // Replace with actual transaction ID
+    //                         revenue: 'TOTAL_REVENUE', // Replace with actual revenue
+    //                         shipping: 'SHIPPING_COST',
+    //                         tax: 'TAX_AMOUNT',
+    //                     },
+    //                     products: [
+    //                         // Array of purchased products (similar structure as Add to Cart)
+    //                     ],
+    //                 },
+    //             },
+    //         });
+    //     } catch (err) {
+    //         console.error(err)
+    //     }
+    // }
+
     const pay = async () => {
         setSubmitting(true);
         setAlert('');
@@ -227,8 +252,8 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                 const response = await res.json();
                 if (response.success) {
                     
+                    // handlePurchaseEvent()
                     localStorage.removeItem("cartArray");
-                    
                     if (response.paymentURL !== '') {
                         window.location.replace(response.paymentURL)
                     } else {
@@ -279,6 +304,7 @@ const Checkout = ({ pasirinktasPristatymoBudas, setCart, setDelivery, setKodoNuo
                 });
                 const response = await res.json();
                 if (response.success) {
+                    // handlePurchaseEvent()
                     localStorage.removeItem("cartArray");
                     if (response.paymentURL !== '') {
                         window.location.replace(response.paymentURL)

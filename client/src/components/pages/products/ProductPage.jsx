@@ -442,6 +442,50 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
         setSnackbar('');
     };
 
+    const handleViewItemEvent = () => {
+        try {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'perziurejo_produkta',
+                ecommerce: {
+                    currencyCode: 'EUR',
+                    detail: {
+                        products: [{
+                            name: product.name,
+                            id: product._id,
+                            price: unitPrice.discount > 0 || loyaltydiscount > 0 ? Number(getDiscountedPrice()) : Number(getPrice()),
+                        }],
+                    },
+                },
+            });
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const handleAddToCartEvent = () => {
+        try {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'prideti_i_krepseli',  
+                ecommerce: {
+                    currencyCode: 'EUR', 
+                    add: {
+                    products: [{
+                        name: product.name,
+                        id: product._id,
+                        price: unitPrice.discount > 0 || loyaltydiscount > 0 ? Number(getDiscountedPrice()) : Number(getPrice()),
+                        quantity: Number(kiekis), 
+                        // category: product.category,
+                    }],
+                    },
+                },
+            });
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     const addToCart = async () => {
         setUploading(true);
         try {
@@ -488,6 +532,7 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
                 }
                 getCart();
                 setAddModalOpen(true);
+                handleAddToCartEvent()
             } 
         } catch (error) {
             setUploading(false);
@@ -804,6 +849,11 @@ const ProductPage = ({ userid, products, loyaltydiscount, getCart, cart, roundTw
         
         // eslint-disable-next-line
     }, [kiekis, unitPrice, loyaltydiscount, kodoNuolaida]);
+
+    useEffect(() => {
+        handleViewItemEvent();
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <>

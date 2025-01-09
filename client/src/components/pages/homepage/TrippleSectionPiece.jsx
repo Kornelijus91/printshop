@@ -45,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
         color: theme.myTheme.juoda,
         margin: '0 0 1em 0',
         padding: '0',
+        textAlign: 'justify',
+        textWrap: 'pretty'
     },
 }));
 
