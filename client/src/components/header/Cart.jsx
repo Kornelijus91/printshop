@@ -38,8 +38,8 @@ const Cart = ({ priceSum, _cart }) => {
 
     return (
         <Badge 
-            badgeContent={_cart.length} 
-            invisible={_cart.length <= 0 || priceSum.sum <= 0 || priceSum.dscSum <= 0} 
+            badgeContent={_cart ? _cart.length : 0} 
+            invisible={_cart && (_cart.length <= 0 || priceSum.sum <= 0 || priceSum.dscSum <= 0)} 
             classes={{badge: classes.badge}}
             anchorOrigin={{ 
                 vertical: 'top', 
